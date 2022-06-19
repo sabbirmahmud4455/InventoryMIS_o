@@ -12,7 +12,7 @@
 
             <!-- name -->
             <div class="col-md-12 col-12 form-group">
-                <label for="name">Role Name</label>
+                <label for="name">Role Name</label><span class="require-span">*</span>
                 <input type="text" class="form-control" name="name" value="{{ $role->name }}">
             </div>
 
@@ -26,16 +26,19 @@
             </div>
 
             <!-- permission -->
-            <div class="col-md-12 form-group">
+            <div class="col-md-12 form-group main-group">
                 <div class="row">
 
                     @foreach( App\Models\UserModule\Module::get() as $module )
                     @foreach( $module->permission as $module_permission )
                     @if($module->key == $module_permission->key )
-                    <div class="col-md-4 col-12 permission_block" style="padding: 0;">
+                    <div class="permission_block" style="padding: 0;">
                         <p style="
                                 border-bottom: 1px solid #e0d9d9;
-                                margin-right: 20px;
+                                background: #28568a;
+                                color: white;
+                                padding: 5px;
+                                /* margin-right: 20px; */
                             ">
                             <label>
                                 <input type="checkbox" class="module_check" name="permission[]"
@@ -96,7 +99,7 @@
     </form>
 </div>
 <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
  </div>
 
 

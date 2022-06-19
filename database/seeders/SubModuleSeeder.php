@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,6 +14,10 @@ class SubModuleSeeder extends Seeder
      */
     public function run()
     {
+        $date = Carbon::now();
+        
+        DB::statement("DELETE FROM sub_modules");
+
         DB::table('sub_modules')->insert([
 
 
@@ -25,6 +29,8 @@ class SubModuleSeeder extends Seeder
                 'position' => 1,
                 'route' => 'user.all',
                 'module_id' => 1,
+                'created_at' => $date,
+                'updated_at' => $date,
             ],
             [
                 'id' => 2,
@@ -33,6 +39,8 @@ class SubModuleSeeder extends Seeder
                 'position' => 2,
                 'route' => 'role.all',
                 'module_id' => 1,
+                'created_at' => $date,
+                'updated_at' => $date,
             ],
             //module id 1 end
 
@@ -44,6 +52,8 @@ class SubModuleSeeder extends Seeder
                 'position' => 1,
                 'route' => 'app.info.all',
                 'module_id' => 2,
+                'created_at' => $date,
+                'updated_at' => $date,
             ]
             //module id 2 end
 

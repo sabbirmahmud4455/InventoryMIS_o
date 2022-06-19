@@ -7,7 +7,7 @@
             <a href="{{ route('dashboard') }}">
                 <div class="image">
                     @if( $app_info )
-                    <img src="{{ asset('images/info/'.$app_info->logo) }}" alt="User Image">
+                    <img src="{{ asset('images/info/'.$app_info->logo) }}" alt="Dashboard">
                     @endif
                 </div>
             </a>

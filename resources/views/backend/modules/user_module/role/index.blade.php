@@ -12,8 +12,36 @@
         margin-bottom: 5px !important;
     }
 
+    .permission_block {
+        width: 90%;
+        border-right: 1px solid #e0d9d9;
+    }
     .select2-container {
         z-index: 99999 !important;
+    }
+    .main-group{
+        column-count: 3; 
+        column-gap : 0
+    }
+
+    @media ( min-width : 320px ) and ( max-width : 768px ){
+        .main-group{
+            column-count: 1; 
+            column-gap : 0
+        }
+        .permission_block {
+            width: 100%;
+        }
+    }
+
+    @media ( min-width : 768px ) and ( max-width : 1024px ){
+        .main-group{
+            column-count: 2; 
+            column-gap : 0
+        }
+        .permission_block {
+            width: 95%;
+        }
     }
 
 </style>

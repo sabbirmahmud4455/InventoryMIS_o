@@ -70,7 +70,7 @@
                                                             <div class="dropify-message"><span
                                                                     class="file-icon"></span>
                                                                 <p>
-                                                                    Logo
+                                                                    Logo ( 837x218 )
                                                                 </p>
                                                                 <p class="dropify-error">Ooops,
                                                                     something wrong appended.</p>
@@ -114,7 +114,7 @@
                                                             <div class="dropify-message"><span
                                                                     class="file-icon"></span>
                                                                 <p>
-                                                                    Fav Icon ( 32x32 )
+                                                                    Fav Icon ( 512x512 )
                                                                 </p>
                                                                 <p class="dropify-error">Ooops,
                                                                     something wrong appended.</p>

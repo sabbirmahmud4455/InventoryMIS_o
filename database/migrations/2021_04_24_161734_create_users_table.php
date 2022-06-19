@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('image')->nullable();
             $table->string('password');
 
-            $table->unsignedBigInteger('role_id')->constrained("roles");
+            $table->foreignId('role_id')->constrained("roles")->cascadeOnDelete;
 
             $table->boolean('is_active')->default(true);
             $table->boolean('is_super_admin')->default(false);

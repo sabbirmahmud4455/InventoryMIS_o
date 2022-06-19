@@ -16,6 +16,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $date = Carbon::now();
+
+        DB::statement("DELETE FROM users");
+
         DB::table("users")->insert([
             [
                 'id' => 1,
@@ -27,8 +31,8 @@ class UserSeeder extends Seeder
                 "role_id" => 1,
                 "is_active" => true,
                 "is_super_admin" => true,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'created_at' => $date,
+                'updated_at' => $date,
             ]
         ]);
     }

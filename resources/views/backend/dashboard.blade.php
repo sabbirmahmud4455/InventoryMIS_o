@@ -15,8 +15,6 @@
                         <li class="breadcrumb-item active">
                             @if( auth('web')->check() )
                             {{ auth('web')->user()->role->name }} Dashboard
-                            @elseif( auth('super_admin')->check() )
-                            Super Admin Dashboard
                             @endif
                         </li>
                     </ol>

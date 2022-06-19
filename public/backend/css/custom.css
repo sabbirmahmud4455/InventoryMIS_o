@@ -75,3 +75,8 @@ div.dataTables_wrapper div.dataTables_processing {
 .card{
     border-radius: 0!important;
 }
+
+.require-span{
+    color: red;
+    margin-left: 5px;
+}
