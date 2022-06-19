@@ -31,8 +31,8 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
-        // $app_info = AppInfo::select('logo', 'fav')->first();
+        $app_info = AppInfo::select('logo', 'fav')->first();
 
-        // View::share(['app_info' => $app_info]);
+        View::share(['app_info' => $app_info]);
     }
 }
