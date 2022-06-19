@@ -1,0 +1,6 @@
+Only 2 Role
+1. Reseller
+2. Client
+
+* Reseller Get All Options
+* Clients didn't access User Management, Add Sender ID
