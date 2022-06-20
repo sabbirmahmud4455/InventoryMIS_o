@@ -13,42 +13,47 @@
 
             <!-- name -->
             <div class="col-md-6 col-12 form-group">
-                <label for="name">Name</label>
+                <label for="name">Name</label><span class="require-span">*</span>
                 <input type="text" class="form-control" name="name" >
             </div>
 
             <!-- email -->
             <div class="col-md-6 col-12 form-group">
-                <label for="email">Email</label>
+                <label for="email">Email</label><span class="require-span">*</span>
                 <input id="email" type="email" class="form-control" name="email">
             </div>
 
             <!-- phone number -->
             <div class="col-md-6 col-12 form-group">
-                <label for="phone">Phone</label>
+                <label for="phone">Phone</label><span class="require-span">*</span>
                 <input id="phone" type="text" class="form-control" name="phone">
             </div>
 
             <!-- select role -->
             <div class="col-md-6 col-12 form-group">
-            <label>Please select a user role</label>
+            <label>Please select a user role</label><span class="require-span">*</span>
                 <select name="role_id" class="form-control select2">
-                    @foreach( App\Models\UserModule\Role::where("is_active", true)->get() as $role )
+                    <option selected disabled>Select a user role</option>
+                    @foreach( $roles as $role )
                     <option value="{{ $role->id }}">{{ $role->name }}</option>
                     @endforeach
                 </select>
             </div>
 
             <!-- confirm password -->
-            <div class="col-md-6 col-12 form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" name="password">
+            <div class="col-md-6 col-12 form-group password-box">
+                <i class="fas fa-eye show-password"></i>
+                <i class="fas fa-eye-slash hide-password"></i>
+                <label>Password</label><span class="require-span">*</span>
+                <input type="password" class="form-control" name="password" id="password-field">
             </div>
 
             <!-- confirm password -->
-            <div class="col-md-6 col-12 form-group">
-                <label>Confirm Password</label>
-                <input type="password" class="form-control" name="password_confirmation">
+            <div class="col-md-6 col-12 form-group password-box">
+                <i class="fas fa-eye show-password"></i>
+                <i class="fas fa-eye-slash hide-password"></i>
+                <label>Confirm Password</label><span class="require-span">*</span>
+                <input type="password" class="form-control" name="password_confirmation" id="password-field">
             </div>
 
             <div class="col-md-12 form-group text-right">
@@ -61,7 +66,7 @@
     </form>
 </div>
 <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
  </div>
 
 
@@ -81,6 +86,22 @@
             dropdownParent: $('#myModal')
         });
     });
+</script>
+
+<script>
+    $(".show-password").click(function () {
+        let $this = $(this)
+        $this.closest(".password-box").find("#password-field").attr("type", "text")
+        $this.closest(".password-box").find(".show-password").hide()
+        $this.closest(".password-box").find(".hide-password").show()
+    })
+
+    $(".hide-password").click(function () {
+        let $this = $(this)
+        $this.closest(".password-box").find("#password-field").attr("type", "password")
+        $this.closest(".password-box").find(".show-password").show()
+        $this.closest(".password-box").find(".hide-password").hide()
+    })
 </script>
 
 

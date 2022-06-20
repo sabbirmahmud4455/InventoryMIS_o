@@ -34,7 +34,7 @@ class ForgetPasswordController extends Controller
                 );
                 $email = $request->email;
                 Mail::send('auth.verify', ['token' => $token, 'email' => $email], function ($message) use ($request) {
-                    $message->from('mdsehirulislamrehi@gmail.com');
+                    $message->from('rkmahbub@gmail.com');
                     $message->to($request->email);
                     $message->subject('Reset Password Notification');
                 });

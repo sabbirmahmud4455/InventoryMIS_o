@@ -36,7 +36,6 @@ return [
 
     /*
         Guard web is for user
-        Guard super_admin is for superadmin
     */
 
     'guards' => [

@@ -12,27 +12,28 @@
         <div class="row">
             <!-- name -->
             <div class="col-md-6 col-12 form-group">
-                <label for="name">Name</label>
+                <label for="name">Name</label><span class="require-span">*</span>
                 <input type="text" class="form-control" name="name" value="{{ $user->name }}">
             </div>
 
             <!-- email -->
             <div class="col-md-6 col-12 form-group">
-                <label for="email">Email</label>
+                <label for="email">Email</label><span class="require-span">*</span>
                 <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}">
             </div>
 
             <!-- phone number -->
             <div class="col-md-6 col-12 form-group">
-                <label for="phone">Phone</label>
+                <label for="phone">Phone</label><span class="require-span">*</span>
                 <input id="phone" type="text" class="form-control" name="phone" value="{{ $user->phone }}">
             </div>
 
             <!-- select role -->
             <div class="col-md-6 col-12 form-group">
-            <label>Please select a user role</label>
+            <label>Please select a user role</label><span class="require-span">*</span>
                 <select name="role_id" class="form-control select2">
-                    @foreach( App\Models\UserModule\Role::where("is_active", true)->get() as $role )
+                    <option disabled>Select a user role</option>
+                    @foreach( $roles as $role )
                     <option value="{{ $role->id }}"
                     @if( $user->role->id == $role->id )
                     selected
@@ -63,7 +64,7 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 </div>
 
 

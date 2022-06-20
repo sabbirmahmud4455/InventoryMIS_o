@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend\ProfileModule;
 
 use App\Http\Controllers\Controller;
-use App\Models\UserModule\SuperAdmin;
 use App\Models\UserModule\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

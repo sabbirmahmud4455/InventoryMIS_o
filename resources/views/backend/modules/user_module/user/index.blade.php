@@ -3,6 +3,21 @@
 @section('per_page_css')
 <link href="{{ asset('backend/css/datatable/jquery.dataTables.min.css') }}" rel="stylesheet">
 <link href="{{ asset('backend/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+<style>
+    .password-box{
+        position: relative;
+    }
+    .password-box .hide-password{
+        display: none;
+    }
+    .password-box .fas{
+        position: absolute;
+        top: 57%;
+        right: 15px;
+        z-index : 10;
+        cursor : pointer;
+    }
+</style>
 @endsection
 
 @section('body-content')

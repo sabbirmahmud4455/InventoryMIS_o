@@ -23,3 +23,17 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([readonly])+label, input[type=email]:focus:not([readonly])+label, input[type=url]:focus:not([readonly])+label, input[type=time]:focus:not([readonly])+label, input[type=date]:focus:not([readonly])+label, input[type=datetime-local]:focus:not([readonly])+label, input[type=tel]:focus:not([readonly])+label, input[type=number]:focus:not([readonly])+label, input[type=search]:focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label{
     color: #0862a9!important;
 }
+
+.card-panel{
+    background: #000000;
+}
+.input-field .prefix {
+    color: white!important;
+}
+a {
+    color: white!important;
+}
+
+input{
+    color: white !important;
+}

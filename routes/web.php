@@ -1,12 +1,13 @@
 <?php
 
-
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 
 
 //live server command route start
 Route::get('/clear', function(){
+    Artisan::call("optimize:clear");
     return 'success';
 });
 //live server command route end

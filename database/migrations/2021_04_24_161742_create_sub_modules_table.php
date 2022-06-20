@@ -17,7 +17,7 @@ class CreateSubModulesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('key')->unique();
-            $table->string('position');
+            $table->integer('position');
             $table->string('route');
             $table->unsignedBigInteger('module_id')->constrained("modules");
             $table->timestamps();

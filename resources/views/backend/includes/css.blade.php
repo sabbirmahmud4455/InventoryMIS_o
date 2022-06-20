@@ -1,5 +1,7 @@
 
-<link rel="shortcut icon" href="{{ asset('backend/img/fav.png') }}">
+@if( $app_info )
+<link rel="shortcut icon" href="{{ asset('images/info/'.$app_info->fav) }}">
+@endif
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">

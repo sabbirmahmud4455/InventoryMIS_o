@@ -20,13 +20,19 @@
     <title>Reset Password</title>
 
     <!-- Favicons-->
-    <link rel="icon" href="{{ asset('backend/img/1617775933z1Uv4ufhed8H.png') }}" sizes="32x32">
+    @if( $app_info )
+    <link rel="shortcut icon" href="{{ asset('images/info/'.$app_info->fav) }}">
+    @endif
     <!-- Favicons-->
     <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
     <!-- For iPhone -->
     <meta name="msapplication-TileColor" content="#00bcd4">
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <!-- For Windows Phone -->
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+    <!-- Font Awesome -->
 
 
     <!-- CORE CSS-->
@@ -43,6 +49,23 @@
     <link href="{{ asset('auth/css/prism.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="{{ asset('auth/css/perfect-scrollbar.css') }}" type="text/css" rel="stylesheet"
         media="screen,projection">
+
+    <style>
+        .password-box{
+            position: relative;
+        }
+        .password-box .hide-password{
+            display: none;
+        }
+        .password-box .fas{
+            position: absolute;
+            top: 28%;
+            right: 15px;
+            z-index : 10;
+            cursor : pointer;
+            color: white;
+        }
+    </style>
 
 </head>
 
@@ -82,8 +105,10 @@
                 @csrf
                 <div class="row">
                     <div class="input-field col s12 center">
-                        <img src="{{ asset('backend/img/1617775933kBbyusx21tKr.png') }}" alt=""
+                        @if( $app_info )
+                        <img src="{{ asset('images/info/'.$app_info->logo) }}" alt=""
                             class="responsive-img valign profile-image-login">
+                        @endif
                     </div>
                 </div>
                 <div class="row margin">
@@ -94,17 +119,19 @@
                     </div>
                 </div>
                 <div class="row margin">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">password</i>
-                        <input id="password" type="password" name="password" class="validate">
-                        <label for="password">Password</label>
+                    <div class="input-field col s12 password-box">
+                        <i class="fas fa-eye show-password"></i>
+                        <i class="fas fa-eye-slash hide-password"></i>
+                        <i class="material-icons prefix">lock</i>
+                        <input type="password" name="password" id="password-field" class="validate" placeholder="Password">
                     </div>
                 </div>
                 <div class="row margin">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">password</i>
-                        <input id="password_confirmation" type="password" name="password_confirmation" class="validate">
-                        <label for="password_confirmation">Password Confirmation</label>
+                    <div class="input-field col s12 password-box">
+                        <i class="fas fa-eye show-password"></i>
+                        <i class="fas fa-eye-slash hide-password"></i>
+                        <i class="material-icons prefix">lock</i>
+                        <input type="password" name="password_confirmation" id="password-field" class="validate" placeholder="Password Confirmation">
                     </div>
                 </div>
                 <div class="row">
@@ -138,6 +165,22 @@
     <script type="text/javascript" src="{{ asset('auth/js/plugins.min.js') }}"></script>
     <!--custom-script.js - Add your own theme custom JS-->
     <script type="text/javascript" src="{{ asset('auth/js/custom-script.js') }}"></script>
+
+    <script>
+        $(".show-password").click(function () {
+            let $this = $(this)
+            $this.closest(".password-box").find("#password-field").attr("type", "text")
+            $this.closest(".password-box").find(".show-password").hide()
+            $this.closest(".password-box").find(".hide-password").show()
+        })
+    
+        $(".hide-password").click(function () {
+            let $this = $(this)
+            $this.closest(".password-box").find("#password-field").attr("type", "password")
+            $this.closest(".password-box").find(".show-password").show()
+            $this.closest(".password-box").find(".hide-password").hide()
+        })
+    </script>
 
 </body>
 

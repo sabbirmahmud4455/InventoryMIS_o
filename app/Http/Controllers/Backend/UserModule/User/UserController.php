@@ -101,7 +101,8 @@ class UserController extends Controller
     //user add modal start
     public function add_modal(){
         if( can('add_user') ){
-            return view("backend.modules.user_module.user.modals.add");
+            $roles = Role::where("id","!=",1)->where("is_active",true)->get();
+            return view("backend.modules.user_module.user.modals.add",compact('roles'));
         }
         else{
             return view("errors.404");
@@ -131,6 +132,7 @@ class UserController extends Controller
                     $user->role_id = $request->role_id;
                     $user->password = Hash::make($request->password);
                     $user->is_active = true;
+                    $user->is_super_admin = false;
 
                     if( $user->save() ){
                         return response()->json(['success' => 'New '.$user->role->name.' Created Successfully'], 200);
@@ -149,7 +151,8 @@ class UserController extends Controller
     public function edit($id){
         if( can("edit_user") ){
             $user = User::where("id",$id)->select("name","email","phone","role_id","is_active","id")->first();
-            return view("backend.modules.user_module.user.modals.edit", compact("user"));
+            $roles = Role::where("id","!=",1)->where("is_active",true)->get();
+            return view("backend.modules.user_module.user.modals.edit", compact("user", 'roles'));
         }
         else{
             return view("errors.404");
@@ -178,6 +181,7 @@ class UserController extends Controller
                     $user->email  = $request->email;
                     $user->phone = $request->phone;
                     $user->role_id = $request->role_id;
+                    $user->is_super_admin = false;
 
                     if( $user->save() ){
                         return response()->json(['success' => $user->name . "'s Account Updated Successfully"], 200);

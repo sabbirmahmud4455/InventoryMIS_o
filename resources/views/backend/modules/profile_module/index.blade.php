@@ -2,6 +2,21 @@
 
 @section('per_page_css')
 <link rel="stylesheet" href="{{ asset('backend/css/dropify.min.css') }}">
+<style>
+    .password-box{
+        position: relative;
+    }
+    .password-box .hide-password{
+        display: none;
+    }
+    .password-box .password-eye{
+        position: absolute;
+        top: 57%;
+        right: 15px;
+        z-index : 10;
+        cursor : pointer;
+    }
+</style>
 @endsection
 
 @section('body-content')
@@ -40,15 +55,7 @@
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle" alt="User profile picture"
-                                @if(auth('super_admin')->check())
-
-                                    @if(auth('super_admin')->user()->image == null )
-                                        src="{{ asset('images/profile/user.png') }}"
-                                    @else
-                                        src="{{ asset('images/profile/'.auth('super_admin')->user()->image ) }}"
-                                    @endif
-
-                                @elseif(auth('web')->check())
+                                @if(auth('web')->check())
 
                                     @if(auth('web')->user()->image == null )
                                         src="{{ asset('images/profile/user.png') }}"
@@ -61,17 +68,13 @@
                             </div>
 
                             <h3 class="profile-username text-center">
-                                @if( auth('super_admin')->check() )
-                                {{ auth('super_admin')->user()->name }}
-                                @elseif( auth('web')->check() )
+                                @if( auth('web')->check() )
                                 {{ auth('web')->user()->name }}
                                 @endif
                             </h3>
 
                             <p class="text-muted text-center">
-                                @if( auth('super_admin')->check() )
-                                Super Admin
-                                @elseif( auth('web')->check() )
+                                @if( auth('web')->check() )
                                 {{ auth('web')->user()->role->name }}
                                 @endif
                             </p>
@@ -111,11 +114,8 @@
 
                                 <!-- TAB PANEL START -->
                                 <div class="row tab-pane active" id="basic_information">
-                                    <form class="ajax-form" method="post" enctype="multipart/form-data" 
-                                    @if(auth('super_admin')->
-                                    check())
-                                    action="{{ route('profile.edit',auth('super_admin')->user()->id) }}"
-                                    @elseif(auth('web')->check())
+                                    <form class="ajax-form" method="post" enctype="multipart/form-data"
+                                    @if(auth('web')->check())
                                     action="{{ route('profile.edit',auth('web')->user()->id) }}"
                                     @endif
                                     >
@@ -124,17 +124,15 @@
                                         <div class="col-auto form-group">
                                             <label>
                                                     Name
-                                            </label>
+                                            </label><span class="require-span">*</span>
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
-                                                        <i class="fas fa-users"></i>
+                                                        <i class="fas fa-user"></i>
                                                     </div>
                                                 </div>
                                                 <input type="text" name="name" class="form-control" placeholder="Name"
-                                                @if( auth('super_admin')->check() )
-                                                value="{{ auth('super_admin')->user()->name }}"
-                                                @elseif( auth('web')->check() )
+                                                @if( auth('web')->check() )
                                                 value="{{ auth('web')->user()->name }}"
                                                 @endif
                                                 >
@@ -145,17 +143,15 @@
                                         <div class="col-auto form-group">
                                             <label>
                                                 Email
-                                            </label>
+                                            </label><span class="require-span">*</span>
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
                                                         <i class="fas fa-envelope"></i>
                                                     </div>
                                                 </div>
-                                                <input type="email" name="email" class="form-control" placeholder="Email"
-                                                @if( auth('super_admin')->check() )
-                                                value="{{ auth('super_admin')->user()->email }}"
-                                                @elseif( auth('web')->check() )
+                                                <input type="email" name="email" class="form-control" readonly placeholder="Email"
+                                                @if( auth('web')->check() )
                                                 value="{{ auth('web')->user()->email }}"
                                                 @endif
                                                 >
@@ -166,7 +162,7 @@
                                         <div class="col-auto form-group">
                                             <label>
                                                 Phone
-                                            </label>
+                                            </label><span class="require-span">*</span>
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
@@ -174,9 +170,7 @@
                                                     </div>
                                                 </div>
                                                 <input type="text" name="phone" class="form-control" placeholder="Phone"
-                                                @if(auth('super_admin')->check() )
-                                                value="{{ auth('super_admin')->user()->phone }}"
-                                                @elseif( auth('web')->check() )
+                                                @if( auth('web')->check() )
                                                 value="{{ auth('web')->user()->phone }}"
                                                 @endif
                                                 >
@@ -198,9 +192,12 @@
                                                     style="display: none;"></div>
                                                 <div class="dropify-errors-container">
                                                     <ul></ul>
-                                                </div><input type="file" id="input-file-now"
+                                                </div>
+                                                <input type="file" id="input-file-now"
                                                     class="dropify" name="image"
-                                                    data-default-file=""><button
+                                                    data-default-file="">
+                                                    <img src="{{ asset('images/profile/'. auth('web')->user()->image) }}" style="width: 50px; margin-top: 10px" alt="">
+                                                    <button
                                                     type="button"
                                                     class="dropify-clear">Remove</button>
                                                 <div class="dropify-preview"
@@ -236,59 +233,62 @@
                                 <!-- TAB PANEL START -->
                                 <div class="tab-pane" id="change_password">
                                     <form class="ajax-form" method="post" enctype="multipart/form-data" 
-                                    @if(auth('super_admin')->
-                                    check())
-                                    action="{{ route('profile.password',auth('super_admin')->user()->id) }}"
-                                    @elseif(auth('web')->check())
+                                    @if(auth('web')->check())
                                     action="{{ route('profile.password',auth('web')->user()->id) }}"
                                     @endif
                                     >
                                     @csrf
 
                                         <!-- old password -->
-                                        <div class="col-auto form-group">
+                                        <div class="col-auto form-group password-box">
+                                            <i class="fas fa-eye show-password password-eye"></i>
+                                            <i class="fas fa-eye-slash hide-password password-eye"></i>
                                             <label>
                                                     Old Password
-                                            </label>
+                                            </label><span class="require-span">*</span>
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
                                                         <i class="fas fa-key"></i>
                                                     </div>
                                                 </div>
-                                                <input type="password" name="old_password" class="form-control" placeholder="Old Password"
+                                                <input type="password" name="old_password" id="password-field" class="form-control" placeholder="Old Password"
                                                 >
                                             </div>
                                         </div>
 
                                         <!-- new password -->
-                                        <div class="col-auto form-group">
+                                        <div class="col-auto form-group password-box">
+                                            <i class="fas fa-eye show-password password-eye"></i>
+                                            <i class="fas fa-eye-slash hide-password password-eye"></i>
                                             <label>
                                                     New Password
-                                            </label>
+                                            </label><span class="require-span">*</span>
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
                                                         <i class="fas fa-key"></i>
                                                     </div>
                                                 </div>
-                                                <input type="password" name="password" class="form-control" placeholder="New Password"
+                                                <input type="password" name="password" id="password-field" class="form-control" placeholder="New Password"
                                                 >
                                             </div>
                                         </div>
 
                                         <!-- new password -->
-                                        <div class="col-auto form-group">
+                                        <div class="col-auto form-group password-box">
+                                            <i class="fas fa-eye show-password password-eye"></i>
+                                            <i class="fas fa-eye-slash hide-password password-eye"></i>
                                             <label>
                                                     Confirm Password
-                                            </label>
+                                            </label><span class="require-span">*</span>
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
                                                         <i class="fas fa-key"></i>
                                                     </div>
                                                 </div>
-                                                <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password"
+                                                <input type="password" name="password_confirmation" id="password-field" class="form-control" placeholder="Confirm Password"
                                                 >
                                             </div>
                                         </div>
@@ -322,4 +322,19 @@
 <script src="{{ asset('backend/js/dropify.min.js') }}"></script>
 <script src="{{ asset('backend/js/form-file-uploads.min.js') }}"></script>
 <script src="{{  asset('backend/js/ajax_form_submit.js') }}"></script>
+<script>
+    $(".show-password").click(function () {
+        let $this = $(this)
+        $this.closest(".password-box").find("#password-field").attr("type", "text")
+        $this.closest(".password-box").find(".show-password").hide()
+        $this.closest(".password-box").find(".hide-password").show()
+    })
+
+    $(".hide-password").click(function () {
+        let $this = $(this)
+        $this.closest(".password-box").find("#password-field").attr("type", "password")
+        $this.closest(".password-box").find(".show-password").show()
+        $this.closest(".password-box").find(".hide-password").hide()
+    })
+</script>
 @endsection
