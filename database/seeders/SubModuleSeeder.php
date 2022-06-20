@@ -25,6 +25,7 @@ class SubModuleSeeder extends Seeder
             [
                 'id' => 1,
                 'name' => 'All User',
+                'name_bangla' => 'সকল ব্যবহারকারী',
                 'key' => 'all_user',
                 'position' => 1,
                 'route' => 'user.all',
@@ -35,6 +36,7 @@ class SubModuleSeeder extends Seeder
             [
                 'id' => 2,
                 'name' => 'Roles',
+                'name_bangla' => 'ভূমিকা',
                 'key' => 'roles',
                 'position' => 2,
                 'route' => 'role.all',
@@ -48,6 +50,7 @@ class SubModuleSeeder extends Seeder
             [
                 'id' => 3,
                 'name' => 'App Info',
+                'name_bangla' => 'অ্যাপের তথ্য',
                 'key' => 'app_info',
                 'position' => 1,
                 'route' => 'app.info.all',
@@ -60,6 +63,6 @@ class SubModuleSeeder extends Seeder
         
         ]);
 
-        //last id 8
+        //last id 3 new id 4
     }
 }

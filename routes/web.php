@@ -14,7 +14,7 @@ Route::get('/clear', function(){
 //live server command route end
 
 // Change Langugae
-Route::get('/{lang}', function($lang){
+Route::get('admindashboard/ln/{lang}', function($lang){
     App::setLocale($lang);
     return $lang;
     // return view('/');

@@ -30,7 +30,7 @@
                     >
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Dashboard
+                            <!-- Dashboard --> ড্যাশবোর্ড
                         </p>
                     </a>
                 </li>
@@ -43,7 +43,7 @@
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon {{ $module->icon }}"></i>
                                     <p>
-                                        {{ $module->name }}
+                                        {{ $module->name_bangla }}
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
@@ -59,7 +59,7 @@
                                         >
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>
-                                                {{ $sub_module->name }}
+                                                {{ $sub_module->name_bangla }}
                                             </p>
                                         </a>
                                     </li>
@@ -79,7 +79,7 @@
                                 >
                                     <i class="nav-icon {{ $module->icon }}"></i>
                                     <p>
-                                        {{ $module->name }}
+                                        {{ $module->name_bangla }}
                                     </p>
                                 </a>
                             </li>
@@ -93,7 +93,7 @@
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon {{ $module->icon }}"></i>
                                         <p>
-                                            {{ $module->name }}
+                                            {{ $module->name_bangla }}
                                             <i class="right fas fa-angle-left"></i>
                                         </p>
                                     </a>
@@ -110,7 +110,7 @@
                                                     >
                                                         <i class="far fa-circle nav-icon"></i>
                                                         <p>
-                                                            {{ $sub_module->name }}
+                                                            {{ $sub_module->name_bangla }}
                                                         </p>
                                                     </a>
                                                 </li>
@@ -131,7 +131,7 @@
                                     >
                                         <i class="nav-icon {{ $module->icon }}"></i>
                                         <p>
-                                            {{ $module->name }}
+                                            {{ $module->name_bangla }}
                                         </p>
                                     </a>
                                 </li>
