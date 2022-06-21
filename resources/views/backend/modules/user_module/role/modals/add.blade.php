@@ -20,8 +20,11 @@
           <!-- permission -->
           <div class="col-md-12 form-group main-group" >
               <div class="row">
+                @php
+                    $lang = Illuminate\Support\Facades\App::currentLocale();
+                @endphp
 
-                  @foreach( App\Models\UserModule\Module::get() as $module )
+                  @foreach( App\Models\UserModule\Module::select("name_$lang AS name", "id", "icon", "key", "position", "route" )->orderBy('position','asc')->get() as $module )
                   @foreach( $module->permission as $module_permission )
                   @if($module->key == $module_permission->key )
                   <div class="permission_block" style="padding: 0">
@@ -38,6 +41,9 @@
                               <span>{{ $module->name }}</span>
                           </label>
                       </p>
+                      @php
+                            $sub_module_name = "display_name_$lang";
+                        @endphp
                       <div class="sub_module_block">
                           <ul>
                               @foreach( $module->permission as $sub_module_permission )
@@ -46,7 +52,7 @@
                                   <label>
                                       <input type="checkbox" class="sub_module_check" name="permission[]"
                                           disabled value="{{ $sub_module_permission->id }}" />
-                                      <span>{{ $sub_module_permission->display_name }}</span>
+                                      <span>{{ $sub_module_permission->$sub_module_name }}</span>
                                   </label>
                               </p>
                               @endif

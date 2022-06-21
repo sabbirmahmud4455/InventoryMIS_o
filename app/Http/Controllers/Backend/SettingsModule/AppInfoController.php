@@ -73,7 +73,7 @@ class AppInfoController extends Controller
     public function language()
     {
         if(can('language')) {
-            return view('backend.modules.setting_module.language');
+            return view('backend.modules.setting_module.language.language');
         } else {
             return view('errors.404');
         }

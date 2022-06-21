@@ -36,6 +36,18 @@ class ModuleSeeder extends Seeder
                 'name_bn' => 'সেটিংস',
                 'key' => 'settings',
                 'icon' => 'fas fa-cog',
+                'position' => 12,
+                'route' => null,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+
+            [
+                'id' => 3,
+                'name_en' => 'System Data',
+                'name_bn' => 'সিস্টেম ডাটা ',
+                'key' => 'system_data',
+                'icon' => 'fas fa-cog',
                 'position' => 2,
                 'route' => null,
                 'created_at' => $date,
@@ -43,5 +55,7 @@ class ModuleSeeder extends Seeder
             ],
 
         ]);
+
+        // LAST ID : 2. NEXT ID : 3 [Settings Position : 12]
     }
 }

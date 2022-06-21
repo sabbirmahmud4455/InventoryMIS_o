@@ -30,7 +30,7 @@
                     >
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            <!-- Dashboard --> {{ __('Application.Dashboard') }}
+                            {{ __('Application.Dashboard') }}
                         </p>
                     </a>
                 </li>
@@ -81,21 +81,21 @@
                                 >
                                     <i class="nav-icon {{ $module->icon }}"></i>
                                     <p>
-                                        {{ $module->name_bn }}
+                                        {{ $module->name }}
                                     </p>
                                 </a>
                             </li>
                         @endif
                     @endforeach
                 @elseif( auth('web')->check() && auth('web')->user()->is_super_admin == false )
-                    @foreach( App\Models\UserModule\Module::orderBy('position','asc')->get() as $module )
+                    @foreach( App\Models\UserModule\Module::select("name_$lang AS name", "id", "icon", "key", "position", "route" )->orderBy('position','asc')->get() as $module )
                         @if( can($module->key) )
                             @if( $module->route == null )
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon {{ $module->icon }}"></i>
                                         <p>
-                                            {{ $module->name_bn }}
+                                            {{ $module->name }}
                                             <i class="right fas fa-angle-left"></i>
                                         </p>
                                     </a>
@@ -112,7 +112,7 @@
                                                     >
                                                         <i class="far fa-circle nav-icon"></i>
                                                         <p>
-                                                            {{ $sub_module->name_bn }}
+                                                            {{ $sub_module->name }}
                                                         </p>
                                                     </a>
                                                 </li>
@@ -133,7 +133,7 @@
                                     >
                                         <i class="nav-icon {{ $module->icon }}"></i>
                                         <p>
-                                            {{ $module->name_bn }}
+                                            {{ $module->name }}
                                         </p>
                                     </a>
                                 </li>

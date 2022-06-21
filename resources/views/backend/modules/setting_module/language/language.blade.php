@@ -54,6 +54,7 @@
                                     <div class="col-md-5">
                                         <label>Select Language</label>
                                         <select class="form-control" name="lang">
+                                            <option selected disabled > Please Select Language </option>
                                             <option {{ $lang == 'en' ? 'selected' : '' }} value="en"> English </option>
                                             <option {{ $lang == 'bn' ? 'selected' : '' }} value="bn"> বাংলা </option>
                                         </select>
