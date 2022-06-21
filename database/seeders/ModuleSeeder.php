@@ -21,8 +21,8 @@ class ModuleSeeder extends Seeder
         DB::table('modules')->insert([
             [
                 'id' => 1,
-                'name' => 'User Module',
-                'name_bangla' => 'ব্যবহারকারী',
+                'name_en' => 'User Module',
+                'name_bn' => 'ব্যবহারকারী',
                 'key' => 'user_module',
                 'icon' => 'fas fa-users',
                 'position' => 1,
@@ -32,8 +32,8 @@ class ModuleSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'name' => 'Setting Module',
-                'name_bangla' => 'সেটিংস',
+                'name_en' => 'Setting Module',
+                'name_bn' => 'সেটিংস',
                 'key' => 'settings',
                 'icon' => 'fas fa-cog',
                 'position' => 2,
