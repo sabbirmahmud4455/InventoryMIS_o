@@ -1,5 +1,5 @@
 <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
+      <h5 class="modal-title" id="exampleModalLabel">{{ __('Role.AddNewRole') }}</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
       </button>
@@ -13,13 +13,13 @@
 
             <!-- name -->
             <div class="col-md-6 col-12 form-group">
-                <label for="name">Name</label><span class="require-span">*</span>
+                <label for="name">{{ __('User.Name') }}</label><span class="require-span">*</span>
                 <input type="text" class="form-control" name="name" >
             </div>
 
             <!-- email -->
             <div class="col-md-6 col-12 form-group">
-                <label for="email">Email</label><span class="require-span">*</span>
+                <label for="email">{{ __('User.Email') }}</label><span class="require-span">*</span>
                 <input id="email" type="email" class="form-control" name="email">
             </div>
 
@@ -58,7 +58,7 @@
 
             <div class="col-md-12 form-group text-right">
                 <button type="submit" class="btn btn-outline-dark">
-                    Add
+                    {{ __('User.Add') }}
                 </button>
             </div>
 

@@ -36,7 +36,7 @@ class RoleController extends Controller
             ->addColumn('action', function (Role $role) {
                 return '
                 <button type="button" data-content="'.route('role.edit',$role->id).'" data-target="#largeModal" class="btn btn-outline-dark" data-toggle="modal">
-                                Edit
+                                '.__('Role.Edit').'
                 </button>
                 ';
             })

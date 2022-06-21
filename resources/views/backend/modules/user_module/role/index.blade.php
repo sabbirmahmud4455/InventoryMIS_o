@@ -58,12 +58,12 @@
                     <ol class="breadcrumb float-sm-left">
                         <li class="breadcrumb-item">
                             <a href="{{ route('dashboard') }}">
-                                Dashboard
+                                {{ __('Application.Dashboard') }}
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
                             <a href="#">
-                                All Role
+                                {{ __('Role.AllRole') }}
                             </a>
                         </li>
                     </ol>
@@ -82,7 +82,7 @@
                         <div class="card-header text-right">
                             <button type="button" data-content="{{ route('role.add.modal') }}" data-target="#largeModal"
                                 class="btn btn-outline-dark" data-toggle="modal">
-                                Add
+                                {{ __('Role.Add') }}
                             </button>
                         </div>
                         <div class="card-body">
@@ -91,10 +91,10 @@
                                 id="datatable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>{{ __('Role.Id') }}</th>
+                                        <th>{{ __('Role.Role') }}</th>
+                                        <th>{{ __('Role.Status') }}</th>
+                                        <th>{{ __('Role.Action') }}</th>
                                     </tr>
                                 </thead>
                             </table>

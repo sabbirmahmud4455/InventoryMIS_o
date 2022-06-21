@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Role : {{ $role->name }}</h5>
+    <h5 class="modal-title" id="exampleModalLabel">{{ __('Role.Role') }} : {{ $role->name }}</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -12,16 +12,16 @@
 
             <!-- name -->
             <div class="col-md-12 col-12 form-group">
-                <label for="name">Role Name</label><span class="require-span">*</span>
+                <label for="name">{{ __('Role.Name') }}</label><span class="require-span">*</span>
                 <input type="text" class="form-control" name="name" value="{{ $role->name }}">
             </div>
 
             <!-- status -->
             <div class="col-md-12 col-12 form-group">
-                <label>Status</label>
+                <label>{{ __('Role.Status') }}</label>
                 <select class="form-control select2" name="is_active">
-                    <option value="1" @if( $role->is_active == true ) selected @endif >Active</option>
-                    <option value="0" @if( $role->is_active == false ) selected @endif >Inactive</option>
+                    <option value="1" @if( $role->is_active == true ) selected @endif >{{ __('Role.Active') }}</option>
+                    <option value="0" @if( $role->is_active == false ) selected @endif >{{ __('Role.Inactive') }}</option>
                 </select>
             </div>
 
@@ -97,7 +97,7 @@
 
             <div class="col-md-12 form-group text-right">
                 <button type="submit" class="btn btn-outline-dark">
-                    Update
+                    {{ __('Role.Update') }}
                 </button>
             </div>
 
@@ -105,7 +105,7 @@
     </form>
 </div>
 <div class="modal-footer">
-      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('Role.Close') }}</button>
  </div>
 
 

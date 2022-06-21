@@ -31,12 +31,12 @@
                     <ol class="breadcrumb float-sm-left">
                         <li class="breadcrumb-item">
                             <a href="{{ route('dashboard') }}">
-                                Dashboard
+                                {{ __('Application.Dashboard') }}
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
                             <a href="#">
-                                All User
+                                {{ __('User.AllUser') }}
                             </a>
                         </li>
                     </ol>
@@ -55,7 +55,7 @@
                         <div class="card-header text-right">
                             @if( can('add_user') )
                             <button type="button" data-content="{{ route('user.add.modal') }}" data-target="#myModal" class="btn btn-outline-dark" data-toggle="modal">
-                                Add
+                                {{ __('User.Add') }}
                             </button>
                             @endif
                         </div>
@@ -63,11 +63,11 @@
                             <table class="table table-bordered table-striped dataTable dtr-inline user-datatable" id="datatable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>User</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>{{ __('User.Id') }}</th>
+                                        <th>{{ __('User.User') }}</th>
+                                        <th>{{ __('Role.Role') }}</th>
+                                        <th>{{ __('User.Status') }}</th>
+                                        <th>{{ __('User.Action') }}</th>
                                     </tr>
                                 </thead>
                             </table>
