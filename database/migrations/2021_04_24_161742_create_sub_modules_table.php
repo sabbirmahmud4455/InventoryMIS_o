@@ -15,7 +15,8 @@ class CreateSubModulesTable extends Migration
     {
         Schema::create('sub_modules', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name_en')->unique();
+            $table->string('name_bn')->unique();
             $table->string('key')->unique();
             $table->integer('position');
             $table->string('route');

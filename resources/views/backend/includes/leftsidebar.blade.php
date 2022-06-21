@@ -30,20 +30,22 @@
                     >
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Dashboard
+                            <!-- Dashboard --> ড্যাশবোর্ড
                         </p>
                     </a>
                 </li>
                 <!-- DASHBOARD END -->
-
+                @php
+                    $lang = config('app.locale');
+                @endphp
                 @if( auth('web')->check() && auth('web')->user()->is_super_admin == true )
-                    @foreach( App\Models\UserModule\Module::orderBy('position','asc')->get() as $module )
+                    @foreach( App\Models\UserModule\Module::select("name_$lang AS name", "id", "icon", "key", "position", "route" )->orderBy('position','asc')->get() as $module )
                         @if( $module->route == null )
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon {{ $module->icon }}"></i>
                                     <p>
-                                        {{ $module->name }}
+                                        {{ $module->name }} {{$lang}}
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
@@ -59,7 +61,7 @@
                                         >
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>
-                                                {{ $sub_module->name }}
+                                                {{ $sub_module->name_bn }}
                                             </p>
                                         </a>
                                     </li>
@@ -79,7 +81,7 @@
                                 >
                                     <i class="nav-icon {{ $module->icon }}"></i>
                                     <p>
-                                        {{ $module->name }}
+                                        {{ $module->name_bn }}
                                     </p>
                                 </a>
                             </li>
@@ -93,7 +95,7 @@
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon {{ $module->icon }}"></i>
                                         <p>
-                                            {{ $module->name }}
+                                            {{ $module->name_bn }}
                                             <i class="right fas fa-angle-left"></i>
                                         </p>
                                     </a>
@@ -110,7 +112,7 @@
                                                     >
                                                         <i class="far fa-circle nav-icon"></i>
                                                         <p>
-                                                            {{ $sub_module->name }}
+                                                            {{ $sub_module->name_bn }}
                                                         </p>
                                                     </a>
                                                 </li>
@@ -131,7 +133,7 @@
                                     >
                                         <i class="nav-icon {{ $module->icon }}"></i>
                                         <p>
-                                            {{ $module->name }}
+                                            {{ $module->name_bn }}
                                         </p>
                                     </a>
                                 </li>

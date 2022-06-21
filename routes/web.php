@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -11,6 +12,13 @@ Route::get('/clear', function(){
     return 'success';
 });
 //live server command route end
+
+// Change Langugae
+Route::get('admindashboard/ln/{lang}', function($lang){
+    App::setLocale($lang);
+    return $lang;
+    // return view('/');
+});
 
 
 /*

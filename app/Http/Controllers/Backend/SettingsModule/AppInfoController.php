@@ -67,4 +67,24 @@ class AppInfoController extends Controller
         }
     }
     //update function end
+
+
+    // Language
+    public function language()
+    {
+        if(can('language')) {
+            return view('backend.modules.setting_module.language');
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    public function set_language(Request $request)
+    {
+        if(can('language')) {
+            return SetApplicationLanguage($request->lang);
+        } else {
+            return view('errors.404');
+        }
+    }
 }

@@ -15,7 +15,7 @@ class SubModuleSeeder extends Seeder
     public function run()
     {
         $date = Carbon::now();
-        
+
         DB::statement("DELETE FROM sub_modules");
 
         DB::table('sub_modules')->insert([
@@ -24,7 +24,8 @@ class SubModuleSeeder extends Seeder
             //module id 1 start
             [
                 'id' => 1,
-                'name' => 'All User',
+                'name_en' => 'All User',
+                'name_bn' => 'সকল ব্যবহারকারী',
                 'key' => 'all_user',
                 'position' => 1,
                 'route' => 'user.all',
@@ -34,7 +35,8 @@ class SubModuleSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'name' => 'Roles',
+                'name_en' => 'Roles',
+                'name_bn' => 'ভূমিকা',
                 'key' => 'roles',
                 'position' => 2,
                 'route' => 'role.all',
@@ -47,19 +49,32 @@ class SubModuleSeeder extends Seeder
             //module id 2 start
             [
                 'id' => 3,
-                'name' => 'App Info',
+                'name_en' => 'App Info',
+                'name_bn' => 'অ্যাপের তথ্য',
                 'key' => 'app_info',
                 'position' => 1,
                 'route' => 'app.info.all',
                 'module_id' => 2,
                 'created_at' => $date,
                 'updated_at' => $date,
+            ],
+            [
+                'id' => 4,
+                'name_en' => 'Language',
+                'name_bn' => 'ভাষা',
+                'key' => 'langugae',
+                'position' => 2,
+                'route' => 'app_info.lang',
+                'module_id' => 2,
+                'created_at' => $date,
+                'updated_at' => $date,
             ]
             //module id 2 end
 
-        
+
         ]);
 
-        //last id 8
+        // #########################
+        //LAST ID : 4. NEXT ID : 3
     }
 }
