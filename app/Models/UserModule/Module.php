@@ -2,15 +2,21 @@
 
 namespace App\Models\UserModule;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Module extends Model
 {
     use HasFactory;
-    
+
+
+
     public function sub_module(){
-        return $this->hasMany(SubModule::class);
+
+        $lang = App::currentLocale();
+
+        return $this->hasMany(SubModule::class)->select("name_$lang AS name", "id", "module_id", "key", "position", "route");
 
     }
 

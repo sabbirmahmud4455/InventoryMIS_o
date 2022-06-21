@@ -1,10 +1,10 @@
 <?php
 
 //check user access permission function start
-use App\Models\UserManagement\SuperAdmin;
 use App\Models\UserManagement\User;
 use Illuminate\Support\Facades\App;
-
+use Illuminate\Support\Facades\Session;
+use App\Models\UserManagement\SuperAdmin;
     function can($can){
         if( auth('web')->check() && auth('web')->user()->is_super_admin == false  ){
             foreach( auth('web')->user()->role->permission as $permission ){
@@ -21,10 +21,8 @@ use Illuminate\Support\Facades\App;
 
     // Application Language
     function SetApplicationLanguage($lang){
-
         App::setLocale($lang);
-
-        return back();
-
+        session()->put("lang_code",$lang);
+        return redirect()->back();
     }
 ?>

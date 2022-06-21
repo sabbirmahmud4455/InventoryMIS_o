@@ -24,9 +24,9 @@ Route::post('/do-logout', [LogoutController::class, 'do_logout'])->name('do.logo
 
 
 //backend route group start
-Route::group(['prefix' => 'admindashboard', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    
+
 
     //profile module routes start
     Route::group(['prefix' => 'profile_module'], function () {
@@ -46,7 +46,7 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => 'auth'], function ()
         require_once 'settings_module/app_info.php';
     });
     //settings module routes end
-    
+
 });
 //backend route group end
 

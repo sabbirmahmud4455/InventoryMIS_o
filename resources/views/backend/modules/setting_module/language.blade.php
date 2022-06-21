@@ -43,14 +43,19 @@
                             </h3>
                         </div>
                         <div class="card-body">
+
+                            @php
+                                $lang = Illuminate\Support\Facades\App::currentLocale();
+                            @endphp
+
                             <form action="{{ route('app_info.set_lang') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-5">
                                         <label>Select Language</label>
                                         <select class="form-control" name="lang">
-                                            <option value="en"> English </option>
-                                            <option value="bn"> বাংলা </option>
+                                            <option {{ $lang == 'en' ? 'selected' : '' }} value="en"> English </option>
+                                            <option {{ $lang == 'bn' ? 'selected' : '' }} value="bn"> বাংলা </option>
                                         </select>
 
                                         <button type="submit" class="btn btn-info mt-3">

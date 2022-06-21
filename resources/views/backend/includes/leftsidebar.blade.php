@@ -30,13 +30,13 @@
                     >
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            <!-- Dashboard --> ড্যাশবোর্ড
+                            <!-- Dashboard --> {{ __('Application.Dashboard') }}
                         </p>
                     </a>
                 </li>
                 <!-- DASHBOARD END -->
                 @php
-                    $lang = config('app.locale');
+                    $lang = Illuminate\Support\Facades\App::currentLocale();
                 @endphp
                 @if( auth('web')->check() && auth('web')->user()->is_super_admin == true )
                     @foreach( App\Models\UserModule\Module::select("name_$lang AS name", "id", "icon", "key", "position", "route" )->orderBy('position','asc')->get() as $module )
@@ -45,7 +45,7 @@
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon {{ $module->icon }}"></i>
                                     <p>
-                                        {{ $module->name }} {{$lang}}
+                                        {{ $module->name }}
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
@@ -61,7 +61,7 @@
                                         >
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>
-                                                {{ $sub_module->name_bn }}
+                                                {{ $sub_module->name }}
                                             </p>
                                         </a>
                                     </li>
