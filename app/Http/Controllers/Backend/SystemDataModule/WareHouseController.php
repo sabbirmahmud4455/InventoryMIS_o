@@ -103,8 +103,9 @@ class WarehouseController extends Controller
                     $warehouse->location = $request->location;
                     $warehouse->is_active = true;
                     $warehouse->is_delete = false;
+                    $AddSwal = __('Warehouse.AddSwal');
                     if( $warehouse->save() ){
-                        return response()->json(['success' => 'New Warehouse Created'], 200);
+                        return response()->json(['success' => $AddSwal], 200);
                     }
 
                 }
@@ -155,8 +156,9 @@ class WarehouseController extends Controller
                     $warehouse->location = $request->location;
                     $warehouse->is_active = $request->is_active;
                     $warehouse->is_delete = false;
+                    $EditSwal = __('Warehouse.EditSwal');
                     if( $warehouse->save() ){
-                        return response()->json(['success' => 'Warehouse Updated'], 200);
+                        return response()->json(['success' => $EditSwal], 200);
                     }
 
                 }
