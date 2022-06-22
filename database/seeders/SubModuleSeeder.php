@@ -46,7 +46,7 @@ class SubModuleSeeder extends Seeder
             ],
             //module id 1 end
 
-            //module id 2 start
+            //module id 2  start
             [
                 'id' => 3,
                 'name_en' => 'App Info',
@@ -68,13 +68,110 @@ class SubModuleSeeder extends Seeder
                 'module_id' => 2,
                 'created_at' => $date,
                 'updated_at' => $date,
-            ]
+            ],
             //module id 2 end
+
+
+            // Module ID 3 [System Data] start
+            [
+                'id' => 5,
+                'name_en' => 'Supplier',
+                'name_bn' => 'মহাজন',
+                'key' => 'supplier',
+                'position' => 1,
+                'route' => 'app_info.lang',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+
+            [
+                'id' => 6,
+                'name_en' => 'Customer',
+                'name_bn' => 'ক্রেতা',
+                'key' => 'customer',
+                'position' => 2,
+                'route' => 'app_info.lang',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+
+            [
+                'id' => 7,
+                'name_en' => 'Item Type',
+                'name_bn' => 'পণ্যের ধরন',
+                'key' => 'item_type',
+                'position' => 3,
+                'route' => 'app_info.lang',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 8,
+                'name_en' => 'Item',
+                'name_bn' => 'পণ্য',
+                'key' => 'item',
+                'position' => 4,
+                'route' => 'app_info.lang',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 8,
+                'name_en' => 'Item Varient',
+                'name_bn' => 'পণ্যের ভিন্নতা',
+                'key' => 'item_varient',
+                'position' => 5,
+                'route' => 'app_info.lang',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 9,
+                'name_en' => 'Warehouse',
+                'name_bn' => 'গোডাউন ',
+                'key' => 'warehouse',
+                'position' => 6,
+                'route' => 'app_info.lang',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 9,
+                'name_en' => 'Payment Type',
+                'name_bn' => 'পেমেন্ট ধরন',
+                'key' => 'payment_type',
+                'position' => 7,
+                'route' => 'app_info.lang',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 9,
+                'name_en' => 'Transaction Type',
+                'name_bn' => ' লেনদেনের ধরন',
+                'key' => 'transaction_type',
+                'position' => 8,
+                'route' => 'app_info.lang',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Module ID 3 [System Data] end
+
+
+
 
 
         ]);
 
         // #########################
-        //LAST ID : 4. NEXT ID : 3
+        //LAST ID : 4. NEXT ID : 5
     }
 }

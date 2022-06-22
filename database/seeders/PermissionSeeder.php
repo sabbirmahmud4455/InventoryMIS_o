@@ -101,8 +101,33 @@ class PermissionSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+
+            // Supplier Permission [id : 10-14]
+                // SABBIR
+            // Customer Permission [id : 15-19]
+                // SABBIR
+            // Item Type Permission [20-24]
+                // NAZIB
+            // Item Permission [25-29]
+                // NAZIB
+            // Item Varient Permission [30-34]
+                // NAZIB
+            // Warehouse Permission [35-39]
+                // MAHBUB
+            // Payment Type Permission [40-44]
+                // MAHBUB
+            // Transaction Type Permission [45-49]
+                // MAHBUB
         ]);
 
-        // Last ID: 9, New ID: 10
+
+
+        // Permission Seeder Sequence
+        // Please Do Not Remove Comments
+        // Sabbir : Supplier + Customer [Add, Edit, View, Delete] 10-19
+        // Nazib : Item Type + Item + Item Varient [20-34]
+        // Mahbub : Warehouse + PaymentType + TransactionType [Add, Edit, View, Delete] 35-49
+
+        // Last ID: 49, New ID: 50
     }
 }
