@@ -15,6 +15,8 @@ class CreateItemTypesTable extends Migration
     {
         Schema::create('item_types', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
