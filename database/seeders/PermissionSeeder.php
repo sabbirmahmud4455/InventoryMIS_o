@@ -258,7 +258,51 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             // Transaction Type Permission [46-50]
-                // MAHBUB
+            [
+                'id' => 46,
+                'key' => 'transaction_type',
+                'display_name_en' => 'Transaction Type',
+                'display_name_bn' => 'লেনদেনের ধরন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 47,
+                'key' => 'add_transaction_type',
+                'display_name_en' => '-- Add Transaction Type',
+                'display_name_bn' => '-- লেনদেনের ধরন যোগ',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 48,
+                'key' => 'edit_transaction_type',
+                'display_name_en' => '-- Edit Transaction Type',
+                'display_name_bn' => '-- লেনদেনের ধরন পরিবর্তন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 49,
+                'key' => 'view_transaction_type',
+                'display_name_en' => '-- View Transaction Type',
+                'display_name_bn' => '-- লেনদেনের ধরন দেখা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 50,
+                'key' => 'delete_transaction_type',
+                'display_name_en' => '-- Delete Transaction Type',
+                'display_name_bn' => '-- লেনদেনের ধরন মুছে ফেলা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
         ]);
 
 

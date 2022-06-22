@@ -158,7 +158,7 @@ class SubModuleSeeder extends Seeder
                 'name_bn' => ' লেনদেনের ধরন',
                 'key' => 'transaction_type',
                 'position' => 8,
-                'route' => 'app_info.lang',
+                'route' => 'transaction.type.index',
                 'module_id' => 3,
                 'created_at' => $date,
                 'updated_at' => $date,
