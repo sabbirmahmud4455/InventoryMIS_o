@@ -3,7 +3,7 @@
         'Warehouse' => 'Warehouse',
         'AddWarehouse' => 'Add Warehouse',
         'Name' => 'Name',
-        'Location' => 'Add Warehouse',
+        'Location' => 'Location',
         'AddNewWarehouse' => 'Add New Warehouse',
         'ViewWarehouse' => 'View Warehouse',
         'EditWarehouse' => 'Edit Warehouse',

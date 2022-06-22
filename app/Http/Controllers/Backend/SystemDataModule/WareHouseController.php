@@ -35,9 +35,9 @@ class WarehouseController extends Controller
                 ->rawColumns(['action', 'is_active'])
                 ->editColumn('is_active', function (Warehouse $warehouse) {
                     if ($warehouse->is_active == true) {
-                        return '<p class="badge badge-success">Active</p>';
+                        return '<p class="badge badge-success">'.__('Application.Active').'</p>';
                     } else {
-                        return '<p class="badge badge-danger">Inactive</p>';
+                        return '<p class="badge badge-danger">'.__('Application.Inactive').'</p>';
                     }
                 })
                 ->addColumn('action', function (Warehouse $warehouse) {
