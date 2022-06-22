@@ -1,28 +1,21 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">{{ __('Warehouse.AddNewWarehouse') }}</h5>
+    <h5 class="modal-title" id="exampleModalLabel">{{ __('Varient.AddNewVarient') }}</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
 <div class="modal-body">
-    <form class="ajax-form" method="post" action="{{ route('warehouse.add') }}">
+    <form class="ajax-form" method="post" action="{{ route('varient.add') }}">
         @csrf
 
         <div class="row">
 
             <!-- name -->
             <div class="col-md-12 col-12 form-group">
-                <label for="name">{{ __('Warehouse.Name') }}</label><span class="require-span">*</span>
+                <label for="name">{{ __('Varient.Name') }}</label><span class="require-span">*</span>
                 <input type="text" class="form-control" name="name" required>
             </div>
-
-            <!-- location -->
-            <div class="col-md-12 col-12 form-group">
-                <label for="name">{{ __('Warehouse.Location') }}</label><span class="require-span">*</span>
-                <input type="text" class="form-control" name="location" required>
-            </div>
-
 
             <div class="col-md-12 form-group text-right">
                 <button type="submit" class="btn btn-outline-dark">
@@ -53,5 +46,5 @@
         });
     });
 
-</script>varient
+</script>
 

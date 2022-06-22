@@ -253,7 +253,51 @@ class PermissionSeeder extends Seeder
             // Item Permission [26-30]
                 // NAZIB
             // Item Varient Permission [31-35]
-                // NAZIB
+            [
+                'id' => 31,
+                'key' => 'varient',
+                'display_name_en' => 'Varient',
+                'display_name_bn' => 'ভিন্নতা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 32,
+                'key' => 'add_varient',
+                'display_name_en' => '-- Add Varient',
+                'display_name_bn' => '-- ভিন্নতা যোগ',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 33,
+                'key' => 'edit_varient',
+                'display_name_en' => '-- Edit Varient',
+                'display_name_bn' => '-- ভিন্নতা পরিবর্তন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 34,
+                'key' => 'view_varient',
+                'display_name_en' => '-- View Varient',
+                'display_name_bn' => '-- ভিন্নতা দেখা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 35,
+                'key' => 'delete_varient',
+                'display_name_en' => '-- Delete Varient',
+                'display_name_bn' => '-- ভিন্নতা মুছে ফেলা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
             // Warehouse Permission [36-40]
             [
                 'id' => 36,
