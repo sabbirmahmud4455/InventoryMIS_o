@@ -102,7 +102,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 100,
+                'id' => 10,
                 'key' => 'system_data',
                 'display_name_en' => 'System Data',
                 'display_name_bn' => 'সিস্টেম ডাটা',
