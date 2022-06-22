@@ -212,7 +212,51 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             // Payment Type Permission [41-45]
-                // MAHBUB
+            [
+                'id' => 41,
+                'key' => 'payment_type',
+                'display_name_en' => 'Payment Type',
+                'display_name_bn' => 'পেমেন্ট ধরন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 42,
+                'key' => 'add_payment_type',
+                'display_name_en' => '-- Add Payment Type',
+                'display_name_bn' => '-- পেমেন্ট ধরন যোগ',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 43,
+                'key' => 'edit_payment_type',
+                'display_name_en' => '-- Edit Payment Type',
+                'display_name_bn' => '-- পেমেন্ট ধরন পরিবর্তন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 44,
+                'key' => 'view_payment_type',
+                'display_name_en' => '-- View Payment Type',
+                'display_name_bn' => '-- পেমেন্ট ধরন দেখা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 45,
+                'key' => 'delete_payment_type',
+                'display_name_en' => '-- Delete Payment Type',
+                'display_name_bn' => '-- পেমেন্ট ধরন মুছে ফেলা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
             // Transaction Type Permission [46-50]
                 // MAHBUB
         ]);

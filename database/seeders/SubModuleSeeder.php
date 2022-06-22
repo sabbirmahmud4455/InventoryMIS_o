@@ -147,7 +147,7 @@ class SubModuleSeeder extends Seeder
                 'name_bn' => 'পেমেন্ট ধরন',
                 'key' => 'payment_type',
                 'position' => 7,
-                'route' => 'app_info.lang',
+                'route' => 'payment.type.index',
                 'module_id' => 3,
                 'created_at' => $date,
                 'updated_at' => $date,

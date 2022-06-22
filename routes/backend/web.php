@@ -52,6 +52,7 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
     Route::group(['prefix' => 'system-data'], function(){
         require_once 'system_data_module/item_type.php';
         require_once 'system_data_module/warehouse.php';
+        require_once 'system_data_module/payment_type.php';
     });
 
 });
