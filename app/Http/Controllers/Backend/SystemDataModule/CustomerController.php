@@ -2,84 +2,126 @@
 
 namespace App\Http\Controllers\Backend\SystemDataModule;
 
-use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\SystemDataModule\Customer;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        if( can('customer') ){
+            $customers = Customer::select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc')->paginate(20);
+
+            return view('backend.modules.system_data_module.customer.index', compact('customers'));
+
+        } else {
+            return view("errors.404");
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    //customer add modal start
+    public function add_modal(){
+        if( can('add_customer') ){
+            return view("backend.modules.system_data_module.customer.modals.add");
+
+        } else{
+            return view("errors.404");
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    //add customer start
+    public function add(Request $request){
+
+        if( can('add_customer') ){
+            $validator = Validator::make($request->all(),[
+                'name' => 'required',
+                'phone' => 'required|numeric|regex:/(01)[0-9]{9}/',
+                'address' => 'nullable|max:2000',
+                'remarks' => 'nullable|max:2000',
+            ]);
+
+            if( $validator->fails() ){
+                return response()->json(['errors' => $validator->errors()] ,422);
+            }else{
+                try{
+                    $customer = new Customer();
+                    $customer->name = $request->name;
+                    $customer->contact_no  = $request->phone;
+                    $customer->address = $request->address;
+                    $customer->remarks = $request->remarks;
+                    $customer->is_active = true;
+
+                    if( $customer->save() ){
+                        return response()->json(['success' => 'New customer Created Successfully'], 200);
+                    }
+
+                }catch( Exception $e ){
+                    return response()->json(['error' => $e->getMessage()],200);
+                }
+            }
+        }else{
+            return view("errors.404");
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    //customer show modal start
+    public function show($id){
+        if( can("view_customer")){
+            $customer = Customer::where("id",$id)->select("id", "name", "contact_no", 'address', 'remarks', "is_active")->first();
+
+            return view("backend.modules.system_data_module.customer.modals.show", compact("customer"));
+        }
+        else{
+            return view("errors.404");
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    //customer edit modal start
+    public function edit($id){
+        if( can("edit_customer") ){
+            $customer = Customer::where("id",$id)->select("id", "name", "contact_no", 'address', 'remarks', "is_active")->first();
+
+            return view("backend.modules.system_data_module.customer.modals.edit", compact("customer"));
+        }
+        else{
+            return view("errors.404");
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    //customer update modal start
+    public function update(Request $request, $id){
+        if( can('edit_customer')){
+            $validator = Validator::make($request->all(),[
+                'name' => 'required',
+                'phone' => 'required|numeric|regex:/(01)[0-9]{9}/',
+                'address' => 'nullable|max:2000',
+                'remarks' => 'nullable|max:2000',
+            ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            if( $validator->fails() ){
+                return response()->json(['errors' => $validator->errors()] ,422);
+            }else{
+                try{
+                    $customer = Customer::find($id);
+                    $customer->name = $request->name;
+                    $customer->contact_no  = $request->phone;
+                    $customer->address = $request->address;
+                    $customer->remarks = $request->remarks;
+                    $customer->is_active = true;
+
+                    if( $customer->update() ){
+                        return response()->json(['success' => 'customer Updated Successfully'], 200);
+                    }
+
+                }catch( Exception $e ){
+                    return response()->json(['error' => $e->getMessage()],200);
+                }
+            }
+        }else{
+            return view("errors.404");
+        }
     }
 }
