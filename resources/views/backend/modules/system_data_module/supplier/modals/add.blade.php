@@ -6,7 +6,7 @@
  </div>
 
 <div class="modal-body">
-    <form class="ajax-form" method="post" action="{{ route('user.add') }}">
+    <form class="ajax-form" method="post" action="{{ route('supplier.add') }}">
         @csrf
 
         <div class="row">
