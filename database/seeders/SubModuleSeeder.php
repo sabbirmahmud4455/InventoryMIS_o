@@ -120,7 +120,7 @@ class SubModuleSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 8,
+                'id' => 9,
                 'name_en' => 'Item Varient',
                 'name_bn' => 'পণ্যের ভিন্নতা',
                 'key' => 'item_varient',
@@ -131,7 +131,7 @@ class SubModuleSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 9,
+                'id' => 10,
                 'name_en' => 'Warehouse',
                 'name_bn' => 'গোডাউন ',
                 'key' => 'warehouse',
@@ -142,7 +142,7 @@ class SubModuleSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 10,
+                'id' => 11,
                 'name_en' => 'Payment Type',
                 'name_bn' => 'পেমেন্ট ধরন',
                 'key' => 'payment_type',
@@ -153,7 +153,7 @@ class SubModuleSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 11,
+                'id' => 12,
                 'name_en' => 'Transaction Type',
                 'name_bn' => ' লেনদেনের ধরন',
                 'key' => 'transaction_type',
@@ -172,6 +172,6 @@ class SubModuleSeeder extends Seeder
         ]);
 
         // #########################
-        //LAST ID : 11. NEXT ID : 12
+        //LAST ID : 12. NEXT ID : 13
     }
 }
