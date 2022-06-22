@@ -50,13 +50,59 @@
                                        id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>{{ __('Application.Id') }}</th>
+                                        <th>{{ __('Supplier.SupplierName') }}</th>
+                                        <th>{{ __('Supplier.SupplierPhone') }}</th>
+                                        <th>{{ __('Application.Status') }}</th>
+                                        <th>{{ __('Application.Action') }}</th>
                                     </tr>
                                     </thead>
+                                    <tbody>
+                                        @foreach ($suppliers as $key => $supplier)
+                                            <tr>
+                                                <td>{{ $supplier->id }}</td>
+                                                <td>{{ $supplier->name }}</td>
+                                                <td>{{ $supplier->contact_no }}</td>
+                                                <td>
+                                                    @if ($supplier->is_active)
+                                                        <p class="badge badge-success">{{ __('Application.Active') }}</p>
+                                                    @else
+                                                        <p class="badge badge-danger">{{ __('Application.Inactive') }}</p>
+                                                    @endif
+                                                </td>
+                                                <td>
+
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown{{ $supplier->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            {{ __('Application.Action') }}
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdown{{ $supplier->id }}">
+
+                                                            <a class="dropdown-item" href="#" data-content="{{ route('supplier.show', $supplier->id) }}" data-target="#myModal" data-toggle="modal">
+                                                                <i class="fas fa-eye"></i>
+                                                                {{ __('Application.View') }}
+                                                            </a>
+
+                                                            <a class="dropdown-item" href="#" data-content="{{ route('supplier.edit.modal',$supplier->id) }}" data-target="#myModal" data-toggle="modal">
+                                                                <i class="fas fa-edit"></i>
+                                                                {{ __('Application.Edit') }}
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
                                 </table>
+
+                                <div class=" d-flex justify-content-center mt-3">
+                                    {{ $suppliers->links() }}
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -71,40 +117,6 @@
 @section('per_page_js')
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('backend/js/custom-script.min.js') }}"></script>
-
-    <script src="{{ asset('backend/js/datatable/jquery.validate.js') }}"></script>
-    <script src="{{ asset('backend/js/datatable/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('backend/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
-
     <script src="{{  asset('backend/js/ajax_form_submit.js') }}"></script>
 
-    <script>
-        $(function () {
-            $('.datatable-data').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('supplier.data') }}",
-                order : [[0,"Desc"]],
-                columns: [{
-                    data: 'id',
-                    name: 'id'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'is_active',
-                        name: 'is_active'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                    },
-                ]
-            });
-        });
-
-    </script>
 @endsection
