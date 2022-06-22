@@ -1,35 +1,40 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">{{ $warehouse->name }}</h5>
+    <h5 class="modal-title" id="exampleModalLabel">{{ $transaction_type->name }}</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
 <div class="modal-body">
-    <form class="ajax-form" method="post" action="{{ route('warehouse.edit',$warehouse->id) }}">
+    <form class="ajax-form" method="post" action="{{ route('transaction.type.edit',$transaction_type->id) }}">
         @csrf
 
         <div class="row">
 
             <!-- name -->
-            <div class="col-md-12 col-12 form-group">
-                <label for="name">{{ __('Warehouse.Name') }}</label><span class="require-span">*</span>
-                <input type="text" class="form-control" name="name" value="{{ $warehouse->name }}" required>
+            <div class="col-md-6 col-12 form-group">
+                <label for="name">{{ __('TransactionType.Name') }}</label><span class="require-span">*</span>
+                <input type="text" class="form-control" name="name" value="{{ $transaction_type->name }}" required>
             </div>
 
-            <!-- location -->
-            <div class="col-md-12 col-12 form-group">
-                <label for="name">{{ __('Warehouse.Location') }}</label><span class="require-span">*</span>
-                <input type="text" class="form-control" name="location" value="{{ $warehouse->location }}" required>
+            <!-- Cash Type -->
+            <div class="col-md-6 col-12 form-group">
+                <label for="cash_type">{{ __('TransactionType.CashType') }}</label>
+                <select class="form-control select2" name="cash_type">
+                    <option disabled>{{ __('TransactionType.SelectCashType') }}</option>
+                    <option value="Cash In" @if( $transaction_type->cash_type == 'Cash In' ) selected @endif>{{ __('TransactionType.CashIn') }}</option>
+                    <option value="Cash Out" @if( $transaction_type->cash_type == 'Cash Out' ) selected @endif>{{ __('TransactionType.CashOut') }}</option>
+                </select>
             </div>
+
             
 
             <!-- Status -->
             <div class="col-md-12 col-12 form-group">
                 <label for="is_active">{{ __('Application.Status') }}</label>
                 <select class="form-control select2" name="is_active">
-                        <option value="1" @if( $warehouse->is_active == true ) selected @endif>{{ __('Application.Active') }}</option>
-                        <option value="0" @if( $warehouse->is_active == false ) selected @endif>{{ __('Application.Inactive') }}</option>
+                    <option value="1" @if( $transaction_type->is_active == true ) selected @endif>{{ __('Application.Active') }}</option>
+                    <option value="0" @if( $transaction_type->is_active == false ) selected @endif>{{ __('Application.Inactive') }}</option>
                 </select>
             </div>
 

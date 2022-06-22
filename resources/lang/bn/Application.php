@@ -14,6 +14,9 @@
         "Delete" => 'মুছে ফেলা',
         "Details" => 'বিস্তারিত',
         "Close" => 'বন্ধ করুন',
+        "Information" => 'তথ্য',
+        "CreatedDateTime" => 'তৈরি করা তারিখ ও সময়',
+        "LastUpdate" => 'সর্বশেষ আপডেট',
     ]
 
 ?>

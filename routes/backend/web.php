@@ -54,6 +54,8 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
         require_once 'system_data_module/customer.php';
         require_once 'system_data_module/supplier.php';
         require_once 'system_data_module/warehouse.php';
+        require_once 'system_data_module/payment_type.php';
+        require_once 'system_data_module/transaction_type.php';
     });
 
 });

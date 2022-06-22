@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Backend\SystemDataModule;
 
 use App\Http\Controllers\Controller;
-use App\Models\SystemDataModule\Warehouse;
+use App\Models\SystemDataModule\PaymentType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class WarehouseController extends Controller
+class PaymentTypeController extends Controller
 {
     //index function start
     public function index()
     {
-        if (can('warehouse'))
+        if (can('payment_type'))
         {
-            return view('backend.modules.system_data_module.warehouse.index');
+            return view('backend.modules.system_data_module.payment_type.index');
         }
         else
         {
@@ -27,38 +27,38 @@ class WarehouseController extends Controller
 
     //data function start
     public function data(){
-        if( can('warehouse') ){
+        if( can('payment_type') ){
 
-            $warehouse = Warehouse::select("id", "name", 'location', "is_active", 'is_delete')->get();
+            $payment_type = PaymentType::select("id", "name", "is_active", 'is_delete')->get();
 
-            return DataTables::of($warehouse)
+            return DataTables::of($payment_type)
                 ->rawColumns(['action', 'is_active'])
-                ->editColumn('is_active', function (Warehouse $warehouse) {
-                    if ($warehouse->is_active == true) {
+                ->editColumn('is_active', function (PaymentType $payment_type) {
+                    if ($payment_type->is_active == true) {
                         return '<p class="badge badge-success">'.__('Application.Active').'</p>';
                     } else {
                         return '<p class="badge badge-danger">'.__('Application.Inactive').'</p>';
                     }
                 })
-                ->addColumn('action', function (Warehouse $warehouse) {
+                ->addColumn('action', function (PaymentType $payment_type) {
                     return '
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown'.$warehouse->id.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown'.$payment_type->id.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         '.__('Application.Action').'
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdown'.$warehouse->id.'">
+                    <div class="dropdown-menu" aria-labelledby="dropdown'.$payment_type->id.'">
 
-                        '.( can("view_warehouse") ? '
-                        <a class="dropdown-item" href="#" data-content="'.route('warehouse.view.modal',$warehouse->id).'" data-target="#myModal" class="btn btn-outline-dark" data-toggle="modal">
+                        '.( can("view_payment_type") ? '
+                        <a class="dropdown-item" href="#" data-content="'.route('payment.type.view.modal',$payment_type->id).'" data-target="#myModal" class="btn btn-outline-dark" data-toggle="modal">
                             <i class="fas fa-eye"></i>
-                            '.__('Warehouse.ViewWarehouse').'
+                            '.__('PaymentType.ViewPaymentType').'
                         </a>
                         ': '') .'
 
-                        '.( can("edit_warehouse") ? '
-                        <a class="dropdown-item" href="#" data-content="'.route('warehouse.edit.modal',$warehouse->id).'" data-target="#myModal" class="btn btn-outline-dark" data-toggle="modal">
+                        '.( can("edit_payment_type") ? '
+                        <a class="dropdown-item" href="#" data-content="'.route('payment.type.edit.modal',$payment_type->id).'" data-target="#myModal" class="btn btn-outline-dark" data-toggle="modal">
                             <i class="fas fa-edit"></i>
-                            '.__('Warehouse.EditWarehouse').'
+                            '.__('PaymentType.EditPaymentType').'
                         </a>
                         ': '') .'
 
@@ -73,10 +73,11 @@ class WarehouseController extends Controller
     }
     //data function end
 
+
     //add modal function start
     public function add_modal(){
-        if( can("add_warehouse") ){
-            return view('backend.modules.system_data_module.warehouse.modals.add');
+        if( can("add_payment_type") ){
+            return view('backend.modules.system_data_module.payment_type.modals.add');
         }
         else{
             return view('errors.404');
@@ -86,10 +87,9 @@ class WarehouseController extends Controller
 
     //add function start
     public function add(Request $request){
-        if( can("add_warehouse") ){
+        if( can("add_payment_type") ){
             $validator = Validator::make($request->all(), [
-                'name' => 'required|unique:warehouses,name',
-                'location' => 'required',
+                'name' => 'required|unique:payment_types,name',
             ]);
 
             if( $validator->fails() ){
@@ -97,14 +97,13 @@ class WarehouseController extends Controller
             }
             else{
                 try{
-                    $warehouse = new Warehouse();
+                    $payment_type = new PaymentType();
 
-                    $warehouse->name = $request->name;
-                    $warehouse->location = $request->location;
-                    $warehouse->is_active = true;
-                    $warehouse->is_delete = false;
-                    $AddSwal = __('Warehouse.AddSwal');
-                    if( $warehouse->save() ){
+                    $payment_type->name = $request->name;
+                    $payment_type->is_active = true;
+                    $payment_type->is_delete = false;
+                    $AddSwal = __('PaymentType.AddSwal');
+                    if( $payment_type->save() ){
                         return response()->json(['success' => $AddSwal], 200);
                     }
 
@@ -124,10 +123,10 @@ class WarehouseController extends Controller
     //edit modal function start
     public function edit_modal($id)
     {
-        if (can('edit_warehouse'))
+        if (can('edit_payment_type'))
         {
-            $warehouse = Warehouse::where('id',$id)->select('id','name', 'location', 'is_active')->first();
-            return view('backend.modules.system_data_module.warehouse.modals.edit',compact('warehouse'));
+            $payment_type = PaymentType::where('id',$id)->select('id','name', 'is_active')->first();
+            return view('backend.modules.system_data_module.payment_type.modals.edit',compact('payment_type'));
         }
         else
         {
@@ -139,10 +138,9 @@ class WarehouseController extends Controller
 
     //edit function start
     public function edit(Request $request,$id){
-        if( can("edit_warehouse") ){
+        if( can("edit_payment_type") ){
             $validator = Validator::make($request->all(), [
-                "name" => "required|unique:warehouses,name,$id",
-                "location" => "required",
+                "name" => "required|unique:payment_types,name,$id",
                 "is_active" => "required",
             ]);
 
@@ -151,13 +149,12 @@ class WarehouseController extends Controller
             }
             else{
                 try{
-                    $warehouse = Warehouse::find($id);
-                    $warehouse->name = $request->name;
-                    $warehouse->location = $request->location;
-                    $warehouse->is_active = $request->is_active;
-                    $warehouse->is_delete = false;
-                    $EditSwal = __('Warehouse.EditSwal');
-                    if( $warehouse->save() ){
+                    $payment_type = PaymentType::find($id);
+                    $payment_type->name = $request->name;
+                    $payment_type->is_active = $request->is_active;
+                    $payment_type->is_delete = false;
+                    $EditSwal = __('PaymentType.EditSwal');
+                    if( $payment_type->save() ){
                         return response()->json(['success' => $EditSwal], 200);
                     }
 
@@ -179,10 +176,10 @@ class WarehouseController extends Controller
     //view modal function start
     public function view($id)
     {
-        if (can('view_warehouse'))
+        if (can('view_payment_type'))
         {
-            $warehouse = Warehouse::find($id);
-            return view('backend.modules.system_data_module.warehouse.modals.view',compact('warehouse'));
+            $payment_type = PaymentType::find($id);
+            return view('backend.modules.system_data_module.payment_type.modals.view',compact('payment_type'));
         }
         else
         {
@@ -190,6 +187,7 @@ class WarehouseController extends Controller
         }
     }
     //view modal function end
+
 
 
 }

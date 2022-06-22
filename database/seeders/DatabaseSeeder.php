@@ -19,8 +19,11 @@ class DatabaseSeeder extends Seeder
             SubModuleSeeder::class,
             PermissionSeeder::class,
             // AppInfoSeeder::class,
-            RoleSeeder::class,
-            UserSeeder::class,
+            // RoleSeeder::class,
+            // UserSeeder::class,
+            WarehouseSeeder::class,
+            PaymentTypeSeeder::class,
+            TransactionTypeSeeder::class,
         ]);
     }
 }

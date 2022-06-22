@@ -14,6 +14,9 @@
         "Action" => 'Action',
         "Details" => 'Details',
         'Close' => 'Close',
+        'Information' => 'Information',
+        'CreatedDateTime' => 'Created Date & Time',
+        'LastUpdate' => 'Information',
     ]
 
 ?>

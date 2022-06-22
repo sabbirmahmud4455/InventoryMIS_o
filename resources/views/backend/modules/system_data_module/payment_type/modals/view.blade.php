@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel"> {{ $warehouse->name }}, {{ __('Application.Information') }} </h5>
+    <h5 class="modal-title" id="exampleModalLabel"> {{ $payment_type->name }}, {{ __('Application.Information') }} </h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -11,18 +11,14 @@
             <table class="table table-bordered table-sm">
                 <tbody>
                 <tr>
-                    <td>{{ __('Warehouse.Name') }}</td>
-                    <td>{{ $warehouse->name }}</td>
-                </tr>
-                <tr>
-                    <td>{{ __('Warehouse.Location') }}</td>
-                    <td>{{ $warehouse->location }}</td>
+                    <td>{{ __('PaymentType.Name') }}</td>
+                    <td>{{ $payment_type->name }}</td>
                 </tr>
                 
                 <tr>
                     <td>{{ __('Application.Status') }}</td>
                     <td>
-                        @if($warehouse->is_active == 1)
+                        @if($payment_type->is_active == 1)
                             <span class="badge badge-success">{{ __('Application.Active') }}</span>
                         @else
                             <span class="badge badge-danger">{{ __('Application.Inactive') }}</span>
@@ -32,12 +28,12 @@
 
                 <tr>
                     <td>{{ __('Application.CreatedDateTime') }}</td>
-                    <td>{{ $warehouse->created_at->toDayDateTimeString() }}</td>
+                    <td>{{ $payment_type->created_at->toDayDateTimeString() }}</td>
                 </tr>
 
                 <tr>
                     <td>{{ __('Application.LastUpdate') }}</td>
-                    <td>{{ $warehouse->updated_at->toDayDateTimeString() }}</td>
+                    <td>{{ $payment_type->updated_at->toDayDateTimeString() }}</td>
                 </tr>
                 </tbody>
             </table>

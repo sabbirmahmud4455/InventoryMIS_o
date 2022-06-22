@@ -21,7 +21,7 @@
                             </li>
                             <li class="breadcrumb-item active">
                                 <a href="#">
-                                    {{ __('Warehouse.Warehouse') }}
+                                    {{ __('PaymentType.PaymentType') }}
                                 </a>
                             </li>
                         </ol>
@@ -38,10 +38,10 @@
                     <div class="col-md-12">
                         <div class="card card-primary card-outline table-responsive">
                             <div class="card-header text-right">
-                                @if( can('add_warehouse') )
-                                    <button type="button" data-content="{{ route('warehouse.add.modal') }}" data-target="#myModal"
+                                @if( can('add_payment_type') )
+                                    <button type="button" data-content="{{ route('payment.type.add.modal') }}" data-target="#myModal"
                                             class="btn btn-outline-dark" data-toggle="modal">
-                                        {{ __('Warehouse.AddWarehouse') }}
+                                        {{ __('PaymentType.AddPaymentType') }}
                                     </button>
                                 @endif
                             </div>
@@ -51,8 +51,7 @@
                                     <thead>
                                     <tr>
                                         <th>{{ __('Application.Id') }}</th>
-                                        <th>{{ __('Warehouse.Name') }}</th>
-                                        <th>{{ __('Warehouse.Location') }}</th>
+                                        <th>{{ __('PaymentType.Name') }}</th>
                                         <th>{{ __('Application.Status') }}</th>
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>
@@ -84,7 +83,7 @@
             $('.datatable-data').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('warehouse.data') }}",
+                ajax: "{{ route('payment.type.data') }}",
                 order : [[0,"Desc"]],
                 columns: [{
                     data: 'id',
@@ -93,10 +92,6 @@
                     {
                         data: 'name',
                         name: 'name'
-                    },
-                    {
-                        data: 'location',
-                        name: 'location'
                     },
                     {
                         data: 'is_active',

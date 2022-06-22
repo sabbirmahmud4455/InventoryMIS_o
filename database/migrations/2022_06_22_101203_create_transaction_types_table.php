@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWareHousesTable extends Migration
+class CreateTransactionTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateWareHousesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ware_houses', function (Blueprint $table) {
+        Schema::create('transaction_types', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('location');
+            $table->enum('cash_type', ['Cash In', 'Cash Out']);
             $table->boolean('is_active')->default(true);
             $table->boolean('is_delete')->default(false);
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateWareHousesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ware_houses');
+        Schema::dropIfExists('transaction_types');
     }
 }
