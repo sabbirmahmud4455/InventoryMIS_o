@@ -136,7 +136,7 @@ class SubModuleSeeder extends Seeder
                 'name_bn' => 'গোডাউন ',
                 'key' => 'warehouse',
                 'position' => 6,
-                'route' => 'app_info.lang',
+                'route' => 'warehouse.index',
                 'module_id' => 3,
                 'created_at' => $date,
                 'updated_at' => $date,
