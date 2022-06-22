@@ -16,12 +16,12 @@
                         <ol class="breadcrumb float-sm-left">
                             <li class="breadcrumb-item">
                                 <a href="{{ route('dashboard') }}">
-                                    Dashboard
+                                    {{ __('Application.Dashboard') }}
                                 </a>
                             </li>
                             <li class="breadcrumb-item active">
                                 <a href="#">
-                                    Unit
+                                    {{ __('Warehouse.Warehouse') }}
                                 </a>
                             </li>
                         </ol>
@@ -38,10 +38,10 @@
                     <div class="col-md-12">
                         <div class="card card-primary card-outline table-responsive">
                             <div class="card-header text-right">
-                                @if( can('add_unit') )
-                                    <button type="button" data-content="{{ route('unit.add.modal') }}" data-target="#myModal"
+                                @if( can('add_warehouse') )
+                                    <button type="button" data-content="{{ route('warehouse.add.modal') }}" data-target="#myModal"
                                             class="btn btn-outline-dark" data-toggle="modal">
-                                        Add Unit
+                                        {{ __('Warehouse.AddWarehouse') }}
                                     </button>
                                 @endif
                             </div>
@@ -50,10 +50,11 @@
                                        id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>{{ __('Application.Id') }}</th>
+                                        <th>{{ __('Warehouse.Name') }}</th>
+                                        <th>{{ __('Warehouse.Location') }}</th>
+                                        <th>{{ __('Application.Status') }}</th>
+                                        <th>{{ __('Application.Action') }}</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -83,7 +84,7 @@
             $('.datatable-data').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('unit.data') }}",
+                ajax: "{{ route('warehouse.data') }}",
                 order : [[0,"Desc"]],
                 columns: [{
                     data: 'id',
@@ -92,6 +93,10 @@
                     {
                         data: 'name',
                         name: 'name'
+                    },
+                    {
+                        data: 'location',
+                        name: 'location'
                     },
                     {
                         data: 'is_active',

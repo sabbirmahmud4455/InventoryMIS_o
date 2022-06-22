@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             // AppInfoSeeder::class,
             // RoleSeeder::class,
             // UserSeeder::class,
+            // WarehouseSeeder::class,
         ]);
     }
 }
