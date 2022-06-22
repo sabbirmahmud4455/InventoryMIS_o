@@ -1,34 +1,38 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">{{ __('Warehouse.AddNewWarehouse') }}</h5>
+    <h5 class="modal-title" id="exampleModalLabel">{{ $varient->name }}</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
 <div class="modal-body">
-    <form class="ajax-form" method="post" action="{{ route('warehouse.add') }}">
+    <form class="ajax-form" method="post" action="{{ route('varient.edit',$varient->id) }}">
         @csrf
 
         <div class="row">
 
             <!-- name -->
             <div class="col-md-12 col-12 form-group">
-                <label for="name">{{ __('Warehouse.Name') }}</label><span class="require-span">*</span>
-                <input type="text" class="form-control" name="name" required>
+                <label for="name">{{ __('Varient.Name') }}</label><span class="require-span">*</span>
+                <input type="text" class="form-control" name="name" value="{{ $varient->name }}" required>
             </div>
+            
 
-            <!-- location -->
+            <!-- Status -->
             <div class="col-md-12 col-12 form-group">
-                <label for="name">{{ __('Warehouse.Location') }}</label><span class="require-span">*</span>
-                <input type="text" class="form-control" name="location" required>
+                <label for="is_active">{{ __('Application.Status') }}</label>
+                <select class="form-control select2" name="is_active">
+                        <option value="1" @if( $varient->is_active == true ) selected @endif>{{ __('Application.Active') }}</option>
+                        <option value="0" @if( $varient->is_active == false ) selected @endif>{{ __('Application.Inactive') }}</option>
+                </select>
             </div>
-
 
             <div class="col-md-12 form-group text-right">
                 <button type="submit" class="btn btn-outline-dark">
-                    {{ __('Application.Add') }}
+                    {{ __('Application.Update') }}
                 </button>
             </div>
+
         </div>
     </form>
 </div>
@@ -52,6 +56,5 @@
             dropdownParent: $('#myModal')
         });
     });
-
-</script>varient
+</script>
 

@@ -21,9 +21,10 @@ class DatabaseSeeder extends Seeder
             // AppInfoSeeder::class,
             // RoleSeeder::class,
             // UserSeeder::class,
-            WarehouseSeeder::class,
-            PaymentTypeSeeder::class,
-            TransactionTypeSeeder::class,
+            // WarehouseSeeder::class,
+            // PaymentTypeSeeder::class,
+            // TransactionTypeSeeder::class,
+            // VarientSeeder::class,
         ]);
     }
 }
