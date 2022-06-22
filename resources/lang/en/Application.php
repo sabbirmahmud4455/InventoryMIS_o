@@ -2,13 +2,18 @@
 
     return [
         "Dashboard" => 'Dashboard',
-        "Status" => 'Status',
-        "Action" => 'Action',
+        'Id' => 'ID',
         "Add" => 'Add',
-        "Edit" => 'Edit',
         "View" => 'View',
+        "Edit" => 'Edit',
+        'Update' => 'Update',
         "Delete" => 'Delete',
-        "Details" => 'Details'
+        "Status" => 'Status',
+        'Active' => 'Active',
+        'Inactive' => 'Inactive',
+        "Action" => 'Action',
+        "Details" => 'Details',
+        'Close' => 'Close',
     ]
 
 ?>
