@@ -142,7 +142,7 @@ class SubModuleSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 9,
+                'id' => 10,
                 'name_en' => 'Payment Type',
                 'name_bn' => 'পেমেন্ট ধরন',
                 'key' => 'payment_type',
@@ -153,7 +153,7 @@ class SubModuleSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 9,
+                'id' => 11,
                 'name_en' => 'Transaction Type',
                 'name_bn' => ' লেনদেনের ধরন',
                 'key' => 'transaction_type',
@@ -172,6 +172,6 @@ class SubModuleSeeder extends Seeder
         ]);
 
         // #########################
-        //LAST ID : 4. NEXT ID : 5
+        //LAST ID : 11. NEXT ID : 12
     }
 }
