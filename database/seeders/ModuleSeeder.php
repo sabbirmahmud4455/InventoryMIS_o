@@ -45,7 +45,7 @@ class ModuleSeeder extends Seeder
             [
                 'id' => 3,
                 'name_en' => 'System Data',
-                'name_bn' => 'সিস্টেম ডাটা ',
+                'name_bn' => 'সিস্টেম ডাটা',
                 'key' => 'system_data',
                 'icon' => 'fas fa-cog',
                 'position' => 2,

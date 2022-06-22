@@ -101,22 +101,119 @@ class PermissionSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+            [
+                'id' => 100,
+                'key' => 'system_data',
+                'display_name_en' => 'System Data',
+                'display_name_bn' => 'সিস্টেম ডাটা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
 
-            // Supplier Permission [id : 10-14]
+            // Supplier Permission [id : 11-15]
                 // SABBIR
-            // Customer Permission [id : 15-19]
+            // Customer Permission [id : 16-20]
                 // SABBIR
-            // Item Type Permission [20-24]
+            // Item Type Permission [21-25]
+            [
+                'id' => 21,
+                'key' => 'item_type',
+                'display_name_en' => 'Item Type',
+                'display_name_bn' => 'পণ্যের ধরন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 22,
+                'key' => 'add_item_type',
+                'display_name_en' => '-- Add Item Type',
+                'display_name_bn' => '-- পণ্যের ধরন যোগ',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 23,
+                'key' => 'edit_item_type',
+                'display_name_en' => '-- Edit Item Type',
+                'display_name_bn' => '-- পণ্যের ধরন পরিবর্তন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 24,
+                'key' => 'view_item_type',
+                'display_name_en' => '-- Edit Item Type',
+                'display_name_bn' => '-- পণ্যের ধরন দেখা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 25,
+                'key' => 'delete_item_type',
+                'display_name_en' => '-- Delete Item Type',
+                'display_name_bn' => '-- পণ্যের ধরন মুছে ফেলা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Item Permission [26-30]
                 // NAZIB
-            // Item Permission [25-29]
+            // Item Varient Permission [31-35]
                 // NAZIB
-            // Item Varient Permission [30-34]
-                // NAZIB
-            // Warehouse Permission [35-39]
+            // Warehouse Permission [36-40]
+            [
+                'id' => 36,
+                'key' => 'warehouse',
+                'display_name_en' => 'Warehouse',
+                'display_name_bn' => 'গোডাউন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 37,
+                'key' => 'add_warehouse',
+                'display_name_en' => '-- Add Warehouse',
+                'display_name_bn' => '-- যোগ গোডাউন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 38,
+                'key' => 'edit_warehouse',
+                'display_name_en' => '-- Edit Warehouse',
+                'display_name_bn' => '-- পরিবর্তন গোডাউন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 39,
+                'key' => 'view_warehouse',
+                'display_name_en' => '-- View Warehouse',
+                'display_name_bn' => '-- দেখা গোডাউন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 40,
+                'key' => 'delete_warehouse',
+                'display_name_en' => '-- Delete Warehouse',
+                'display_name_bn' => '-- মুছে ফেলা গোডাউন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Payment Type Permission [41-45]
                 // MAHBUB
-            // Payment Type Permission [40-44]
-                // MAHBUB
-            // Transaction Type Permission [45-49]
+            // Transaction Type Permission [46-50]
                 // MAHBUB
         ]);
 
@@ -124,9 +221,9 @@ class PermissionSeeder extends Seeder
 
         // Permission Seeder Sequence
         // Please Do Not Remove Comments
-        // Sabbir : Supplier + Customer [Add, Edit, View, Delete] 10-19
-        // Nazib : Item Type + Item + Item Varient [20-34]
-        // Mahbub : Warehouse + PaymentType + TransactionType [Add, Edit, View, Delete] 35-49
+        // Sabbir : Supplier + Customer [Add, Edit, View, Delete] 11-20
+        // Nazib : Item Type + Item + Item Varient [21-35]
+        // Mahbub : Warehouse + PaymentType + TransactionType [Add, Edit, View, Delete] 36-50
 
         // Last ID: 49, New ID: 50
     }
