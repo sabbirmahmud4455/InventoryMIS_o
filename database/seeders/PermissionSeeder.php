@@ -101,6 +101,15 @@ class PermissionSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+            [
+                'id' => 100,
+                'key' => 'system_data',
+                'display_name_en' => 'System Data',
+                'display_name_bn' => 'সিস্টেম ডাটা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
 
             // Supplier Permission [id : 10-14]
                 // SABBIR
@@ -112,11 +121,55 @@ class PermissionSeeder extends Seeder
                 // NAZIB
             // Item Varient Permission [30-34]
                 // NAZIB
-            // Warehouse Permission [35-39]
+            // Warehouse Permission [36-40]
+            [
+                'id' => 36,
+                'key' => 'warehouse',
+                'display_name_en' => 'Warehouse',
+                'display_name_bn' => 'গোডাউন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 37,
+                'key' => 'add_warehouse',
+                'display_name_en' => '-- Add Warehouse',
+                'display_name_bn' => '-- যোগ গোডাউন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 38,
+                'key' => 'edit_warehouse',
+                'display_name_en' => '-- Edit Warehouse',
+                'display_name_bn' => '-- পরিবর্তন গোডাউন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 39,
+                'key' => 'view_warehouse',
+                'display_name_en' => '-- View Warehouse',
+                'display_name_bn' => '-- দেখা গোডাউন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 40,
+                'key' => 'delete_warehouse',
+                'display_name_en' => '-- Delete Warehouse',
+                'display_name_bn' => '-- মুছে ফেলা গোডাউন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Payment Type Permission [41-45]
                 // MAHBUB
-            // Payment Type Permission [40-44]
-                // MAHBUB
-            // Transaction Type Permission [45-49]
+            // Transaction Type Permission [46-50]
                 // MAHBUB
         ]);
 
