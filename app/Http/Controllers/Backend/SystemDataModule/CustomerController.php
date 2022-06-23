@@ -55,7 +55,7 @@ class CustomerController extends Controller
                     $customer->is_active = true;
 
                     if( $customer->save() ){
-                        return response()->json(['success' => 'New customer Created Successfully'], 200);
+                        return response()->json(['customer_add' => __('Customer.CustomerAddSuccessMsg')], 200);
                     }
 
                 }catch( Exception $e ){
@@ -113,7 +113,7 @@ class CustomerController extends Controller
                     $customer->is_active = true;
 
                     if( $customer->update() ){
-                        return response()->json(['success' => 'customer Updated Successfully'], 200);
+                        return response()->json(['customer_update' => __('Customer.CustomerUpdateMsg')], 200);
                     }
 
                 }catch( Exception $e ){

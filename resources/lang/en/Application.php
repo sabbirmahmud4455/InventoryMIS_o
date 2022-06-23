@@ -17,6 +17,7 @@
         'Information' => 'Information',
         'CreatedDateTime' => 'Created Date & Time',
         'LastUpdate' => 'Information',
+        'WarningMsg' => 'Something Wrong. Try Again !!',
     ]
 
 ?>
