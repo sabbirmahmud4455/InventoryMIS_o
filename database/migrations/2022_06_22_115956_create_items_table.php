@@ -20,6 +20,7 @@ class CreateItemsTable extends Migration
             $table->foreign('item_type_id')->references('id')->on('item_types')->onDelete('cascade');
 
             $table->string('name')->unique();
+            $table->string('item_code')->unique();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_delete')->default(false);
             $table->timestamps();
