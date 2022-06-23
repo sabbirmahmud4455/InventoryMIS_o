@@ -51,7 +51,9 @@
                                     <thead>
                                     <tr>
                                         <th>{{ __('Application.Id') }}</th>
+                                        <th>{{ __('Item.ItemType') }}</th>
                                         <th>{{ __('Item.Name') }}</th>
+                                        <th>{{ __('Item.ItemCode') }}</th>
                                         <th>{{ __('Application.Status') }}</th>
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>
@@ -90,8 +92,16 @@
                     name: 'id'
                     },
                     {
+                        data: 'item_type_id',
+                        name: 'item_type_id'
+                    },
+                    {
                         data: 'name',
                         name: 'name'
+                    },
+                    {
+                        data: 'item_code',
+                        name: 'item_code'
                     },
                     {
                         data: 'is_active',
