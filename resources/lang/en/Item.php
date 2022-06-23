@@ -6,6 +6,7 @@
         'ItemCode' => 'Item Code',
         'ItemVarientCheck' => 'Do You have any Item Varient ?',
         'ItemVarient' => 'Item Varient',
+        'ItemVarientDuplicateSwal' => 'Item Varient is already created',
         'AddItem' => 'Add Item',
         'Name' => 'Name',
         'AddNewItem' => 'Add New Item',

@@ -6,6 +6,7 @@
         'ItemCode' => 'পণ্যের কোড',
         'ItemVarientCheck' => 'কোন পণ্যের ভিন্নতা আছে ?',
         'ItemVarient' => 'পণ্যের ভিন্নতা',
+        'ItemVarientDuplicateSwal' => 'পণ্যের ভিন্নতা ইতিমধ্যে তৈরি করা হয়েছে',
         'AddItem' => 'পণ্য যোগ করুন',
         'Name' => 'নাম',
         'AddNewItem' => 'নতুন পণ্য যোগ করুন',

@@ -14,6 +14,20 @@
                         <td>{{ __('Item.Name') }}</td>
                         <td>{{ $item->name }}</td>
                     </tr>
+
+                    <tr>
+                        <td>{{ __('Item.ItemType') }}</td>
+                        <td>{{ $item->item_type->name }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>{{ __('Item.ItemVarient') }}</td>
+                        <td>
+                            @foreach ($item->item_varients as $item_varient)
+                                {{ $item_varient->varient->name }} ,
+                            @endforeach
+                        </td>
+                    </tr>
                     
                     <tr>
                         <td>{{ __('Application.Status') }}</td>

@@ -119,8 +119,6 @@ class ItemController extends Controller
 
                         if($request->has('item_varient_check')) {
 
-                            return $request->varient_id;
-
                             foreach($request->varient_id as $key => $varient_id) {
 
                                 $item_varitent = new ItemVarient();
@@ -129,17 +127,15 @@ class ItemController extends Controller
         
                                 $check_duplicate_item_varitent = ItemVarient::where('item_id', $item->id)->where('varient_id',$varient_id)->get();
         
+                                $ItemVarientDuplicateSwal = __('Item.ItemVarientDuplicateSwal');
                                 if (count($check_duplicate_item_varitent) > 0) {
-                                    return response()->json(['error' => 'Item Varient is already created'], 200);
+                                    return response()->json(['error' => $ItemVarientDuplicateSwal], 200);
                                 }
         
                                 $item_varitent->save();
         
                             }
 
-                        }
-                        else {
-                            return $request;
                         }
 
                         return response()->json(['success' => $AddSwal], 200);
@@ -157,6 +153,106 @@ class ItemController extends Controller
         }
     }
     //add function end
+
+    //edit modal function start
+    public function edit_modal($id)
+    {
+        if (can('edit_item'))
+        {
+            $item = Item::with('item_type','item_varients')->where('id',$id)->select("id", 'item_type_id', "name", 'item_code', "is_active", 'is_delete')->first();
+            $item_types = ItemType::where('is_active', true)->get();
+            $varients = Varient::where('is_active', true)->where('is_delete', false)->get();
+            return view('backend.modules.system_data_module.item.modals.edit',compact('item', 'item_types', 'varients'));
+        }
+        else
+        {
+            return view('errors.404');
+        }
+    }
+    //edit modal function end
+
+
+    //edit function start
+    public function edit(Request $request,$id){
+        if( can("edit_item") ){
+            $validator = Validator::make($request->all(), [
+                "item_type_id" => "required",
+                "name" => "required|unique:items,name,$id",
+                "item_code" => "required|unique:items,name,$id",
+                "is_active" => "required",
+            ]);
+
+            if( $validator->fails() ){
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+            else{
+                try{
+                    $item = Item::find($id);
+                    $item->item_type_id = $request->item_type_id;
+                    $item->name = $request->name;
+                    $item->item_code = $request->item_code;
+                    $item->is_active = $request->is_active;
+                    $item->is_delete = false;
+                    $EditSwal = __('Item.EditSwal');
+                    
+                    if( $item->save() ){
+
+                        ItemVarient::where('item_id',$id)->delete();
+
+                        if($request->has('item_varient_check')) {
+
+                            foreach($request->varient_id as $key => $varient_id) {
+
+
+                                $item_varitent = new ItemVarient();
+                                $item_varitent->item_id = $item->id;
+                                $item_varitent->varient_id = $varient_id;
+        
+                                $check_duplicate_item_varitent = ItemVarient::where('item_id', $item->id)->where('varient_id',$varient_id)->get();
+        
+                                $ItemVarientDuplicateSwal = __('Item.ItemVarientDuplicateSwal');
+                                if (count($check_duplicate_item_varitent) > 0) {
+                                    return response()->json(['error' => $ItemVarientDuplicateSwal], 200);
+                                }
+        
+                                $item_varitent->save();
+        
+                            }
+
+                        }
+
+                        return response()->json(['success' => $EditSwal], 200);
+                    }
+
+                }
+                catch( \Exception $e ){
+                    return response()->json(['error' => $e->getMessage()], 200);
+                }
+            }
+
+        }
+        else
+        {
+            return view('errors.404');
+        }
+    }
+    //edit function end
+
+
+    //view modal function start
+    public function view($id)
+    {
+        if (can('view_item'))
+        {
+            $item = Item::with('item_type','item_varients')->find($id);
+            return view('backend.modules.system_data_module.item.modals.view',compact('item'));
+        }
+        else
+        {
+            return view('errors.404');
+        }
+    }
+    //view modal function end
 
 
 
