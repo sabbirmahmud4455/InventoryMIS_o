@@ -55,7 +55,8 @@ class SupplierController extends Controller
                     $supplier->is_active = true;
 
                     if( $supplier->save() ){
-                        return response()->json(['success' => 'New Supplier Created Successfully'], 200);
+
+                        return response()->json(['supplier_add' => __("Supplier.SupplierAddSuccessMsg")], 200);
                     }
 
                 }catch( Exception $e ){
@@ -113,7 +114,7 @@ class SupplierController extends Controller
                     $supplier->is_active = true;
 
                     if( $supplier->update() ){
-                        return response()->json(['success' => 'Supplier Updated Successfully'], 200);
+                        return response()->json(['supplier_update' => __('Supplier.SupplierUpdateMsg')], 200);
                     }
 
                 }catch( Exception $e ){

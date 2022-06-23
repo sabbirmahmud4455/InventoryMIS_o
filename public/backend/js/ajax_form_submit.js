@@ -44,6 +44,26 @@ $(document).ready(function () {
                     return window.location.href = response.login
                 }
 
+                if (response.supplier_add) {
+                    swal("", `${response.supplier_add}`, "success");
+                    return window.location.reload();
+                }
+
+                if (response.supplier_update) {
+                    swal("", `${response.supplier_update}`, "success");
+                    return window.location.reload();
+                }
+
+                if (response.customer_add) {
+                    swal("", `${response.customer_add}`, "success");
+                    return window.location.reload();
+                }
+
+                if (response.customer_update) {
+                    swal("", `${response.customer_update}`, "success");
+                    return window.location.reload();
+                }
+
                 console.clear()
             },
             error: function (response) {
