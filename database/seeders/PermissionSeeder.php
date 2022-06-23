@@ -251,7 +251,51 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             // Item Permission [26-30]
-                // NAZIB
+            [
+                'id' => 26,
+                'key' => 'item',
+                'display_name_en' => 'Item',
+                'display_name_bn' => 'পণ্য',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 27,
+                'key' => 'add_item',
+                'display_name_en' => '-- Add Item',
+                'display_name_bn' => '-- পণ্য যোগ',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 28,
+                'key' => 'edit_item',
+                'display_name_en' => '-- Edit Item',
+                'display_name_bn' => '-- পণ্য পরিবর্তন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 29,
+                'key' => 'view_item',
+                'display_name_en' => '-- View Item',
+                'display_name_bn' => '-- পণ্য দেখা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 30,
+                'key' => 'delete_item',
+                'display_name_en' => '-- Delete Item',
+                'display_name_bn' => '-- পণ্য মুছে ফেলা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
             // Item Varient Permission [31-35]
             [
                 'id' => 31,
