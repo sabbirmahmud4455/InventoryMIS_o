@@ -18,6 +18,8 @@
         'CreatedDateTime' => 'Created Date & Time',
         'LastUpdate' => 'Information',
         'WarningMsg' => 'Something Wrong. Try Again !!',
+        'SetLangugae' => 'Set Application Language',
+        'Language' => 'Language',
     ]
 
 ?>

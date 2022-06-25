@@ -15,12 +15,12 @@
                     <ol class="breadcrumb float-sm-left">
                         <li class="breadcrumb-item">
                             <a href="{{ route('dashboard') }}">
-                                Dashboard
+                                {{ __('Application.Dashboard') }}
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
                             <a href="#">
-                                Language
+                                {{ __('Application.Language') }}
                             </a>
                         </li>
                     </ol>
@@ -39,7 +39,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="fas fa-edit"></i>
-                                Set Application Language
+                                {{ __('Application.SetLangugae') }}
                             </h3>
                         </div>
                         <div class="card-body">
@@ -52,7 +52,7 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-5">
-                                        <label>Select Language</label>
+                                        <label>{{ __('Application.Language') }}</label>
                                         <select class="form-control" name="lang">
                                             <option selected disabled > Please Select Language </option>
                                             <option {{ $lang == 'en' ? 'selected' : '' }} value="en"> English </option>

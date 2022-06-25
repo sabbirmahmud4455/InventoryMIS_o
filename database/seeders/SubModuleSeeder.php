@@ -106,7 +106,7 @@ class SubModuleSeeder extends Seeder
                 'module_id' => 3,
                 'created_at' => $date,
                 'updated_at' => $date,
-            ],    
+            ],
             [
                 'id' => 8,
                 'name_en' => 'Warehouse',
@@ -156,7 +156,7 @@ class SubModuleSeeder extends Seeder
             ],
             // Module ID 4 [Supplier] end
 
-            // Module ID 4 [Supplier] end
+            // Module ID 4 [Customer] end
             [
                 'id' => 12,
                 'name_en' => 'All Customer',
@@ -168,7 +168,49 @@ class SubModuleSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
-            // Module ID 4 [Supplier] end
+            // Module ID 4 [Customer] end
+
+            // Module ID 6 [Bank] Start
+            [
+                'id' => 13,
+                'name_en' => 'All Banks',
+                'name_bn' => 'সকল ব্যাংক',
+                'key' => 'bank',
+                'position' => 1,
+                'route' => 'customer.all',
+                'module_id' => 6,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 14,
+                'name_en' => 'Add Bank',
+                'name_bn' => 'ব্যাংক যোগ করুন',
+                'key' => 'add_bank',
+                'position' => 2,
+                'route' => 'customer.all',
+                'module_id' => 6,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 14,
+                'name_en' => 'Bank Transaction',
+                'name_bn' => 'ব্যাংক লেনদেন',
+                'key' => 'bank_transaction',
+                'position' => 3,
+                'route' => 'customer.all',
+                'module_id' => 6,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Module ID 6 [Bank] Start
+
+            // Module ID 7 [Purchase] Start
+
+            // Module ID 7 [Purchase] End
+
+
 
 
 
