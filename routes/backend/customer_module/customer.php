@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Backend\SystemDataModule\CustomerController;
+use App\Http\Controllers\Backend\CustomerModule\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'customer'], function(){

@@ -47,8 +47,30 @@ class ModuleSeeder extends Seeder
                 'name_en' => 'System Data',
                 'name_bn' => 'সিস্টেম ডাটা',
                 'key' => 'system_data',
-                'icon' => 'fas fa-cog',
+                'icon' => 'fas fa-database',
                 'position' => 2,
+                'route' => null,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 4,
+                'name_en' => 'Supplier',
+                'name_bn' => 'মহাজন',
+                'key' => 'supplier',
+                'icon' => 'fas fa-truck',
+                'position' => 3,
+                'route' => null,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 5,
+                'name_en' => 'Customer',
+                'name_bn' => 'ক্রেতা',
+                'key' => 'customer',
+                'icon' => 'fas fa-users',
+                'position' => 4,
                 'route' => null,
                 'created_at' => $date,
                 'updated_at' => $date,
@@ -56,6 +78,6 @@ class ModuleSeeder extends Seeder
 
         ]);
 
-        // LAST ID : 2. NEXT ID : 3 [Settings Position : 12]
+        // LAST ID : 5. NEXT ID : 6 [Settings Position : 12]
     }
 }

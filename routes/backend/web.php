@@ -51,14 +51,24 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
     // System Data
     Route::group(['prefix' => 'system-data'], function(){
         require_once 'system_data_module/item_type.php';
-        require_once 'system_data_module/customer.php';
-        require_once 'system_data_module/supplier.php';
         require_once 'system_data_module/warehouse.php';
         require_once 'system_data_module/payment_type.php';
         require_once 'system_data_module/transaction_type.php';
         require_once 'system_data_module/varient.php';
         require_once 'system_data_module/item.php';
     });
+
+
+    // Supplier Module
+    Route::group(['prefix' => 'spplier-module'], function() {
+        require_once('supplier_module/supplier.php');
+    });
+
+    // Customer Module
+    Route::group(['prefix' => 'customer-module'], function() {
+        require_once('customer_module/customer.php');
+    });
+
 
 });
 //backend route group end

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Backend\SystemDataModule;
+namespace App\Http\Controllers\Backend\CustomerModule;
 
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\SystemDataModule\Customer;
+use App\Models\CustomerModule\Customer;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        if( can('customer') ){
+        if( can('all_customer') ){
             $customers = Customer::select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc')->paginate(20);
 
             return view('backend.modules.system_data_module.customer.index', compact('customers'));

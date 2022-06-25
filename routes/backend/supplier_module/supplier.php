@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Backend\SystemDataModule\SupplierController;
+use App\Http\Controllers\Backend\SupplierModule\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'supplier'], function(){
