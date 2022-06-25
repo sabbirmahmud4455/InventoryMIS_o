@@ -6,6 +6,9 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\SupplierModule\Supplier;
+use App\Models\TransactionModule\Transaction;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class SupplierController extends Controller
@@ -36,30 +39,47 @@ class SupplierController extends Controller
     public function add(Request $request){
 
         if( can('add_supplier') ){
+            $today = Carbon::now();
             $validator = Validator::make($request->all(),[
                 'name' => 'required',
                 'phone' => 'required|numeric|regex:/(01)[0-9]{9}/',
                 'address' => 'nullable|max:2000',
                 'remarks' => 'nullable|max:2000',
+                'opening_balance' => 'required'
             ]);
 
             if( $validator->fails() ){
                 return response()->json(['errors' => $validator->errors()] ,422);
             }else{
+
+                DB::beginTransaction();
+
                 try{
+
                     $supplier = new Supplier();
                     $supplier->name = $request->name;
                     $supplier->contact_no  = $request->phone;
                     $supplier->address = $request->address;
                     $supplier->remarks = $request->remarks;
                     $supplier->is_active = true;
+                    $supplier->save();
 
-                    if( $supplier->save() ){
-
-                        return response()->json(['supplier_add' => __("Supplier.SupplierAddSuccessMsg")], 200);
+                    if($request->opening_balance){
+                        $transaction = new Transaction();
+                        $transaction->date = $today->toDateString();
+                        $transaction->transaction_code = $today.'OP#Sup';
+                        $transaction->narration = 'OPENING BALANCE';
+                        $transaction->supplier_id = $supplier->id;
+                        $transaction->remarks = 'Opening Balance of '.$supplier->name;
+                        $transaction->cash_in = BnToEn($request->opening_balance);
+                        $transaction->created_by = auth('web')->user()->id;
+                        $transaction->save();
                     }
 
+                    return response()->json(['supplier_add' => __("Supplier.SupplierAddSuccessMsg")], 200);
+
                 }catch( Exception $e ){
+                    DB::rollBack();
                     return response()->json(['error' => $e->getMessage()],200);
                 }
             }

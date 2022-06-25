@@ -6,6 +6,7 @@
         'SupplierAddress' => 'Supplier Address',
         'SupplierRemarks' => 'Supplier Remarks',
         'SupplierAdd' => 'Add Supplier',
+        'OpeningBalance' => 'Opening Balance',
         'SupplierAddSuccessMsg' => 'Supplier Successfully Added',
         'SupplierUpdateMsg' => 'Supplier Successfully Updated',
         'SupplierWarningMsg' => 'Something Wrong. Try Again !!',

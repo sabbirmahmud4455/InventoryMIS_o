@@ -6,6 +6,7 @@
         'SupplierAddress' => 'মহাজনের ঠিকানা',
         'SupplierRemarks' => 'মহাজনের মন্তব্য',
         'SupplierAdd' => 'মহাজন যোগ করুন',
+        'OpeningBalance' => 'সাবেক টাকার পরিমান',
         'SupplierAddSuccessMsg' => 'মহাজন যোগ করা হয়েছে',
         'SupplierUpdateMsg' => 'মহাজন পরিবর্তন করা হয়েছে',
         'SupplierWarningMsg' => ' কিছু ভুল হয়েছে| আবার চেষ্টা করুন !!',

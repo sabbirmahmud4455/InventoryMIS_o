@@ -25,4 +25,14 @@ use App\Models\UserManagement\SuperAdmin;
         session()->put("lang_code",$lang);
         return redirect()->back();
     }
+
+    // Bangla Number To English Number
+    function BnToEn($number) {
+        $bn_to_en = array('১' => '1', '২' => '2', '৩' => '3', '৪' => '4', '৫' => '5', '৬' => '6', '৭' => '7', '৮' => '8', '৯' => '9', '০' => '0');
+
+        $en_number = strtr($number, $bn_to_en);
+        return $en_number;
+    }
+
+
 ?>
