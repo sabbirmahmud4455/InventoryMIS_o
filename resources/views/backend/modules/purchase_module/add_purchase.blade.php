@@ -3,6 +3,9 @@
 @section('per_page_css')
 <link href="{{ asset('backend/css/datatable/jquery.dataTables.min.css') }}" rel="stylesheet">
 <link href="{{ asset('backend/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+<link href="{{ asset('backend/css/select2/form-select2.min.css') }}" rel="stylesheet">
+<link href="{{ asset('backend/css/select2/select2-materialize.css') }}" rel="stylesheet">
+<link href="{{ asset('backend/css/select2/select2.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('body-content')
@@ -46,7 +49,68 @@
                             <h6>{{ __('Purchase.AddNewPurchase') }}</h6>
                         </div>
                         <div class="card-body">
-                            
+                            <div class="row">
+                                {{-- Lot --}}
+                                <div class="col-md-3">
+                                    <label>{{ __('Lot.Lot') }}</label>
+                                    <input type="text" class="form-control form-control-sm">
+                                </div>
+
+                                {{-- Supplier Name --}}
+                                <div class="col-md-3">
+                                    <label>{{ __('Supplier.SupplierName') }}</label>
+                                    <select name="supplier_id" class="form-control form-control-sm select2">
+                                        @forelse ($suppliers as $supplier)
+                                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                        @empty
+
+                                        @endforelse
+                                    </select>
+                                </div>
+
+                                {{-- Item Name --}}
+                                <div class="col-md-3">
+                                    <label>{{ __('Item.Item') }}</label>
+                                    <select name="item_id" class="form-control form-control-sm select2">
+                                        @forelse ($items as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @empty
+
+                                        @endforelse
+                                    </select>
+                                </div>
+
+                                {{-- Item Varient --}}
+                                <div class="col-md-3">
+                                    <label>{{ __('Item.ItemVariant') }}</label>
+                                    <select name="item_id" class="form-control form-control-sm select2">
+                                        @forelse ($items as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @empty
+
+                                        @endforelse
+                                    </select>
+                                </div>
+
+                                {{-- Item Weight --}}
+                                <div class="col-md-3">
+                                    <label>{{ __('Application.Beg') }}</label>
+                                    <input type="text" class="form-control form-control-sm" name="beg">
+                                </div>
+
+                                {{-- Item Price --}}
+                                <div class="col-md-3">
+                                    <label>{{ __('Application.Price') }}</label>
+                                    <input type="text" class="form-control form-control-sm" name="unit_price">
+                                </div>
+
+                                {{-- Total Price --}}
+                                <div class="col-md-3">
+                                    <label>{{ __('Application.Price') }}</label>
+                                    <input type="text" class="form-control form-control-sm" name="unit_price">
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,5 +126,15 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{{ asset('backend/js/custom-script.min.js') }}"></script>
 <script src="{{  asset('backend/js/ajax_form_submit.js') }}"></script>
+<script src="{{ asset('backend/js/select2/form-select2.min.js') }}"></script>
+<script src="{{ asset('backend/js/select2/select2.full.min.js') }}"></script>
+<script>
+    $(document).ready(function domReady() {
+        $(".select2").select2({
+            dropdownAutoWidth: true,
+            width: '100%'
+        });
+    });
+</script>
 
 @endsection

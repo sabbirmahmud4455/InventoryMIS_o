@@ -219,7 +219,7 @@ class SubModuleSeeder extends Seeder
 
             // Module ID 7 [Purchase] Start
             [
-                'id' => 16,
+                'id' => 17,
                 'name_en' => 'All Purchase',
                 'name_bn' => 'সমস্ত ক্রয়',
                 'key' => 'all_purchase',
@@ -230,7 +230,7 @@ class SubModuleSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 17,
+                'id' => 18,
                 'name_en' => 'New Purchase',
                 'name_bn' => 'নতুন ক্রয়',
                 'key' => 'new_purchase',
@@ -251,6 +251,6 @@ class SubModuleSeeder extends Seeder
         ]);
 
         // #########################
-        //LAST ID : 17. NEXT ID : 18
+        //LAST ID : 18. NEXT ID : 19
     }
 }
