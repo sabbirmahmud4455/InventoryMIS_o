@@ -20,8 +20,8 @@
         'WarningMsg' => 'Something Wrong. Try Again !!',
         'SetLangugae' => 'Set Application Language',
         'Language' => 'Language',
-        'Beg' => 'Beg',
-        'Price' => 'Price',
+        'SerialNo' => 'Sl No',
+        'Weight' => 'Weight',
     ]
 
 ?>

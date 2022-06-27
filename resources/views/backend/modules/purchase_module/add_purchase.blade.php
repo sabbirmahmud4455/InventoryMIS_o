@@ -49,6 +49,8 @@
                             <h6>{{ __('Purchase.AddNewPurchase') }}</h6>
                         </div>
                         <div class="card-body">
+
+                            {{-- Item Adding Start --}}
                             <div class="row">
                                 {{-- Lot --}}
                                 <div class="col-md-3">
@@ -94,23 +96,123 @@
 
                                 {{-- Item Weight --}}
                                 <div class="col-md-3">
-                                    <label>{{ __('Application.Beg') }}</label>
+                                    <label>{{ __('Purchase.Beg') }}</label>
                                     <input type="text" class="form-control form-control-sm" name="beg">
                                 </div>
 
                                 {{-- Item Price --}}
                                 <div class="col-md-3">
-                                    <label>{{ __('Application.Price') }}</label>
+                                    <label>{{ __('Purchase.Price') }}</label>
                                     <input type="text" class="form-control form-control-sm" name="unit_price">
                                 </div>
 
                                 {{-- Total Price --}}
                                 <div class="col-md-3">
-                                    <label>{{ __('Application.Price') }}</label>
-                                    <input type="text" class="form-control form-control-sm" name="unit_price">
+                                    <label>{{ __('Purchase.TotalPrice') }}</label>
+                                    <input type="text" class="form-control form-control-sm" name="total_price">
                                 </div>
 
+                                {{-- Add Button --}}
+                                <div class="col-md-3">
+                                    <button class="btn btn-info mt-4 btn-sm">{{ __('Application.Add') }}</button>
+                                </div>
                             </div>
+                            {{-- Item Adding End --}}
+                            <br>
+
+                            <div class="row">
+                                {{-- Added Item List Start --}}
+                                <div class="col-md-9 bg card">
+                                    <span style="margin-top: 8px;"></span>
+                                    <table width="100%" class="table table-sm table-bordered">
+                                        <thead>
+                                            <th>{{ __('Application.SerialNo') }}</th>
+                                            <th>{{ __('Item.Item') }}</th>
+                                            <th>{{ __('Purchase.Beg') }}</th>
+                                            <th>{{ __('Purchase.Weight') }}</th>
+                                            <th>{{ __('Purchase.Price') }}</th>
+                                            <th>{{ __('Purchase.TotalPrice') }}</th>
+                                            <th>{{ __('Application.Delete') }}</th>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td>১</td>
+                                                <td>মিনিকেট</td>
+                                                <td>৫</td>
+                                                <td>২৫</td>
+                                                <td>১৯০০</td>
+                                                <td>৯৫০০</td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-sm">X</button>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>১</td>
+                                                <td>মিনিকেট</td>
+                                                <td>৫</td>
+                                                <td>২৫</td>
+                                                <td>১৯০০</td>
+                                                <td>৯৫০০</td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-sm">X</button>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>১</td>
+                                                <td>মিনিকেট</td>
+                                                <td>৫</td>
+                                                <td>২৫</td>
+                                                <td>১৯০০</td>
+                                                <td>৯৫০০</td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-sm">X</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- Added Item List End --}}
+
+                                {{-- Sub Total Information Start --}}
+                                <div class="col-md-3 bg card">
+                                    <span style="margin-top: 8px;"></span>
+
+                                    <label>{{ __('Purchase.TotalPrice') }}</label>
+                                    <input type="text" class="form-control form-control-sm">
+
+                                    <label>{{ __('Purchase.PreviousBalance') }}</label>
+                                    <input type="text" class="form-control form-control-sm">
+
+                                    <label>{{ __('Purchase.InTotalAmount') }}</label>
+                                    <input type="text" class="form-control form-control-sm">
+
+                                    <label>{{ __('Purchase.DepositeAmount') }}</label>
+                                    <input type="text" class="form-control form-control-sm">
+
+                                    <label>{{ __('Purchase.DueAmount') }}</label>
+                                    <input type="text" class="form-control form-control-sm">
+
+                                    <label>{{ __('Purchase.PaymentBy') }}</label>
+                                    <select name="payment_by" class="form-control form-control-sm">
+                                        <option value="CASH">{{ __('Purchase.Cash') }}</option>
+                                        <option value="CASH">{{ __('Purchase.Bank') }}</option>
+                                    </select>
+
+                                    <button class="btn btn-success btn-sm mt-3 ">
+                                        {{ __('Application.Add') }}
+                                    </button>
+
+                                    <span style="margin-bottom: 8px;"></span>
+                                </div>
+                                {{-- Sub Total Information End --}}
+
+                            </div>
+
+
+
                         </div>
                     </div>
                 </div>
