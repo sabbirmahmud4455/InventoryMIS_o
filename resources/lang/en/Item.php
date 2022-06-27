@@ -14,5 +14,6 @@
         'EditItem' => 'Edit Item',
         'AddSwal' => 'New Item Created',
         'EditSwal' => 'Item Updated',
+        'SelectItem' => 'Select Item',
     ];
 ?>

@@ -55,7 +55,13 @@
                                 {{-- Lot --}}
                                 <div class="col-md-3">
                                     <label>{{ __('Lot.Lot') }}</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <select class="form-control form-control-sm select2" name="lot_id" id="lot">
+                                        <option selected disabled>Select Lot</option>
+                                        @foreach ($lots as $lot)
+                                            <option value="{{ $lot->id }}">{{ $lot->name }}</option>
+                                            <option value="AddNewLot">{{ __('Lot.LotAdd') }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 {{-- Supplier Name --}}
@@ -73,7 +79,8 @@
                                 {{-- Item Name --}}
                                 <div class="col-md-3">
                                     <label>{{ __('Item.Item') }}</label>
-                                    <select name="item_id" class="form-control form-control-sm select2">
+                                    <select name="item_id" class="form-control form-control-sm select2" id="item_id">
+                                        <option selected disabled>{{ __('Item.SelectItem') }}</option>
                                         @forelse ($items as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @empty
@@ -83,14 +90,21 @@
                                 </div>
 
                                 {{-- Item Varient --}}
-                                <div class="col-md-3">
+                                <div class="col-md-1">
                                     <label>{{ __('Item.ItemVariant') }}</label>
-                                    <select name="item_id" class="form-control form-control-sm select2">
-                                        @forelse ($items as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @empty
+                                    <select name="item_varient" class="form-control form-control-sm select2" id="item_varient">
+                                        <option selected disabled>{{ __('variant.SelectVarient') }}</option>
+                                    </select>
+                                </div>
 
-                                        @endforelse
+                                {{-- Unit --}}
+
+                                <div class="col-md-2">
+                                    <label>{{ __('Unit.Unit') }}</label>
+                                    <select name="item_varient" class="form-control form-control-sm select2" id="item_varient">
+                                        @foreach ($units as $unit)
+                                            <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -208,11 +222,7 @@
                                     <span style="margin-bottom: 8px;"></span>
                                 </div>
                                 {{-- Sub Total Information End --}}
-
                             </div>
-
-
-
                         </div>
                     </div>
                 </div>
@@ -220,8 +230,49 @@
 
         </div>
     </section>
-
 </div>
+
+{{-- Lot Add Modal Start --}}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ __('Lot.AddNewLot') }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form class="ajax-form" method="post" action="{{ route('lot.store') }}">
+                    @csrf
+
+                    <div class="row">
+
+                        <!-- name -->
+                        <div class="col-md-12 col-12 form-group">
+                            <label for="name">{{ __('Lot.LotName') }}</label><span class="require-span">*</span>
+                            <input type="text" class="form-control" name="lot_name" required>
+                        </div>
+
+                        <div class="col-md-12 form-group text-right">
+                            <button type="submit" class="btn btn-outline-dark">
+                                {{ __('Application.Add') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('Application.Close') }}</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+{{-- Lot Add Modal End --}}
+
 @endsection
 
 @section('per_page_js')
@@ -235,6 +286,43 @@
         $(".select2").select2({
             dropdownAutoWidth: true,
             width: '100%'
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function(){
+
+        // Get Item Varient Data
+        $('#item_id').change(function () {
+            var $id = $(this).val();
+            var varient_id = $('#item_varient');
+            $.ajax({
+                url: "{{ route('purchase.item_varients') }}",
+                data:{
+                    item_id: $id
+                },
+                method: 'GET',
+                success: function(data){
+                    varient_id.html('<option selected disabled>Choose Varient</option>');
+                    $.each(data, function(index, value){
+                        varient_id.append('<option value = "'+ value.variant.id +'">'+ value.variant.name +'</option>')
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('#lot').change(function(){
+            var newLot = $(this).val();
+            if(newLot == 'AddNewLot') {
+                $('#myModal').modal('show');
+
+            }
         });
     });
 </script>

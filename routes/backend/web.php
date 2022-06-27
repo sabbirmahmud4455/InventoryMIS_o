@@ -80,6 +80,11 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
         require_once 'purchase_module/purchase.php';
     });
 
+    // Lot Module
+    Route::group(['prefix' => 'lot-module'], function() {
+        require_once 'lot_module/lot.php';
+    });
+
 
 });
 //backend route group end
