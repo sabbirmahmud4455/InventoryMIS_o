@@ -553,6 +553,65 @@ class PermissionSeeder extends Seeder
             // Customer Module Permission End
 
 
+            // Purchase Module Permission Start
+            [
+                'id' => 61,
+                'key' => 'purchase',
+                'display_name_en' => 'Purchase',
+                'display_name_bn' => 'ক্রয়',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 62,
+                'key' => 'all_purchase',
+                'display_name_en' => '-- All Purchase',
+                'display_name_bn' => '-- সমস্ত ক্রয়',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 63,
+                'key' => 'add_purchase',
+                'display_name_en' => '-- Add Purchase',
+                'display_name_bn' => '-- ক্রয় যোগ',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 64,
+                'key' => 'edit_purchase',
+                'display_name_en' => '-- Edit Purchase',
+                'display_name_bn' => '-- ক্রয় পরিবর্তন',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 65,
+                'key' => 'view_purchase',
+                'display_name_en' => '--View Purchase',
+                'display_name_bn' => 'ক্রয় দেখা',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 66,
+                'key' => 'delete_purchase',
+                'display_name_en' => '--Delete Purchase',
+                'display_name_bn' => 'ক্রয় মুছে ফেলা',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Purchase Module Permission End
+
+
+
 
         ]);
 
@@ -564,6 +623,6 @@ class PermissionSeeder extends Seeder
         // Nazib : Item Type + Item + Item Variant [21-35]
         // Mahbub : Warehouse + PaymentType + TransactionType [Add, Edit, View, Delete] 36-50
 
-        // Last ID: 53, New ID: 54
+        // Last ID: 66, New ID: 67
     }
 }

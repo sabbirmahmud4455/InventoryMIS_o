@@ -215,10 +215,31 @@ class SubModuleSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
-            // Module ID 6 [Bank] Start
+            // Module ID 6 [Bank] End
 
             // Module ID 7 [Purchase] Start
-
+            [
+                'id' => 16,
+                'name_en' => 'All Purchase',
+                'name_bn' => 'সমস্ত ক্রয়',
+                'key' => 'all_purchase',
+                'position' => 1,
+                'route' => 'purchase.index',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 17,
+                'name_en' => 'New Purchase',
+                'name_bn' => 'নতুন ক্রয়',
+                'key' => 'new_purchase',
+                'position' => 2,
+                'route' => 'purchase.add',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
             // Module ID 7 [Purchase] End
 
 
@@ -230,6 +251,6 @@ class SubModuleSeeder extends Seeder
         ]);
 
         // #########################
-        //LAST ID : 16. NEXT ID : 17
+        //LAST ID : 17. NEXT ID : 18
     }
 }
