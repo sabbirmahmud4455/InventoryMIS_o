@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend\BankModule;
 
 use App\Http\Controllers\Controller;
 use App\Models\BankModule\Bank;
+use App\Models\TransactionModule\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -108,6 +110,20 @@ class BankController extends Controller
                     $bank->is_delete = false;
                     $AddSwal = __('Bank.AddSwal');
                     if( $bank->save() ){
+
+                        $today = Carbon::now();
+                        if($request->opening_balance){
+                            $transaction = new Transaction();
+                            $transaction->date = $today->toDateString();
+                            $transaction->transaction_code = $today.'OP#Bank';
+                            $transaction->narration = 'OPENING BALANCE';
+                            $transaction->bank_id = $bank->id;
+                            $transaction->remarks = 'Opening Balance of '.$bank->account_no;
+                            $transaction->cash_in = BnToEn($request->opening_balance);
+                            $transaction->created_by = auth('web')->user()->id;
+                            $transaction->save();
+                        }
+
                         return response()->json(['success' => $AddSwal], 200);
                     }
 
