@@ -390,7 +390,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 67,
+                'id' => 65,
                 'key' => 'unit',
                 'display_name_en' => 'Unit',
                 'display_name_bn' => 'ইউনিট',
@@ -399,7 +399,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 68,
+                'id' => 66,
                 'key' => 'add_unit',
                 'display_name_en' => '-- Add Unit',
                 'display_name_bn' => '-- ইউনিট যোগ',
@@ -408,7 +408,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 69,
+                'id' => 67,
                 'key' => 'edit_unit',
                 'display_name_en' => '-- Edit Unit',
                 'display_name_bn' => '-- ইউনিট পরিবর্তন',
@@ -417,7 +417,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 70,
+                'id' => 68,
                 'key' => 'view_unit',
                 'display_name_en' => '-- View Unit',
                 'display_name_bn' => '-- ইউনিট দেখা',
@@ -426,7 +426,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 71,
+                'id' => 69,
                 'key' => 'delete_unit',
                 'display_name_en' => '-- Delete Unit',
                 'display_name_bn' => '-- ইউনিট মুছে ফেলা',
@@ -552,10 +552,68 @@ class PermissionSeeder extends Seeder
             ],
             // Customer Module Permission End
 
+            
+            // Bank Module Permission Start
+            [
+                'id' => 53,
+                'key' => 'bank',
+                'display_name_en' => 'Bank',
+                'display_name_bn' => 'ব্যাংক',
+                'module_id' => 6,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 54,
+                'key' => 'all_bank',
+                'display_name_en' => 'All Bank',
+                'display_name_bn' => 'সকল ব্যাংক',
+                'module_id' => 6,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 55,
+                'key' => 'add_bank',
+                'display_name_en' => '-- Add Bank',
+                'display_name_bn' => '-- ব্যাংক যোগ',
+                'module_id' => 6,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 56,
+                'key' => 'edit_bank',
+                'display_name_en' => '-- Edit Bank',
+                'display_name_bn' => '-- ব্যাংক পরিবর্তন',
+                'module_id' => 6,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 57,
+                'key' => 'view_bank',
+                'display_name_en' => '-- View Bank',
+                'display_name_bn' => '-- ব্যাংক দেখা',
+                'module_id' => 6,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 58,
+                'key' => 'delete_bank',
+                'display_name_en' => '-- Delete Bank',
+                'display_name_bn' => '-- ব্যাংক মুছে ফেলা',
+                'module_id' => 6,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Bank Module Permission End
+
 
             // Purchase Module Permission Start
             [
-                'id' => 61,
+                'id' => 59,
                 'key' => 'purchase',
                 'display_name_en' => 'Purchase',
                 'display_name_bn' => 'ক্রয়',
@@ -564,16 +622,16 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 62,
+                'id' => 60,
                 'key' => 'all_purchase',
-                'display_name_en' => '-- All Purchase',
-                'display_name_bn' => '-- সমস্ত ক্রয়',
+                'display_name_en' => 'All Purchase',
+                'display_name_bn' => 'সমস্ত ক্রয়',
                 'module_id' => 7,
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
             [
-                'id' => 63,
+                'id' => 61,
                 'key' => 'add_purchase',
                 'display_name_en' => '-- Add Purchase',
                 'display_name_bn' => '-- ক্রয় যোগ',
@@ -582,7 +640,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 64,
+                'id' => 62,
                 'key' => 'edit_purchase',
                 'display_name_en' => '-- Edit Purchase',
                 'display_name_bn' => '-- ক্রয় পরিবর্তন',
@@ -591,19 +649,19 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 65,
+                'id' => 63,
                 'key' => 'view_purchase',
-                'display_name_en' => '--View Purchase',
-                'display_name_bn' => 'ক্রয় দেখা',
+                'display_name_en' => '-- View Purchase',
+                'display_name_bn' => '-- ক্রয় দেখা',
                 'module_id' => 7,
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
             [
-                'id' => 66,
+                'id' => 64,
                 'key' => 'delete_purchase',
                 'display_name_en' => '--Delete Purchase',
-                'display_name_bn' => 'ক্রয় মুছে ফেলা',
+                'display_name_bn' => '-- ক্রয় মুছে ফেলা',
                 'module_id' => 7,
                 'created_at' => $date,
                 'updated_at' => $date,
@@ -623,6 +681,6 @@ class PermissionSeeder extends Seeder
         // Nazib : Item Type + Item + Item Variant [21-35]
         // Mahbub : Warehouse + PaymentType + TransactionType [Add, Edit, View, Delete] 36-50
 
-        // Last ID: 66, New ID: 67
+        // Last ID: 69, New ID: 70
     }
 }
