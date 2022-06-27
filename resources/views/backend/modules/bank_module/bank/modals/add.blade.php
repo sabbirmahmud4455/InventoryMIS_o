@@ -35,6 +35,12 @@
                 <input type="text" class="form-control" name="branch_name" required>
             </div>
 
+            <!-- Openning Banlance -->
+            <div class="col-md-12 col-12 form-group">
+                <label for="name">{{ __('Bank.OpeningBalance') }}</label>
+                <input type="text" class="form-control" name="opening_balance" required>
+            </div>
+
             <div class="col-md-12 form-group text-right">
                 <button type="submit" class="btn btn-outline-dark">
                     {{ __('Application.Add') }}

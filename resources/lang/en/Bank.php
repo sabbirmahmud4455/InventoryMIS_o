@@ -7,6 +7,7 @@
         'AccountName' => 'Account Name',
         'AccountNumber' => 'Account Number',
         'BranchName' => 'Branch Name',
+        'OpeningBalance' => 'Opening Balance',
         'AddNewBank' => 'Add New Bank',
         'ViewBank' => 'View Bank',
         'EditBank' => 'Edit Bank',

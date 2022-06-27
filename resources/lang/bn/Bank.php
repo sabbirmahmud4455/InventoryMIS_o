@@ -7,6 +7,7 @@
         'AccountName' => 'এ্যাকাউন্টের নাম',
         'AccountNumber' => 'এ্যাকাউন্ট নাম্বর',
         'BranchName' => 'শাখার নাম',
+        'OpeningBalance' => 'সাবেক টাকার পরিমান',
         'AddNewBank' => 'নতুন ব্যাংক যোগ করুন',
         'ViewBank' => 'ব্যাংক দেখুন',
         'EditBank' => 'ব্যাংক পরিবর্তন করুন',
