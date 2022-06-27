@@ -69,6 +69,11 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
         require_once('customer_module/customer.php');
     });
 
+    // Purchase Module
+    Route::group(['prefix' => 'purchase-module'], function() {
+        require_once 'purchase_module/purchase.php';
+    });
+
 
 });
 //backend route group end

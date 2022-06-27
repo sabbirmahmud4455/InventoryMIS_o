@@ -122,6 +122,6 @@ class ModuleSeeder extends Seeder
 
         ]);
 
-        // LAST ID : 5. NEXT ID : 6 [Settings Position : 12]
+        // LAST ID : 9. NEXT ID : 10 [Settings Position : 12]
     }
 }
