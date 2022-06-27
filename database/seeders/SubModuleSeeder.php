@@ -186,26 +186,15 @@ class SubModuleSeeder extends Seeder
                 'id' => 14,
                 'name_en' => 'All Banks',
                 'name_bn' => 'সকল ব্যাংক',
-                'key' => 'bank',
+                'key' => 'all_bank',
                 'position' => 1,
-                'route' => 'customer.all',
+                'route' => 'bank.index',
                 'module_id' => 6,
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
             [
                 'id' => 15,
-                'name_en' => 'Add Bank',
-                'name_bn' => 'ব্যাংক যোগ করুন',
-                'key' => 'add_bank',
-                'position' => 2,
-                'route' => 'customer.all',
-                'module_id' => 6,
-                'created_at' => $date,
-                'updated_at' => $date,
-            ],
-            [
-                'id' => 16,
                 'name_en' => 'Bank Transaction',
                 'name_bn' => 'ব্যাংক লেনদেন',
                 'key' => 'bank_transaction',
@@ -219,7 +208,7 @@ class SubModuleSeeder extends Seeder
 
             // Module ID 7 [Purchase] Start
             [
-                'id' => 17,
+                'id' => 16,
                 'name_en' => 'All Purchase',
                 'name_bn' => 'সমস্ত ক্রয়',
                 'key' => 'all_purchase',
@@ -230,7 +219,7 @@ class SubModuleSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 18,
+                'id' => 17,
                 'name_en' => 'New Purchase',
                 'name_bn' => 'নতুন ক্রয়',
                 'key' => 'new_purchase',
@@ -251,6 +240,6 @@ class SubModuleSeeder extends Seeder
         ]);
 
         // #########################
-        //LAST ID : 18. NEXT ID : 19
+        //LAST ID : 17. NEXT ID : 18
     }
 }

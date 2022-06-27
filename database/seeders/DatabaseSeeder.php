@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             // TransactionTypeSeeder::class,
             // VariantSeeder::class,
             // UnitSeeder::class,
+            // BankSeeder::class,
         ]);
     }
 }

@@ -70,6 +70,11 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
         require_once('customer_module/customer.php');
     });
 
+    // Bank Module
+    Route::group(['prefix' => 'bank-module'], function() {
+        require_once('bank_module/bank.php');
+    });
+
     // Purchase Module
     Route::group(['prefix' => 'purchase-module'], function() {
         require_once 'purchase_module/purchase.php';
