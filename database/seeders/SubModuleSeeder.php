@@ -194,7 +194,7 @@ class SubModuleSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 14,
+                'id' => 15,
                 'name_en' => 'Bank Transaction',
                 'name_bn' => 'ব্যাংক লেনদেন',
                 'key' => 'bank_transaction',
