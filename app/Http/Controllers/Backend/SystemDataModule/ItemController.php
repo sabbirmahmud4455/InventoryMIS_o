@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Backend\SystemDataModule;
 use App\Http\Controllers\Controller;
 use App\Models\SystemDataModule\Item;
 use App\Models\SystemDataModule\ItemType;
-use App\Models\SystemDataModule\ItemVarient;
-use App\Models\SystemDataModule\Varient;
+use App\Models\SystemDataModule\ItemVariant;
+use App\Models\SystemDataModule\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -83,8 +83,8 @@ class ItemController extends Controller
     public function add_modal(){
         if( can("add_item") ){
             $item_types = ItemType::where('is_active', true)->get();
-            $varients = Varient::where('is_active', true)->where('is_delete', false)->get();
-            return view('backend.modules.system_data_module.item.modals.add', compact('item_types', 'varients'));
+            $variants = Variant::where('is_active', true)->where('is_delete', false)->get();
+            return view('backend.modules.system_data_module.item.modals.add', compact('item_types', 'variants'));
         }
         else{
             return view('errors.404');
@@ -117,22 +117,22 @@ class ItemController extends Controller
 
                     if( $item->save() ){
 
-                        if($request->has('item_varient_check')) {
+                        if($request->has('item_variant_check')) {
 
-                            foreach($request->varient_id as $key => $varient_id) {
+                            foreach($request->variant_id as $key => $variant_id) {
 
-                                $item_varitent = new ItemVarient();
-                                $item_varitent->item_id = $item->id;
-                                $item_varitent->varient_id = $varient_id;
+                                $item_variant = new ItemVariant();
+                                $item_variant->item_id = $item->id;
+                                $item_variant->variant_id = $variant_id;
         
-                                $check_duplicate_item_varitent = ItemVarient::where('item_id', $item->id)->where('varient_id',$varient_id)->get();
+                                $check_duplicate_item_variant = ItemVariant::where('item_id', $item->id)->where('variant_id',$variant_id)->get();
         
-                                $ItemVarientDuplicateSwal = __('Item.ItemVarientDuplicateSwal');
-                                if (count($check_duplicate_item_varitent) > 0) {
-                                    return response()->json(['error' => $ItemVarientDuplicateSwal], 200);
+                                $ItemVariantDuplicateSwal = __('Item.ItemVariantDuplicateSwal');
+                                if (count($check_duplicate_item_variant) > 0) {
+                                    return response()->json(['error' => $ItemVariantDuplicateSwal], 200);
                                 }
         
-                                $item_varitent->save();
+                                $item_variant->save();
         
                             }
 
@@ -159,10 +159,10 @@ class ItemController extends Controller
     {
         if (can('edit_item'))
         {
-            $item = Item::with('item_type','item_varients')->where('id',$id)->select("id", 'item_type_id', "name", 'item_code', "is_active", 'is_delete')->first();
+            $item = Item::with('item_type','item_variants')->where('id',$id)->select("id", 'item_type_id', "name", 'item_code', "is_active", 'is_delete')->first();
             $item_types = ItemType::where('is_active', true)->get();
-            $varients = Varient::where('is_active', true)->where('is_delete', false)->get();
-            return view('backend.modules.system_data_module.item.modals.edit',compact('item', 'item_types', 'varients'));
+            $variants = Variant::where('is_active', true)->where('is_delete', false)->get();
+            return view('backend.modules.system_data_module.item.modals.edit',compact('item', 'item_types', 'variants'));
         }
         else
         {
@@ -197,25 +197,25 @@ class ItemController extends Controller
                     
                     if( $item->save() ){
 
-                        ItemVarient::where('item_id',$id)->delete();
+                        ItemVariant::where('item_id',$id)->delete();
 
-                        if($request->has('item_varient_check')) {
+                        if($request->has('item_variant_check')) {
 
-                            foreach($request->varient_id as $key => $varient_id) {
+                            foreach($request->variant_id as $key => $variant_id) {
 
 
-                                $item_varitent = new ItemVarient();
-                                $item_varitent->item_id = $item->id;
-                                $item_varitent->varient_id = $varient_id;
+                                $item_variant = new ItemVariant();
+                                $item_variant->item_id = $item->id;
+                                $item_variant->variant_id = $variant_id;
         
-                                $check_duplicate_item_varitent = ItemVarient::where('item_id', $item->id)->where('varient_id',$varient_id)->get();
+                                $check_duplicate_item_variant = ItemVariant::where('item_id', $item->id)->where('variant_id',$variant_id)->get();
         
-                                $ItemVarientDuplicateSwal = __('Item.ItemVarientDuplicateSwal');
-                                if (count($check_duplicate_item_varitent) > 0) {
-                                    return response()->json(['error' => $ItemVarientDuplicateSwal], 200);
+                                $ItemVariantDuplicateSwal = __('Item.ItemVariantDuplicateSwal');
+                                if (count($check_duplicate_item_variant) > 0) {
+                                    return response()->json(['error' => $ItemVariantDuplicateSwal], 200);
                                 }
         
-                                $item_varitent->save();
+                                $item_variant->save();
         
                             }
 
@@ -244,7 +244,7 @@ class ItemController extends Controller
     {
         if (can('view_item'))
         {
-            $item = Item::with('item_type','item_varients')->find($id);
+            $item = Item::with('item_type','item_variants')->find($id);
             return view('backend.modules.system_data_module.item.modals.view',compact('item'));
         }
         else

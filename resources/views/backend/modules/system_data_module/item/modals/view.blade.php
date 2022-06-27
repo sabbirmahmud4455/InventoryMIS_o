@@ -21,11 +21,16 @@
                     </tr>
 
                     <tr>
-                        <td>{{ __('Item.ItemVarient') }}</td>
+                        <td>{{ __('Item.ItemVariant') }}</td>
                         <td>
-                            @foreach ($item->item_varients as $item_varient)
-                                {{ $item_varient->varient->name }} ,
-                            @endforeach
+                            @if (count($item->item_variants) > 0)
+                                @foreach ($item->item_variants as $item_variant)
+                                    {{ $item_variant->variant->name }} ,
+                                @endforeach
+                            @else
+                                N/A
+                            @endif
+                            
                         </td>
                     </tr>
                     

@@ -34,20 +34,20 @@
                 <input type="text" class="form-control" name="item_code" required>
             </div>
 
-            <!-- Item Varient Chek -->
+            <!-- Item Variant Chek -->
             <div class="col-md-12 col-12 form-group">
-                <input type="checkbox" name="item_varient_check" id="item_varient_check">
-                <label for="item_varient_check">{{ __('Item.ItemVarientCheck') }}</label>
+                <input type="checkbox" name="item_variant_check" id="item_variant_check">
+                <label for="item_variant_check">{{ __('Item.ItemVariantCheck') }}</label>
             </div>
 
-            <!-- Item Varient -->
-            <div class="col-md-12 col-12 d-none" id="item_varient">
-                <label for="">{{ __('Item.ItemVarient') }}</label>
+            <!-- Item Variant -->
+            <div class="col-md-12 col-12 d-none" id="item_variant">
+                <label for="">{{ __('Item.ItemVariant') }}</label>
                 <div class="row" style="margin: auto">
-                    @foreach ($varients as $varient)
+                    @foreach ($variants as $variant)
                         <div class="form-group form-check col-md-4 col-4">
-                            <input type="checkbox" class="form-check-input item_varient" id="{{ $varient->id }}" name="varient_id[]" value="{{ $varient->id }}">
-                            <label class="form-check-label" for="{{ $varient->id }}"> {{ $varient->name }} </label>
+                            <input type="checkbox" class="form-check-input item_variant" id="{{ $variant->id }}" name="variant_id[]" value="{{ $variant->id }}">
+                            <label class="form-check-label" for="{{ $variant->id }}"> {{ $variant->name }} </label>
                         </div>
                     @endforeach
                 </div>
@@ -87,13 +87,13 @@
 <script>
 
     $(document).ready(function(){
-        $('input:checkbox#item_varient_check').click(function(){
+        $('input:checkbox#item_variant_check').click(function(){
             if($(this).is(":checked")){
-                $('#item_varient').removeClass('d-none');
+                $('#item_variant').removeClass('d-none');
             }
             else if($(this).is(":not(:checked)")){
-                $('#item_varient').addClass('d-none');
-                $('input:checkbox.item_varient').prop('checked', false);
+                $('#item_variant').addClass('d-none');
+                $('input:checkbox.item_variant').prop('checked', false);
             }
         });
     });

@@ -76,65 +76,76 @@ class SubModuleSeeder extends Seeder
 
             [
                 'id' => 5,
-                'name_en' => 'Varient',
-                'name_bn' => 'ভিন্নতা',
-                'key' => 'varient',
+                'name_en' => 'Unit',
+                'name_bn' => 'ইউনিট',
+                'key' => 'unit',
                 'position' => 1,
-                'route' => 'varient.index',
+                'route' => 'variant.index',
                 'module_id' => 3,
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
             [
                 'id' => 6,
-                'name_en' => 'Item Type',
-                'name_bn' => 'পণ্যের ধরন',
-                'key' => 'item_type',
+                'name_en' => 'Variant',
+                'name_bn' => 'ভিন্নতা',
+                'key' => 'variant',
                 'position' => 2,
-                'route' => 'item_type.index',
+                'route' => 'variant.index',
                 'module_id' => 3,
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
             [
                 'id' => 7,
-                'name_en' => 'Item',
-                'name_bn' => 'পণ্য',
-                'key' => 'item',
+                'name_en' => 'Item Type',
+                'name_bn' => 'পণ্যের ধরন',
+                'key' => 'item_type',
                 'position' => 3,
-                'route' => 'item.index',
+                'route' => 'item_type.index',
                 'module_id' => 3,
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
             [
                 'id' => 8,
-                'name_en' => 'Warehouse',
-                'name_bn' => 'গোডাউন ',
-                'key' => 'warehouse',
+                'name_en' => 'Item',
+                'name_bn' => 'পণ্য',
+                'key' => 'item',
                 'position' => 4,
-                'route' => 'warehouse.index',
+                'route' => 'item.index',
                 'module_id' => 3,
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
             [
                 'id' => 9,
-                'name_en' => 'Payment Type',
-                'name_bn' => 'পেমেন্ট ধরন',
-                'key' => 'payment_type',
+                'name_en' => 'Warehouse',
+                'name_bn' => 'গোডাউন ',
+                'key' => 'warehouse',
                 'position' => 5,
-                'route' => 'payment.type.index',
+                'route' => 'warehouse.index',
                 'module_id' => 3,
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
             [
                 'id' => 10,
+                'name_en' => 'Payment Type',
+                'name_bn' => 'পেমেন্ট ধরন',
+                'key' => 'payment_type',
+                'position' => 6,
+                'route' => 'payment.type.index',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 11,
                 'name_en' => 'Transaction Type',
                 'name_bn' => ' লেনদেনের ধরন',
                 'key' => 'transaction_type',
-                'position' => 6,
+                'position' => 7,
                 'route' => 'transaction.type.index',
                 'module_id' => 3,
                 'created_at' => $date,
@@ -144,7 +155,7 @@ class SubModuleSeeder extends Seeder
 
             // Module ID 4 [Supplier] start
             [
-                'id' => 11,
+                'id' => 12,
                 'name_en' => 'All Supplier',
                 'name_bn' => 'সকল মহাজন',
                 'key' => 'all_supplier',
@@ -156,9 +167,9 @@ class SubModuleSeeder extends Seeder
             ],
             // Module ID 4 [Supplier] end
 
-            // Module ID 4 [Customer] end
+            // Module ID 4 [Customer] start
             [
-                'id' => 12,
+                'id' => 13,
                 'name_en' => 'All Customer',
                 'name_bn' => 'সকল ক্রেতা',
                 'key' => 'all_customer',
@@ -172,7 +183,7 @@ class SubModuleSeeder extends Seeder
 
             // Module ID 6 [Bank] Start
             [
-                'id' => 13,
+                'id' => 14,
                 'name_en' => 'All Banks',
                 'name_bn' => 'সকল ব্যাংক',
                 'key' => 'bank',
@@ -183,7 +194,7 @@ class SubModuleSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 14,
+                'id' => 15,
                 'name_en' => 'Add Bank',
                 'name_bn' => 'ব্যাংক যোগ করুন',
                 'key' => 'add_bank',
@@ -194,7 +205,7 @@ class SubModuleSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 15,
+                'id' => 16,
                 'name_en' => 'Bank Transaction',
                 'name_bn' => 'ব্যাংক লেনদেন',
                 'key' => 'bank_transaction',
@@ -219,6 +230,6 @@ class SubModuleSeeder extends Seeder
         ]);
 
         // #########################
-        //LAST ID : 12. NEXT ID : 13
+        //LAST ID : 16. NEXT ID : 17
     }
 }

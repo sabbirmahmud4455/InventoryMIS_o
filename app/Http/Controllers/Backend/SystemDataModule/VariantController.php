@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Backend\SystemDataModule;
 
 use App\Http\Controllers\Controller;
-use App\Models\SystemDataModule\Varient;
+use App\Models\SystemDataModule\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class VarientController extends Controller
+class VariantController extends Controller
 {
     //index function start
     public function index()
     {
-        if (can('varient'))
+        if (can('variant'))
         {
-            return view('backend.modules.system_data_module.varient.index');
+            return view('backend.modules.system_data_module.variant.index');
         }
         else
         {
@@ -27,38 +27,38 @@ class VarientController extends Controller
 
     //data function start
     public function data(){
-        if( can('varient') ){
+        if( can('variant') ){
 
-            $varient = Varient::select("id", "name", "is_active", 'is_delete')->get();
+            $variant = Variant::select("id", "name", "is_active", 'is_delete')->get();
 
-            return DataTables::of($varient)
+            return DataTables::of($variant)
                 ->rawColumns(['action', 'is_active'])
-                ->editColumn('is_active', function (Varient $varient) {
-                    if ($varient->is_active == true) {
+                ->editColumn('is_active', function (Variant $variant) {
+                    if ($variant->is_active == true) {
                         return '<p class="badge badge-success">'.__('Application.Active').'</p>';
                     } else {
                         return '<p class="badge badge-danger">'.__('Application.Inactive').'</p>';
                     }
                 })
-                ->addColumn('action', function (Varient $varient) {
+                ->addColumn('action', function (Variant $variant) {
                     return '
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown'.$varient->id.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown'.$variant->id.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         '.__('Application.Action').'
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdown'.$varient->id.'">
+                    <div class="dropdown-menu" aria-labelledby="dropdown'.$variant->id.'">
 
-                        '.( can("view_varient") ? '
-                        <a class="dropdown-item" href="#" data-content="'.route('varient.view.modal',$varient->id).'" data-target="#myModal" class="btn btn-outline-dark" data-toggle="modal">
+                        '.( can("view_variant") ? '
+                        <a class="dropdown-item" href="#" data-content="'.route('variant.view.modal',$variant->id).'" data-target="#myModal" class="btn btn-outline-dark" data-toggle="modal">
                             <i class="fas fa-eye"></i>
-                            '.__('Varient.ViewVarient').'
+                            '.__('Variant.ViewVariant').'
                         </a>
                         ': '') .'
 
-                        '.( can("edit_varient") ? '
-                        <a class="dropdown-item" href="#" data-content="'.route('varient.edit.modal',$varient->id).'" data-target="#myModal" class="btn btn-outline-dark" data-toggle="modal">
+                        '.( can("edit_variant") ? '
+                        <a class="dropdown-item" href="#" data-content="'.route('variant.edit.modal',$variant->id).'" data-target="#myModal" class="btn btn-outline-dark" data-toggle="modal">
                             <i class="fas fa-edit"></i>
-                            '.__('Varient.EditVarient').'
+                            '.__('Variant.EditVariant').'
                         </a>
                         ': '') .'
 
@@ -75,8 +75,8 @@ class VarientController extends Controller
 
     //add modal function start
     public function add_modal(){
-        if( can("add_varient") ){
-            return view('backend.modules.system_data_module.varient.modals.add');
+        if( can("add_variant") ){
+            return view('backend.modules.system_data_module.variant.modals.add');
         }
         else{
             return view('errors.404');
@@ -86,9 +86,9 @@ class VarientController extends Controller
 
     //add function start
     public function add(Request $request){
-        if( can("add_varient") ){
+        if( can("add_variant") ){
             $validator = Validator::make($request->all(), [
-                'name' => 'required|unique:varients,name',
+                'name' => 'required|unique:variants,name',
             ]);
 
             if( $validator->fails() ){
@@ -96,13 +96,13 @@ class VarientController extends Controller
             }
             else{
                 try{
-                    $varient = new Varient();
+                    $variant = new Variant();
 
-                    $varient->name = $request->name;
-                    $varient->is_active = true;
-                    $varient->is_delete = false;
-                    $AddSwal = __('Varient.AddSwal');
-                    if( $varient->save() ){
+                    $variant->name = $request->name;
+                    $variant->is_active = true;
+                    $variant->is_delete = false;
+                    $AddSwal = __('Variant.AddSwal');
+                    if( $variant->save() ){
                         return response()->json(['success' => $AddSwal], 200);
                     }
 
@@ -122,10 +122,10 @@ class VarientController extends Controller
     //edit modal function start
     public function edit_modal($id)
     {
-        if (can('edit_varient'))
+        if (can('edit_variant'))
         {
-            $varient = Varient::where('id',$id)->select('id','name', 'is_active')->first();
-            return view('backend.modules.system_data_module.varient.modals.edit',compact('varient'));
+            $variant = Variant::where('id',$id)->select('id','name', 'is_active')->first();
+            return view('backend.modules.system_data_module.variant.modals.edit',compact('variant'));
         }
         else
         {
@@ -137,9 +137,9 @@ class VarientController extends Controller
 
     //edit function start
     public function edit(Request $request,$id){
-        if( can("edit_varient") ){
+        if( can("edit_variant") ){
             $validator = Validator::make($request->all(), [
-                "name" => "required|unique:varients,name,$id",
+                "name" => "required|unique:variants,name,$id",
                 "is_active" => "required",
             ]);
 
@@ -148,12 +148,12 @@ class VarientController extends Controller
             }
             else{
                 try{
-                    $varient = Varient::find($id);
-                    $varient->name = $request->name;
-                    $varient->is_active = $request->is_active;
-                    $varient->is_delete = false;
-                    $EditSwal = __('Varient.EditSwal');
-                    if( $varient->save() ){
+                    $variant = Variant::find($id);
+                    $variant->name = $request->name;
+                    $variant->is_active = $request->is_active;
+                    $variant->is_delete = false;
+                    $EditSwal = __('Variant.EditSwal');
+                    if( $variant->save() ){
                         return response()->json(['success' => $EditSwal], 200);
                     }
 
@@ -175,10 +175,10 @@ class VarientController extends Controller
     //view modal function start
     public function view($id)
     {
-        if (can('view_varient'))
+        if (can('view_variant'))
         {
-            $varient = Varient::find($id);
-            return view('backend.modules.system_data_module.varient.modals.view',compact('varient'));
+            $variant = Variant::find($id);
+            return view('backend.modules.system_data_module.variant.modals.view',compact('variant'));
         }
         else
         {

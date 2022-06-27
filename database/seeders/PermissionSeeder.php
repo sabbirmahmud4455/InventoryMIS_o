@@ -203,11 +203,11 @@ class PermissionSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
-            // Item Varient Permission [31-35]
+            // Item Variant Permission [31-35]
             [
                 'id' => 21,
-                'key' => 'varient',
-                'display_name_en' => 'Varient',
+                'key' => 'variant',
+                'display_name_en' => 'Variant',
                 'display_name_bn' => 'ভিন্নতা',
                 'module_id' => 3,
                 'created_at' => $date,
@@ -215,8 +215,8 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'id' => 22,
-                'key' => 'add_varient',
-                'display_name_en' => '-- Add Varient',
+                'key' => 'add_variant',
+                'display_name_en' => '-- Add Variant',
                 'display_name_bn' => '-- ভিন্নতা যোগ',
                 'module_id' => 3,
                 'created_at' => $date,
@@ -224,8 +224,8 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'id' => 23,
-                'key' => 'edit_varient',
-                'display_name_en' => '-- Edit Varient',
+                'key' => 'edit_variant',
+                'display_name_en' => '-- Edit Variant',
                 'display_name_bn' => '-- ভিন্নতা পরিবর্তন',
                 'module_id' => 3,
                 'created_at' => $date,
@@ -233,8 +233,8 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'id' => 24,
-                'key' => 'view_varient',
-                'display_name_en' => '-- View Varient',
+                'key' => 'view_variant',
+                'display_name_en' => '-- View Variant',
                 'display_name_bn' => '-- ভিন্নতা দেখা',
                 'module_id' => 3,
                 'created_at' => $date,
@@ -242,8 +242,8 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'id' => 25,
-                'key' => 'delete_varient',
-                'display_name_en' => '-- Delete Varient',
+                'key' => 'delete_variant',
+                'display_name_en' => '-- Delete Variant',
                 'display_name_bn' => '-- ভিন্নতা মুছে ফেলা',
                 'module_id' => 3,
                 'created_at' => $date,
@@ -512,7 +512,7 @@ class PermissionSeeder extends Seeder
         // Permission Seeder Sequence
         // Please Do Not Remove Comments
         // Sabbir : Supplier + Customer [Add, Edit, View, Delete] 11-20
-        // Nazib : Item Type + Item + Item Varient [21-35]
+        // Nazib : Item Type + Item + Item Variant [21-35]
         // Mahbub : Warehouse + PaymentType + TransactionType [Add, Edit, View, Delete] 36-50
 
         // Last ID: 53, New ID: 54

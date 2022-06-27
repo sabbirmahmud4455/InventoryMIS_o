@@ -54,13 +54,13 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
         require_once 'system_data_module/warehouse.php';
         require_once 'system_data_module/payment_type.php';
         require_once 'system_data_module/transaction_type.php';
-        require_once 'system_data_module/varient.php';
+        require_once 'system_data_module/variant.php';
         require_once 'system_data_module/item.php';
     });
 
 
     // Supplier Module
-    Route::group(['prefix' => 'spplier-module'], function() {
+    Route::group(['prefix' => 'supplier-module'], function() {
         require_once('supplier_module/supplier.php');
     });
 

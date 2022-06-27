@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateItemVarientsTable extends Migration
+class CreateItemVariantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateItemVarientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('item_varients', function (Blueprint $table) {
+        Schema::create('item_variants', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
 
-            $table->unsignedBigInteger('varient_id');
-            $table->foreign('varient_id')->references('id')->on('varients')->onDelete('cascade');
+            $table->unsignedBigInteger('variant_id');
+            $table->foreign('variant_id')->references('id')->on('variants')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreateItemVarientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_varients');
+        Schema::dropIfExists('item_variants');
     }
 }

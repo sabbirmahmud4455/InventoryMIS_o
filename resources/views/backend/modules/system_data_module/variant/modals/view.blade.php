@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel"> {{ $varient->name }}, {{ __('Application.Information') }} </h5>
+    <h5 class="modal-title" id="exampleModalLabel"> {{ $variant->name }}, {{ __('Application.Information') }} </h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -11,14 +11,14 @@
             <table class="table table-bordered table-sm">
                 <tbody>
                     <tr>
-                        <td>{{ __('Varient.Name') }}</td>
-                        <td>{{ $varient->name }}</td>
+                        <td>{{ __('Variant.Name') }}</td>
+                        <td>{{ $variant->name }}</td>
                     </tr>
                     
                     <tr>
                         <td>{{ __('Application.Status') }}</td>
                         <td>
-                            @if($varient->is_active == 1)
+                            @if($variant->is_active == 1)
                                 <span class="badge badge-success">{{ __('Application.Active') }}</span>
                             @else
                                 <span class="badge badge-danger">{{ __('Application.Inactive') }}</span>
@@ -28,12 +28,12 @@
 
                     <tr>
                         <td>{{ __('Application.CreatedDateTime') }}</td>
-                        <td>{{ $varient->created_at->toDayDateTimeString() }}</td>
+                        <td>{{ $variant->created_at->toDayDateTimeString() }}</td>
                     </tr>
 
                     <tr>
                         <td>{{ __('Application.LastUpdate') }}</td>
-                        <td>{{ $varient->updated_at->toDayDateTimeString() }}</td>
+                        <td>{{ $variant->updated_at->toDayDateTimeString() }}</td>
                     </tr>
                 </tbody>
             </table>

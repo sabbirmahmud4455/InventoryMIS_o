@@ -13,8 +13,8 @@ class Item extends Model
         return $this->belongsTo(ItemType::class);
     }
 
-    public function item_varients() {
-        return $this->hasMany(ItemVarient::class);
+    public function item_variants() {
+        return $this->hasMany(ItemVariant::class);
     }
 
 }

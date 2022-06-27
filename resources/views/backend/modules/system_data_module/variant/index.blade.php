@@ -21,7 +21,7 @@
                             </li>
                             <li class="breadcrumb-item active">
                                 <a href="#">
-                                    {{ __('Varient.Varient') }}
+                                    {{ __('Variant.Variant') }}
                                 </a>
                             </li>
                         </ol>
@@ -38,10 +38,10 @@
                     <div class="col-md-12">
                         <div class="card card-primary card-outline table-responsive">
                             <div class="card-header text-right">
-                                @if( can('add_varient') )
-                                    <button type="button" data-content="{{ route('varient.add.modal') }}" data-target="#myModal"
+                                @if( can('add_variant') )
+                                    <button type="button" data-content="{{ route('variant.add.modal') }}" data-target="#myModal"
                                             class="btn btn-outline-dark" data-toggle="modal">
-                                        {{ __('Varient.AddVarient') }}
+                                        {{ __('Variant.AddVariant') }}
                                     </button>
                                 @endif
                             </div>
@@ -51,7 +51,7 @@
                                     <thead>
                                     <tr>
                                         <th>{{ __('Application.Id') }}</th>
-                                        <th>{{ __('Varient.Name') }}</th>
+                                        <th>{{ __('Variant.Name') }}</th>
                                         <th>{{ __('Application.Status') }}</th>
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>
@@ -83,7 +83,7 @@
             $('.datatable-data').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('varient.data') }}",
+                ajax: "{{ route('variant.data') }}",
                 order : [[0,"Desc"]],
                 columns: [{
                     data: 'id',

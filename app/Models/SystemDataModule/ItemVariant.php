@@ -5,7 +5,7 @@ namespace App\Models\SystemDataModule;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ItemVarient extends Model
+class ItemVariant extends Model
 {
     use HasFactory;
 
@@ -13,8 +13,8 @@ class ItemVarient extends Model
         return $this->belongsTo(Item::class);
     }
 
-    public function varient() {
-        return $this->belongsTo(Varient::class);
+    public function variant() {
+        return $this->belongsTo(Variant::class);
     }
 
 }
