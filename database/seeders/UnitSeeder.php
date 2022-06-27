@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class VarientSeeder extends Seeder
+class UnitSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,12 +17,12 @@ class VarientSeeder extends Seeder
     {
         $date = Carbon::now();
 
-        DB::statement("DELETE FROM varients");
+        DB::statement("DELETE FROM units");
 
-        DB::table("varients")->insert([
+        DB::table("units")->insert([
             [
                 "id" => 1,
-                "name" => "২০",
+                "name" => "কেজি",
                 "is_active" => true,
                 "is_delete" => false,
                 'created_at' => $date,
@@ -30,7 +30,7 @@ class VarientSeeder extends Seeder
             ],
             [
                 "id" => 2,
-                "name" => "৫০",
+                "name" => "টন",
                 "is_active" => true,
                 "is_delete" => false,
                 'created_at' => $date,

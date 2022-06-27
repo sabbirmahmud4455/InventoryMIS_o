@@ -56,6 +56,7 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
         require_once 'system_data_module/transaction_type.php';
         require_once 'system_data_module/variant.php';
         require_once 'system_data_module/item.php';
+        require_once 'system_data_module/unit.php';
     });
 
 

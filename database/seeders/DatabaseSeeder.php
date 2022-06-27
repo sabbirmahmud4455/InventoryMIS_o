@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             // WarehouseSeeder::class,
             // PaymentTypeSeeder::class,
             // TransactionTypeSeeder::class,
-            // VarientSeeder::class,
+            // VariantSeeder::class,
+            // UnitSeeder::class,
         ]);
     }
 }

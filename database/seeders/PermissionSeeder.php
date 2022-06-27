@@ -111,6 +111,8 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
 
+            // System Data Module Permission Start
+
             // Item Type Permission [21-25]
             [
                 'id' => 11,
@@ -387,6 +389,53 @@ class PermissionSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+            [
+                'id' => 67,
+                'key' => 'unit',
+                'display_name_en' => 'Unit',
+                'display_name_bn' => 'ইউনিট',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 68,
+                'key' => 'add_unit',
+                'display_name_en' => '-- Add Unit',
+                'display_name_bn' => '-- ইউনিট যোগ',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 69,
+                'key' => 'edit_unit',
+                'display_name_en' => '-- Edit Unit',
+                'display_name_bn' => '-- ইউনিট পরিবর্তন',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 70,
+                'key' => 'view_unit',
+                'display_name_en' => '-- View Unit',
+                'display_name_bn' => '-- ইউনিট দেখা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 71,
+                'key' => 'delete_unit',
+                'display_name_en' => '-- Delete Unit',
+                'display_name_bn' => '-- ইউনিট মুছে ফেলা',
+                'module_id' => 3,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+
+            // System Data Module Permission End
 
             // Supplier Module Permission Start
             [
