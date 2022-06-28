@@ -552,7 +552,7 @@ class PermissionSeeder extends Seeder
             ],
             // Customer Module Permission End
 
-            
+
             // Bank Module Permission Start
             [
                 'id' => 53,
@@ -668,6 +668,64 @@ class PermissionSeeder extends Seeder
             ],
             // Purchase Module Permission End
 
+            // Seal Module permission start
+
+            [
+                'id' => 70,
+                'key' => 'sale',
+                'display_name_en' => 'Sale',
+                'display_name_bn' => 'বিক্রয়',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 71,
+                'key' => 'all_sale',
+                'display_name_en' => 'All Sale',
+                'display_name_bn' => 'সমস্ত বিক্রয়',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 72,
+                'key' => 'add_sale',
+                'display_name_en' => '-- Add Sale',
+                'display_name_bn' => '-- বিক্রয় যোগ',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 73,
+                'key' => 'edit_sale',
+                'display_name_en' => '-- Edit Sale',
+                'display_name_bn' => '-- বিক্রয় পরিবর্তন',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 74,
+                'key' => 'view_sale',
+                'display_name_en' => '-- View Sale',
+                'display_name_bn' => '-- বিক্রয় দেখা',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 75,
+                'key' => 'delete_sale',
+                'display_name_en' => '--Delete Sale',
+                'display_name_bn' => '-- বিক্রয় মুছে ফেলা',
+                'module_id' => 7,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+
+            // Seal Module permission end
 
 
 
@@ -681,6 +739,6 @@ class PermissionSeeder extends Seeder
         // Nazib : Item Type + Item + Item Variant [21-35]
         // Mahbub : Warehouse + PaymentType + TransactionType [Add, Edit, View, Delete] 36-50
 
-        // Last ID: 69, New ID: 70
+        // Last ID: 75, New ID: 76
     }
 }
