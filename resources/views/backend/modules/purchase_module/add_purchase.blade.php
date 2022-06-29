@@ -111,19 +111,19 @@
                                 {{-- Item Weight --}}
                                 <div class="col-md-3">
                                     <label>{{ __('Purchase.Beg') }}</label>
-                                    <input type="text" class="form-control form-control-sm" name="beg">
+                                    <input type="text" class="form-control form-control-sm" onchange="total_price()" id="beg" name="beg">
                                 </div>
 
                                 {{-- Item Price --}}
                                 <div class="col-md-3">
                                     <label>{{ __('Purchase.Price') }}</label>
-                                    <input type="text" class="form-control form-control-sm" name="unit_price">
+                                    <input type="text" class="form-control form-control-sm" onchange="total_price()" id="unit_price" name="unit_price">
                                 </div>
 
                                 {{-- Total Price --}}
                                 <div class="col-md-3">
                                     <label>{{ __('Purchase.TotalPrice') }}</label>
-                                    <input type="text" class="form-control form-control-sm" name="total_price">
+                                    <input readonly type="text" class="form-control form-control-sm" id="total_price" value="" name="total_price">
                                 </div>
 
                                 {{-- Add Button --}}
@@ -325,6 +325,20 @@
             }
         });
     });
+
+    const total_price = () => {
+       let total_price = $("#total_price");
+       const unit_price_val = $("#unit_price").val();
+       const beg_val = $("#beg").val();
+       if (unit_price_val && beg_val) {
+        total_price.val(unit_price_val * beg_val)
+       }
+    }
+
+    
+
+
+
 </script>
 
 @endsection
