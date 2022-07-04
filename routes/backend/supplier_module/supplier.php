@@ -17,7 +17,9 @@ Route::group(['prefix' => 'supplier'], function(){
     //view supplier
     Route::get("/show/{id}",[SupplierController::class,'show'])->name('supplier.show');
 
-    
+    Route::get("/show-details",[SupplierController::class,'show_details'])->name('supplier.show-details');
+
+
 });
 
 ?>

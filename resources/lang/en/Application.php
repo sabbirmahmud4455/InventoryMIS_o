@@ -22,6 +22,7 @@
         'Language' => 'Language',
         'SerialNo' => 'Sl No',
         'Weight' => 'Weight',
+        'Select' => 'Select'
     ]
 
 ?>

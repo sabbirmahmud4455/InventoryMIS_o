@@ -64,6 +64,11 @@ $(document).ready(function () {
                     return window.location.reload();
                 }
 
+                if (response.store_new_lot) {
+                    swal("", `${response.store_new_lot}`, "success");
+                    get_lot();
+                }
+
                 console.clear()
             },
             error: function (response) {

@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Validator;
 class LotController extends Controller
 {
 
+    public function get_lot()
+    {
+        $lots = Lot::get();
+
+        return response()->json($lots);
+    }
 
     // Store new Lot
     public function store_new_lot(Request $request)
@@ -29,7 +35,7 @@ class LotController extends Controller
                 $lotSuccessMsg = __('Lot.LotSuccessMsg');
 
                 if($lot->save()){
-                    return response()->json(['success' => $lotSuccessMsg], 200);
+                    return response()->json(['store_new_lot' => $lotSuccessMsg], 200);
                 }
 
             } catch(Exception $e){

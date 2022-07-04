@@ -145,4 +145,10 @@ class SupplierController extends Controller
             return view("errors.404");
         }
     }
+
+    public function show_details(Request $request) {
+        $supplier = Supplier::with('transactions')->find($request->id);
+
+        return response()->json($supplier);
+    }
 }
