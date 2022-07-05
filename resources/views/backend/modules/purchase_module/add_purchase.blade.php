@@ -188,8 +188,8 @@
                                             <option value="CASH">{{ __('Purchase.Bank') }}</option>
                                         </select>
 
-                                        <button class="btn btn-success btn-sm mt-3 ">
-                                            {{ __('Application.Add') }}
+                                        <button class="btn btn-success btn-sm mt-3" type="submit">
+                                            {{ __('Purchase.Purchase') }}
                                         </button>
 
                                         <span style="margin-bottom: 8px;"></span>
@@ -326,6 +326,7 @@
             });
         });
 
+    // Add New Lot
     $(document).ready(function(){
         $('#lot').change(function(){
             var newLot = $(this).val();
@@ -376,7 +377,7 @@
         let total_amount = 0;
 
         added_items.forEach((element, index) => {
-
+            console.log(element);
             total_amount += parseFloat(element.total_price);
 
             const item_name = items.find(e => e.id == element.item_id).name;
