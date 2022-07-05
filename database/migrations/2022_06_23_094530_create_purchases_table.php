@@ -17,7 +17,6 @@ class CreatePurchasesTable extends Migration
             $table->id();
             $table->date('date');
             $table->unsignedBigInteger('supplier_id');
-            $table->unsignedBigInteger('lot_id')->nullable();
             $table->string('challan_no')->nullable();
             $table->double('total_amount')->default(0.00);
             $table->unsignedBigInteger('created_by');

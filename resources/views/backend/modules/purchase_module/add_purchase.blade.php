@@ -73,7 +73,7 @@
                                         <label>{{ __('Lot.Lot') }}</label>
                                         <select required class="form-control form-control-sm select2" name="lot_id" id="lot">
                                             <option value="" selected disabled>Select Lot</option>
-                                            <option id="new_lot_store" value="AddNewLot">{{ __('Lot.LotAdd') }}</option>
+                                            <option id="new_lot_store" value="0">{{ __('Lot.LotAdd') }}</option>
                                             @foreach ($lots as $lot)
                                                 <option value="{{ $lot->id }}">{{ $lot->name }}</option>
                                             @endforeach
@@ -271,7 +271,7 @@
             url: "{{ route('lot.get-lots') }}",
             method: 'GET',
             success: function(data){
-                $('#lot').html(`<option value="" selected>Select Lot</option> <option id="new_lot_store" value="AddNewLot">{{ __('Lot.LotAdd') }}</option>`);
+                $('#lot').html(`<option value="" selected>Select Lot</option> <option id="new_lot_store" value="0">{{ __('Lot.LotAdd') }}</option>`);
                 $.each(data, function(index, value){
                     $('#lot').append(`<option value="${ value.id}">${value.name}</option>`)
                 });
@@ -337,7 +337,7 @@
     $(document).ready(function(){
         $('#lot').change(function(){
             var newLot = $(this).val();
-            if(newLot == 'AddNewLot') {
+            if(newLot == '0') {
                 $('#myModal').modal('show');
 
             }

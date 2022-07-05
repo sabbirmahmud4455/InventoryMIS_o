@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->date('date');
             $table->string('transaction_code')->unique();
-            $table->string('narration');
+            $table->string('narration')->nullable();
             $table->string('invoice_no')->nullable();
             $table->unsignedBigInteger('transaction_type_id')->nullable();
             $table->unsignedBigInteger('purchase_id')->nullable();
