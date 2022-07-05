@@ -8,6 +8,7 @@ use App\Models\SupplierModule\Supplier;
 use App\Models\SystemDataModule\Item;
 use App\Models\SystemDataModule\ItemVariant;
 use App\Models\SystemDataModule\Unit;
+use App\Models\SystemDataModule\Variant;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -32,7 +33,8 @@ class PurchaseController extends Controller
             $items = Item::select('id', 'name')->where('is_active', true)->where('is_delete', false)->get();
             $lots = Lot::select('id', 'name')->get();
             $units = Unit::select('id', 'name')->get();
-            return view('backend.modules.purchase_module.add_purchase', compact('suppliers', 'items', 'lots', 'units'));
+            $variants = Variant::select('id', 'name')->get();
+            return view('backend.modules.purchase_module.add_purchase', compact('suppliers', 'items', 'lots', 'units', 'variants'));
         } else {
             return view('errors.404');
         }
@@ -51,5 +53,10 @@ class PurchaseController extends Controller
         } else {
             return view('errors.404');
         }
+    }
+
+    public function store_new_purchase(Request $request)
+    {
+        return $request->data;
     }
 }

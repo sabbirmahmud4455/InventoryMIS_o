@@ -8,6 +8,7 @@ Route::group(['prefix' => 'purchase', 'as' => 'purchase.'], function(){
 
     // Add New Purchase
     Route::get('/add', [PurchaseController::class, 'add_new_purchase'])->name('add');
+    Route::post('/add', [PurchaseController::class, 'store_new_purchase'])->name('store');
 
     Route::get('/item-varients', [PurchaseController::class, 'get_item_varients'])->name('item_varients');
 });

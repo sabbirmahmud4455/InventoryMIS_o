@@ -73,7 +73,7 @@
                                         <label>{{ __('Lot.Lot') }}</label>
                                         <select required class="form-control form-control-sm select2" name="lot_id" id="lot">
                                             <option value="" selected disabled>Select Lot</option>
-                                            <option id="new_lot_store" class=" d-none" value="AddNewLot">{{ __('Lot.LotAdd') }}</option>
+                                            <option id="new_lot_store" value="AddNewLot">{{ __('Lot.LotAdd') }}</option>
                                             @foreach ($lots as $lot)
                                                 <option value="{{ $lot->id }}">{{ $lot->name }}</option>
                                             @endforeach
@@ -85,7 +85,6 @@
                                     <div class="col-md-3">
                                         <label>{{ __('Item.Item') }}</label>
                                         <select required name="item_id" class="form-control form-control-sm select2" id="item_id">
-                                            <option selected value="">{{ __('Item.SelectItem') }}</option>
                                             @forelse ($items as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @empty
@@ -98,7 +97,7 @@
                                     <div class="col-md-1">
                                         <label>{{ __('Item.ItemVariant') }}</label>
                                         <select required name="item_varient" class="form-control form-control-sm select2" id="item_varient">
-                                            <option selected disabled>{{ __('variant.SelectVarient') }}</option>
+                                            <option value="" selected disabled>{{ __('variant.SelectVarient') }}</option>
                                         </select>
                                     </div>
 
@@ -106,7 +105,7 @@
 
                                     <div class="col-md-2">
                                         <label>{{ __('Unit.Unit') }}</label>
-                                        <select name="item_unit" class="form-control form-control-sm select2" id="item_unit">
+                                        <select required name="item_unit" class="form-control form-control-sm select2" id="item_unit">
                                             @foreach ($units as $unit)
                                                 <option value="{{ $unit->id }}">{{ $unit->name }}</option>
                                             @endforeach
@@ -139,64 +138,71 @@
                                 {{-- Item Adding End --}}
                                 <br>
 
-                                <div class="row">
-                                    {{-- Added Item List Start --}}
-                                    <div class="col-md-9 bg card">
-                                        <span style="margin-top: 8px;"></span>
-                                        <table width="100%" class="table table-sm table-bordered">
-                                            <thead>
-                                                <th>{{ __('Application.SerialNo') }}</th>
-                                                <th>{{ __('Item.Item') }}</th>
-                                                <th>{{ __('Purchase.Beg') }}</th>
-                                                <th>{{ __('Purchase.Weight') }}</th>
-                                                <th>{{ __('Purchase.Price') }}</th>
-                                                <th>{{ __('Purchase.TotalPrice') }}</th>
-                                                <th>{{ __('Application.Delete') }}</th>
-                                            </thead>
-
-                                            <tbody id="added_items_list">
-
-
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    {{-- Added Item List End --}}
-
-                                    {{-- Sub Total Information Start --}}
-                                    <div class="col-md-3 bg card">
-                                        <span style="margin-top: 8px;"></span>
-
-                                        <label>{{ __('Purchase.TotalPrice') }}</label>
-                                        <input type="text" class="form-control form-control-sm" id="purchase_total_price">
-
-                                        <label>{{ __('Purchase.PreviousBalance') }}</label>
-                                        <input type="text" class="form-control form-control-sm" value="0" id="previous_balance">
-
-                                        <label>{{ __('Purchase.InTotalAmount') }}</label>
-                                        <input type="text" class="form-control form-control-sm" id="previous_in_total_amount">
-
-                                        <label>{{ __('Purchase.DepositeAmount') }}</label>
-                                        <input type="text" class="form-control form-control-sm" id="previous_deposite_amount" onkeyup="due_amount_calculation()">
-
-                                        <label>{{ __('Purchase.DueAmount') }}</label>
-                                        <input type="text" class="form-control form-control-sm" readonly id="previous_due_amount">
-
-                                        <label>{{ __('Purchase.PaymentBy') }}</label>
-                                        <select name="payment_by" class="form-control form-control-sm">
-                                            <option value="CASH">{{ __('Purchase.Cash') }}</option>
-                                            <option value="CASH">{{ __('Purchase.Bank') }}</option>
-                                        </select>
-
-                                        <button class="btn btn-success btn-sm mt-3" type="submit">
-                                            {{ __('Purchase.Purchase') }}
-                                        </button>
-
-                                        <span style="margin-bottom: 8px;"></span>
-                                    </div>
-                                    {{-- Sub Total Information End --}}
-                                </div>
                             </form>
+
+                            <div class="row">
+                                {{-- Added Item List Start --}}
+                                <div class="col-md-9 bg card">
+                                    <span style="margin-top: 8px;"></span>
+                                    <table width="100%" class="table table-sm table-bordered">
+                                        <thead>
+                                            <th>{{ __('Application.SerialNo') }}</th>
+                                            <th>{{ __('Item.Item') }}</th>
+                                            <th>{{ __('Purchase.Beg') }}</th>
+                                            <th>{{ __('Purchase.Weight') }}</th>
+                                            <th>{{ __('Purchase.Price') }}</th>
+                                            <th>{{ __('Purchase.TotalPrice') }}</th>
+                                            <th>{{ __('Application.Delete') }}</th>
+                                        </thead>
+
+                                        <tbody id="added_items_list">
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- Added Item List End --}}
+
+                                {{-- Sub Total Information Start --}}
+                                <div class="col-md-3 bg card">
+                                    <span style="margin-top: 8px;"></span>
+
+                                    <label>{{ __('Purchase.TotalPrice') }}</label>
+                                    <input readonly type="text" class="form-control form-control-sm" id="purchase_total_price">
+
+                                    <label>{{ __('Purchase.PreviousBalance') }}</label>
+                                    <input type="text" class="form-control form-control-sm" value="0" id="previous_balance">
+
+                                    <label>{{ __('Purchase.InTotalAmount') }}</label>
+                                    <input type="text" class="form-control form-control-sm" id="purchase_in_total_amount">
+
+                                    <label>{{ __('Purchase.DepositeAmount') }}</label>
+                                    <input type="text" class="form-control form-control-sm" id="purchase_deposite_amount" onkeyup="due_amount_calculation()">
+
+                                    <label>{{ __('Purchase.DueAmount') }}</label>
+                                    <input type="text" class="form-control form-control-sm" readonly id="purchase_due_amount">
+
+                                    <label>{{ __('Purchase.PaymentBy') }}</label>
+                                    <select name="payment_by" class="form-control form-control-sm" id="purchase_payment_by">
+                                        <option value="CASH">{{ __('Purchase.Cash') }}</option>
+                                        <option value="CASH">{{ __('Purchase.Bank') }}</option>
+                                    </select>
+
+                                    <form onsubmit="submit_purchase(event)" id="purchase_store_form" action="{{ route('purchase.store') }}" method="post">
+                                        @csrf
+
+                                        <input type="hidden" name="data" id="purchase_data">
+                                        <button class="btn btn-success btn-sm mt-3 ">
+                                            {{ __('Application.Add') }}
+                                        </button>
+                                    </form>
+
+                                    <span style="margin-bottom: 8px;"></span>
+                                </div>
+                                {{-- Sub Total Information End --}}
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -256,6 +262,8 @@
 
     let added_items = [];
     const items = {!! json_encode($items) !!};
+    const variants = {!! json_encode($variants) !!};
+    const units = {!! json_encode($units) !!};
 
     // Get lot Data
     function get_lot(){
@@ -272,59 +280,58 @@
     }
 
     function due_amount_calculation(){
-        const previous_deposite_amount = $('#previous_deposite_amount').val();
-        const previous_in_total_amount = $("#previous_in_total_amount").val();
-        $("#previous_due_amount").val(parseFloat(previous_in_total_amount ? previous_in_total_amount : 0) - parseFloat(previous_deposite_amount ? previous_deposite_amount : 0))
+        const purchase_deposite_amount = $('#purchase_deposite_amount').val();
+        const purchase_in_total_amount = $("#purchase_in_total_amount").val();
+        $("#purchase_due_amount").val(parseFloat(purchase_in_total_amount ? purchase_in_total_amount : 0) - parseFloat(purchase_deposite_amount ? purchase_deposite_amount : 0))
     }
 
-
-        // Get Item Varient Data
-        $('#item_id').change(function () {
-            var $id = $(this).val();
-            var varient_id = $('#item_varient');
-            $.ajax({
-                url: "{{ route('purchase.item_varients') }}",
-                data:{
-                    item_id: $id
-                },
-                method: 'GET',
-                success: function(data){
-                    varient_id.html('<option selected disabled>Choose Varient</option>');
-                    $.each(data, function(index, value){
-                        varient_id.append('<option value = "'+ value.variant.id +'">'+ value.variant.name +'</option>')
-                    });
-                }
-            });
+    // Get Item Varient Data
+    $('#item_id').change(function () {
+        var $id = $(this).val();
+        var varient_id = $('#item_varient');
+        $.ajax({
+            url: "{{ route('purchase.item_varients') }}",
+            data:{
+                item_id: $id
+            },
+            method: 'GET',
+            success: function(data){
+                varient_id.html('<option value="" selected disabled>Choose Varient</option>');
+                $.each(data, function(index, value){
+                    varient_id.append('<option value = "'+ value.variant.id +'">'+ value.variant.name +'</option>')
+                });
+            }
         });
+    });
 
-        // Get Item Varient Data
-        $('#supplier').change(function () {
-            var $id = $(this).val();
-            $.ajax({
-                url: "{{ route('supplier.show-details') }}",
-                data:{
-                    id: $id
-                },
-                method: 'GET',
-                success: function(data){
-                    const sum_in = data.transactions.reduce((accumulator, object) => {
-                        return accumulator + object.cash_in;
-                    }, 0);
+    // Get Item Varient Data
+    $('#supplier').change(function () {
+        var $id = $(this).val();
+        $.ajax({
+            url: "{{ route('supplier.show-details') }}",
+            data:{
+                id: $id
+            },
+            method: 'GET',
+            success: function(data){
+                const sum_in = data.transactions.reduce((accumulator, object) => {
+                    return accumulator + object.cash_in;
+                }, 0);
 
-                    const sum_out = data.transactions.reduce((accumulator, object) => {
-                        return accumulator + object.cash_out;
-                    }, 0);
+                const sum_out = data.transactions.reduce((accumulator, object) => {
+                    return accumulator + object.cash_out;
+                }, 0);
 
-                    const purchase_total_price = $('#purchase_total_price').val();
+                const purchase_total_price = $('#purchase_total_price').val();
 
-                    $("#previous_balance").val(sum_in - sum_out)
+                $("#previous_balance").val(sum_in - sum_out)
 
-                    $("#previous_in_total_amount").val((sum_in - sum_out) + parseFloat(purchase_total_price))
+                $("#purchase_in_total_amount").val((sum_in - sum_out) + parseFloat(purchase_total_price))
 
-                    due_amount_calculation()
-                }
-            });
+                due_amount_calculation()
+            }
         });
+    });
 
     // Add New Lot
     $(document).ready(function(){
@@ -357,11 +364,16 @@
         const unit_price = $("#unit_price").val();
         const total_price = $("#total_price").val();
 
+        const variant_name = variants.find(e => e.id == item_varient).name;
+        const unit_name = units.find(e => e.id == item_unit).name;
+
         const item_obj = {
             "lot": lot,
             "item_id": item_id,
-            "item_varient": item_varient,
-            "item_unit": item_unit,
+            "item_varient_id": item_varient,
+            "item_varient_name": variant_name,
+            "item_unit_id": item_unit,
+            "item_unit_name": unit_name,
             "beg": beg,
             "unit_price": unit_price,
             "total_price": total_price,
@@ -387,7 +399,7 @@
                     <td>${index + 1}</td>
                     <td>${item_name}</td>
                     <td>${element.beg}</td>
-                    <td>২৫</td>
+                    <td>${element.item_varient_name} ${element.item_unit_name}</td>
                     <td>${element.unit_price}</td>
                     <td>${element.total_price}</td>
                     <td>
@@ -400,13 +412,31 @@
         $('#purchase_total_price').val(total_amount);
         const previous_balance = $("#previous_balance").val()
 
-        $('#previous_in_total_amount').val(total_amount + parseFloat(previous_balance));
+        $('#purchase_in_total_amount').val(total_amount + parseFloat(previous_balance));
         due_amount_calculation()
     }
 
     function remove_item(index){
         added_items.splice(index, 1)
         show_items()
+    }
+
+    function submit_purchase(event){
+        const data_asdf =
+        {
+            "supplier_id" : $("#supplier").val(),
+            "purchase_total_price" : $("#purchase_total_price").val(),
+            "previous_balance" : $("#previous_balance").val(),
+            "purchase_in_total_amount" : $("#purchase_in_total_amount").val(),
+            "purchase_deposite_amount" : $("#purchase_deposite_amount").val(),
+            "purchase_due_amount" : $("#purchase_due_amount").val(),
+            "purchase_payment_by" : $("#purchase_payment_by").val(),
+            "added_items": added_items,
+        }
+
+        $("#purchase_data").val(JSON.stringify(data_asdf));
+
+        $("#purchase_store_form").submit();
     }
 
     show_items()
@@ -450,12 +480,12 @@
 
 </script>
 
-
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{{ asset('backend/js/custom-script.min.js') }}"></script>
 <script src="{{  asset('backend/js/ajax_form_submit.js') }}"></script>
 <script src="{{ asset('backend/js/select2/form-select2.min.js') }}"></script>
 <script src="{{ asset('backend/js/select2/select2.full.min.js') }}"></script>
+
 <script>
     $(document).ready(function domReady() {
         $(".select2").select2({
