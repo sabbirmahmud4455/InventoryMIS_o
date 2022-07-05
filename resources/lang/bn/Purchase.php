@@ -14,5 +14,9 @@
         'PaymentBy' => 'পেমেন্ট ধরন',
         'Cash' => 'নগদ',
         'Bank' => 'ব্যাংক',
+        'TotalAmount' => 'মোট টাকা',
+        'NoPurchaseFound' => 'কোন ক্রয় পাওয়া যায়নি!',
+
+        'ViewPurchaseInfo' => 'ক্রয়ের তথ্য দেখুন',
     ];
 ?>

@@ -48,12 +48,46 @@
                                         <th>{{ __('Application.Id') }}</th>
                                         <th>{{ __('Supplier.SupplierName') }}</th>
                                         <th>{{ __('Supplier.SupplierPhone') }}</th>
-                                        <th>{{ __('Application.Status') }}</th>
+                                        <th>{{ __('Purchase.TotalAmount') }}</th>
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse ($purchases as $key => $purchase)
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $purchase->supplier->name }}</td>
+                                            <td>{{ $purchase->supplier->contact_no }}</td>
+                                            <td>{{ $purchase->total_amount }}</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown{{ $purchase->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        {{ __('Application.Action') }}
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdown{{ $purchase->id }}">
 
+                                                        <a class="dropdown-item" href="{{ route('purchase.view', encrypt($purchase->id)) }}">
+                                                            <i class="fas fa-eye"></i>
+                                                            {{ __('Application.View') }}
+
+                                                        </a>
+
+                                                        <a class="dropdown-item" href="#" data-content="{{ route('customer.edit.modal',$purchase->id) }}" data-target="#myModal" data-toggle="modal">
+                                                            <i class="fas fa-edit"></i>
+                                                            {{ __('Application.Edit') }}
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td>
+                                                <span class="badge badge-danger">{{ __('Purchase.NoPurchaseFound') }}</span>
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
 

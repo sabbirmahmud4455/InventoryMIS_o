@@ -23,6 +23,7 @@
         'SerialNo' => 'Sl No',
         'Weight' => 'Weight',
         'Select' => 'Select',
+        'Data' => 'Date',
     ]
 
 ?>

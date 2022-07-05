@@ -23,7 +23,11 @@ class PurchaseController extends Controller
     public function index()
     {
         if(can('all_purchase')) {
-            return view('backend.modules.purchase_module.index');
+            $purchases = Purchase::with('purchase_details', 'supplier')
+                        ->orderBy('id', 'desc')
+                        ->get();
+
+            return view('backend.modules.purchase_module.index', compact('purchases'));
         } else {
             return view('errors.404');
         }
@@ -149,7 +153,20 @@ class PurchaseController extends Controller
         }
 
         return back();
+    }
 
 
+    // View Specific Purchase Data
+    public function view_purchase($id)
+    {
+        if(can('view_purchase')) {
+
+            $purchase = Purchase::with('purchase_details', 'supplier')->find(decrypt($id));
+            $purchase_details = PurchaseDetails::with('lot', 'item', 'unit', 'varient')->where('purchase_id', decrypt($id))->get();
+            return view('backend.modules.purchase_module.view_purchase', compact('purchase'));
+
+        } else {
+            return view('errors.404');
+        }
     }
 }

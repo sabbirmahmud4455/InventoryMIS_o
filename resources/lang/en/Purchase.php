@@ -14,5 +14,10 @@
         'PaymentBy' => 'Payment By',
         'Cash' => 'Cash',
         'Bank' => 'Bank',
+        'TotalAmount' => 'Total Amount',
+        'NoPurchaseFound' => 'No Purchase Found!',
+
+        'ViewPurchaseInfo' => 'View Purchase Information',
+
     ];
 ?>
