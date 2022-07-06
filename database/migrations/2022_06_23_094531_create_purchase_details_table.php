@@ -19,7 +19,7 @@ class CreatePurchaseDetailsTable extends Migration
             $table->unsignedBigInteger('lot_id')->nullable();
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('unit_id');
-            $table->unsignedBigInteger('varient_id');
+            $table->unsignedBigInteger('variant_id');
             $table->double('unit_price');
             $table->double('total_price');
             $table->timestamps();
