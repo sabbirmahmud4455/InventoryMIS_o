@@ -162,8 +162,8 @@ class PurchaseController extends Controller
         if(can('view_purchase')) {
 
             $purchase = Purchase::with('purchase_details', 'supplier')->find(decrypt($id));
-            $purchase_details = PurchaseDetails::with('lot', 'item', 'unit', 'varient')->where('purchase_id', decrypt($id))->get();
-            return view('backend.modules.purchase_module.view_purchase', compact('purchase'));
+            $purchase_details = PurchaseDetails::with('lot', 'item', 'unit', 'variant')->where('purchase_id', decrypt($id))->get();
+            return view('backend.modules.purchase_module.view_purchase', compact('purchase', 'purchase_details'));
 
         } else {
             return view('errors.404');

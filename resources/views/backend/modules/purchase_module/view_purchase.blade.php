@@ -74,7 +74,34 @@
                                 {{-- Purchase Details Information --}}
                                 <div class="col-md-12 table-responsive">
                                     <table class="table table-sm table-bordered">
-                                        
+                                        {{-- <thead>
+                                            <th>{{ __('Application.SerialNo') }}</th>
+                                            <th>{{ __('Lot.LotName') }}</th>
+                                            <th>{{ __('ItemType.ItemName') }}</th>
+                                            <th>{{ __('variant.Name') }}</th>
+                                            <th>{{ __('Unit.Name') }}</th>
+                                            <th>{{ __('Purchase.Beg') }}</th>
+                                        </thead> --}}
+                                        <tbody>
+                                            @forelse ($purchase_details as $key => $detail)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $detail->lot->name }}</td>
+                                                    <td>{{ $detail->item->name }}</td>
+                                                    <td>{{ $detail->variant->name }}</td>
+                                                    <td>{{ $detail->unit->name }}</td>
+                                                    <td>{{ $detail->total_price / $detail->unit_price }}</td>
+                                                    <td>{{ $detail->unit_price }}</td>
+                                                    <td>{{ $detail->total_price }}</td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td>
+                                                        <span class="badge badge-danger">No Data Found!!</span>
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
