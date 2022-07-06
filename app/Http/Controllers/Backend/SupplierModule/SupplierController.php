@@ -52,9 +52,9 @@ class SupplierController extends Controller
                 return response()->json(['errors' => $validator->errors()] ,422);
             }else{
 
-                DB::beginTransaction();
+                // DB::beginTransaction();
 
-                try{
+                // try{
 
                     $supplier = new Supplier();
                     $supplier->name = $request->name;
@@ -78,10 +78,10 @@ class SupplierController extends Controller
 
                     return response()->json(['supplier_add' => __("Supplier.SupplierAddSuccessMsg")], 200);
 
-                }catch( Exception $e ){
-                    DB::rollBack();
-                    return response()->json(['error' => $e->getMessage()],200);
-                }
+                // }catch( Exception $e ){
+                //     DB::rollBack();
+                //     return response()->json(['error' => $e->getMessage()],200);
+                // }
             }
         }else{
             return view("errors.404");
