@@ -66,7 +66,11 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $transaction->date }}</td>
-                                                <td>{{ $transaction->transaction_code }}</td>
+                                                <td>
+                                                    <a style="color: rgb(8, 8, 255)" class="dropdown-item" href="#" data-content="{{ route('supplier.transaction_details', encrypt($transaction->id)) }}" data-target="#myModal" data-toggle="modal">
+                                                        {{ $transaction->transaction_code }}
+                                                    </a>
+                                                </td>
                                                 <td>{{ $transaction->narration }}</td>
                                                 <td>
                                                     @if ($transaction->status == 'PENDING')

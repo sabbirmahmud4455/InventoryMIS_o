@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Backend\SupplierModule;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\PurchaseModule\Purchase;
 use App\Models\SupplierModule\Supplier;
 use App\Models\TransactionModule\Transaction;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class SupplierController extends Controller
@@ -160,6 +160,18 @@ class SupplierController extends Controller
             $supplier_transactions = $transaction->GetSupplierTransactions(decrypt($id));
 
             return view('backend.modules.supplier.supplier_transactions', compact('supplier_transactions'));
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    // Supplier Transaction Details
+    public function supplier_transaction_details($id)
+    {
+        if(can('supplier_transactions')) {
+            $transaction = new Transaction();
+            return $transaction_details = $transaction->TransactionDetails(decrypt($id));
+
         } else {
             return view('errors.404');
         }
