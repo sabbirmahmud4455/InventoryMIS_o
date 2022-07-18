@@ -10,6 +10,7 @@
         'SupplierAddSuccessMsg' => 'Supplier Successfully Added',
         'SupplierUpdateMsg' => 'Supplier Successfully Updated',
         'SupplierWarningMsg' => 'Something Wrong. Try Again !!',
+        'SupplierTransactions' => 'Supplier Transactions'
 
     ];
 ?>

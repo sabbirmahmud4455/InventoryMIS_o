@@ -18,7 +18,7 @@ class SupplierController extends Controller
         if( can('all_supplier') ){
             $suppliers = Supplier::select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc')->paginate(20);
 
-            return view('backend.modules.system_data_module.supplier.index', compact('suppliers'));
+            return view('backend.modules.supplier.index', compact('suppliers'));
 
         } else {
             return view("errors.404");
@@ -28,7 +28,7 @@ class SupplierController extends Controller
     //supplier add modal start
     public function add_modal(){
         if( can('add_supplier') ){
-            return view("backend.modules.system_data_module.supplier.modals.add");
+            return view("backend.modules.supplier.modals.add");
 
         } else{
             return view("errors.404");
@@ -93,7 +93,7 @@ class SupplierController extends Controller
         if( can("view_supplier")){
             $supplier = Supplier::where("id",$id)->select("id", "name", "contact_no", 'address', 'remarks', "is_active")->first();
 
-            return view("backend.modules.system_data_module.supplier.modals.show", compact("supplier"));
+            return view("backend.modules.supplier.modals.show", compact("supplier"));
         }
         else{
             return view("errors.404");
@@ -105,7 +105,7 @@ class SupplierController extends Controller
         if( can("edit_supplier") ){
             $supplier = Supplier::where("id",$id)->select("id", "name", "contact_no", 'address', 'remarks', "is_active")->first();
 
-            return view("backend.modules.system_data_module.supplier.modals.edit", compact("supplier"));
+            return view("backend.modules.supplier.modals.edit", compact("supplier"));
         }
         else{
             return view("errors.404");
@@ -150,5 +150,18 @@ class SupplierController extends Controller
         $supplier = Supplier::with('transactions')->find($request->id);
 
         return response()->json($supplier);
+    }
+
+    // Supplier Transaction
+    public function suppllier_transactions($id)
+    {
+        if(can('supplier_transactions')) {
+            $transaction = new Supplier();
+            $supplier_transactions = $transaction->GetSupplierTransactions(decrypt($id));
+
+            return view('backend.modules.supplier.supplier_transactions', compact('supplier_transactions'));
+        } else {
+            return view('errors.404');
+        }
     }
 }

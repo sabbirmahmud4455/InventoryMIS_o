@@ -85,6 +85,7 @@
                                     <div class="col-md-3">
                                         <label>{{ __('Item.Item') }}</label>
                                         <select required name="item_id" class="form-control form-control-sm select2" id="item_id">
+                                            <option selected disabled>{{ __('Item.SelectItem') }}</option>
                                             @forelse ($items as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @empty
@@ -172,16 +173,16 @@
                                     <input readonly type="text" class="form-control form-control-sm" id="purchase_total_price">
 
                                     <label>{{ __('Purchase.PreviousBalance') }}</label>
-                                    <input type="text" class="form-control form-control-sm" value="0" id="previous_balance">
+                                    <input readonly type="text" class="form-control form-control-sm" value="0" id="previous_balance">
 
                                     <label>{{ __('Purchase.InTotalAmount') }}</label>
-                                    <input type="text" class="form-control form-control-sm" id="purchase_in_total_amount">
+                                    <input readonly type="text" class="form-control form-control-sm" id="purchase_in_total_amount">
 
                                     <label>{{ __('Purchase.DepositeAmount') }}</label>
                                     <input type="text" class="form-control form-control-sm" id="purchase_deposite_amount" onkeyup="due_amount_calculation()">
 
                                     <label>{{ __('Purchase.DueAmount') }}</label>
-                                    <input type="text" class="form-control form-control-sm" readonly id="purchase_due_amount">
+                                    <input readonly type="text" class="form-control form-control-sm" readonly id="purchase_due_amount">
 
                                     <label>{{ __('Purchase.PaymentBy') }}</label>
                                     <select name="payment_by" class="form-control form-control-sm" id="purchase_payment_by">

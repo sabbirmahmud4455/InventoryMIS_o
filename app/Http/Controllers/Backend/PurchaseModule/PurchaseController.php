@@ -114,7 +114,7 @@ class PurchaseController extends Controller
                 ////////////////
                 $transaction_purch->transaction_type_id = 1;
                 /////////
-
+                $transaction_purch->narration = 'Purchase New Order';
                 $transaction_purch->purchase_id = $purchase->id;
                 $transaction_purch->supplier_id = $data['supplier_id'];
 
@@ -134,7 +134,7 @@ class PurchaseController extends Controller
                     ////////////////
                     $transaction_deposit->transaction_type_id = 1;
                     /////////
-
+                    $transaction_deposit->narration = 'Deposite Amount';
                     $transaction_deposit->purchase_id = $purchase->id;
                     $transaction_deposit->supplier_id = $data['supplier_id'];
 

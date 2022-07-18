@@ -23,6 +23,9 @@
         'SerialNo'              => 'নং',
         'Select'                => 'সিলেক্ট',
         'Date'                  => 'তারিখ',
+        'Transaction'           => 'লেনদেন',
+        'NoDataFound'           => 'কোন তথ্য পাওয়া যায়নি',
+        'Total'                 => 'মোট'
 
     ]
 

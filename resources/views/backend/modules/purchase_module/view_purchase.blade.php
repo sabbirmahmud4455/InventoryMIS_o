@@ -74,14 +74,16 @@
                                 {{-- Purchase Details Information --}}
                                 <div class="col-md-12 table-responsive">
                                     <table class="table table-sm table-bordered">
-                                        {{-- <thead>
+                                        <thead>
                                             <th>{{ __('Application.SerialNo') }}</th>
                                             <th>{{ __('Lot.LotName') }}</th>
-                                            <th>{{ __('ItemType.ItemName') }}</th>
-                                            <th>{{ __('variant.Name') }}</th>
-                                            <th>{{ __('Unit.Name') }}</th>
+                                            <th>{{ __('Item.Item') }}</th>
+                                            <th>{{ __('Purchase.Weight') }}</th>
+                                            <th>{{ __('Unit.Unit') }}</th>
                                             <th>{{ __('Purchase.Beg') }}</th>
-                                        </thead> --}}
+                                            <th>{{ __('Purchase.Price') }}</th>
+                                            <th>{{ __('Purchase.TotalPrice') }}</th>
+                                        </thead>
                                         <tbody>
                                             @forelse ($purchase_details as $key => $detail)
                                                 <tr>

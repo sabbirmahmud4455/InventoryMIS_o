@@ -24,6 +24,9 @@
         'Weight' => 'Weight',
         'Select' => 'Select',
         'Data' => 'Date',
+        'Transaction' => 'Transaction',
+        'NotDataFound' => 'No Data Found',
+        'Total' => 'Total'
     ]
 
 ?>

@@ -492,6 +492,15 @@ class PermissionSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+            [
+                'id' => 76,
+                'key' => 'supplier_transactions',
+                'display_name_en' => '-- Supplier Transactions',
+                'display_name_bn' => '-- মহাজন লেনদেন',
+                'module_id' => 4,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
             // Supplier Module Permission End
 
 
@@ -731,14 +740,6 @@ class PermissionSeeder extends Seeder
 
         ]);
 
-
-
-        // Permission Seeder Sequence
-        // Please Do Not Remove Comments
-        // Sabbir : Supplier + Customer [Add, Edit, View, Delete] 11-20
-        // Nazib : Item Type + Item + Item Variant [21-35]
-        // Mahbub : Warehouse + PaymentType + TransactionType [Add, Edit, View, Delete] 36-50
-
-        // Last ID: 75, New ID: 76
+        // Last ID: 76, New ID: 77
     }
 }
