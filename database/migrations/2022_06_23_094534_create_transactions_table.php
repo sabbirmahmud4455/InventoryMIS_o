@@ -25,7 +25,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->unsignedBigInteger('sales_id')->nullable();
             $table->unsignedBigInteger('bank_id')->nullable();
-            $table->unsignedInteger('check_no')->nullable();
+            $table->string('cheque_no')->nullable();
             $table->string('remarks')->nullable();
             $table->double('cash_in')->default(0.00);
             $table->double('cash_out')->default(0.00);

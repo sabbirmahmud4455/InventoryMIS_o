@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\PurchaseModule;
 
 use App\Http\Controllers\Controller;
+use App\Models\BankModule\Bank;
 use App\Models\LotModule\Lot;
 use App\Models\PurchaseModule\Purchase;
 use App\Models\PurchaseModule\PurchaseDetails;
@@ -44,7 +45,8 @@ class PurchaseController extends Controller
             $lots = Lot::select('id', 'name')->get();
             $units = Unit::select('id', 'name')->get();
             $variants = Variant::select('id', 'name')->get();
-            return view('backend.modules.purchase_module.add_purchase', compact('suppliers', 'items', 'lots', 'units', 'variants'));
+            $banks = Bank::select('id', 'name')->where('is_active', true)->get();
+            return view('backend.modules.purchase_module.add_purchase', compact('suppliers', 'items', 'lots', 'units', 'variants','banks'));
         } else {
             return view('errors.404');
         }
@@ -68,8 +70,7 @@ class PurchaseController extends Controller
     public function store_new_purchase(Request $request)
     {
         $data = json_decode($request->data, true);
-
-
+        
         $today = Carbon::now()->format('Y-m-d');
         $date_arr = explode('-',$today);
 
@@ -114,7 +115,7 @@ class PurchaseController extends Controller
                 ////////////////
                 $transaction_purch->transaction_type_id = 1;
                 /////////
-
+                $transaction_purch->narration = 'Purchase New Order';
                 $transaction_purch->purchase_id = $purchase->id;
                 $transaction_purch->supplier_id = $data['supplier_id'];
 
@@ -134,13 +135,13 @@ class PurchaseController extends Controller
                     ////////////////
                     $transaction_deposit->transaction_type_id = 1;
                     /////////
-
+                    $transaction_deposit->narration = 'Deposite Amount';
                     $transaction_deposit->purchase_id = $purchase->id;
                     $transaction_deposit->supplier_id = $data['supplier_id'];
 
                     if ($data['purchase_payment_by'] == "BANK") {
-                        $transaction_deposit->bank_id = 'ASDF';
-                        $transaction_deposit->check_no = 'ASDF';
+                        $transaction_deposit->bank_id = $data['bank_id'];
+                        $transaction_deposit->cheque_no = $data['cheque_no'];
                     }
 
                     $transaction_deposit->remarks = isset($data['remarks']) ? $data['remarks'] : '';

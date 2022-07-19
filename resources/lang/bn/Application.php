@@ -17,12 +17,16 @@
         "Information"           => 'তথ্য',
         "CreatedDateTime"       => 'তৈরি করা তারিখ ও সময়',
         "LastUpdate"            => 'সর্বশেষ আপডেট',
-        'WarningMsg'            => ' কিছু ভুল হয়েছে| আবার চেষ্টা করুন !!',
+        'WarningMsg'            => 'কিছু ভুল হয়েছে| আবার চেষ্টা করুন !!',
         'SetLangugae'           => 'সফওয়্যার এর ভাষা নির্বাচন করুন',
         'Language'              => 'ভাষা',
         'SerialNo'              => 'নং',
         'Select'                => 'সিলেক্ট',
         'Date'                  => 'তারিখ',
+        'Transaction'           => 'লেনদেন',
+        'NoDataFound'           => 'কোন তথ্য পাওয়া যায়নি',
+        'Total'                 => 'মোট',
+        'Remarks'               => 'মন্তব্য',
 
     ]
 

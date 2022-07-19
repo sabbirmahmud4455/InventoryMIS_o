@@ -85,6 +85,7 @@
                                     <div class="col-md-3">
                                         <label>{{ __('Item.Item') }}</label>
                                         <select required name="item_id" class="form-control form-control-sm select2" id="item_id">
+                                            <option selected disabled>{{ __('Item.SelectItem') }}</option>
                                             @forelse ($items as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @empty
@@ -172,22 +173,39 @@
                                     <input readonly type="text" class="form-control form-control-sm" id="purchase_total_price">
 
                                     <label>{{ __('Purchase.PreviousBalance') }}</label>
-                                    <input type="text" class="form-control form-control-sm" value="0" id="previous_balance">
+                                    <input readonly type="text" class="form-control form-control-sm" value="0" id="previous_balance">
 
                                     <label>{{ __('Purchase.InTotalAmount') }}</label>
-                                    <input type="text" class="form-control form-control-sm" id="purchase_in_total_amount">
+                                    <input readonly type="text" class="form-control form-control-sm" id="purchase_in_total_amount">
 
                                     <label>{{ __('Purchase.DepositeAmount') }}</label>
                                     <input type="text" class="form-control form-control-sm" id="purchase_deposite_amount" onkeyup="due_amount_calculation()">
 
                                     <label>{{ __('Purchase.DueAmount') }}</label>
-                                    <input type="text" class="form-control form-control-sm" readonly id="purchase_due_amount">
+                                    <input readonly type="text" class="form-control form-control-sm" readonly id="purchase_due_amount">
 
                                     <label>{{ __('Purchase.PaymentBy') }}</label>
                                     <select name="payment_by" class="form-control form-control-sm" id="purchase_payment_by">
                                         <option value="CASH">{{ __('Purchase.Cash') }}</option>
-                                        <option value="CASH">{{ __('Purchase.Bank') }}</option>
+                                        <option value="BANK">{{ __('Purchase.Bank') }}</option>
                                     </select>
+
+                                    {{-- Bank Information --}}
+                                    <div id="bank_div" class="d-none">
+                                        <label>{{ __('Bank.BankName') }}</label>
+                                        <select name="bank_id" class="form-control form-control-sm" id="bank_id">
+                                            <option value="" selected disabled>{{ __('Bank.SelectBank') }}</option>
+                                            @forelse ($banks as $bank)
+                                                <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                            @empty
+                                                <option value="">No Banks Found</option>
+                                            @endforelse
+                                        </select>
+
+                                        <label> {{ __('Bank.ChequeNo') }} </label>
+                                        <input type="text" name="cheque_no" class="form-control form-control-sm" id="cheque_no">
+                                    </div>
+
 
                                     <form onsubmit="submit_purchase(event)" id="purchase_store_form" action="{{ route('purchase.store') }}" method="post">
                                         @csrf
@@ -264,6 +282,18 @@
     const items = {!! json_encode($items) !!};
     const variants = {!! json_encode($variants) !!};
     const units = {!! json_encode($units) !!};
+
+    $('#purchase_payment_by').change(function(){
+
+        $('#bank_id').val('');
+        $('#cheque_no').val('');
+
+        if($(this).val() == 'BANK'){
+            $('#bank_div').removeClass('d-none');
+        } else {
+            $('#bank_div').addClass('d-none');
+        }
+    });
 
     // Get lot Data
     function get_lot(){
@@ -422,6 +452,8 @@
     }
 
     function submit_purchase(event){
+        // event.preventDefault();
+
         const data_asdf =
         {
             "supplier_id" : $("#supplier").val(),
@@ -432,7 +464,11 @@
             "purchase_due_amount" : $("#purchase_due_amount").val(),
             "purchase_payment_by" : $("#purchase_payment_by").val(),
             "added_items": added_items,
+            "bank_id" : $('#bank_id').val(),
+            "cheque_no" : $('#cheque_no').val()
         }
+
+
 
         $("#purchase_data").val(JSON.stringify(data_asdf));
 
@@ -441,42 +477,7 @@
 
     show_items()
 
-    // function matchStart(params, data) {
-    //     // If there are no search terms, return all of the data
-    //     if ($.trim(params.term) === '') {
-    //         return data;
-    //     }
 
-    //     // Skip if there is no 'children' property
-    //     if (typeof data.children === 'undefined') {
-    //         $('#new_lot_store').removeClass("d-none");
-    //         return null;
-    //     } else {
-    //         $('#new_lot_store').addClass("d-none");
-    //     }
-
-    //     // `data.children` contains the actual options that we are matching against
-    //     var filteredChildren = [];
-    //     $.each(data.children, function (idx, child) {
-    //         if (child.text.toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
-    //         filteredChildren.push(child);
-    //         }
-    //     });
-
-    //     // If we matched any of the timezone group's children, then set the matched children on the group
-    //     // and return the group object
-    //     if (filteredChildren.length) {
-    //         var modifiedData = $.extend({}, data, true);
-    //         modifiedData.children = filteredChildren;
-
-    //         // You can return modified objects from here
-    //         // This includes matching the `children` how you want in nested data sets
-    //         return modifiedData;
-    //     }
-
-    //     // Return `null` if the term should not be displayed
-    //     return null;
-    // }
 
 </script>
 
