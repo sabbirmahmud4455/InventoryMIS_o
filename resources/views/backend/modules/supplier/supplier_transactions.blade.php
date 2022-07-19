@@ -67,7 +67,7 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $transaction->date }}</td>
                                                 <td>
-                                                    <a style="color: rgb(8, 8, 255)" class="dropdown-item" href="#" data-content="{{ route('supplier.transaction_details', encrypt($transaction->id)) }}" data-target="#myModal" data-toggle="modal">
+                                                    <a style="color: rgb(8, 8, 255)" class="dropdown-item" href="#" data-content="{{ route('supplier.transaction_details', encrypt($transaction->id)) }}" data-target="#largeModal" data-toggle="modal">
                                                         {{ $transaction->transaction_code }}
                                                     </a>
                                                 </td>

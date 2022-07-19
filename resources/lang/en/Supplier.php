@@ -1,16 +1,17 @@
 <?php
     return [
-        'Supplier' => 'Supplier',
-        'SupplierName' => 'Supplier Name',
-        'SupplierPhone' => 'Supplier Phone',
-        'SupplierAddress' => 'Supplier Address',
-        'SupplierRemarks' => 'Supplier Remarks',
-        'SupplierAdd' => 'Add Supplier',
-        'OpeningBalance' => 'Opening Balance',
-        'SupplierAddSuccessMsg' => 'Supplier Successfully Added',
-        'SupplierUpdateMsg' => 'Supplier Successfully Updated',
-        'SupplierWarningMsg' => 'Something Wrong. Try Again !!',
-        'SupplierTransactions' => 'Supplier Transactions'
+        'Supplier'                  => 'Supplier',
+        'SupplierName'              => 'Supplier Name',
+        'SupplierPhone'             => 'Supplier Phone',
+        'SupplierAddress'           => 'Supplier Address',
+        'SupplierRemarks'           => 'Supplier Remarks',
+        'SupplierAdd'               => 'Add Supplier',
+        'OpeningBalance'            => 'Opening Balance',
+        'SupplierAddSuccessMsg'     => 'Supplier Successfully Added',
+        'SupplierUpdateMsg'         => 'Supplier Successfully Updated',
+        'SupplierWarningMsg'        => 'Something Wrong. Try Again !!',
+        'SupplierTransactions'      => 'Supplier Transactions',
+        'SupplierTransactionDetails'=> 'Supplier Transaction Details',
 
     ];
 ?>

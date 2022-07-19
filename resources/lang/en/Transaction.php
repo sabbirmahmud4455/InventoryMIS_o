@@ -7,6 +7,7 @@
         'CashOut'           => 'Cash Out',
         'TotalCashIn'       => 'Total Cash IN',
         'TotalCashOut'      => 'Total Cash Out',
-        'Balance'           => 'Balance'
+        'Balance'           => 'Balance',
+        'TransactionAmount' => 'Transaction Amount',
     ];
 ?>

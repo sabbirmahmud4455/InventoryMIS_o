@@ -170,8 +170,9 @@ class SupplierController extends Controller
     {
         if(can('supplier_transactions')) {
             $transaction = new Transaction();
-            return $transaction_details = $transaction->TransactionDetails(decrypt($id));
+            $transaction_details = $transaction->SupplierTransactionDetails(decrypt($id));
 
+            return view('backend.modules.supplier.supplier_transaction_details', compact('transaction_details'));
         } else {
             return view('errors.404');
         }

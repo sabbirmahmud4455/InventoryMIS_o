@@ -70,8 +70,7 @@ class PurchaseController extends Controller
     public function store_new_purchase(Request $request)
     {
         $data = json_decode($request->data, true);
-
-
+        
         $today = Carbon::now()->format('Y-m-d');
         $date_arr = explode('-',$today);
 

@@ -7,6 +7,7 @@
         'CashOut'           => 'ক্যাশ আউট',
         'TotalCashIn'       => 'মোট ক্যাশ ইন',
         'TotalCashOut'      => 'মোট ক্যাশ আউট',
-        'Balance'           => 'বাকি'
+        'Balance'           => 'বাকি',
+        'TransactionAmount' => 'লেনদেনের পরিমাণ',
     ];
 ?>
