@@ -1,5 +1,6 @@
 <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">{{ __('Supplier.SupplierTransactionDetails') }}</h5>
+    <a href="{{ route('supplier.transaction.details.export.pdf', ['id' => $id]) }}" class="btn btn-sm btn-info float-right" style="margin-left: 300px;" target="_blank">{{ __('Application.Download') }}</a>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>

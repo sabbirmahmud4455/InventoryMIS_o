@@ -24,4 +24,18 @@
     });
 </script>
 
+<!-- Add auto complete attribute in form -->
+<script>
+    $(document).ready(function() {
+        $('form').attr('autocomplete','off');
+    });
+
+    /* const element = document.querySelectorAll('form');
+    
+    element.forEach((element) => {
+        element.setAttribute('autocomplete', 'off');
+    }); */
+    
+</script>
+
 @yield("per_page_js")

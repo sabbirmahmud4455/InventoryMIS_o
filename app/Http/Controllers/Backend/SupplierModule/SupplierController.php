@@ -168,20 +168,7 @@ class SupplierController extends Controller
         }
     }
 
-    // Supplier Transaction Details
-    public function supplier_transaction_details($id)
-    {
-        if(can('supplier_transactions')) {
-            $transaction = new Transaction();
-            $transaction_details = $transaction->SupplierTransactionDetails(decrypt($id));
-
-            return view('backend.modules.supplier.supplier_transaction_details', compact('transaction_details'));
-        } else {
-            return view('errors.404');
-        }
-    }
-
-    // Supplier Transaction
+    // Supplier Transaction Export Pdf
     public function supplier_transactions_export_pdf($id)
     {
         if(can('supplier_transactions')) {
@@ -189,56 +176,130 @@ class SupplierController extends Controller
             $supplier_transactions = $transaction->GetSupplierTransactions(decrypt($id));
 
             $company_info = CompanyInfo::first();
-                $title = __('Supplier.SupplierTransactions');
+            $title = __('Supplier.SupplierTransactions');
 
-                $now = new DateTime();
-                $time = $now->format('F j, Y, g:i a');
-                $auth_user = Auth::user()->name;
+            $now = new DateTime();
+            $time = $now->format('F j, Y, g:i a');
+            $auth_user = Auth::user()->name;
 
-                $footer = "
-                        <span style='margin: 29px;'>Page :
-                        <span></span>{PAGENO} of {nbpg}</span>
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-
-                        <span class='print_date'>Print Date : $time
-                    </span>
-
+            $footer = "
+                    <span style='margin: 29px;'>Page :
+                    <span></span>{PAGENO} of {nbpg}</span>
                     &nbsp;
                     &nbsp;
                     &nbsp;
-                    <span class='print_by'>
-                        Printed By : $auth_user
-                    </span>
 
-                    &nbsp;
-                    &nbsp;
-                    <span class='powered_by'> Powered By: RP AI Solutions </span>
-                    &nbsp;
-                    ";
+                    <span class='print_date'>Print Date : $time
+                </span>
 
-                $mpdf = new \Mpdf\Mpdf(
-                    [
-                        // 'default_font_size' => 12,
-                        'default_font' => 'FreeSerif',
-                        'mode' => 'utf-8',
-                    ]
-                );
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <span class='print_by'>
+                    Printed By : $auth_user
+                </span>
 
-                $mpdf->SetTitle(__("Supplier.SupplierTransactions"));
-                $mpdf->SetFooter($footer);
-                $mpdf->WriteHTML(view('backend.modules.supplier.export.pdf.supplier_transactions_export_pdf', compact(
-                    'supplier_transactions',
-                    'company_info',
-                    'title'
-                )));
-                $mpdf->Output("SupplierTransactions".'.pdf', "I");
+                &nbsp;
+                &nbsp;
+                <span class='powered_by'> Powered By: RP AI Solutions </span>
+                &nbsp;
+                ";
+
+            $mpdf = new \Mpdf\Mpdf(
+                [
+                    // 'default_font_size' => 12,
+                    'default_font' => 'FreeSerif',
+                    'mode' => 'utf-8',
+                ]
+            );
+
+            $mpdf->SetTitle(__("Supplier.SupplierTransactions"));
+            $mpdf->SetFooter($footer);
+            $mpdf->WriteHTML(view('backend.modules.supplier.export.pdf.supplier_transactions_export_pdf', compact(
+                'supplier_transactions',
+                'company_info',
+                'title'
+            )));
+            $mpdf->Output("SupplierTransactions".'.pdf', "I");
 
         } else {
             return view('errors.404');
         }
     }
+
+    // Supplier Transaction Details
+    public function supplier_transaction_details($id)
+    {
+        if(can('supplier_transactions')) {
+            $transaction = new Transaction();
+            $transaction_details = $transaction->SupplierTransactionDetails(decrypt($id));
+
+            return view('backend.modules.supplier.supplier_transaction_details', compact('transaction_details', 'id'));
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    // Supplier Transaction Details Export Pdf
+    public function supplier_transaction_details_export_pdf($id)
+    {
+        if(can('supplier_transactions')) {
+            $transaction = new Transaction();
+            $transaction_details = $transaction->SupplierTransactionDetails(decrypt($id));
+
+            $company_info = CompanyInfo::first();
+            $title = __('Supplier.SupplierTransactionDetails');
+
+            $now = new DateTime();
+            $time = $now->format('F j, Y, g:i a');
+            $auth_user = Auth::user()->name;
+
+            $footer = "
+                    <span style='margin: 29px;'>Page :
+                    <span></span>{PAGENO} of {nbpg}</span>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+
+                    <span class='print_date'>Print Date : $time
+                </span>
+
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <span class='print_by'>
+                    Printed By : $auth_user
+                </span>
+
+                &nbsp;
+                &nbsp;
+                <span class='powered_by'> Powered By: RP AI Solutions </span>
+                &nbsp;
+                ";
+
+            $mpdf = new \Mpdf\Mpdf(
+                [
+                    // 'default_font_size' => 12,
+                    'default_font' => 'FreeSerif',
+                    'mode' => 'utf-8',
+                ]
+            );
+
+            $mpdf->SetTitle(__("Supplier.SupplierTransactionDetails"));
+            $mpdf->SetFooter($footer);
+            $mpdf->WriteHTML(view('backend.modules.supplier.export.pdf.supplier_transaction_details_export_pdf', compact(
+                'transaction_details',
+                'company_info',
+                'title'
+            )));
+            $mpdf->Output("SupplierTransactionDetails".'.pdf', "I");
+
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    
 
 
 }

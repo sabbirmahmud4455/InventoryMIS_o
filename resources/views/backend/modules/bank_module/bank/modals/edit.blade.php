@@ -34,6 +34,14 @@
                 <label for="name">{{ __('Bank.BranchName') }}</label>
                 <input type="text" class="form-control" name="branch_name" value="{{ $bank->branch_name }}" required>
             </div>
+
+            @if (count($bank->transactions) === 0)
+                <!-- Openning Banlance -->
+                <div class="col-md-12 col-12 form-group">
+                    <label for="name">{{ __('Bank.OpeningBalance') }}</label>
+                    <input type="text" class="form-control" name="opening_balance" required>
+                </div>
+            @endif
             
 
             <!-- Status -->

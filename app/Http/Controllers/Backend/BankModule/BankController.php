@@ -145,7 +145,7 @@ class BankController extends Controller
     {
         if (can('edit_bank'))
         {
-            $bank = Bank::where('id',$id)->select("id", "name", 'account_name', 'account_no', 'branch_name', "is_active", 'is_delete')->first();
+            $bank = Bank::where('id',$id)->with('transactions')->select("id", "name", 'account_name', 'account_no', 'branch_name', "is_active", 'is_delete')->first();
             return view('backend.modules.bank_module.bank.modals.edit',compact('bank'));
         }
         else
@@ -180,6 +180,20 @@ class BankController extends Controller
                     $bank->is_delete = false;
                     $EditSwal = __('Bank.EditSwal');
                     if( $bank->save() ){
+                        
+                        $today = Carbon::now();
+                        if($request->opening_balance){
+                            $transaction = new Transaction();
+                            $transaction->date = $today->toDateString();
+                            $transaction->transaction_code = $today.'OP#Bank';
+                            $transaction->narration = 'OPENING BALANCE';
+                            $transaction->bank_id = $bank->id;
+                            $transaction->remarks = 'Opening Balance of '.$bank->account_no;
+                            $transaction->cash_in = BnToEn($request->opening_balance);
+                            $transaction->created_by = auth('web')->user()->id;
+                            $transaction->save();
+                        }
+
                         return response()->json(['success' => $EditSwal], 200);
                     }
 
