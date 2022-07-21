@@ -31,6 +31,9 @@
                             </li>
                         </ol>
                     </div>
+                    <div class="col-sm-6">
+                        <a href="{{ route('supplier.transactions.export.pdf', ['id' => $id]) }}" class="btn btn-sm btn-info float-right" target="_blank">{{ __('Application.Download') }}</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,13 +49,15 @@
                             <div class="card-body">
                                 <table class="table table-bordered table-sm table-striped dataTable dtr-inline datatable-data">
                                     <thead>
-                                        <th>{{ __('Application.SerialNo') }}</th>
-                                        <th>{{ __('Application.Date') }}</th>
-                                        <th>{{ __('Transaction.TransactionCode') }}</th>
-                                        <th>{{ __('Transaction.Narration') }}</th>
-                                        <th>{{ __('Application.Status') }}</th>
-                                        <th>{{ __('Transaction.CashIn') }}</th>
-                                        <th>{{ __('Transaction.CashOut') }}</th>
+                                        <tr>
+                                            <th>{{ __('Application.SerialNo') }}</th>
+                                            <th>{{ __('Application.Date') }}</th>
+                                            <th>{{ __('Transaction.TransactionCode') }}</th>
+                                            <th>{{ __('Transaction.Narration') }}</th>
+                                            <th>{{ __('Application.Status') }}</th>
+                                            <th>{{ __('Transaction.CashIn') }}</th>
+                                            <th>{{ __('Transaction.CashOut') }}</th>
+                                        </tr>
                                     </thead>
 
                                     @php

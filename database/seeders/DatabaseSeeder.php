@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             // VariantSeeder::class,
             // UnitSeeder::class,
             // BankSeeder::class,
+            // CompanyInfoSeeder::class,
         ]);
     }
 }

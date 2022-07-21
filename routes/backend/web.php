@@ -44,6 +44,7 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
     //settings module routes start
     Route::group(['prefix' => 'settings_module'], function () {
         require_once 'settings_module/app_info.php';
+        require_once 'settings_module/company_info.php';
     });
     //settings module routes end
 
