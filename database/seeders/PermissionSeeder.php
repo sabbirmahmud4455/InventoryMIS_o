@@ -635,6 +635,15 @@ class PermissionSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+            [
+                'id' => 80,
+                'key' => 'bank_transaction',
+                'display_name_en' => '-- Bank Transaction',
+                'display_name_bn' => '-- ব্যাংক লেনদেন',
+                'module_id' => 6,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
             // Bank Module Permission End
 
 
@@ -767,6 +776,6 @@ class PermissionSeeder extends Seeder
 
         ]);
 
-        // Last ID: 77, New ID: 78
+        // Last ID: 80, New ID: 81
     }
 }

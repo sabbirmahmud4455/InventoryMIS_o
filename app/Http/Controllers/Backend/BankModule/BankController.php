@@ -63,6 +63,12 @@ class BankController extends Controller
                             '.__('Bank.EditBank').'
                         </a>
                         ': '') .'
+                        '.( can("bank_transaction") ? '
+                        <a class="dropdown-item" href="'.route('bank.transaction', ['id' => encrypt($bank->id)]).'" class="btn btn-outline-dark">
+                            <i class="fas fa-exchange-alt"></i>
+                            '.__('Bank.Transaction').'
+                        </a>
+                        ': '') .'
 
                     </div>
                 </div>
@@ -226,6 +232,31 @@ class BankController extends Controller
         }
     }
     //view modal function end
+
+    // Bank Transaction function start
+    public function bank_transaction($id) {
+        if(can('bank_transaction')) {
+            $bank = Bank::with('transactions')->where('is_delete', false)->findOrFail(decrypt($id));
+            $bank_transactions = Transaction::where('bank_id', $bank->id)->get();
+            return view('backend.modules.bank_module.bank.transaction.bank_transaction', compact('bank', 'bank_transactions'));
+        } else {
+            return view('errors.404');
+        }
+        
+    }
+    // Bank Transaction function end
+
+    // Bank Transaction function start
+    public function bank_transaction_details($id) {
+        if(can('bank_transaction')) {
+            $bank_transaction_details = Transaction::with('bank', 'purchase')->findOrFail(decrypt($id));
+            return view('backend.modules.bank_module.bank.transaction.bank_transaction_details', compact('bank_transaction_details'));
+        } else {
+            return view('errors.404');
+        }
+        
+    }
+    // Bank Transaction function end
 
 
 }

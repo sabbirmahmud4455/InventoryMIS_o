@@ -22,4 +22,13 @@ Route::group(['prefix' => 'bank'], function (){
     //view route start
     Route::get('/view/{id}',[BankController::class,'view'])->name('bank.view.modal');
 
+    // bank transaction route
+    Route::get('/transaction/{id}', [BankController::class, 'bank_transaction'])->name('bank.transaction');
+
+    // bank transaction route
+    Route::get('/transaction/{id}', [BankController::class, 'bank_transaction'])->name('bank.transaction');
+
+    // bank transaction details route
+    Route::get('/transaction/details/{id}', [BankController::class, 'bank_transaction_details'])->name('bank.transaction.details');
+
 });
