@@ -22,6 +22,12 @@ Route::group(['prefix' => 'supplier'], function(){
     // Suppllier Transaction
     Route::get('/transactions/{id}', [SupplierController::class, 'suppllier_transactions'])->name('supplier.transactions');
     Route::get('transaction-details/{id}', [SupplierController::class, 'supplier_transaction_details'])->name('supplier.transaction_details');
+    
+    // supplier transaction export pdf
+    Route::get('/transactions/export/pdf/{id}', [SupplierController::class, 'supplier_transactions_export_pdf'])->name('supplier.transactions.export.pdf');
+    
+    // supplier transaction export pdf
+    Route::get('transaction-details/export/pdf/{id}', [SupplierController::class, 'supplier_transaction_details_export_pdf'])->name('supplier.transaction.details.export.pdf');
 
 });
 

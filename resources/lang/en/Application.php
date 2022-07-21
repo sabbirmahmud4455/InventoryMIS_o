@@ -28,6 +28,7 @@
         'NotDataFound'          => 'No Data Found',
         'Total'                 => 'Total',
         'Remarks'               => 'Remarks',
+        'Download'               => 'Download',
     ]
 
 ?>

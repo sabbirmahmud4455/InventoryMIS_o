@@ -20,19 +20,19 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ route('supplier.all') }}">
-                                     {{ __('Supplier.Supplier') }}
+                                <a href="{{ route('bank.index') }}">
+                                     {{ __('Bank.Bank') }}
                                 </a>
                             </li>
                             <li class="breadcrumb-item active">
                                 <a href="#">
-                                    {{ __('Supplier.SupplierTransactions') }}
+                                    {{ __('Bank.Transaction') }}
                                 </a>
                             </li>
                         </ol>
                     </div>
                     <div class="col-sm-6">
-                        <a href="{{ route('supplier.transactions.export.pdf', ['id' => $id]) }}" class="btn btn-sm btn-info float-right" target="_blank">{{ __('Application.Download') }}</a>
+                        {{-- <a href="{{ route('supplier.transactions.export.pdf', ['id' => $id]) }}" class="btn btn-sm btn-info float-right" target="_blank">{{ __('Application.Download') }}</a> --}}
                     </div>
                 </div>
             </div>
@@ -67,12 +67,12 @@
                                     @endphp
 
                                     <tbody>
-                                        @forelse ($supplier_transactions as $key => $transaction)
+                                        @forelse ($bank_transactions as $key => $transaction)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $transaction->date }}</td>
                                                 <td>
-                                                    <a style="color: rgb(8, 8, 255)" class="dropdown-item" href="#" data-content="{{ route('supplier.transaction_details', encrypt($transaction->id)) }}" data-target="#largeModal" data-toggle="modal">
+                                                    <a style="color: rgb(8, 8, 255)" class="dropdown-item" href="#" data-content="{{ route('bank.transaction.details', encrypt($transaction->id)) }}" data-target="#largeModal" data-toggle="modal">
                                                         {{ $transaction->transaction_code }}
                                                     </a>
                                                 </td>

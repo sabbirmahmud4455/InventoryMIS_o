@@ -15,5 +15,7 @@
         'EditSwal'          => 'Bank Updated',
         'SelectBank'        => 'Select Bank',
         'ChequeNo'          => 'Cheque No',
+        'Transaction'       => 'Bank Transaction',
+        'TransactionDetails'       => 'Bank Transaction Details',
     ];
 ?>

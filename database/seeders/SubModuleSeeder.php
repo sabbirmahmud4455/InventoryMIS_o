@@ -59,11 +59,22 @@ class SubModuleSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
+                'id' => 20,
+                'name_en' => 'company Info',
+                'name_bn' => 'প্রতিষ্ঠানের তথ্য',
+                'key' => 'company_info',
+                'position' => 2,
+                'route' => 'company.info.all',
+                'module_id' => 2,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
                 'id' => 4,
                 'name_en' => 'Language',
                 'name_bn' => 'ভাষা',
                 'key' => 'language',
-                'position' => 2,
+                'position' => 3,
                 'route' => 'app_info.lang',
                 'module_id' => 2,
                 'created_at' => $date,
@@ -292,6 +303,6 @@ class SubModuleSeeder extends Seeder
         ]);
 
         // #########################
-        //LAST ID : 19. NEXT ID : 20
+        //LAST ID : 20. NEXT ID : 21
     }
 }

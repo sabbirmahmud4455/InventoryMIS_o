@@ -93,10 +93,28 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
+                'id' => 78,
+                'key' => 'company_info',
+                'display_name_en' => 'Company Info',
+                'display_name_bn' => 'প্রতিষ্ঠানের তথ্য',
+                'module_id' => 2,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 79,
+                'key' => 'edit_company_info',
+                'display_name_en' => '-- Edit Company Info',
+                'display_name_bn' => '-- সম্পাদনা করুন প্রতিষ্ঠানের তথ্য',
+                'module_id' => 2,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
                 'id' => 9,
                 'key' => 'language',
-                'display_name_en' => '-- Language',
-                'display_name_bn' => '-- ভাষা',
+                'display_name_en' => 'Language',
+                'display_name_bn' => 'ভাষা',
                 'module_id' => 2,
                 'created_at' => $date,
                 'updated_at' => $date,
@@ -617,6 +635,15 @@ class PermissionSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+            [
+                'id' => 80,
+                'key' => 'bank_transaction',
+                'display_name_en' => '-- Bank Transaction',
+                'display_name_bn' => '-- ব্যাংক লেনদেন',
+                'module_id' => 6,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
             // Bank Module Permission End
 
 
@@ -789,6 +816,6 @@ class PermissionSeeder extends Seeder
 
         ]);
 
-        // Last ID: 77, New ID: 78
+        // Last ID: 80, New ID: 81
     }
 }

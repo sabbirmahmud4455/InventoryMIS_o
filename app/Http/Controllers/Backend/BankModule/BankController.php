@@ -63,6 +63,12 @@ class BankController extends Controller
                             '.__('Bank.EditBank').'
                         </a>
                         ': '') .'
+                        '.( can("bank_transaction") ? '
+                        <a class="dropdown-item" href="'.route('bank.transaction', ['id' => encrypt($bank->id)]).'" class="btn btn-outline-dark">
+                            <i class="fas fa-exchange-alt"></i>
+                            '.__('Bank.Transaction').'
+                        </a>
+                        ': '') .'
 
                     </div>
                 </div>
@@ -145,7 +151,7 @@ class BankController extends Controller
     {
         if (can('edit_bank'))
         {
-            $bank = Bank::where('id',$id)->select("id", "name", 'account_name', 'account_no', 'branch_name', "is_active", 'is_delete')->first();
+            $bank = Bank::where('id',$id)->with('transactions')->select("id", "name", 'account_name', 'account_no', 'branch_name', "is_active", 'is_delete')->first();
             return view('backend.modules.bank_module.bank.modals.edit',compact('bank'));
         }
         else
@@ -180,6 +186,20 @@ class BankController extends Controller
                     $bank->is_delete = false;
                     $EditSwal = __('Bank.EditSwal');
                     if( $bank->save() ){
+                        
+                        $today = Carbon::now();
+                        if($request->opening_balance){
+                            $transaction = new Transaction();
+                            $transaction->date = $today->toDateString();
+                            $transaction->transaction_code = $today.'OP#Bank';
+                            $transaction->narration = 'OPENING BALANCE';
+                            $transaction->bank_id = $bank->id;
+                            $transaction->remarks = 'Opening Balance of '.$bank->account_no;
+                            $transaction->cash_in = BnToEn($request->opening_balance);
+                            $transaction->created_by = auth('web')->user()->id;
+                            $transaction->save();
+                        }
+
                         return response()->json(['success' => $EditSwal], 200);
                     }
 
@@ -212,6 +232,31 @@ class BankController extends Controller
         }
     }
     //view modal function end
+
+    // Bank Transaction function start
+    public function bank_transaction($id) {
+        if(can('bank_transaction')) {
+            $bank = Bank::with('transactions')->where('is_delete', false)->findOrFail(decrypt($id));
+            $bank_transactions = Transaction::where('bank_id', $bank->id)->get();
+            return view('backend.modules.bank_module.bank.transaction.bank_transaction', compact('bank', 'bank_transactions'));
+        } else {
+            return view('errors.404');
+        }
+        
+    }
+    // Bank Transaction function end
+
+    // Bank Transaction function start
+    public function bank_transaction_details($id) {
+        if(can('bank_transaction')) {
+            $bank_transaction_details = Transaction::with('bank', 'purchase')->findOrFail(decrypt($id));
+            return view('backend.modules.bank_module.bank.transaction.bank_transaction_details', compact('bank_transaction_details'));
+        } else {
+            return view('errors.404');
+        }
+        
+    }
+    // Bank Transaction function end
 
 
 }

@@ -89,7 +89,7 @@
                                                             </a>
 
                                                             <a class="dropdown-item" href="{{ route('supplier.transactions', encrypt($supplier->id)) }}">
-                                                                <i class="fa fa-money" aria-hidden="true"></i>
+                                                                <i class="fa fa-exchange-alt" aria-hidden="true"></i>
                                                                 {{ __('Application.Transaction') }}
                                                             </a>
 
