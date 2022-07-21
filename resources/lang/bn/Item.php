@@ -5,7 +5,7 @@
         'SelectItemType'            => 'পণ্যের ধরণ নির্বাচন করুন',
         'ItemCode'                  => 'পণ্যের কোড',
         'ItemVariantCheck'          => 'কোন পণ্যের ভিন্নতা আছে ?',
-        'ItemVariant'               => 'পণ্যের ভিন্নতা',
+        'ItemVariant'               => 'ভিন্নতা',
         'ItemVariantDuplicateSwal'  => 'পণ্যের ভিন্নতা ইতিমধ্যে তৈরি করা হয়েছে',
         'AddItem'                   => 'পণ্য যোগ করুন',
         'Name'                      => 'নাম',

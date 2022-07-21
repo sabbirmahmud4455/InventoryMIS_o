@@ -80,6 +80,11 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
         require_once 'purchase_module/purchase.php';
     });
 
+    // Stock Module
+    Route::group(['prefix' => 'stock-module'], function() {
+        require_once 'stock_module/stock.php';
+    });
+
     // Sale Module
     Route::group(['prefix' => 'sale-module'], function() {
         require_once 'sale_module/sale.php';
