@@ -70,23 +70,28 @@ class PurchaseController extends Controller
     public function store_new_purchase(Request $request)
     {
         $data = json_decode($request->data, true);
-        
+
         $today = Carbon::now()->format('Y-m-d');
         $date_arr = explode('-',$today);
 
         if ($data['added_items'] && count($data['added_items']) > 0) {
 
+            // Store Data on Purchase Table
             $purchase = new Purchase();
             $purchase->supplier_id = $data['supplier_id'];
             $purchase->date =  $today;
             $purchase->challan_no = $today.'_'.rand(10000, 99999).'_'.$data['supplier_id'];
             $purchase->total_amount =  $data['purchase_total_price'];
             $purchase->created_by =  Auth::user()->id;
+            if(can('auto_stock')) {
+                $purchase->status = 'STOCK_IN';
+            }
 
             if ($purchase->save()) {
 
                 foreach ($data['added_items'] as $key => $item) {
 
+                    // Store Data on Purchase Details Table
                     $purchase_details = new PurchaseDetails();
                     $purchase_details->purchase_id = $purchase->id ;
                     $purchase_details->item_id = $item['item_id'];
@@ -97,16 +102,21 @@ class PurchaseController extends Controller
                     $purchase_details->total_price = $item['total_price'];
                     $purchase_details->save();
 
-                    $stock_in = new StockInOut();
-                    $stock_in->purchase_id = $purchase->id ;
-                    $stock_in->item_id = $item['item_id'];
-                    $stock_in->unit_id = $item['item_unit_id'];
-                    $stock_in->variant_id = $item['item_varient_id'];
-                    $stock_in->lot_id = $item['lot'] ? $item['lot'] : '';
-                    $stock_in->in_quantity = $item['beg'];
-                    $stock_in->save();
+                    // Store Data on Permission Table
+                    if(can('auto_stock')) {
+                        $stock_in = new StockInOut();
+                        $stock_in->purchase_id = $purchase->id ;
+                        $stock_in->item_id = $item['item_id'];
+                        $stock_in->unit_id = $item['item_unit_id'];
+                        $stock_in->variant_id = $item['item_varient_id'];
+                        $stock_in->lot_id = $item['lot'] ? $item['lot'] : '';
+                        $stock_in->in_quantity = $item['beg'];
+                        $stock_in->save();
+                    }
                 }
 
+
+                // Store Data on Transaction Table
                 $transaction_purch = new Transaction();
                 $transaction_purch->date = $today;
                 $transaction_purch->transaction_code = $date_arr[0].$date_arr[1].$date_arr[2].'_'.rand(10000, 99999).'_'.$data['supplier_id'].'_'.$purchase->id;

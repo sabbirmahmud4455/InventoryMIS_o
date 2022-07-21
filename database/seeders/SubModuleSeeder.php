@@ -233,7 +233,7 @@ class SubModuleSeeder extends Seeder
                 'id' => 17,
                 'name_en' => 'New Purchase',
                 'name_bn' => 'নতুন ক্রয়',
-                'key' => 'new_purchase',
+                'key' => 'add_purchase',
                 'position' => 2,
                 'route' => 'purchase.add',
                 'module_id' => 7,
