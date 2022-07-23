@@ -242,6 +242,32 @@ class SubModuleSeeder extends Seeder
             ],
             // Module ID 7 [Purchase] End
 
+            // Module ID 8 [Stock] Start
+            [
+                'id' => 21,
+                'name_en' => 'Stock List',
+                'name_bn' => 'স্টক লিস্ট',
+                'key' => 'stock_list',
+                'position' => 1,
+                'route' => 'stock.list',
+                'module_id' => 8,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 22,
+                'name_en' => 'Add to Stock',
+                'name_bn' => 'স্টক করা',
+                'key' => 'stock_add',
+                'position' => 2,
+                'route' => 'stock.add',
+                'module_id' => 8,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Module ID 8 [Stock] End
+
+
             //module ID 9 [Sale] start
             [
                 'id' => 18,

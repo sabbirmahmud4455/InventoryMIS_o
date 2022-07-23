@@ -713,6 +713,46 @@ class PermissionSeeder extends Seeder
             ],
             // Purchase Module Permission End
 
+            //Stock Module Permission Start
+            [
+                'id' => 80,
+                'key' => 'stock',
+                'display_name_en' => 'Stock',
+                'display_name_bn' => 'স্টক',
+                'module_id' => 8,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 81,
+                'key' => 'stock_add',
+                'display_name_en' => 'Stock Add',
+                'display_name_bn' => 'স্টক করা',
+                'module_id' => 8,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 82,
+                'key' => 'stock_edit',
+                'display_name_en' => 'Stock Edit',
+                'display_name_bn' => 'স্টক পরিবর্তন',
+                'module_id' => 8,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 83,
+                'key' => 'stock_list',
+                'display_name_en' => 'Stock List',
+                'display_name_bn' => 'স্টক লিস্ট',
+                'module_id' => 8,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+
+            //Stock Module Permission End
+
             // Seal Module permission start
 
             [
