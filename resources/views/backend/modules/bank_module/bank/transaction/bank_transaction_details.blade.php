@@ -1,6 +1,6 @@
 <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">{{ __('Bank.TransactionDetails') }}</h5>
-    {{-- <a href="{{ route('supplier.transaction.details.export.pdf', ['id' => $id]) }}" class="btn btn-sm btn-info float-right" style="margin-left: 300px;" target="_blank">{{ __('Application.Download') }}</a> --}}
+    <a href="{{ route('bank.transaction.details.export.pdf', ['id' => $id]) }}" class="btn btn-sm btn-info float-right" style="margin-left: 300px;" target="_blank">{{ __('Application.Download') }}</a>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -83,13 +83,15 @@
           <span class="badge badge-info">{{ __('Purchase.ViewPurchaseInfo') }}</span>
           <table class="table table-sm table-bordered">
               <thead>
-                  <th>{{ __('Application.SerialNo') }}</th>
-                  <th>{{ __('Lot.LotName') }}</th>
-                  <th>{{ __('Item.Item') }}</th>
-                  <th>{{ __('Purchase.Weight') }}</th>
-                  <th>{{ __('Unit.Unit') }}</th>
-                  <th>{{ __('Purchase.Price') }}</th>
-                  <th>{{ __('Purchase.TotalPrice') }}</th>
+                  <tr>
+                    <th>{{ __('Application.SerialNo') }}</th>
+                    <th>{{ __('Lot.LotName') }}</th>
+                    <th>{{ __('Item.Item') }}</th>
+                    <th>{{ __('Purchase.Weight') }}</th>
+                    <th>{{ __('Unit.Unit') }}</th>
+                    <th>{{ __('Purchase.Price') }}</th>
+                    <th>{{ __('Purchase.TotalPrice') }}</th>
+                  </tr>
               </thead>
 
               <tbody>

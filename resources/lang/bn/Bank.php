@@ -16,7 +16,7 @@
         'SelectBank'            => 'ব্যাংক নির্বাচন করুন',
         'ChequeNo'              => 'চেক নম্বর',
         'Transaction'           => 'ব্যাংক লেনদেন',
-        'TransactionDetails'           => 'ব্যাংক লেনদেনর বিবরণ',
+        'TransactionDetails'    => 'ব্যাংক লেনদেনর বিবরণ',
 
     ];
 ?>

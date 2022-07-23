@@ -27,8 +27,14 @@ Route::group(['prefix' => 'bank'], function (){
 
     // bank transaction route
     Route::get('/transaction/{id}', [BankController::class, 'bank_transaction'])->name('bank.transaction');
+    
+    // bank transaction export pdf route
+    Route::get('/transaction/export/pdf/{id}', [BankController::class, 'bank_transaction_export_pdf'])->name('bank.transaction.export.pdf');
 
     // bank transaction details route
     Route::get('/transaction/details/{id}', [BankController::class, 'bank_transaction_details'])->name('bank.transaction.details');
+    
+    // bank transaction details export pdf route
+    Route::get('/transaction/details/export/pdf/{id}', [BankController::class, 'bank_transaction_details_export_pdf'])->name('bank.transaction.details.export.pdf');
 
 });

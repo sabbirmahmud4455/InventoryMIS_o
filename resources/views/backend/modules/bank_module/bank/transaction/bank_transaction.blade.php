@@ -32,7 +32,7 @@
                         </ol>
                     </div>
                     <div class="col-sm-6">
-                        {{-- <a href="{{ route('supplier.transactions.export.pdf', ['id' => $id]) }}" class="btn btn-sm btn-info float-right" target="_blank">{{ __('Application.Download') }}</a> --}}
+                        <a href="{{ route('bank.transaction.export.pdf', ['id' => $id]) }}" class="btn btn-sm btn-info float-right" target="_blank">{{ __('Application.Download') }}</a>
                     </div>
                 </div>
             </div>
