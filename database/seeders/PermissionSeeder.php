@@ -715,7 +715,7 @@ class PermissionSeeder extends Seeder
 
             //Stock Module Permission Start
             [
-                'id' => 80,
+                'id' => 81,
                 'key' => 'stock',
                 'display_name_en' => 'Stock',
                 'display_name_bn' => 'স্টক',
@@ -724,7 +724,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 81,
+                'id' => 82,
                 'key' => 'stock_add',
                 'display_name_en' => 'Stock Add',
                 'display_name_bn' => 'স্টক করা',
@@ -733,7 +733,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 82,
+                'id' => 83,
                 'key' => 'stock_edit',
                 'display_name_en' => 'Stock Edit',
                 'display_name_bn' => 'স্টক পরিবর্তন',
@@ -742,7 +742,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 83,
+                'id' => 84,
                 'key' => 'stock_list',
                 'display_name_en' => 'Stock List',
                 'display_name_bn' => 'স্টক লিস্ট',
@@ -816,6 +816,6 @@ class PermissionSeeder extends Seeder
 
         ]);
 
-        // Last ID: 80, New ID: 81
+        // Last ID: 84, New ID: 85
     }
 }

@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <style>
         * {
-            font-family: FreeSerif;
+            font-family: nikosh;
         }
         body{
-            font-family: FreeSerif;
+            font-family: nikosh;
         }
         /* table {
             border:none;
@@ -173,7 +173,7 @@
                         </tbody>
 
                     </table>
-                    
+
                 @else
                     <h4 class="not-found-txt">No data found</h4>
                 @endif

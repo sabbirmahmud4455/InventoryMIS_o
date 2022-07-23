@@ -189,7 +189,7 @@ class BankController extends Controller
                     $bank->is_delete = false;
                     $EditSwal = __('Bank.EditSwal');
                     if( $bank->save() ){
-                        
+
                         $today = Carbon::now();
                         if($request->opening_balance){
                             $transaction = new Transaction();
@@ -245,7 +245,7 @@ class BankController extends Controller
         } else {
             return view('errors.404');
         }
-        
+
     }
     // Bank Transaction function end
 
@@ -288,7 +288,7 @@ class BankController extends Controller
             $mpdf = new \Mpdf\Mpdf(
                 [
                     // 'default_font_size' => 12,
-                    'default_font' => 'FreeSerif',
+                    'default_font' => 'nikosh',
                     'mode' => 'utf-8',
                 ]
             );
@@ -306,7 +306,7 @@ class BankController extends Controller
         } else {
             return view('errors.404');
         }
-        
+
     }
     // Bank Transaction export pdf function end
 
@@ -318,7 +318,7 @@ class BankController extends Controller
         } else {
             return view('errors.404');
         }
-        
+
     }
     // Bank Transaction function end
 
@@ -377,7 +377,7 @@ class BankController extends Controller
         } else {
             return view('errors.404');
         }
-        
+
     }
     // Bank Transaction function end
 

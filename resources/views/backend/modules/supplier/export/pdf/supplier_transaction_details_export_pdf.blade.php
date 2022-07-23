@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <style>
         * {
-            font-family: FreeSerif;
+            font-family: nikosh;
         }
         body{
-            font-family: FreeSerif;
+            font-family: nikosh;
         }
         /* table {
             border:none;
@@ -86,23 +86,23 @@
             <div class="col-md-12">
                 <table class="table table-sm table-bordered">
                     <tbody>
-            
+
                         {{-- Date and Code --}}
                         <tr>
                             <td>{{ __('Application.Date') }}</td>
                             <td>{{ $transaction_details['transactions']->transaction_date }}</td>
-            
+
                             <td>{{ __('Transaction.TransactionCode') }}</td>
                             <td>{{ $transaction_details['transactions']->transaction_code }}</td>
                         </tr>
-            
+
                         {{-- Amount and Status --}}
                         <tr>
                             <td>{{ __('Transaction.TransactionAmount') }}</td>
                             <td>
                                 {{ $transaction_details['transactions']->cash_in ? number_format($transaction_details['transactions']->cash_in,0) : number_format($transaction_details['transactions']->cash_out,0) }}
                             </td>
-            
+
                             <td>{{ __('Application.Status') }}</td>
                             <td>
                                 @if ($transaction_details['transactions']->transaction_status == 'PENDING')
@@ -118,43 +118,43 @@
                                 @endif
                             </td>
                         </tr>
-            
+
                         <tr>
                             <td>{{ __('Transaction.Narration') }}</td>
                             <td colspan="3">{{ $transaction_details['transactions']->narration }}</td>
                         </tr>
-            
+
                         <tr>
                             <td>{{ __('Application.Remarks') }}</td>
                             <td colspan="3">{{ $transaction_details['transactions']->transaction_remarks ? $transaction_details['transactions']->transaction_remarks : 'N/A' }}</td>
                         </tr>
-            
+
                         {{-- Transaction Type Information --}}
                         <tr>
                             <td>{{ __('TransactionType.TransactionType') }}</td>
                             <td colspan="3">{{ $transaction_details['transactions']->bank_name ? __('Purchase.Bank') : __('Purchase.Cash') }}</td>
                         </tr>
-            
+
                         @if ($transaction_details['transactions']->bank_name)
                         <tr>
                             <td>{{ __('Bank.BankName') }}</td>
                             <td>{{ $transaction_details['transactions']->bank_name }}</td>
-            
+
                             <td>{{ __('Bank.AccountName') }}</td>
                             <td>{{ $transaction_details['transactions']->bank_account_name }}</td>
                         </tr>
-            
+
                         <tr>
                             <td>{{ __('Bank.AccountNumber') }}</td>
                             <td>{{ $transaction_details['transactions']->bank_account_no }}</td>
-            
+
                             <td>{{ __('Bank.ChequeNo') }}</td>
                             <td>{{ $transaction_details['transactions']->cheque_no }}</td>
                         </tr>
                         @endif
                     </tbody>
                 </table>
-            
+
                 @if (!empty($transaction_details['purchase_details']))
                       {{-- Purchase Details --}}
                       <span class="badge badge-info">{{ __('Purchase.ViewPurchaseInfo') }}</span>
@@ -170,7 +170,7 @@
                                 <th>{{ __('Purchase.TotalPrice') }}</th>
                               </tr>
                           </thead>
-            
+
                           <tbody>
                               @forelse ($transaction_details['purchase_details'] as $key => $purchase_details)
                                   <tr>
