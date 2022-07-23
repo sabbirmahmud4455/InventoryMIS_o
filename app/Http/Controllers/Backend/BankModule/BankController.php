@@ -360,7 +360,7 @@ class BankController extends Controller
             $mpdf = new \Mpdf\Mpdf(
                 [
                     // 'default_font_size' => 12,
-                    'default_font' => 'FreeSerif',
+                    'default_font' => 'nikosh',
                     'mode' => 'utf-8',
                 ]
             );
