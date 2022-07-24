@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\CustomerModule\Customer;
+use App\Models\StockModule\StockInOut;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
