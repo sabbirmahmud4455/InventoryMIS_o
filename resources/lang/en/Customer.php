@@ -9,5 +9,6 @@
         'CustomerAddSuccessMsg' => 'Customer Successfully Added',
         'CustomerUpdateMsg' => 'Customer Successfully Updated',
         'CustomerWarningMsg' => 'Something Wrong. Try Again !!',
+        'OpeningBalance' => 'Opening Balance',
     ];
 ?>

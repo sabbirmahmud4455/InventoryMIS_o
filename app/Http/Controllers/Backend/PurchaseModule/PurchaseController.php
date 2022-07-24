@@ -79,7 +79,7 @@ class PurchaseController extends Controller
             // Store Data on Purchase Table
             $purchase = new Purchase();
             $purchase->supplier_id = $data['supplier_id'];
-            $purchase->date =  $today;
+            $purchase->date =  $data['date'];
             $purchase->challan_no = $today.'_'.rand(10000, 99999).'_'.$data['supplier_id'];
             $purchase->total_amount =  $data['purchase_total_price'];
             $purchase->created_by =  Auth::user()->id;

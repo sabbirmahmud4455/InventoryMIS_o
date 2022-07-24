@@ -4,6 +4,7 @@ namespace App\Models\TransactionModule;
 
 use App\Models\BankModule\Bank;
 use App\Models\PurchaseModule\Purchase;
+use App\Models\SystemDataModule\TransactionType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -78,4 +79,9 @@ class Transaction extends Model
     public function purchase() {
         return $this->belongsTo(Purchase::class, 'purchase_id', 'id');
     }
+
+    public function transaction_type() {
+        return $this->belongsTo(TransactionType::class);
+    }
+
 }

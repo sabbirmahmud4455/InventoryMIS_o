@@ -102,6 +102,7 @@ class BankController extends Controller
                 'name' => 'required',
                 "account_name" => "required",
                 "account_no" => "required",
+                "opening_balance" => "required",
             ]);
 
             if( $validator->fails() ){

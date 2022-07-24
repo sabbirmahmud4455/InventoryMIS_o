@@ -9,5 +9,10 @@
         'TotalCashOut'      => 'Total Cash Out',
         'Balance'           => 'Balance',
         'TransactionAmount' => 'Transaction Amount',
+        'PaymentType'       => 'Payment Type',
+        'Cash'              => 'Cash',
+        'Bank'              => 'Bank',
+        'Date'              => 'Transaction Date',
+        'AddSwal'           => 'New Transaction Created',
     ];
 ?>

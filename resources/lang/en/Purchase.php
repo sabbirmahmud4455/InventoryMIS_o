@@ -14,6 +14,7 @@
         'PaymentBy' => 'Payment By',
         'Cash' => 'Cash',
         'Bank' => 'Bank',
+        'Date' => 'Purchase Date',
         'TotalAmount' => 'Total Amount',
         'NoPurchaseFound' => 'No Purchase Found!',
 

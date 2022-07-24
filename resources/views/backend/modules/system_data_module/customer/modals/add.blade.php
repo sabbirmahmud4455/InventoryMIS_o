@@ -28,6 +28,12 @@
                 <textarea class="form-control" name="address" id="Address" cols="30" rows="2"></textarea>
             </div>
 
+            <!-- Openning Banlance -->
+            <div class="col-md-12 col-12 form-group">
+                <label for="name">{{ __('Customer.OpeningBalance') }}</label><span class="require-span">*</span>
+                <input type="text" class="form-control" name="opening_balance" required>
+            </div>
+
             <div class="col-12 form-group">
                 <label for="Remarks">{{ __('Customer.CustomerRemarks') }}</label>
                 <textarea class="form-control" name="remarks" id="Remarks" cols="30" rows="2"></textarea>

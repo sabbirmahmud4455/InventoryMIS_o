@@ -294,6 +294,31 @@ class SubModuleSeeder extends Seeder
 
             //module ID 9 [Sale] end
 
+            // Module id 10 [Transaction Module] Start
+            [
+                'id' => 23,
+                'name_en' => 'All Transaction',
+                'name_bn' => 'সমস্ত লেনদেন',
+                'key' => 'all_transaction',
+                'position' => 1,
+                'route' => 'transaction.all',
+                'module_id' => 10,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 24,
+                'name_en' => 'New Transaction',
+                'name_bn' => 'নতুন লেনদেন',
+                'key' => 'new_transaction',
+                'position' => 2,
+                'route' => 'transaction.create.page',
+                'module_id' => 10,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Module id 10 [Transaction Module] End
+
 
 
 
@@ -303,6 +328,6 @@ class SubModuleSeeder extends Seeder
         ]);
 
         // #########################
-        //LAST ID : 20. NEXT ID : 21
+        //LAST ID : 24. NEXT ID : 25
     }
 }

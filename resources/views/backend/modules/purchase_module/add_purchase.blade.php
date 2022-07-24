@@ -55,8 +55,14 @@
                                 {{-- Item Adding Start --}}
                                 <div class="row">
 
+                                    <!-- date -->
+                                    <div class="col-md-2">
+                                        <label for="date">{{ __('Purchase.Date') }}</label>
+                                        <input type="date" value="<?php echo date('Y-m-d') ?>" class="form-control" name="date" id="date" required>
+                                    </div>
+
                                      {{-- Supplier Name --}}
-                                     <div class="col-md-3">
+                                    <div class="col-md-3">
                                         <label>{{ __('Supplier.SupplierName') }}</label>
                                         <select required name="supplier_id" id="supplier" class="form-control form-control-sm select2">
                                             <option value="" selected disabled>{{ __('Application.Select') }} {{ __('Supplier.Supplier') }}</option>
@@ -69,7 +75,7 @@
                                     </div>
 
                                     {{-- Lot --}}
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <label>{{ __('Lot.Lot') }}</label>
                                         <select required class="form-control form-control-sm select2" name="lot_id" id="lot">
                                             <option value="" selected disabled>Select Lot</option>
@@ -82,7 +88,7 @@
                                     </div>
 
                                     {{-- Item Name --}}
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <label>{{ __('Item.Item') }}</label>
                                         <select required name="item_id" class="form-control form-control-sm select2" id="item_id">
                                             <option selected disabled>{{ __('Item.SelectItem') }}</option>
@@ -456,6 +462,7 @@
 
         const data_asdf =
         {
+            "date" : $("#date").val(),
             "supplier_id" : $("#supplier").val(),
             "purchase_total_price" : $("#purchase_total_price").val(),
             "previous_balance" : $("#previous_balance").val(),

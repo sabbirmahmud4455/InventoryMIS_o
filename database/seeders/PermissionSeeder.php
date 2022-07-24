@@ -812,10 +812,40 @@ class PermissionSeeder extends Seeder
 
             // Seal Module permission end
 
+            // Transaction Module Permission start
+            [
+                'id' => 85,
+                'key' => 'transaction',
+                'display_name_en' => 'Transaction',
+                'display_name_bn' => 'লেনদেন',
+                'module_id' => 10,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 86,
+                'key' => 'all_transaction',
+                'display_name_en' => '-- All Transaction',
+                'display_name_bn' => '-- সমস্ত লেনদেন',
+                'module_id' => 10,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 87,
+                'key' => 'new_transaction',
+                'display_name_en' => '-- New Transaction',
+                'display_name_bn' => '-- নতুন লেনদেন',
+                'module_id' => 10,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Transaction Module Permission end
+
 
 
         ]);
 
-        // Last ID: 84, New ID: 85
+        // Last ID: 87, New ID: 88
     }
 }

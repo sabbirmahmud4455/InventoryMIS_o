@@ -36,7 +36,7 @@ class ModuleSeeder extends Seeder
                 'name_bn' => 'সেটিংস',
                 'key' => 'settings',
                 'icon' => 'fas fa-cog',
-                'position' => 12,
+                'position' => 20,
                 'route' => null,
                 'created_at' => $date,
                 'updated_at' => $date,
@@ -119,9 +119,20 @@ class ModuleSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+            [
+                'id' => 10,
+                'name_en' => 'Transaction',
+                'name_bn' => 'লেনদেন',
+                'key' => 'transaction',
+                'icon' => 'fa fa-exchange-alt',
+                'position' => 9,
+                'route' => null,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
 
         ]);
 
-        // LAST ID : 9. NEXT ID : 10 [Settings Position : 12]
+        // LAST ID : 10. NEXT ID : 11 [Settings Position : 20]
     }
 }

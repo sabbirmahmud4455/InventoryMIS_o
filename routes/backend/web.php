@@ -96,6 +96,11 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
         require_once 'lot_module/lot.php';
     });
 
+    // Transaction Module
+    Route::group(['prefix' => 'transaction-module'], function() {
+        require_once 'transaction_module/transaction.php';
+    });
+
 
 });
 //backend route group end

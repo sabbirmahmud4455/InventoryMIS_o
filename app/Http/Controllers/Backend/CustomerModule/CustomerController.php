@@ -6,6 +6,8 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\CustomerModule\Customer;
+use App\Models\TransactionModule\Transaction;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
@@ -41,6 +43,7 @@ class CustomerController extends Controller
                 'phone' => 'required|numeric|regex:/(01)[0-9]{9}/',
                 'address' => 'nullable|max:2000',
                 'remarks' => 'nullable|max:2000',
+                'opening_balance' => 'required',
             ]);
 
             if( $validator->fails() ){
@@ -55,6 +58,20 @@ class CustomerController extends Controller
                     $customer->is_active = true;
 
                     if( $customer->save() ){
+
+                        $today = Carbon::now();
+                        if($request->opening_balance){
+                            $transaction = new Transaction();
+                            $transaction->date = $today->toDateString();
+                            $transaction->transaction_code = $today.'OP#CUSTOMER';
+                            $transaction->narration = 'OPENING BALANCE';
+                            $transaction->customer_id = $customer->id;
+                            $transaction->remarks = 'Opening Balance of '.$customer->name;
+                            $transaction->cash_in = BnToEn($request->opening_balance);
+                            $transaction->created_by = auth('web')->user()->id;
+                            $transaction->save();
+                        }
+
                         return response()->json(['customer_add' => __('Customer.CustomerAddSuccessMsg')], 200);
                     }
 
