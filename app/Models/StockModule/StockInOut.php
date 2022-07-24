@@ -11,11 +11,12 @@ class StockInOut extends Model
     use HasFactory;
     protected $fillable = ['purchase_id', 'item_id', 'unit_id', 'varient_id', 'lot_id', 'in_quantity', 'out_quantity'];
 
+
     public function StockList()
     {
-        $stock_lists = DB::select('SELECT items.name as item_name, variants.name as varient_name,
-        units.name as unit_name, 
-        lots.name as lot_name, 
+        $stock_lists = DB::select('SELECT items.name as item_name, variants.name as variant_name,
+        units.name as unit_name,
+        lots.name as lot_name,
         (SUM(in_quantity) - SUM(out_quantity)) as available_stock,
         item_id, variant_id
         FROM stock_in_outs

@@ -14,6 +14,11 @@ class PurchaseDetails extends Model
     use HasFactory;
     protected $fillable = ['purchase_id', 'lot_id', 'item_id', 'unit_id', 'varient_id', 'unit_price', 'total_price'];
 
+    public function purchase_info()
+    {
+        return $this->belongsTo(Purchase::class, 'purchase_id', 'id');
+    }
+
     public function lot()
     {
         return $this->belongsTo(Lot::class, 'lot_id', 'id');

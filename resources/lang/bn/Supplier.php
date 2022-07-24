@@ -12,6 +12,8 @@
         'SupplierWarningMsg'        => 'কিছু ভুল হয়েছে| আবার চেষ্টা করুন !!',
         'SupplierTransactions'      => 'মহাজনের লেনদেন',
         'SupplierTransactionDetails'=> 'মহাজনের লেনদেনের বিবরণ',
+        'ChallanNo'                 => 'চালান নং',
+
 
     ];
 ?>

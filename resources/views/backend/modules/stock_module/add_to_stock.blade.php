@@ -21,7 +21,7 @@
                             </li>
                             <li class="breadcrumb-item active">
                                 <a href="#">
-                                    {{ __('Stock.StockList') }}
+                                    {{ __('Stock.AddToStock') }}
                                 </a>
                             </li>
                         </ol>
@@ -38,55 +38,40 @@
                     <div class="col-md-12">
                         <div class="card card-primary card-outline table-responsive">
                             <div class="card-header">
-                               <h5>{{ __('Stock.StockList') }}</h5>
+                               <h5>{{ __('Stock.AddToStock') }}</h5>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered table-sm table-striped dataTable dtr-inline datatable-data"
-                                       id="datatable">
+                                <table class="table table-sm table-bordered">
                                     <thead>
-                                    <tr>
                                         <th>{{ __('Application.SerialNo') }}</th>
-                                        <th>{{ __('Item.Item') }}</th>
-                                        <th>{{ __('Variant.Variant') }}</th>
-                                        <th>{{ __('Unit.Unit') }}</th>
-                                        {{-- <th>{{ __('Lot.LotName') }}</th> --}}
-                                        <th>{{ __('Stock.AvailableStock') }}</th>
-                                        <th>{{ __('Application.Status') }}</th>
-                                    </tr>
+                                        <th>{{ __('Application.Date') }}</th>
+                                        <th>{{ __('Supplier.SupplierName') }}</th>
+                                        <th>{{ __('Supplier.ChallanNo') }}</th>
+                                        <th>{{ __('Purchase.TotalAmount') }}</th>
+                                        <th>{{ __('Application.Action') }}</th>
                                     </thead>
+
                                     <tbody>
-                                        @forelse ($stock_lists as $key => $stock)
+                                        @forelse ($purchases as $key => $purchase)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $stock->item_name }}</td>
-                                                <td>{{ $stock->variant_name }}</td>
-                                                <td>{{ $stock->unit_name }}</td>
-                                                {{-- <td>{{ $stock->lot_name }}</td> --}}
-                                                <td>{{ $stock->available_stock }}</td>
+                                                <td>{{ $purchase->date }}</td>
+                                                <td>{{ $purchase->supplier->name }}</td>
+                                                <td>{{ $purchase->challan_no }}</td>
+                                                <td>{{ $purchase->total_amount }}</td>
                                                 <td>
-                                                    @if ($stock->available_stock > 3)
-                                                       <span class="badge badge-success">{{ __('Stock.AvailableStock') }}</span>
-                                                    @elseif ($stock->available_stock <= 3)
-                                                       <span class="badge badge-warning">{{ __('Stock.LowStock') }}</span>
-                                                    @else
-                                                       <span class="badge badge-danger">{{ __('Stock.OutOfStock') }}</span>
+                                                    @if (can('add_to_stock'))
+                                                        <a href="{{ route('stock.add_to_stock', encrypt($purchase->id)) }}" class="btn btn-info btn-sm">
+                                                            {{ __('Stock.AddToStock') }}
+                                                        </a>
                                                     @endif
                                                 </td>
                                             </tr>
                                         @empty
-                                            <tr>
-                                                <td colspan="6">
-                                                    <center>
-                                                        <span class="badge badge-danger">
-                                                            {{ __('Application.NoDataFound') }}
-                                                        </span>
-                                                    </center>
-                                                </td>
-                                            </tr>
+
                                         @endforelse
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>

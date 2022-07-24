@@ -12,6 +12,7 @@
         'SupplierWarningMsg'        => 'Something Wrong. Try Again !!',
         'SupplierTransactions'      => 'Supplier Transactions',
         'SupplierTransactionDetails'=> 'Supplier Transaction Details',
+        'ChallanNo'                 => 'Challan No',
 
     ];
 ?>
