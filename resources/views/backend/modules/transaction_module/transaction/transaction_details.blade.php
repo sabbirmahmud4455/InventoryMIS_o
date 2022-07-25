@@ -80,7 +80,7 @@
                                         <tr>
                                             <th>{{ __('Application.Remarks') }}</th>
                                             <td>{{ $transaction->remarks ? $transaction->remarks : 'N/A' }}</td>
-                                            <th>{{ __('Application.CreadtedBy') }}</th>
+                                            <th>{{ __('Application.CreatedBy') }}</th>
                                             <td>{{ $transaction->created_by_user->name }}</td>
                                         </tr>
                                         <tr>
