@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PurchaseModule\Purchase;
 use App\Models\PurchaseModule\PurchaseDetails;
 use App\Models\StockModule\StockInOut;
+use App\Models\SystemDataModule\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,9 +27,11 @@ class StockController extends Controller
     public function add_to_stock($id)
     {
         if(can('stock_add')) {
-            return $purchase_to_stock = PurchaseDetails::with('purchase_info')->where('purchase_id', decrypt($id))->get();
+            $warehouses = Warehouse::select('id', 'name')->where('is_active', true)->where('is_delete',false)->get();
+            $purchase = Purchase::with('supplier', 'created_by_user')->find(decrypt($id));
+            $purchase_details = PurchaseDetails::with('lot', 'item', 'unit', 'variant')->where('purchase_id', decrypt($id))->get();
 
-            return view('backend.modules.stock_module.stock_entry', compact('purchase_to_stock'));
+            return view('backend.modules.stock_module.stock_entry', compact('purchase', 'purchase_details', 'warehouses'));
         } else {
             return view('errors.404');
         }

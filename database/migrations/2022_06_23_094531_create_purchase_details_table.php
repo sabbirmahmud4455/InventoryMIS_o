@@ -21,6 +21,7 @@ class CreatePurchaseDetailsTable extends Migration
             $table->unsignedBigInteger('unit_id');
             $table->unsignedBigInteger('variant_id');
             $table->double('unit_price');
+            $table->double('quantity')->default(0);
             $table->double('total_price');
             $table->timestamps();
         });
