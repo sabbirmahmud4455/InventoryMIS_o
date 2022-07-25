@@ -4,7 +4,9 @@ namespace App\Models\TransactionModule;
 
 use App\Models\BankModule\Bank;
 use App\Models\PurchaseModule\Purchase;
+use App\Models\SupplierModule\Supplier;
 use App\Models\SystemDataModule\TransactionType;
+use App\Models\UserModule\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -82,6 +84,14 @@ class Transaction extends Model
 
     public function transaction_type() {
         return $this->belongsTo(TransactionType::class);
+    }
+
+    public function supplier() {
+        return $this->belongsTo(Supplier::class);
+    }
+
+    public function created_by_user() {
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
 }

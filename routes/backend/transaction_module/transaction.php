@@ -13,6 +13,9 @@ Route::group(['prefix' => 'transaction'], function (){
     
     // transaction create route
     Route::post('/create',[TransactionController::class,'transaction_create'])->name('transaction.create');
+    
+    // transaction details route
+    Route::get('/details/{id}',[TransactionController::class,'transaction_details'])->name('transaction.details');
 
 
 

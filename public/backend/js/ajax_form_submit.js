@@ -69,6 +69,12 @@ $(document).ready(function () {
                     get_lot();
                 }
 
+                // transaction create swal
+                if(response.create_transaction) {
+                    swal("", `${response.addSwal}`, "success");
+                    return window.location.href = response.create_transaction;
+                }
+
                 console.clear()
             },
             error: function (response) {

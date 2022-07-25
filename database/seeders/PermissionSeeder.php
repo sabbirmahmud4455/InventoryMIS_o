@@ -840,12 +840,21 @@ class PermissionSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+            [
+                'id' => 88,
+                'key' => 'transaction_details',
+                'display_name_en' => '-- Transaction Details',
+                'display_name_bn' => '-- লেনদেনর বিস্তারিত',
+                'module_id' => 10,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
             // Transaction Module Permission end
 
 
 
         ]);
 
-        // Last ID: 87, New ID: 88
+        // Last ID: 88, New ID: 89
     }
 }

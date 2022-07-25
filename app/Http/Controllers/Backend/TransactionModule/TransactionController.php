@@ -16,7 +16,8 @@ class TransactionController extends Controller
     // all transaction function
     public function all_transaction() {
         if(can('all_transaction')) {
-            return view('backend.modules.transaction_module.transaction.index');
+            $transactions = Transaction::orderBy('id', 'desc')->paginate(50);
+            return view('backend.modules.transaction_module.transaction.index', compact('transactions'));
         } else {
             return view('errors.404');
         }
@@ -81,14 +82,27 @@ class TransactionController extends Controller
                         $transaction->cheque_no = null;
                     }
 
+                    $addSwal = __('Transaction.AddSwal');
                     if($transaction->save()) {
-                        return response()->json(['success' => __('Transaction.AddSwal')]);
+                        $transaction_details_route = route('transaction.details', ['id' => encrypt($transaction->id)]);
+                        // return response()->json(['success' => __('Transaction.AddSwal')]);
+                        return response()->json(['create_transaction' => $transaction_details_route, 'addSwal' => $addSwal], 200);
                     }
 
                 } catch(Exception $e) {
                     return response()->json(['error' => $e->getMessage()]);
                 }
             }
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    // transaction details
+    public function transaction_details($id) {
+        if(can('transaction_details')) {
+            $transaction = Transaction::with('transaction_type', 'purchase', 'supplier', 'bank', 'created_by_user')->findOrFail(decrypt($id));
+            return view('backend.modules.transaction_module.transaction.transaction_details', compact('transaction'));
         } else {
             return view('errors.404');
         }

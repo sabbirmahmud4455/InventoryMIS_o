@@ -118,7 +118,7 @@ class BankController extends Controller
                     $bank->branch_name = $request->branch_name;
                     $bank->is_active = true;
                     $bank->is_delete = false;
-                    $AddSwal = __('Bank.AddSwal');
+                    $addSwal = __('Bank.AddSwal');
                     if( $bank->save() ){
 
                         $today = Carbon::now();
@@ -134,7 +134,7 @@ class BankController extends Controller
                             $transaction->save();
                         }
 
-                        return response()->json(['success' => $AddSwal], 200);
+                        return response()->json(['success' => $addSwal], 200);
                     }
 
                 }
@@ -188,7 +188,7 @@ class BankController extends Controller
                     $bank->branch_name = $request->branch_name;
                     $bank->is_active = $request->is_active;
                     $bank->is_delete = false;
-                    $EditSwal = __('Bank.EditSwal');
+                    $editSwal = __('Bank.EditSwal');
                     if( $bank->save() ){
 
                         $today = Carbon::now();
@@ -204,7 +204,7 @@ class BankController extends Controller
                             $transaction->save();
                         }
 
-                        return response()->json(['success' => $EditSwal], 200);
+                        return response()->json(['success' => $editSwal], 200);
                     }
 
                 }

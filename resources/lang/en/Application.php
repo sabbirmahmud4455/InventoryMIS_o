@@ -23,7 +23,7 @@
         'SerialNo'              => 'Sl No',
         'Weight'                => 'Weight',
         'Select'                => 'Select',
-        'Data'                  => 'Date',
+        'Date'                  => 'Date',
         'Transaction'           => 'Transaction',
         'NotDataFound'          => 'No Data Found',
         'Total'                 => 'Total',
