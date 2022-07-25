@@ -20,6 +20,7 @@ class CreateStockInOutsTable extends Migration
             $table->unsignedBigInteger('unit_id');
             $table->unsignedBigInteger('variant_id');
             $table->unsignedBigInteger('lot_id')->nullable();
+            $table->unsignedBigInteger('warehouse_id')->nullable();
             $table->double('in_quantity')->default(0);
             $table->double('out_quantity')->default(0);
             $table->timestamps();

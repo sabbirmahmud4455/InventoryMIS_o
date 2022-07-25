@@ -99,6 +99,7 @@ class PurchaseController extends Controller
                     $purchase_details->variant_id = $item['item_varient_id'];
                     $purchase_details->lot_id = $item['lot'] ? $item['lot'] : null;
                     $purchase_details->unit_price = $item['unit_price'];
+                    $purchase_details->quantity = $item['beg'];
                     $purchase_details->total_price = $item['total_price'];
                     $purchase_details->save();
 

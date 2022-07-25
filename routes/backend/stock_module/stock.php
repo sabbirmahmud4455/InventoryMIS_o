@@ -8,6 +8,8 @@ Route::group(['prefix' => 'stock', 'as' => 'stock.'], function(){
 
     Route::get('/add', [StockController::class, 'stock_add'])->name('add');
     Route::get('/add-to-stock/{id}', [StockController::class, 'add_to_stock'])->name('add_to_stock');
+    Route::post('/add-to-stock', [StockController::class, 'store_to_stock'])->name('store_to_stock');
+
 });
 
 ?>
