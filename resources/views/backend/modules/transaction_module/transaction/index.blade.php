@@ -46,10 +46,11 @@
                                             <tr>
                                                 <th>{{ __('Application.SerialNo') }}</th>
                                                 <th>{{ __('Application.Date') }}</th>
+                                                <th>{{ __('Application.TransactionCode') }}</th>
                                                 <th>{{ __('Transaction.Narration') }}</th>
+                                                <th>{{ __('Application.Status') }}</th>
                                                 <th>{{ __('Transaction.CashIn') }}</th>
                                                 <th>{{ __('Transaction.CashOut') }}</th>
-                                                <th>{{ __('Application.Status') }}</th>
                                                 <th>{{ __('Application.Action') }}</th>
                                             </tr>
                                         </thead>
@@ -58,10 +59,11 @@
                                                 <tr>
                                                     <td>{{ $transactions->firstItem() + $key }}</td>
                                                     <td>{{ \Carbon\Carbon::Parse($transaction->date)->format('d-M-Y') }}</td>
+                                                    <td>{{ $transaction->transaction_code  }}</td>
                                                     <td>{{ $transaction->narration }}</td>
-                                                    <td>{{ $transaction->cash_in != 0 ? '৳ '.$transaction->cash_in : '-' }}</td>
-                                                    <td>{{ $transaction->cash_out != 0 ? '৳ '.$transaction->cash_out : '-' }}</td>
                                                     <td>{{ $transaction->status }}</td>
+                                                    <td>{{ $transaction->cash_in != 0 ? '৳ '.$transaction->cash_in : '0.00' }}</td>
+                                                    <td>{{ $transaction->cash_out != 0 ? '৳ '.$transaction->cash_out : '0.00' }}</td>
                                                     <td>
                                                         <div class="dropdown">
                                                             <button class="btn btn-secondary dropdown-toggle" type="button"
