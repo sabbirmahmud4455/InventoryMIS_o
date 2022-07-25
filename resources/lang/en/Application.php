@@ -28,7 +28,9 @@
         'NotDataFound'          => 'No Data Found',
         'Total'                 => 'Total',
         'Remarks'               => 'Remarks',
-        'Download'               => 'Download',
+        'Download'              => 'Download',
+        'CreatedBy'             => 'Created By',
+        'UpdatedBy'             => 'Updated By'
     ]
 
 ?>

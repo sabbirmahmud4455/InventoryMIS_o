@@ -51,19 +51,96 @@
                                 <table class="table table-sm table-bordered">
                                     <tr>
                                         <td>{{ __('Application.Date') }}</td>
-                                        <td>{{ $purchase_to_stock->purchase_info->date }}</td>
+                                        <td>{{ $purchase->date }}</td>
 
                                         <td>{{ __('Supplier.ChallanNo') }}</td>
-                                        <td>{{ $purchase_to_stock->purchase_info->challan_no }}</td>
+                                        <td>{{ $purchase->challan_no }}</td>
 
                                         <td>{{ __('Application.Status') }}</td>
                                         <td>
-                                            @if ($purchase_to_stock->purchase_info->status == 'PENDING')
+                                            @if ($purchase->status == 'PENDING')
                                                 <span class="badge badge-info">Ready To Stock</span>
                                             @endif
                                         </td>
                                     </tr>
+
+                                    <tr>
+                                        <td>{{ __('Supplier.SupplierName') }}</td>
+                                        <td>{{ $purchase->supplier->name }}</td>
+
+                                        <td>{{ __('Application.CreatedBy') }}</td>
+                                        <td>{{ $purchase->created_by_user->name }}</td>
+
+                                        <td>{{ __('Purchase.TotalAmount') }}</td>
+                                        <td>{{ $purchase->total_amount }}</td>
+                                    </tr>
                                 </table>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <input type="checkbox" name="one_wearhouse" id="one_wearhouse">
+                                        <label for="one_wearhouse">{{ __('Warehouse.OneWearhouse') }}</label>
+                                    </div>
+
+                                    <div class="col-md-6" id="single_wearhouse">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label>{{ __('Warehouse.Warehouse') }}</label>
+                                            </div>
+
+                                            <div class="col-md-10">
+                                                <select name="warehouse_id" class="form-control form-control-sm">
+                                                    <option value="null" selected disabled>{{ __('Warehouse.Warehouse') }}</option>
+                                                    @forelse ($warehouses as $warehouse)
+                                                        <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                                    @empty
+                                                        <option disabled>No Warehouse Found</option>
+                                                    @endforelse
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                {{-- Purchase Details Start --}}
+                                <table class="table table-bordered table-sm">
+                                    <thead>
+                                        <th>{{ __('Application.SerialNo') }}</th>
+                                        <th>{{ __('Item.Item') }}</th>
+                                        <th>{{ __('Variant.Variant') }}</th>
+                                        <th>{{ __('Unit.Unit') }}</th>
+                                        <th>{{ __('Purchase.Beg') }}</th>
+                                        <th>{{ __('Warehouse.Warehouse') }}</th>
+                                    </thead>
+
+                                    <tbody>
+                                        @forelse ($purchase_details as $key => $stock)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $stock->item->name }}</td>
+                                                <td>{{ $stock->variant->name }}</td>
+                                                <td>{{ $stock->unit->name }}</td>
+                                                <td>{{ $stock->quantity }}</td>
+                                                <td>
+                                                    <select name="warehouse_id">
+                                                        <option disabled selected>{{ __('Warehouse.Warehouse') }}</option>
+                                                        @forelse ($warehouses as $warehouse)
+                                                            <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                                        @empty
+                                                            <option disabled>No Warehouse Found</option>
+                                                        @endforelse
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        @empty
+
+                                        @endforelse
+                                    </tbody>
+                                </table>
+
+                                {{-- Purchase Details End --}}
                             </div>
                         </div>
                     </div>
