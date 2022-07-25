@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Backend\TransactionModule;
 
 use App\Http\Controllers\Controller;
 use App\Models\BankModule\Bank;
+use App\Models\SettingsModule\CompanyInfo;
 use App\Models\SystemDataModule\TransactionType;
 use App\Models\TransactionModule\Transaction;
 use Carbon\Carbon;
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
@@ -102,7 +105,64 @@ class TransactionController extends Controller
     public function transaction_details($id) {
         if(can('transaction_details')) {
             $transaction = Transaction::with('transaction_type', 'purchase', 'supplier', 'bank', 'created_by_user')->findOrFail(decrypt($id));
-            return view('backend.modules.transaction_module.transaction.transaction_details', compact('transaction'));
+            return view('backend.modules.transaction_module.transaction.details.transaction_details', compact('transaction'));
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    // transaction details
+    public function transaction_details_export_pdf($id) {
+        if(can('transaction_details')) {
+            $transaction = Transaction::with('transaction_type', 'purchase', 'supplier', 'bank', 'created_by_user')->findOrFail(decrypt($id));
+
+            $company_info = CompanyInfo::first();
+            $title = __('Transaction.TransactionDetails');
+
+            $now = new DateTime();
+            $time = $now->format('F j, Y, g:i a');
+            $auth_user = Auth::user()->name;
+
+            $footer = "
+                    <span style='margin: 29px;'>Page :
+                    <span></span>{PAGENO} of {nbpg}</span>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+
+                    <span class='print_date'>Print Date : $time
+                </span>
+
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <span class='print_by'>
+                    Printed By : $auth_user
+                </span>
+
+                &nbsp;
+                &nbsp;
+                <span class='powered_by'> Powered By: RP AI Solutions </span>
+                &nbsp;
+                ";
+
+            $mpdf = new \Mpdf\Mpdf(
+                [
+                    // 'default_font_size' => 12,
+                    'default_font' => 'nikosh',
+                    'mode' => 'utf-8',
+                ]
+            );
+
+            $mpdf->SetTitle(__("Transaction.TransactionDetails"));
+            $mpdf->SetFooter($footer);
+            $mpdf->WriteHTML(view('backend.modules.transaction_module.transaction.details.export.pdf.transaction_details_export_pdf', compact(
+                'transaction',
+                'company_info',
+                'title'
+            )));
+            $mpdf->Output("TransactionDetails".'.pdf', "I");
+
         } else {
             return view('errors.404');
         }

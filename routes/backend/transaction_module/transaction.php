@@ -16,6 +16,9 @@ Route::group(['prefix' => 'transaction'], function (){
     
     // transaction details route
     Route::get('/details/{id}',[TransactionController::class,'transaction_details'])->name('transaction.details');
+    
+    // transaction details export pdf route
+    Route::get('/details/export/pdf/{id}',[TransactionController::class,'transaction_details_export_pdf'])->name('transaction.details.export.pdf');
 
 
 

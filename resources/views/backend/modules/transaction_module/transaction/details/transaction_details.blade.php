@@ -31,6 +31,9 @@
                             </li>
                         </ol>
                     </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <a href="{{ route('transaction.details.export.pdf', ['id' => encrypt($transaction->id)]) }}" target="_blank" class="btn btn-sm btn-info float-right">Download</a>
+                    </div>
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
