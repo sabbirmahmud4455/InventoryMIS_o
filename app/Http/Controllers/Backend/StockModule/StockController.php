@@ -28,7 +28,7 @@ class StockController extends Controller
     {
         if(can('stock_add')) {
             $warehouses = Warehouse::select('id', 'name')->where('is_active', true)->where('is_delete',false)->get();
-            $purchase = Purchase::with('supplier', 'created_by_user')->find(decrypt($id));
+            $purchase = Purchase::with('supplier')->find(decrypt($id));
             $purchase_details = PurchaseDetails::with('lot', 'item', 'unit', 'variant')->where('purchase_id', decrypt($id))->get();
 
             return view('backend.modules.stock_module.stock_entry', compact('purchase', 'purchase_details', 'warehouses'));
