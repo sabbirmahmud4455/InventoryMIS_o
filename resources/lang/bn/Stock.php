@@ -6,6 +6,7 @@
         'LowStock'      => 'স্বল্প স্টক',
         'OutOfStock'    => 'স্টক শেষ',
         'AddToStock'    => 'স্টক যোগ করুন',
-        'StockEntry'    => 'স্ট্রক এন্ট্রি'
+        'StockEntry'    => 'স্ট্রক এন্ট্রি',
+
     ];
 ?>

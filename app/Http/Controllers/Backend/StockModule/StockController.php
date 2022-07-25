@@ -37,6 +37,40 @@ class StockController extends Controller
         }
     }
 
+    // Store to Stock
+    public function store_to_stock(Request $request)
+    {
+        if(can('stock_add')) {
+            // return $request->all();
+
+            if($request->one_wearhouse){
+                $warehouse_id = $request->one_warehouse_id;
+            }
+            foreach($request->item_id as $key => $item){
+                $stock_in = new StockInOut();
+                $stock_in->purchase_id = $request->purchase_id;
+                $stock_in->item_id = $item;
+                $stock_in->variant_id = $request->variant_id[$key];
+                $stock_in->unit_id = $request->unit_id[$key];
+                $stock_in->lot_id = $request->lot_id[$key];
+                $stock_in->in_quantity = $request->in_quantity[$key];
+                if($request->one_wearhouse){
+                    $stock_in->warehouse_id = $request->one_warehouse_id;
+                } else {
+                    $stock_in->warehouse_id = $request->warehouse_id[$key];
+                }
+                $stock_in->save();
+            }
+
+            Purchase::where('id', $request->purchase_id)->update(['status' => 'STOCK_IN']);
+            return redirect()->route('stock.add');
+
+            // return $request->all();
+        } else {
+            return view('errors.404');
+        }
+    }
+
     //Stock Report
     public function stock_list()
     {
