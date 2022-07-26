@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\SaleModule;
 use App\Http\Controllers\Controller;
 use App\Models\CustomerModule\Customer;
 use App\Models\LotModule\Lot;
+use App\Models\StockModule\StockInOut;
 use App\Models\SupplierModule\Supplier;
 use App\Models\SystemDataModule\Item;
 use App\Models\SystemDataModule\ItemVariant;
@@ -49,6 +50,21 @@ class SaleController extends Controller
                             ->get();
 
             return response()->json($item_variants);
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    // Get Lot Items List
+    public function get_lot_items(Request $request)
+    {
+        if(can('add_sale')) {
+
+            $lot_id = $request->lot_id;
+            $lot_items = StockInOut::where('lot_id', $lot_id)->get();
+
+            return response()->json($lot_items);
+
         } else {
             return view('errors.404');
         }

@@ -15,7 +15,8 @@ class CreateLotsTable extends Migration
     {
         Schema::create('lots', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
+            $table->text('lot_code')->unique();
             $table->timestamps();
         });
     }

@@ -13,6 +13,7 @@ use App\Models\SystemDataModule\Item;
 use App\Models\SystemDataModule\ItemVariant;
 use App\Models\SystemDataModule\Unit;
 use App\Models\SystemDataModule\Variant;
+use App\Models\SystemDataModule\Warehouse;
 use App\Models\TransactionModule\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -46,7 +47,9 @@ class PurchaseController extends Controller
             $units = Unit::select('id', 'name')->get();
             $variants = Variant::select('id', 'name')->get();
             $banks = Bank::select('id', 'name')->where('is_active', true)->get();
-            return view('backend.modules.purchase_module.add_purchase', compact('suppliers', 'items', 'lots', 'units', 'variants','banks'));
+            $warehouses = Warehouse::select('id', 'name')->where('is_active', true)->get();
+
+            return view('backend.modules.purchase_module.add_purchase', compact('suppliers', 'items', 'lots', 'units', 'variants','banks', 'warehouses'));
         } else {
             return view('errors.404');
         }
@@ -73,9 +76,7 @@ class PurchaseController extends Controller
 
         $today = Carbon::now()->format('Y-m-d');
         $date_arr = explode('-',$today);
-
         if ($data['added_items'] && count($data['added_items']) > 0) {
-
             // Store Data on Purchase Table
             $purchase = new Purchase();
             $purchase->supplier_id = $data['supplier_id'];
@@ -87,7 +88,20 @@ class PurchaseController extends Controller
                 $purchase->status = 'STOCK_IN';
             }
 
+
+
             if ($purchase->save()) {
+
+                // Generate Lot Code
+                $supplier_name = Supplier::select('name')->where('id', $data['supplier_id'])->first();
+                $first_name = explode(' ',$supplier_name->name);
+                $first_name[0];
+                $lot_code = $first_name[0].'#'.$data['lot_number'].'#'.$date_arr[2].$date_arr[1].$date_arr[0].'/'. Carbon::now()->format('H:i');
+
+                $lot = new Lot();
+                $lot->name = $data['lot_number'];
+                $lot->lot_code = $lot_code;
+                $lot->save();
 
                 foreach ($data['added_items'] as $key => $item) {
 
@@ -97,7 +111,8 @@ class PurchaseController extends Controller
                     $purchase_details->item_id = $item['item_id'];
                     $purchase_details->unit_id = $item['item_unit_id'];
                     $purchase_details->variant_id = $item['item_varient_id'];
-                    $purchase_details->lot_id = $item['lot'] ? $item['lot'] : null;
+                    // $purchase_details->lot_id = $item['lot'] ? $item['lot'] : null;
+                    $purchase_details->lot_id = $lot->id;
                     $purchase_details->unit_price = $item['unit_price'];
                     $purchase_details->quantity = $item['beg'];
                     $purchase_details->total_price = $item['total_price'];
@@ -110,7 +125,9 @@ class PurchaseController extends Controller
                         $stock_in->item_id = $item['item_id'];
                         $stock_in->unit_id = $item['item_unit_id'];
                         $stock_in->variant_id = $item['item_varient_id'];
-                        $stock_in->lot_id = $item['lot'] ? $item['lot'] : '';
+                        // $stock_in->lot_id = $item['lot'] ? $item['lot'] : '';
+                        $stock_in->lot_id = $lot->id;
+                        $stock_in->warehouse_id = $item['warehouse_id'] ? $item['warehouse_id'] : null;
                         $stock_in->in_quantity = $item['beg'];
                         $stock_in->save();
                     }

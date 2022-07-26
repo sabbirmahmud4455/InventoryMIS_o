@@ -52,27 +52,26 @@
 
                             {{-- Item Adding Start --}}
                             <div class="row">
-                                {{-- Lot --}}
-                                <div class="col-md-3">
-                                    <label>{{ __('Lot.Lot') }}</label>
-                                    <select class="form-control form-control-sm select2" name="lot_id" id="lot">
-                                        <option selected disabled>Select Lot</option>
-                                        @foreach ($lots as $lot)
-                                            <option value="{{ $lot->id }}">{{ $lot->name }}</option>
-                                            <option value="AddNewLot">{{ __('Lot.LotAdd') }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
                                 {{-- Customer Name --}}
                                 <div class="col-md-3">
                                     <label>{{ __('Customer.CustomerName') }}</label>
                                     <select name="customer_id" class="form-control form-control-sm select2">
+                                        <option value="0">{{ __('Customer.GuestCustomer') }}</option>
                                         @forelse ($customers as $customer)
                                             <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                         @empty
-
                                         @endforelse
+                                    </select>
+                                </div>
+
+                                {{-- Lot --}}
+                                <div class="col-md-3">
+                                    <label>{{ __('Lot.Lot') }}</label>
+                                    <select class="form-control form-control-sm select2" name="lot_id" id="lot_id">
+                                        <option selected disabled>Select Lot</option>
+                                        @foreach ($lots as $lot)
+                                            <option value="{{ $lot->id }}">{{ $lot->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -315,14 +314,25 @@
     });
 </script>
 
+{{-- Lot Functions --}}
 <script>
     $(document).ready(function(){
-        $('#lot').change(function(){
-            var newLot = $(this).val();
-            if(newLot == 'AddNewLot') {
-                $('#myModal').modal('show');
+        $('#lot_id').change(function(){
+            const lot = $(this).val();
 
-            }
+            // Getting Item for Selected Lot
+            $('.loading').show();
+            $.ajax({
+                url: "{{ route('sale.lot_items') }}", 
+                data:{
+                    lot_id : lot
+                },
+                method: 'GET',
+                success: function(data){
+                    $('.loading').hide();
+                    console.log(data);
+                }
+            });
         });
     });
 </script>
