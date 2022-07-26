@@ -1,4 +1,4 @@
-<div class="modal-header">
+div<div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">{{ __('Supplier.Supplier')  }} {{ __('Application.Edit') }}</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -21,15 +21,15 @@
                 <label for="phone">{{ __('Supplier.SupplierPhone') }}</label><span class="require-span">*</span>
                 <input id="phone" type="text" class="form-control" name="phone"  value="{{ $supplier->contact_no }}">
             </div>
-
+            
             <div class="col-12 form-group">
                 <label for="Address">{{ __('Supplier.SupplierAddress') }}</label>
                 <textarea class="form-control" name="address" id="Address" cols="30" rows="2">{{ $supplier->address }}</textarea>
             </div>
-
+            
             <div class="col-12 form-group">
-                <label for="Remarks">{{ __('Supplier.SupplierRemarks') }}</label>
-                <textarea class="form-control" name="remarks" id="Remarks" cols="30" rows="2">{{ $supplier->remarks }}</textarea>
+                <label for="company">{{ __('Supplier.SupplierCompany') }}</label>
+                <input id="company" type="text" class="form-control" name="company"  value="{{ $supplier->company }}">
             </div>
 
             <div class="col-md-12 form-group text-right">

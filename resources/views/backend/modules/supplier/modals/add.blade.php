@@ -29,8 +29,8 @@
             </div>
 
             <div class="col-12 form-group">
-                <label for="Remarks">{{ __('Supplier.SupplierRemarks') }}</label>
-                <textarea class="form-control" name="remarks" id="Remarks" cols="30" rows="2"></textarea>
+                <label for="company">{{ __('Supplier.SupplierCompany') }}</label>
+                <input id="company" type="text" class="form-control" name="company">
             </div>
 
             <div class="col-12 form-group">

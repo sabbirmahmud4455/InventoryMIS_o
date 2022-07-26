@@ -18,7 +18,7 @@ class CreateSuppliersTable extends Migration
             $table->string('name');
             $table->string('contact_no')->unique();
             $table->text('address')->nullable();
-            $table->text('remarks')->nullable();
+            $table->text('company')->nullable();
             $table->boolean('is_active')->default(0);
             $table->timestamps();
         });

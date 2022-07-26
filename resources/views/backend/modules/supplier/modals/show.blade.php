@@ -24,8 +24,8 @@
             </tr>
 
             <tr>
-                <td>{{ __('Supplier.SupplierRemarks') }}</td>
-                <td>{{ $supplier->remarks }}</td>
+                <td>{{ __('Supplier.SupplierCompany') }}</td>
+                <td>{{ $supplier->company }}</td>
             </tr>
 
             <tr>

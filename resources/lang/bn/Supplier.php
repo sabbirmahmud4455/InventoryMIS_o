@@ -4,7 +4,7 @@
         'SupplierName'              => 'মহাজনের নাম',
         'SupplierPhone'             => 'মহাজনের ফোন নাম্বার',
         'SupplierAddress'           => 'মহাজনের ঠিকানা',
-        'SupplierRemarks'           => 'মহাজনের মন্তব্য',
+        'SupplierCompany'           => 'মহাজনের কোম্পানি',
         'SupplierAdd'               => 'মহাজন যোগ করুন',
         'OpeningBalance'            => 'সাবেক টাকার পরিমান',
         'SupplierAddSuccessMsg'     => 'মহাজন যোগ করা হয়েছে',

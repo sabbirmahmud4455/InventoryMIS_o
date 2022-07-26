@@ -4,7 +4,7 @@
         'SupplierName'              => 'Supplier Name',
         'SupplierPhone'             => 'Supplier Phone',
         'SupplierAddress'           => 'Supplier Address',
-        'SupplierRemarks'           => 'Supplier Remarks',
+        'SupplierCompany'           => 'Supplier Company',
         'SupplierAdd'               => 'Add Supplier',
         'OpeningBalance'            => 'Opening Balance',
         'SupplierAddSuccessMsg'     => 'Supplier Successfully Added',

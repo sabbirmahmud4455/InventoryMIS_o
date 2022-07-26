@@ -47,7 +47,7 @@ class SupplierController extends Controller
                 'name' => 'required',
                 'phone' => 'required|numeric|regex:/(01)[0-9]{9}/',
                 'address' => 'nullable|max:2000',
-                'remarks' => 'nullable|max:2000',
+                'company' => 'nullable|max:2000',
                 'opening_balance' => 'required'
             ]);
 
@@ -63,7 +63,7 @@ class SupplierController extends Controller
                     $supplier->name = $request->name;
                     $supplier->contact_no  = $request->phone;
                     $supplier->address = $request->address;
-                    $supplier->remarks = $request->remarks;
+                    $supplier->company = $request->company;
                     $supplier->is_active = true;
                     $supplier->save();
 
@@ -94,7 +94,7 @@ class SupplierController extends Controller
     //supplier show modal start
     public function show($id){
         if( can("view_supplier")){
-            $supplier = Supplier::where("id",$id)->select("id", "name", "contact_no", 'address', 'remarks', "is_active")->first();
+            $supplier = Supplier::where("id",$id)->select("id", "name", "contact_no", 'address', 'company', "is_active")->first();
 
             return view("backend.modules.supplier.modals.show", compact("supplier"));
         }
@@ -106,7 +106,7 @@ class SupplierController extends Controller
     //supplier edit modal start
     public function edit($id){
         if( can("edit_supplier") ){
-            $supplier = Supplier::where("id",$id)->select("id", "name", "contact_no", 'address', 'remarks', "is_active")->first();
+            $supplier = Supplier::where("id",$id)->select("id", "name", "contact_no", 'address', 'company', "is_active")->first();
 
             return view("backend.modules.supplier.modals.edit", compact("supplier"));
         }
@@ -122,7 +122,7 @@ class SupplierController extends Controller
                 'name' => 'required',
                 'phone' => 'required|numeric|regex:/(01)[0-9]{9}/',
                 'address' => 'nullable|max:2000',
-                'remarks' => 'nullable|max:2000',
+                'company' => 'nullable|max:2000',
             ]);
 
             if( $validator->fails() ){
@@ -133,7 +133,7 @@ class SupplierController extends Controller
                     $supplier->name = $request->name;
                     $supplier->contact_no  = $request->phone;
                     $supplier->address = $request->address;
-                    $supplier->remarks = $request->remarks;
+                    $supplier->company = $request->company;
                     $supplier->is_active = true;
 
                     if( $supplier->update() ){
