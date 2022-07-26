@@ -60,7 +60,7 @@
                                     <tbody>
                                         @foreach ($suppliers as $key => $supplier)
                                             <tr>
-                                                <td>{{ $supplier->id }}</td>
+                                                <td>{{ $suppliers->firstItem() + $key }}</td>
                                                 <td>{{ $supplier->name }}</td>
                                                 <td>{{ $supplier->contact_no }}</td>
                                                 <td>
