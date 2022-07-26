@@ -77,14 +77,15 @@
                                     {{-- Lot --}}
                                     <div class="col-md-2">
                                         <label>{{ __('Lot.Lot') }}</label>
-                                        <select required class="form-control form-control-sm select2" name="lot_id" id="lot">
+                                        <input type="text"  class="form-control" name="lot_id" id="lot_number" required>
+                                        {{-- <select required class="form-control form-control-sm select2" name="lot_id" id="lot">
                                             <option value="" selected disabled>Select Lot</option>
                                             <option id="new_lot_store" value="0">{{ __('Lot.LotAdd') }}</option>
                                             @foreach ($lots as $lot)
                                                 <option value="{{ $lot->id }}">{{ $lot->name }}</option>
                                             @endforeach
 
-                                        </select>
+                                        </select> --}}
                                     </div>
 
                                     {{-- Item Name --}}
@@ -119,14 +120,14 @@
                                         </select>
                                     </div>
 
-                                    {{-- Item Weight --}}
-                                    <div class="col-md-3">
+                                    {{-- Beg --}}
+                                    <div class="col-md-2">
                                         <label>{{ __('Purchase.Beg') }}</label>
                                         <input required type="text" class="form-control form-control-sm" onchange="total_price_calculation()" id="beg" name="beg">
                                     </div>
 
                                     {{-- Item Price --}}
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <label>{{ __('Purchase.Price') }}</label>
                                         <input required type="text" class="form-control form-control-sm" onchange="total_price_calculation()" id="unit_price" name="unit_price">
                                     </div>
@@ -137,9 +138,24 @@
                                         <input readonly type="text" class="form-control form-control-sm" id="total_price" value="" name="total_price">
                                     </div>
 
+                                    {{-- Warehouse --}}
+                                    @if (can('auto_stock'))
+                                        <div class="col-md-3">
+                                            <label>{{ __('Warehouse.Warehouse') }}</label>
+                                            <select name="warehouse_id" class="form-control form-control-sm select2" id="warehouse_id">
+                                                <option selected disabled>{{ __('Warehouse.Warehouse') }}</option>
+                                                @forelse ($warehouses as $warehouse)
+                                                    <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                                @empty
+                                                    <option disabled> {{ __('Application.NoDataFound') }} </option>
+                                                @endforelse
+                                            </select>
+                                        </div>
+                                    @endif
+
                                     {{-- Add Button --}}
-                                    <div class="col-md-3">
-                                        <button class="btn btn-info mt-4 btn-sm">{{ __('Application.Add') }}</button>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-info mt-4 btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                                 {{-- Item Adding End --}}
@@ -399,6 +415,7 @@
         const beg = $("#beg").val();
         const unit_price = $("#unit_price").val();
         const total_price = $("#total_price").val();
+        const warehouse_id = $('#warehouse_id').val();
 
         const variant_name = variants.find(e => e.id == item_varient).name;
         const unit_name = units.find(e => e.id == item_unit).name;
@@ -413,6 +430,7 @@
             "beg": beg,
             "unit_price": unit_price,
             "total_price": total_price,
+            "warehouse_id" : warehouse_id,
         }
         added_items.push(item_obj)
         show_items()
@@ -464,6 +482,7 @@
         {
             "date" : $("#date").val(),
             "supplier_id" : $("#supplier").val(),
+            "lot_number" : $('#lot_number').val(),
             "purchase_total_price" : $("#purchase_total_price").val(),
             "previous_balance" : $("#previous_balance").val(),
             "purchase_in_total_amount" : $("#purchase_in_total_amount").val(),

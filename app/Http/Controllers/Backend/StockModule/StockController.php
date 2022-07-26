@@ -41,11 +41,7 @@ class StockController extends Controller
     public function store_to_stock(Request $request)
     {
         if(can('stock_add')) {
-            // return $request->all();
 
-            if($request->one_wearhouse){
-                $warehouse_id = $request->one_warehouse_id;
-            }
             foreach($request->item_id as $key => $item){
                 $stock_in = new StockInOut();
                 $stock_in->purchase_id = $request->purchase_id;
