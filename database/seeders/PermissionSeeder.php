@@ -851,10 +851,31 @@ class PermissionSeeder extends Seeder
             ],
             // Transaction Module Permission end
 
+            // Reports Module Permission start
+            [
+                'id' => 89,
+                'key' => 'reports',
+                'display_name_en' => 'Reports',
+                'display_name_bn' => 'রিপোর্ট',
+                'module_id' => 11,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 90,
+                'key' => 'all_report',
+                'display_name_en' => '-- All Reports',
+                'display_name_bn' => '-- সমস্ত রিপোর্ট',
+                'module_id' => 11,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Reports Module Permission end
+
 
 
         ]);
 
-        // Last ID: 88, New ID: 89
+        // Last ID: 90, New ID: 91
     }
 }

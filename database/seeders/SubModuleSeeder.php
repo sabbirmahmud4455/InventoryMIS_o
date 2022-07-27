@@ -319,6 +319,20 @@ class SubModuleSeeder extends Seeder
             ],
             // Module id 10 [Transaction Module] End
 
+            // Module id 11 [Report Module] Start
+            [
+                'id' => 25,
+                'name_en' => 'All Report',
+                'name_bn' => 'সমস্ত রিপোর্ট',
+                'key' => 'all_report',
+                'position' => 1,
+                'route' => 'report.index',
+                'module_id' => 11,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Module id 11 [Report Module] End
+
 
 
 
@@ -328,6 +342,6 @@ class SubModuleSeeder extends Seeder
         ]);
 
         // #########################
-        //LAST ID : 24. NEXT ID : 25
+        //LAST ID : 25. NEXT ID : 26
     }
 }
