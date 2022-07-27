@@ -56,14 +56,14 @@
 
             <div class="row">
 
-                <!--Employee Report Start-->
-                @if (can(''))
+                <!--System Data Report Start-->
+                @if (can('system_data_report'))
                     <div class="col-md-12">
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <center><h5>---</h5></center>
+                                        <center><h5>{{ __('Report.SystemDataReport') }}</h5></center>
                                     </div>
                                 </div>
                             </div>
@@ -71,20 +71,23 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <center>
-                                            @if (can(''))
-                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">--</a>
+                                            @if (can('unit_report'))
+                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.UnitReport') }}</a>
                                             @endif
-                                            @if (can(''))
-                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">--</a>
+                                            @if (can('variant_report'))
+                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.VariantReport') }}</a>
                                             @endif
-                                            @if (can(''))
-                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">--</a>
+                                            @if (can('item_type_report'))
+                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.ItemTypeReport') }}</a>
                                             @endif
-                                            @if (can(''))
-                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">--</a>
+                                            @if (can('warehouse_report'))
+                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.WarehouseReport') }}</a>
                                             @endif
-                                            @if (can(''))
-                                                <a href="" class="btn btn-sm btn-outline-dark all-report button_margin_bottom">--</a>
+                                            @if (can('transaction_type_report'))
+                                                <a href="" class="btn btn-sm btn-outline-dark all-report button_margin_bottom">{{ __('Report.TransactionTypeReport') }}</a>
+                                            @endif
+                                            @if (can('payment_type_report'))
+                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.PaymentTypeReport') }}</a>
                                             @endif
                                         </center>
                                     </div>
@@ -93,7 +96,70 @@
                         </div>
                     </div>
                 @endif
-                <!--Employee Report End-->
+                <!--System Data Report End-->
+
+                <!--Product Report Start-->
+                @if (can('product_report'))
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center><h5>{{ __('Report.ProductReport') }}</h5></center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center>
+                                            @if (can('unit_wise_product_report'))
+                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.UnitWiseProductReport') }}</a>
+                                            @endif
+                                            @if (can('variant_wise_product_report'))
+                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.VariantWiseProductReport') }}</a>
+                                            @endif
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <!--Product Report End-->.
+
+                <!--Purchase Report Start-->
+                @if (can('purchase_report'))
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center><h5>{{ __('Report.PurchaseReport') }}</h5></center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center>
+                                            @if (can('all_purchase_report'))
+                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllPurchaseReport') }}</a>
+                                            @endif
+                                            @if (can('date_wise_purchase_report'))
+                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.DateWiseProductReport') }}</a>
+                                            @endif
+                                            @if (can('supplier_wise_purchase_report'))
+                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.SupplierWiseProductReport') }}</a>
+                                            @endif
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <!--Purchase Report End-->
 
 
             </div>
