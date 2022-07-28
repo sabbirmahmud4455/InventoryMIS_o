@@ -11,6 +11,7 @@ use App\Models\SystemDataModule\Item;
 use App\Models\SystemDataModule\ItemVariant;
 use App\Models\SystemDataModule\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
@@ -65,6 +66,70 @@ class SaleController extends Controller
 
             return response()->json($lot_items);
 
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    // Get Item Stock Variant
+    public function get_item_stock_variant(Request $request)
+    {
+        if(can('add_sale')) {
+            $item_id = $request->item_id;
+
+            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
+            DB::reconnect(); // Reconnect to DB
+
+            $item_stock = new StockInOut();
+            $item_stock_variants = $item_stock->StockItemVariants($item_id);
+
+            config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
+            DB::reconnect(); //Reconnect to DB
+
+            return response()->json($item_stock_variants);
+
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    // available_lots
+    public function available_lots(Request $request)
+    {
+        if(can('add_sale')) {
+            $ids = explode("_", $request->ids);
+            $variant_id = $ids[0];
+            $unit_id = $ids[1];
+            $item_id = $request->item_id;
+
+            $stock_lots = new StockInOut();
+            $lots = $stock_lots->StockLots($item_id, $variant_id, $unit_id);
+
+            return response()->json($lots);
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    public function get_warehouse_stock(Request $request)
+    {
+        if(can('add_sale')) {
+            $ids = explode("_", $request->ids);
+            $variant_id = $ids[0];
+            $unit_id = $ids[1];
+            $item_id = $request->item_id;
+            $lot_id = $request->lot_id;
+
+            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
+            DB::reconnect(); // Reconnect to DB
+
+            $stock_warehouses = new StockInOut();
+            $warehouse_with_stock = $stock_warehouses->GetWarehouseWithStock($item_id, $variant_id, $unit_id, $lot_id);
+
+            config()->set('database.connections.mysql.strict', true); // Disable DB strict Mode
+            DB::reconnect(); // Reconnect to DB
+
+            return response()->json($warehouse_with_stock);
         } else {
             return view('errors.404');
         }

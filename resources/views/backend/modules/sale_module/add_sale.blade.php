@@ -53,7 +53,7 @@
                             {{-- Item Adding Start --}}
                             <div class="row">
                                 {{-- Customer Name --}}
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <label>{{ __('Customer.CustomerName') }}</label>
                                     <select name="customer_id" class="form-control form-control-sm select2">
                                         <option value="0">{{ __('Customer.GuestCustomer') }}</option>
@@ -64,19 +64,8 @@
                                     </select>
                                 </div>
 
-                                {{-- Lot --}}
-                                <div class="col-md-3">
-                                    <label>{{ __('Lot.Lot') }}</label>
-                                    <select class="form-control form-control-sm select2" name="lot_id" id="lot_id">
-                                        <option selected disabled>Select Lot</option>
-                                        @foreach ($lots as $lot)
-                                            <option value="{{ $lot->id }}">{{ $lot->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
                                 {{-- Item Name --}}
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <label>{{ __('Item.Item') }}</label>
                                     <select name="item_id" class="form-control form-control-sm select2" id="item_id">
                                         <option selected disabled>{{ __('Item.SelectItem') }}</option>
@@ -89,21 +78,26 @@
                                 </div>
 
                                 {{-- Item Varient --}}
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <label>{{ __('Item.ItemVariant') }}</label>
-                                    <select name="item_varient" class="form-control form-control-sm select2" id="item_varient">
+                                    <select name="variant_id" class="form-control form-control-sm select2" id="item_variant">
                                         <option selected disabled>{{ __('variant.SelectVarient') }}</option>
                                     </select>
                                 </div>
 
-                                {{-- Unit --}}
+                                {{-- Lot --}}
+                                <div class="col-md-3">
+                                    <label>{{ __('Lot.Lot') }}</label>
+                                    <select class="form-control form-control-sm select2" name="lot_id" id="lot_id">
+                                        <option selected disabled>{{ __('Lot.Lot') }}</option>
+                                    </select>
+                                </div>
 
+                                {{-- Warehouse --}}
                                 <div class="col-md-2">
-                                    <label>{{ __('Unit.Unit') }}</label>
-                                    <select name="item_varient" class="form-control form-control-sm select2" id="item_varient">
-                                        @foreach ($units as $unit)
-                                            <option value="{{ $unit->id }}">{{ $unit->name }}</option>
-                                        @endforeach
+                                    <label>{{ __('Warehouse.Warehouse') }}</label>
+                                    <select class="form-control form-control-sm select2" name="warehouse_id" id="warehouse_id">
+                                        <option selected disabled>{{ __('Warehouse.Warehouse') }}</option>
                                     </select>
                                 </div>
 
@@ -292,38 +286,98 @@
 
 <script>
     $(document).ready(function(){
-
         // Get Item Varient Data
         $('#item_id').change(function () {
-            var $id = $(this).val();
-            var varient_id = $('#item_varient');
+            var item_id = $(this).val();
+            var variant_id = $('#item_variant');
+            $('.loading').show();
             $.ajax({
-                url: "{{ route('sale.item_variants') }}",
+                url: "{{ route('sale.item_stock_variant') }}",
                 data:{
-                    item_id: $id
+                    item_id: item_id
                 },
                 method: 'GET',
                 success: function(data){
-                    varient_id.html('<option selected disabled>Choose Varient</option>');
+                    $('.loading').hide();
+
+                    variant_id.html('<option value="" selected disabled>Choose Variant</option>');
                     $.each(data, function(index, value){
-                        varient_id.append('<option value = "'+ value.variant.id +'">'+ value.variant.name +'</option>')
+                        variant_id.append('<option value = "'+ value.variant_id +'_'+ value.unit_id +'">'+ value.variant_name +'('+ value.unit_name +')' +'</option>')
                     });
                 }
             });
         });
+
+        // Get Avaialble Lots
+        $('#item_variant').change(function(){
+            const variat_unit_id = $(this).val();
+            const item_id = $('#item_id').val();
+            var lot_id = $('#lot_id');
+
+            $('.loading').show();
+            $.ajax({
+                url: "{{ route('sale.available_lots') }}",
+                data:{
+                    ids: variat_unit_id,
+                    item_id : item_id
+                },
+                method: 'GET',
+                success: function(data){
+                    $('.loading').hide();
+                    lot_id.html('<option value="" selected disabled>Choose Lot</option>');
+                    $.each(data, function(index, value){
+                        lot_id.append('<option value = "'+ value.lot_id +'">'+ value.lot_name +'('+ value.lot_code +')' +'</option>')
+                    });
+                }
+            });
+        });
+
+
+
+        // Get Avaialble Lots
+        $('#lot_id').change(function(){
+            const variat_unit_id = $('#item_variant').val();
+            const item_id = $('#item_id').val();
+            const lot_id = $(this).val();
+
+            var warehouse_id = $('#warehouse_id');
+
+            $('.loading').show();
+            $.ajax({
+                url: "{{ route('sale.get_warehouse_stock') }}",
+                data:{
+                    ids: variat_unit_id,
+                    item_id : item_id,
+                    lot_id : lot_id
+                },
+                method: 'GET',
+                success: function(data){
+                    $('.loading').hide();
+                    warehouse_id.html('<option value="" selected disabled>Choose Warehouse</option>');
+                    $.each(data, function(index, value){
+                        warehouse_id.append('<option value = "'+ value.warehouse_id +'">'+ value.warehouse_name +'('+ value.available_stock +')' +'</option>')
+                    });
+                }
+            });
+        });
+
+
+
+
     });
 </script>
+
+
 
 {{-- Lot Functions --}}
 <script>
     $(document).ready(function(){
         $('#lot_id').change(function(){
             const lot = $(this).val();
-
             // Getting Item for Selected Lot
             $('.loading').show();
             $.ajax({
-                url: "{{ route('sale.lot_items') }}", 
+                url: "{{ route('sale.lot_items') }}",
                 data:{
                     lot_id : lot
                 },
