@@ -147,10 +147,10 @@
                                                 <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllPurchaseReport') }}</a>
                                             @endif
                                             @if (can('date_wise_purchase_report'))
-                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.DateWiseProductReport') }}</a>
+                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.DateWisePurchaseReport') }}</a>
                                             @endif
                                             @if (can('supplier_wise_purchase_report'))
-                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.SupplierWiseProductReport') }}</a>
+                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.SupplierWisePurchaseReport') }}</a>
                                             @endif
                                         </center>
                                     </div>
@@ -160,6 +160,195 @@
                     </div>
                 @endif
                 <!--Purchase Report End-->
+
+                <!--Stock Report Start-->
+                @if (can('stock_report'))
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center><h5>{{ __('Report.StockReport') }}</h5></center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center>
+                                            @if (can('current_stock_report'))
+                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.CurrentStockReport') }}</a>
+                                            @endif
+                                            @if (can('warehouse_wise_stock_report'))
+                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.WarehouseWiseStockReport') }}</a>
+                                            @endif
+                                            @if (can('date_wise_stock_report'))
+                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.DateWiseStockReport') }}</a>
+                                            @endif
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <!--Stock Report End-->
+
+                <!--Supplier Report Start-->
+                @if (can('supplier_report'))
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center><h5>{{ __('Report.SupplierReport') }}</h5></center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center>
+                                            @if (can('all_supplier_report'))
+                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllSupplierReport') }}</a>
+                                            @endif
+                                            @if (can('supplier_transaction_report'))
+                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.SupplierTransactionReport') }}</a>
+                                            @endif
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <!--Supplier Report End-->
+
+                <!--Customer Report Start-->
+                @if (can('customer_report'))
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center><h5>{{ __('Report.CustomerReport') }}</h5></center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center>
+                                            @if (can('all_customer_report'))
+                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllCustomerReport') }}</a>
+                                            @endif
+                                            @if (can('customer_transaction_report'))
+                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.CustomerTransactionReport') }}</a>
+                                            @endif
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <!--Customer Report End-->
+
+                <!--Sale Report Start-->
+                @if (can('sale_report'))
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center><h5>{{ __('Report.SaleReport') }}</h5></center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center>
+                                            @if (can('all_sale_report'))
+                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllSaleReport') }}</a>
+                                            @endif
+                                            @if (can('date_wise_sale_report'))
+                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.DateWiseSaleReport') }}</a>
+                                            @endif
+                                            @if (can('customer_wise_sale_report'))
+                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.CustomerWiseSaleReport') }}</a>
+                                            @endif
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <!--Sale Report End-->
+
+                <!--Bank Report Start-->
+                @if (can('bank_report'))
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center><h5>{{ __('Report.BankReport') }}</h5></center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center>
+                                            @if (can('all_bank_report'))
+                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllBankReport') }}</a>
+                                            @endif
+                                            @if (can('bank_transaction_report'))
+                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.BankTransactionReport') }}</a>
+                                            @endif
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <!--Bank Report End-->
+
+                <!--Transaction Report Start-->
+                @if (can('transaction_report'))
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center><h5>{{ __('Report.TransactionReport') }}</h5></center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <center>
+                                            @if (can('all_transaction_report'))
+                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllTransactionReport') }}</a>
+                                            @endif
+                                            @if (can('type_wise_transaction_report'))
+                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.TypeWiseTransactionReport') }}</a>
+                                            @endif
+                                            @if (can('statement_report'))
+                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.StatementReport') }}</a>
+                                            @endif
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <!--Transaction Report End-->
 
 
             </div>
