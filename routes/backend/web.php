@@ -101,6 +101,11 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
         require_once 'transaction_module/transaction.php';
     });
 
+    // Reports Module
+    Route::group(['prefix' => 'reports-module'], function() {
+        require_once 'reports_module/reports.php';
+    });
+
 
 });
 //backend route group end

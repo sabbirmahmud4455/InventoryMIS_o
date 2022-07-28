@@ -130,9 +130,20 @@ class ModuleSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+            [
+                'id' => 11,
+                'name_en' => 'Reports',
+                'name_bn' => 'রিপোর্ট',
+                'key' => 'reports',
+                'icon' => 'fa fa-file',
+                'position' => 10,
+                'route' => null,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
 
         ]);
 
-        // LAST ID : 10. NEXT ID : 11 [Settings Position : 20]
+        // LAST ID : 11. NEXT ID : 12 [Settings Position : 20]
     }
 }
