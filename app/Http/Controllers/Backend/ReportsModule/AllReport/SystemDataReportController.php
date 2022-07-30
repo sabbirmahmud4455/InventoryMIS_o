@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\ReportsModule\AllReport;
 
 use App\Http\Controllers\Controller;
 use App\Models\SettingsModule\CompanyInfo;
+use App\Models\SystemDataModule\ItemType;
 use App\Models\SystemDataModule\Unit;
 use App\Models\SystemDataModule\Variant;
 use DateTime;
@@ -145,6 +146,76 @@ class SystemDataReportController extends Controller
                 'title'
             )));
             $mpdf->Output("VariantReport".'.pdf', "I");
+
+            
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    //item type report function
+    public function item_type_report() {
+        if(can('item_type_report')) {
+            $item_types = ItemType::with('items')->where('is_active', true)->orderBy('id', 'desc')->get();
+            
+            return view('backend.modules.reports_module.all_report.system_data_report.item_type_report.index', compact('item_types'));
+            
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    //item type report export pdf function
+    public function item_type_report_export_pdf() {
+        if(can('item_type_report')) {
+            $item_types = ItemType::with('items')->where('is_active', true)->orderBy('id', 'desc')->get();
+            
+            $company_info = CompanyInfo::first();
+            $title = __('Report.ItemTypeReport');
+
+            $now = new DateTime();
+            $time = $now->format('F j, Y, g:i a');
+            $auth_user = Auth::user()->name;
+
+            $footer = "
+                    <span style='margin: 29px;'>Page :
+                    <span></span>{PAGENO} of {nbpg}</span>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+
+                    <span class='print_date'>Print Date : $time
+                </span>
+
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <span class='print_by'>
+                    Printed By : $auth_user
+                </span>
+
+                &nbsp;
+                &nbsp;
+                <span class='powered_by'> Powered By: RP AI Solutions </span>
+                &nbsp;
+                ";
+
+            $mpdf = new \Mpdf\Mpdf(
+                [
+                    // 'default_font_size' => 12,
+                    'default_font' => 'nikosh',
+                    'mode' => 'utf-8',
+                ]
+            );
+
+            $mpdf->SetTitle(__("Report.ItemTypeReport"));
+            $mpdf->SetFooter($footer);
+            $mpdf->WriteHTML(view('backend.modules.reports_module.all_report.system_data_report.item_type_report.export.pdf.item_type_report_export_pdf', compact(
+                'item_types',
+                'company_info',
+                'title'
+            )));
+            $mpdf->Output("ItemTypeReport".'.pdf', "I");
 
             
         } else {

@@ -34,6 +34,18 @@ Route::group(['prefix' => 'all-reports'], function (){
     });
     // Variant Report route end
 
+    // Item Type Report route start
+    Route::group(['prefix' => 'item-type-report'], function(){
+
+        // index route
+        Route::get('/', [SystemDataReportController::class, 'item_type_report'])->name('item.type.report.index');
+        
+        // Export pdf route
+        Route::get('/export-pdf', [SystemDataReportController::class, 'item_type_report_export_pdf'])->name('item.type.report.export.pdf');
+
+    });
+    // Item Type Report route end
+
 
 
 });

@@ -78,7 +78,7 @@
                                                 <a href="{{ route('variant.report.index') }}" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.VariantReport') }}</a>
                                             @endif
                                             @if (can('item_type_report'))
-                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.ItemTypeReport') }}</a>
+                                                <a href="{{ route('item.type.report.index') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.ItemTypeReport') }}</a>
                                             @endif
                                             @if (can('warehouse_report'))
                                                 <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.WarehouseReport') }}</a>
