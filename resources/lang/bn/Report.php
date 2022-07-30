@@ -9,6 +9,7 @@
         'WarehouseReport' => 'গোডাউন রিপোর্ট',
         'TransactionTypeReport' => 'লেনদেনের ধরন রিপোর্ট',
         'PaymentTypeReport' => 'পেমেন্টের ধরন রিপোর্ট',
+        'TotalProduct' => 'মোট পণ্য',
 
         'ProductReport' => 'পণ্যের রিপোর্ট',
         'UnitWiseProductReport' => 'ইউনিট অনুযায়ী পণ্যের রিপোর্ট',

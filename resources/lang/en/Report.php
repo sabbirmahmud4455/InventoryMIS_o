@@ -9,6 +9,7 @@
         'WarehouseReport' => 'Warehouse Report',
         'TransactionTypeReport' => 'Transaction Type Report',
         'PaymentTypeReport' => 'Payment Type Report',
+        'TotalProduct' => 'Total Product',
 
         'ProductReport' => 'Product Report',
         'UnitWiseProductReport' => 'Unit Wise Product Report',

@@ -72,7 +72,7 @@
                                     <div class="col-md-12">
                                         <center>
                                             @if (can('unit_report'))
-                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.UnitReport') }}</a>
+                                                <a href="{{ route('unit.report.index') }}" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.UnitReport') }}</a>
                                             @endif
                                             @if (can('variant_report'))
                                                 <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.VariantReport') }}</a>
