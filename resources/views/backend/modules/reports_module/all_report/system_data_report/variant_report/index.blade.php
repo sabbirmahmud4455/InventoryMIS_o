@@ -26,13 +26,13 @@
                             </li>
                             <li class="breadcrumb-item active">
                                 <a href="#">
-                                    {{ __('Report.UnitReport') }}
+                                    {{ __('Report.VariantReport') }}
                                 </a>
                             </li>
                         </ol>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
-                        <a href="{{ route('unit.report.export.pdf') }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>
+                        <a href="{{ route('variant.report.export.pdf') }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>
                     </div>
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -48,21 +48,21 @@
                             <div class="card-header text-right">
                             </div>
                             <div class="card-body">
-                                @if ($units && count($units) > 0)
+                                @if ($variants && count($variants) > 0)
                                     <table class="table table-sm table-bordered text-center">
                                         <thead>
                                             <tr>
                                                 <th>{{ __('Application.SerialNo') }}</th>
-                                                <th>{{ __('Unit.Name') }}</th>
+                                                <th>{{ __('Variant.Name') }}</th>
                                                 <th>{{ __('Report.TotalProduct') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($units as $key => $unit)
+                                            @foreach ($variants as $key => $variant)
                                                 <tr>
                                                     <td>{{ ++ $key }}</td>
-                                                    <td>{{ $unit->name }}</td>
-                                                    <td>{{ $unit->purchase_details->count() }}</td>
+                                                    <td>{{ $variant->name }}</td>
+                                                    <td>{{ $variant->purchase_details->count() }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

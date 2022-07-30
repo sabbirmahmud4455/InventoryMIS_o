@@ -83,7 +83,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                @if ($units && count($units) > 0)
+                @if ($variants && count($variants) > 0)
                     <table class="table table-sm table-bordered">
                         <thead>
                             <tr>
@@ -93,11 +93,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($units as $key => $unit)
+                            @foreach ($variants as $key => $variant)
                                 <tr>
                                     <td style="text-align: center">{{ ++ $key }}</td>
-                                    <td style="text-align: center">{{ $unit->name }}</td>
-                                    <td style="text-align: center">{{ $unit->purchase_details->count() }}</td>
+                                    <td style="text-align: center">{{ $variant->name }}</td>
+                                    <td style="text-align: center">{{ $variant->purchase_details->count() }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
