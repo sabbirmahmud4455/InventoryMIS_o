@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\ReportsModule\AllReport;
 use App\Http\Controllers\Controller;
 use App\Models\SettingsModule\CompanyInfo;
 use App\Models\SystemDataModule\ItemType;
+use App\Models\SystemDataModule\TransactionType;
 use App\Models\SystemDataModule\Unit;
 use App\Models\SystemDataModule\Variant;
 use App\Models\SystemDataModule\Warehouse;
@@ -223,6 +224,7 @@ class SystemDataReportController extends Controller
             return view('errors.404');
         }
     }
+
     //warehouse report function
     public function warehouse_report() {
         if(can('warehouse_report')) {
@@ -286,6 +288,76 @@ class SystemDataReportController extends Controller
                 'title'
             )));
             $mpdf->Output("WarehouseReport".'.pdf', "I");
+
+            
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    //transaction type report function
+    public function transaction_type_report() {
+        if(can('transaction_type_report')) {
+            $transaction_types = TransactionType::with('transactions')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
+            
+            return view('backend.modules.reports_module.all_report.system_data_report.transaction_type_report.index', compact('transaction_types'));
+            
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    //transaction type report export pdf function
+    public function transaction_type_report_export_pdf() {
+        if(can('transaction_type_report')) {
+            $transaction_types = TransactionType::with('transactions')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
+            
+            $company_info = CompanyInfo::first();
+            $title = __('Report.TransactionTypeReport');
+
+            $now = new DateTime();
+            $time = $now->format('F j, Y, g:i a');
+            $auth_user = Auth::user()->name;
+
+            $footer = "
+                    <span style='margin: 29px;'>Page :
+                    <span></span>{PAGENO} of {nbpg}</span>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+
+                    <span class='print_date'>Print Date : $time
+                </span>
+
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <span class='print_by'>
+                    Printed By : $auth_user
+                </span>
+
+                &nbsp;
+                &nbsp;
+                <span class='powered_by'> Powered By: RP AI Solutions </span>
+                &nbsp;
+                ";
+
+            $mpdf = new \Mpdf\Mpdf(
+                [
+                    // 'default_font_size' => 12,
+                    'default_font' => 'nikosh',
+                    'mode' => 'utf-8',
+                ]
+            );
+
+            $mpdf->SetTitle(__("Report.TransactionTypeReport"));
+            $mpdf->SetFooter($footer);
+            $mpdf->WriteHTML(view('backend.modules.reports_module.all_report.system_data_report.transaction_type_report.export.pdf.transaction_type_report_export_pdf', compact(
+                'transaction_types',
+                'company_info',
+                'title'
+            )));
+            $mpdf->Output("TransactionTypeReport".'.pdf', "I");
 
             
         } else {

@@ -84,7 +84,7 @@
                                                 <a href="{{ route('warehouse.report.index') }}" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.WarehouseReport') }}</a>
                                             @endif
                                             @if (can('transaction_type_report'))
-                                                <a href="" class="btn btn-sm btn-outline-dark all-report button_margin_bottom">{{ __('Report.TransactionTypeReport') }}</a>
+                                                <a href="{{ route('transaction.type.report.index') }}" class="btn btn-sm btn-outline-dark all-report button_margin_bottom">{{ __('Report.TransactionTypeReport') }}</a>
                                             @endif
                                             @if (can('payment_type_report'))
                                                 <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.PaymentTypeReport') }}</a>

@@ -61,6 +61,21 @@ Route::group(['prefix' => 'all-reports'], function (){
         });
         // Warehouse Report route end
 
+        // Transaction Type Report route start
+        Route::group(['prefix' => 'transaction-type-report'], function(){
+
+            // index route
+            Route::get('/', [SystemDataReportController::class, 'transaction_type_report'])->name('transaction.type.report.index');
+            
+            // Export pdf route
+            Route::get('/export-pdf', [SystemDataReportController::class, 'transaction_type_report_export_pdf'])->name('transaction.type.report.export.pdf');
+
+        });
+        // Transaction Type Report route end
+
+
+
+
     });
     // System Data Report End
 
