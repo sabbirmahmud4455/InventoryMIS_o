@@ -7,6 +7,7 @@ use App\Models\SettingsModule\CompanyInfo;
 use App\Models\SystemDataModule\ItemType;
 use App\Models\SystemDataModule\Unit;
 use App\Models\SystemDataModule\Variant;
+use App\Models\SystemDataModule\Warehouse;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -216,6 +217,75 @@ class SystemDataReportController extends Controller
                 'title'
             )));
             $mpdf->Output("ItemTypeReport".'.pdf', "I");
+
+            
+        } else {
+            return view('errors.404');
+        }
+    }
+    //warehouse report function
+    public function warehouse_report() {
+        if(can('warehouse_report')) {
+            $warehouses = Warehouse::with('stocks')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
+            
+            return view('backend.modules.reports_module.all_report.system_data_report.warehouse_report.index', compact('warehouses'));
+            
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    //warehouse report export pdf function
+    public function warehouse_report_export_pdf() {
+        if(can('warehouse_report')) {
+            $warehouses = Warehouse::with('stocks')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
+            
+            $company_info = CompanyInfo::first();
+            $title = __('Report.WarehouseReport');
+
+            $now = new DateTime();
+            $time = $now->format('F j, Y, g:i a');
+            $auth_user = Auth::user()->name;
+
+            $footer = "
+                    <span style='margin: 29px;'>Page :
+                    <span></span>{PAGENO} of {nbpg}</span>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+
+                    <span class='print_date'>Print Date : $time
+                </span>
+
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <span class='print_by'>
+                    Printed By : $auth_user
+                </span>
+
+                &nbsp;
+                &nbsp;
+                <span class='powered_by'> Powered By: RP AI Solutions </span>
+                &nbsp;
+                ";
+
+            $mpdf = new \Mpdf\Mpdf(
+                [
+                    // 'default_font_size' => 12,
+                    'default_font' => 'nikosh',
+                    'mode' => 'utf-8',
+                ]
+            );
+
+            $mpdf->SetTitle(__("Report.WarehouseReport"));
+            $mpdf->SetFooter($footer);
+            $mpdf->WriteHTML(view('backend.modules.reports_module.all_report.system_data_report.warehouse_report.export.pdf.warehouse_report_export_pdf', compact(
+                'warehouses',
+                'company_info',
+                'title'
+            )));
+            $mpdf->Output("WarehouseReport".'.pdf', "I");
 
             
         } else {
