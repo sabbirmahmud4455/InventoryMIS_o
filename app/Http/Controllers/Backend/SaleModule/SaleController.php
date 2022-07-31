@@ -134,4 +134,18 @@ class SaleController extends Controller
             return view('errors.404');
         }
     }
+
+    // GET CUSTOMER TOTAL PREVIUOS BALANCE
+    public function customer_previous_balance(Request $request)
+    {
+        if(can('add_sale')) {
+            $customer_id = $request->customer_id;
+            $customer = new Customer();
+            $customer_previous_balance = $customer->CustomerPreviuosBalance($customer_id);
+
+            return response()->json($customer_previous_balance);
+        } else {
+            return view('errors.404');
+        }
+    }
 }
