@@ -73,6 +73,18 @@ Route::group(['prefix' => 'all-reports'], function (){
         });
         // Transaction Type Report route end
 
+        // Payment Type Report route start
+        Route::group(['prefix' => 'payment-type-report'], function(){
+
+            // index route
+            Route::get('/', [SystemDataReportController::class, 'payment_type_report'])->name('payment.type.report.index');
+            
+            // Export pdf route
+            Route::get('/export-pdf', [SystemDataReportController::class, 'payment_type_report_export_pdf'])->name('payment.type.report.export.pdf');
+
+        });
+        // Payment Type Report route end
+
 
 
 
