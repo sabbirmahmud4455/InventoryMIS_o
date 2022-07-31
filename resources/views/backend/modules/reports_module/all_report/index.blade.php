@@ -113,6 +113,9 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <center>
+                                            @if (can('all_product_report'))
+                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllProductReport') }}</a>
+                                            @endif
                                             @if (can('unit_wise_product_report'))
                                                 <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.UnitWiseProductReport') }}</a>
                                             @endif

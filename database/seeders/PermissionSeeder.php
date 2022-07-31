@@ -944,6 +944,15 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'id' => 99,
+                'key' => 'all_product_report',
+                'display_name_en' => '--- ALl Product Report',
+                'display_name_bn' => '--- সমস্ত পণের রিপোর্ট',
+                'module_id' => 11,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 100,
                 'key' => 'unit_wise_product_report',
                 'display_name_en' => '--- Unit Wise Product Report',
                 'display_name_bn' => '--- ইউনিট অনুযায়ী পণের রিপোর্ট',
@@ -952,7 +961,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 100,
+                'id' => 101,
                 'key' => 'variant_wise_product_report',
                 'display_name_en' => '--- Variant Wise Product Report',
                 'display_name_bn' => '--- ভিন্নতা অনুযায়ী পণের রিপোর্ট',
@@ -961,7 +970,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 101,
+                'id' => 102,
                 'key' => 'purchase_report',
                 'display_name_en' => '-- Purchase Report',
                 'display_name_bn' => '-- ক্রয় রিপোর্ট',
@@ -970,7 +979,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 102,
+                'id' => 103,
                 'key' => 'all_purchase_report',
                 'display_name_en' => '--- All Purchase Report',
                 'display_name_bn' => '--- সমস্ত ক্রয় রিপোর্ট',
@@ -979,7 +988,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 103,
+                'id' => 104,
                 'key' => 'date_wise_purchase_report',
                 'display_name_en' => '--- Date Wise Purchase Report',
                 'display_name_bn' => '--- তারিখ অনুযায়ী ক্রয় রিপোর্ট',
@@ -988,7 +997,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 104,
+                'id' => 105,
                 'key' => 'supplier_wise_purchase_report',
                 'display_name_en' => '--- Supplier Wise Purchase Report',
                 'display_name_bn' => '--- মহাজন অনুযায়ী ক্রয় রিপোর্ট',
@@ -997,7 +1006,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 105,
+                'id' => 106,
                 'key' => 'stock_report',
                 'display_name_en' => '-- Stock Report',
                 'display_name_bn' => '-- মজুদ রিপোর্ট',
@@ -1006,7 +1015,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 106,
+                'id' => 107,
                 'key' => 'current_stock_report',
                 'display_name_en' => '--- Current Stock Report',
                 'display_name_bn' => '--- বর্তমান মজুদ রিপোর্ট',
@@ -1015,7 +1024,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 107,
+                'id' => 108,
                 'key' => 'warehouse_wise_stock_report',
                 'display_name_en' => '--- Warehouse Wise Stock Report',
                 'display_name_bn' => '--- গোডাউন অনুযায়ী মজুদ রিপোর্ট',
@@ -1024,7 +1033,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 108,
+                'id' => 109,
                 'key' => 'date_wise_stock_report',
                 'display_name_en' => '--- Date Wise Stock Report',
                 'display_name_bn' => '--- তারিখ অনুযায়ী মজুদ রিপোর্ট',
@@ -1033,7 +1042,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 109,
+                'id' => 110,
                 'key' => 'supplier_report',
                 'display_name_en' => '-- Supplier Report',
                 'display_name_bn' => '-- মহাজনের রিপোর্ট',
@@ -1042,7 +1051,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 110,
+                'id' => 111,
                 'key' => 'all_supplier_report',
                 'display_name_en' => '--- All Supplier Report',
                 'display_name_bn' => '--- সমস্ত মহাজনের রিপোর্ট',
@@ -1051,7 +1060,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 111,
+                'id' => 112,
                 'key' => 'supplier_transaction_report',
                 'display_name_en' => '--- Supplier Transaction Report',
                 'display_name_bn' => '--- মহাজনের লেনদেন রিপোর্ট',
@@ -1060,7 +1069,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 112,
+                'id' => 113,
                 'key' => 'customer_report',
                 'display_name_en' => '-- Customer Report',
                 'display_name_bn' => '-- ক্রেতার রিপোর্ট',
@@ -1069,7 +1078,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 113,
+                'id' => 114,
                 'key' => 'all_customer_report',
                 'display_name_en' => '--- All Customer Report',
                 'display_name_bn' => '--- সমস্ত ক্রেতার রিপোর্ট',
@@ -1078,7 +1087,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 114,
+                'id' => 115,
                 'key' => 'customer_transaction_report',
                 'display_name_en' => '--- Customer Transaction Report',
                 'display_name_bn' => '--- ক্রেতার লেনদেন রিপোর্ট',
@@ -1087,7 +1096,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 115,
+                'id' => 116,
                 'key' => 'sale_report',
                 'display_name_en' => '-- Sale Report',
                 'display_name_bn' => '-- বিক্রয় রিপোর্ট',
@@ -1096,7 +1105,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 116,
+                'id' => 117,
                 'key' => 'all_sale_report',
                 'display_name_en' => '--- All Sale Report',
                 'display_name_bn' => '--- সমস্ত বিক্রয় রিপোর্ট',
@@ -1105,7 +1114,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 117,
+                'id' => 118,
                 'key' => 'date_wise_sale_report',
                 'display_name_en' => '--- Date Wise Sale Report',
                 'display_name_bn' => '--- তারিখ অনুযায়ী বিক্রয় রিপোর্ট',
@@ -1114,7 +1123,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 118,
+                'id' => 119,
                 'key' => 'customer_wise_sale_report',
                 'display_name_en' => '--- Customer Wise Sale Report',
                 'display_name_bn' => '--- ক্রেতা অনুযায়ী বিক্রয় রিপোর্ট',
@@ -1123,7 +1132,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 119,
+                'id' => 120,
                 'key' => 'bank_report',
                 'display_name_en' => '-- Bank Report',
                 'display_name_bn' => '-- ব্যাংক রিপোর্ট',
@@ -1132,7 +1141,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 120,
+                'id' => 121,
                 'key' => 'all_bank_report',
                 'display_name_en' => '--- All Bank Report',
                 'display_name_bn' => '--- সমস্ত ব্যাংক রিপোর্ট',
@@ -1141,7 +1150,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 121,
+                'id' => 122,
                 'key' => 'bank_transaction_report',
                 'display_name_en' => '--- Bank Transaction Report',
                 'display_name_bn' => '--- ব্যাংক লেনদেন রিপোর্ট',
@@ -1150,7 +1159,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 122,
+                'id' => 123,
                 'key' => 'transaction_report',
                 'display_name_en' => '-- Transaction Report',
                 'display_name_bn' => '-- লেনদেন রিপোর্ট',
@@ -1159,7 +1168,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 123,
+                'id' => 124,
                 'key' => 'all_transaction_report',
                 'display_name_en' => '--- All Transaction Report',
                 'display_name_bn' => '--- সমস্ত লেনদেন রিপোর্ট',
@@ -1168,7 +1177,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 124,
+                'id' => 125,
                 'key' => 'type_wise_transaction_report',
                 'display_name_en' => '--- Type Wise Transaction Report',
                 'display_name_bn' => '--- ধরণ অনুযায়ী লেনদেন রিপোর্ট',
@@ -1177,7 +1186,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => $date,
             ],
             [
-                'id' => 125,
+                'id' => 126,
                 'key' => 'statement_report',
                 'display_name_en' => '--- Statement Report',
                 'display_name_bn' => '--- বিবরণী রিপোর্ট',
@@ -1191,6 +1200,6 @@ class PermissionSeeder extends Seeder
 
         ]);
 
-        // Last ID: 125, New ID: 126
+        // Last ID: 126, New ID: 127
     }
 }

@@ -12,6 +12,7 @@
         'TotalProduct' => 'মোট পণ্য',
 
         'ProductReport' => 'পণ্যের রিপোর্ট',
+        'AllProductReport' => 'সমস্ত পণ্যের রিপোর্ট',
         'UnitWiseProductReport' => 'ইউনিট অনুযায়ী পণ্যের রিপোর্ট',
         'VariantWiseProductReport' => 'ভিন্নতা অনুযায়ী পণ্যের রিপোর্ট',
 

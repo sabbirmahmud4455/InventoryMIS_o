@@ -12,6 +12,7 @@
         'TotalProduct' => 'Total Product',
 
         'ProductReport' => 'Product Report',
+        'AllProductReport' => 'All Product Report',
         'UnitWiseProductReport' => 'Unit Wise Product Report',
         'VariantWiseProductReport' => 'Variant Wise Product Report',
 
