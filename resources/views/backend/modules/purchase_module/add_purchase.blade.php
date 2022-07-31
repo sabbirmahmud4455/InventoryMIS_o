@@ -443,7 +443,6 @@
         let total_amount = 0;
 
         added_items.forEach((element, index) => {
-            console.log(element);
             total_amount += parseFloat(element.total_price);
 
             const item_name = items.find(e => e.id == element.item_id).name;

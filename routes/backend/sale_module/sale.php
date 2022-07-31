@@ -15,6 +15,7 @@ Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
     Route::get('/get-item-stock-variant', [SaleController::class, 'get_item_stock_variant'])->name('item_stock_variant');
     Route::get('/available-lots', [SaleController::class, 'available_lots'])->name('available_lots');
     Route::get('/get-warehouse-stock', [SaleController::class, 'get_warehouse_stock'])->name('get_warehouse_stock');
+    Route::get('/customer_previous_balance', [SaleController::class, 'customer_previous_balance'])->name('customer_previuos_balance');
 });
 
 ?>
