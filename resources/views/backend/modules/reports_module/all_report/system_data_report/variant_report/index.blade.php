@@ -54,7 +54,7 @@
                                             <tr>
                                                 <th>{{ __('Application.SerialNo') }}</th>
                                                 <th>{{ __('Variant.Name') }}</th>
-                                                <th>{{ __('Report.TotalProduct') }}</th>
+                                                <th>{{ __('Report.TotalItem') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>

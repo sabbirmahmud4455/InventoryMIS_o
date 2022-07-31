@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\ReportsModule\AllReport\AllReportController;
+use App\Http\Controllers\Backend\ReportsModule\AllReport\ItemReportController;
 use App\Http\Controllers\Backend\ReportsModule\AllReport\SystemDataReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -90,6 +91,19 @@ Route::group(['prefix' => 'all-reports'], function (){
 
     });
     // System Data Report End
+
+
+    // Item Report Start
+    Route::group(['prefix' => 'item-report'], function() {
+
+        // all product report route
+        Route::get('/all-item-report', [ItemReportController::class, 'all_item_report'])->name('all.item.report');
+
+        // all product report export pdf route
+        Route::get('/all-item-report-export-pdf', [ItemReportController::class, 'all_item_report_export_pdf'])->name('all.item.report.export.pdf');
+
+    });
+    // Item Report End
 
 
 

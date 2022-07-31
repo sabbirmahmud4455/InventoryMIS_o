@@ -935,8 +935,8 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'id' => 98,
-                'key' => 'product_report',
-                'display_name_en' => '-- Product Report',
+                'key' => 'item_report',
+                'display_name_en' => '-- Item Report',
                 'display_name_bn' => '-- পণের রিপোর্ট',
                 'module_id' => 11,
                 'created_at' => $date,
@@ -944,8 +944,8 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'id' => 99,
-                'key' => 'all_product_report',
-                'display_name_en' => '--- ALl Product Report',
+                'key' => 'all_item_report',
+                'display_name_en' => '--- ALl Item Report',
                 'display_name_bn' => '--- সমস্ত পণের রিপোর্ট',
                 'module_id' => 11,
                 'created_at' => $date,
@@ -953,8 +953,8 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'id' => 100,
-                'key' => 'unit_wise_product_report',
-                'display_name_en' => '--- Unit Wise Product Report',
+                'key' => 'unit_wise_item_report',
+                'display_name_en' => '--- Unit Wise Item Report',
                 'display_name_bn' => '--- ইউনিট অনুযায়ী পণের রিপোর্ট',
                 'module_id' => 11,
                 'created_at' => $date,
@@ -962,8 +962,8 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'id' => 101,
-                'key' => 'variant_wise_product_report',
-                'display_name_en' => '--- Variant Wise Product Report',
+                'key' => 'variant_wise_item_report',
+                'display_name_en' => '--- Variant Wise Item Report',
                 'display_name_bn' => '--- ভিন্নতা অনুযায়ী পণের রিপোর্ট',
                 'module_id' => 11,
                 'created_at' => $date,

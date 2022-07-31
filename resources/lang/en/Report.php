@@ -9,12 +9,12 @@
         'WarehouseReport' => 'Warehouse Report',
         'TransactionTypeReport' => 'Transaction Type Report',
         'PaymentTypeReport' => 'Payment Type Report',
-        'TotalProduct' => 'Total Product',
+        'TotalItem' => 'Total Item',
 
-        'ProductReport' => 'Product Report',
-        'AllProductReport' => 'All Product Report',
-        'UnitWiseProductReport' => 'Unit Wise Product Report',
-        'VariantWiseProductReport' => 'Variant Wise Product Report',
+        'ItemReport' => 'Item Report',
+        'AllItemReport' => 'All Item Report',
+        'UnitWiseItemReport' => 'Unit Wise Item Report',
+        'VariantWiseItemReport' => 'Variant Wise Item Report',
 
         'PurchaseReport' => 'Purchase Report',
         'AllPurchaseReport' => 'All Purchase Report',

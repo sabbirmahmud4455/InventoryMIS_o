@@ -26,13 +26,13 @@
                             </li>
                             <li class="breadcrumb-item active">
                                 <a href="#">
-                                    {{ __('Report.UnitReport') }}
+                                    {{ __('Report.AllItemReport') }}
                                 </a>
                             </li>
                         </ol>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
-                        <a href="{{ route('unit.report.export.pdf') }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>
+                        <a href="{{ route('all.item.report.export.pdf') }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>
                     </div>
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -48,21 +48,25 @@
                             <div class="card-header text-right">
                             </div>
                             <div class="card-body">
-                                @if ($units && count($units) > 0)
+                                @if ($items && count($items) > 0)
                                     <table class="table table-sm table-bordered text-center">
                                         <thead>
                                             <tr>
                                                 <th>{{ __('Application.SerialNo') }}</th>
-                                                <th>{{ __('Unit.Name') }}</th>
+                                                <th>{{ __('Item.Name') }}</th>
                                                 <th>{{ __('Report.TotalItem') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($units as $key => $unit)
+                                            @foreach ($items as $key => $item)
                                                 <tr>
                                                     <td>{{ ++ $key }}</td>
-                                                    <td>{{ $unit->name }}</td>
-                                                    <td>{{ $unit->purchase_details->count() }}</td>
+                                                    <td>{{ $item->name }}</td>
+                                                    @php
+                                                        $in_quantity = $item->stocks->sum('in_quantity');
+                                                        $out_quantity = $item->stocks->sum('out_quantity');
+                                                    @endphp
+                                                    <td>{{ $in_quantity - $out_quantity }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

@@ -98,14 +98,14 @@
                 @endif
                 <!--System Data Report End-->
 
-                <!--Product Report Start-->
-                @if (can('product_report'))
+                <!--Item Report Start-->
+                @if (can('item_report'))
                     <div class="col-md-12">
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <center><h5>{{ __('Report.ProductReport') }}</h5></center>
+                                        <center><h5>{{ __('Report.ItemReport') }}</h5></center>
                                     </div>
                                 </div>
                             </div>
@@ -113,14 +113,14 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <center>
-                                            @if (can('all_product_report'))
-                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllProductReport') }}</a>
+                                            @if (can('all_item_report'))
+                                                <a href="{{ route('all.item.report') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllItemReport') }}</a>
                                             @endif
-                                            @if (can('unit_wise_product_report'))
-                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.UnitWiseProductReport') }}</a>
+                                            @if (can('unit_wise_item_report'))
+                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.UnitWiseItemReport') }}</a>
                                             @endif
-                                            @if (can('variant_wise_product_report'))
-                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.VariantWiseProductReport') }}</a>
+                                            @if (can('variant_wise_item_report'))
+                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.VariantWiseItemReport') }}</a>
                                             @endif
                                         </center>
                                     </div>
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                 @endif
-                <!--Product Report End-->.
+                <!--Item Report End-->
 
                 <!--Purchase Report Start-->
                 @if (can('purchase_report'))
