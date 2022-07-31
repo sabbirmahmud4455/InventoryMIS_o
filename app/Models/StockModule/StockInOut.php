@@ -2,6 +2,8 @@
 
 namespace App\Models\StockModule;
 
+use App\Models\SystemDataModule\Item;
+use App\Models\SystemDataModule\Unit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -61,4 +63,13 @@ class StockInOut extends Model
 
         return $warehouse_with_stock;
     }
+
+    public function unit() {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function item() {
+        return $this->belongsTo(Item::class);
+    }
+
 }

@@ -96,11 +96,15 @@ Route::group(['prefix' => 'all-reports'], function (){
     // Item Report Start
     Route::group(['prefix' => 'item-report'], function() {
 
-        // all product report route
+        // all item report route
         Route::get('/all-item-report', [ItemReportController::class, 'all_item_report'])->name('all.item.report');
 
-        // all product report export pdf route
+        // all item report export pdf route
         Route::get('/all-item-report-export-pdf', [ItemReportController::class, 'all_item_report_export_pdf'])->name('all.item.report.export.pdf');
+
+        
+        // unit wise item report route
+        Route::get('/unit-wise-item-report', [ItemReportController::class, 'unit_wise_item_report'])->name('unit.wise.item.report');
 
     });
     // Item Report End

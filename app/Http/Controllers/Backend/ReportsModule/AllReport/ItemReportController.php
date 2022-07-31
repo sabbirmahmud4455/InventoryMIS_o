@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\ReportsModule\AllReport;
 
 use App\Http\Controllers\Controller;
 use App\Models\SettingsModule\CompanyInfo;
+use App\Models\StockModule\StockInOut;
 use App\Models\SystemDataModule\Item;
 use DateTime;
 use Illuminate\Http\Request;
@@ -76,6 +77,18 @@ class ItemReportController extends Controller
             $mpdf->Output("AllItemReport".'.pdf', "I");
 
             
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    // unit wise item report
+    public function unit_wise_item_report() {
+        if(can('unit_wise_item_report')) {
+            $unit_wise_item_group = StockInOut::with('unit', 'item')->get()->groupBy('unit_id');
+
+            return view('backend.modules.reports_module.all_report.item_report.unit_wise_item_report', compact('unit_wise_item_group'));
+
         } else {
             return view('errors.404');
         }
