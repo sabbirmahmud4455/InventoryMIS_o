@@ -101,10 +101,18 @@ Route::group(['prefix' => 'all-reports'], function (){
 
         // all item report export pdf route
         Route::get('/all-item-report-export-pdf', [ItemReportController::class, 'all_item_report_export_pdf'])->name('all.item.report.export.pdf');
-
         
         // unit wise item report route
         Route::get('/unit-wise-item-report', [ItemReportController::class, 'unit_wise_item_report'])->name('unit.wise.item.report');
+
+        // unit wise item report export pdf route
+        Route::get('/unit-wise-item-report-export-pdf', [ItemReportController::class, 'unit_wise_item_report_export_pdf'])->name('unit.wise.item.report.export.pdf');
+                
+        // variant wise item report route
+        Route::get('/variant-wise-item-report', [ItemReportController::class, 'variant_wise_item_report'])->name('variant.wise.item.report');
+
+        // variant wise item report export pdf route
+        Route::get('/variant-wise-item-report-export-pdf', [ItemReportController::class, 'variant_wise_item_report_export_pdf'])->name('variant.wise.item.report.export.pdf');
 
     });
     // Item Report End

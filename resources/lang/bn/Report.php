@@ -15,6 +15,7 @@
         'AllItemReport' => 'সমস্ত পণ্যের রিপোর্ট',
         'UnitWiseItemReport' => 'ইউনিট অনুযায়ী পণ্যের রিপোর্ট',
         'VariantWiseItemReport' => 'ভিন্নতা অনুযায়ী পণ্যের রিপোর্ট',
+        'InQuantity' => 'ইন পরিমাণ',
 
         'PurchaseReport' => 'ক্রয় রিপোর্ট',
         'AllPurchaseReport' => 'সমস্ত ক্রয় রিপোর্ট',
