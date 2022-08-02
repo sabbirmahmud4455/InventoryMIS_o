@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\ReportsModule\AllReport\AllReportController;
 use App\Http\Controllers\Backend\ReportsModule\AllReport\ItemReportController;
 use App\Http\Controllers\Backend\ReportsModule\AllReport\PurchaseReportController;
+use App\Http\Controllers\Backend\ReportsModule\AllReport\StockReportController;
 use App\Http\Controllers\Backend\ReportsModule\AllReport\SystemDataReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -117,6 +118,14 @@ Route::group(['prefix' => 'all-reports'], function (){
 
     });
     // Item Report End
+
+
+    // Stock Report Start
+    Route::group(['prefix' => 'stock-report'], function() {
+        // present stock report
+        Route::get('/', [StockReportController::class, 'stock_report'])->name('stock.report.index');
+    });
+    // Stock Report End
 
 
 

@@ -180,7 +180,7 @@
                                     <div class="col-md-12">
                                         <center>
                                             @if (can('current_stock_report'))
-                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.CurrentStockReport') }}</a>
+                                                {{-- <a href="{{ route('stock.report.index') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.CurrentStockReport') }}</a> --}}
                                             @endif
                                             @if (can('warehouse_wise_stock_report'))
                                                 <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.WarehouseWiseStockReport') }}</a>
