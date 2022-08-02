@@ -119,13 +119,6 @@ Route::group(['prefix' => 'all-reports'], function (){
     // Item Report End
 
 
-    // Purchase Report Start
-    Route::group(['prefix' => 'purchase-report'], function() {
-
-
-    });
-    // Purchase Report End
-
 
 
 });

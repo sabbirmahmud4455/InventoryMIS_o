@@ -7,6 +7,7 @@
         "View"                  => 'View',
         "Edit"                  => 'Edit',
         'Update'                => 'Update',
+        'Submit'                => 'Submit',
         "Delete"                => 'Delete',
         "Status"                => 'Status',
         'Active'                => 'Active',

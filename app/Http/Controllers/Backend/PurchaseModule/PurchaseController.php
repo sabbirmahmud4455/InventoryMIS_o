@@ -24,12 +24,29 @@ use Illuminate\Support\Facades\Auth;
 class PurchaseController extends Controller
 {
     //Index
-    public function index()
+    public function index(Request $request)
     {
-        if(can('all_purchase')) {
+        if(can('all_purchase') || can('all_purchase_report') || can('date_wise_purchase_report') || can('supplier_wise_purchase_report')) {
+
             $purchases = Purchase::with('purchase_details', 'supplier')
-                        ->orderBy('id', 'desc')
-                        ->get();
+                        ->orderBy('id', 'desc');
+
+            if($request->purchase_date) {
+                $date = explode('-', $request->purchase_date);
+
+                $start_date = Carbon::parse($date[0])->toDateString();
+                $end_date = Carbon::parse($date[1])->toDateString();
+                
+                $purchases = $purchases->whereBetween('date', [$start_date, $end_date]);
+            }
+
+            if($request->supplier_id) {
+                $purchases = $purchases->whereHas('supplier', function($supplier) use($request) {
+                    return $supplier->where('id', $request->supplier_id);
+                });
+            }
+
+            $purchases = $purchases->get();
 
             return view('backend.modules.purchase_module.index', compact('purchases'));
         } else {
@@ -190,7 +207,7 @@ class PurchaseController extends Controller
     // View Specific Purchase Data
     public function view_purchase($id)
     {
-        if(can('view_purchase')) {
+        if(can('view_purchase') || can('all_purchase_report') || can('date_wise_purchase_report') || can('supplier_wise_purchase_report')) {
 
             $purchase = Purchase::with('purchase_details', 'supplier')->find(decrypt($id));
             $purchase_details = PurchaseDetails::with('lot', 'item', 'unit', 'variant')->where('purchase_id', decrypt($id))->get();
@@ -204,7 +221,7 @@ class PurchaseController extends Controller
     // Purchase Export Pdf 
     public function purchase_export_pdf($id)
     {
-        if(can('view_purchase')) {
+        if(can('view_purchase') || can('all_purchase_report') || can('date_wise_purchase_report') || can('supplier_wise_purchase_report')) {
 
             $purchase = Purchase::with('purchase_details', 'supplier')->find(decrypt($id));
             $purchase_details = PurchaseDetails::with('lot', 'item', 'unit', 'variant')->where('purchase_id', decrypt($id))->get();
