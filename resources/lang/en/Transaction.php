@@ -16,5 +16,7 @@
         'Date'                      => 'Transaction Date',
         'AddSwal'                   => 'New Transaction Created',
         'TransactionDetails'        => 'Transaction Details',
+        'ChangeStatus'              => 'Change Status',
+        'ChangeStatusSwal'          => 'Status Changed Successfully',
     ];
 ?>

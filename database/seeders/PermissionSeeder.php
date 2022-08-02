@@ -842,6 +842,15 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'id' => 88,
+                'key' => 'transaction_status_change',
+                'display_name_en' => '-- Change Status',
+                'display_name_bn' => '-- স্ট্যাটাস বদলান',
+                'module_id' => 10,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 127,
                 'key' => 'transaction_details',
                 'display_name_en' => '-- Transaction Details',
                 'display_name_bn' => '-- লেনদেনর বিস্তারিত',
@@ -1200,6 +1209,6 @@ class PermissionSeeder extends Seeder
 
         ]);
 
-        // Last ID: 126, New ID: 127
+        // Last ID: 127, New ID: 128
     }
 }
