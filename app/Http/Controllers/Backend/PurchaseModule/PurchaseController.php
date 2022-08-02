@@ -7,6 +7,7 @@ use App\Models\BankModule\Bank;
 use App\Models\LotModule\Lot;
 use App\Models\PurchaseModule\Purchase;
 use App\Models\PurchaseModule\PurchaseDetails;
+use App\Models\SettingsModule\CompanyInfo;
 use App\Models\StockModule\StockInOut;
 use App\Models\SupplierModule\Supplier;
 use App\Models\SystemDataModule\Item;
@@ -16,6 +17,7 @@ use App\Models\SystemDataModule\Variant;
 use App\Models\SystemDataModule\Warehouse;
 use App\Models\TransactionModule\Transaction;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -198,4 +200,67 @@ class PurchaseController extends Controller
             return view('errors.404');
         }
     }
+
+    // Purchase Export Pdf route
+    public function purchase_export_pdf($id)
+    {
+        if(can('view_purchase')) {
+
+            $purchase = Purchase::with('purchase_details', 'supplier')->find(decrypt($id));
+            $purchase_details = PurchaseDetails::with('lot', 'item', 'unit', 'variant')->where('purchase_id', decrypt($id))->get();
+
+            $company_info = CompanyInfo::first();
+            $title = __('Purchase.PurchaseDetails');
+
+            $now = new DateTime();
+            $time = $now->format('F j, Y, g:i a');
+            $auth_user = Auth::user()->name;
+
+            $footer = "
+                    <span style='margin: 29px;'>Page :
+                    <span></span>{PAGENO} of {nbpg}</span>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+
+                    <span class='print_date'>Print Date : $time
+                </span>
+
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <span class='print_by'>
+                    Printed By : $auth_user
+                </span>
+
+                &nbsp;
+                &nbsp;
+                <span class='powered_by'> Powered By: RP AI Solutions </span>
+                &nbsp;
+                ";
+
+            $mpdf = new \Mpdf\Mpdf(
+                [
+                    // 'default_font_size' => 12,
+                    'default_font' => 'nikosh',
+                    'mode' => 'utf-8',
+                ]
+            );
+
+            $mpdf->SetTitle(__("Purchase.PurchaseDetails"));
+            $mpdf->SetFooter($footer);
+            $mpdf->WriteHTML(view('backend.modules.purchase_module.export.pdf.purchase_export_pdf', compact(
+                'purchase',
+                'purchase_details',
+                'company_info',
+                'title'
+            )));
+            $mpdf->Output("PurchaseDetails".'.pdf', "I");
+
+        } else {
+            return view('errors.404');
+        }
+    }
+
+
 }

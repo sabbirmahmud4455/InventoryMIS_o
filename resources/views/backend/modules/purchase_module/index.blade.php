@@ -46,6 +46,7 @@
                                 <thead>
                                     <tr>
                                         <th>{{ __('Application.Id') }}</th>
+                                        <th>{{ __('Application.Date') }}</th>
                                         <th>{{ __('Supplier.SupplierName') }}</th>
                                         <th>{{ __('Supplier.SupplierPhone') }}</th>
                                         <th>{{ __('Purchase.TotalAmount') }}</th>
@@ -56,6 +57,7 @@
                                     @forelse ($purchases as $key => $purchase)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
+                                            <td>{{ Carbon\Carbon::parse($purchase->date)->toFormattedDateString() }}</td>
                                             <td>{{ $purchase->supplier->name }}</td>
                                             <td>{{ $purchase->supplier->contact_no }}</td>
                                             <td>{{ $purchase->total_amount }}</td>

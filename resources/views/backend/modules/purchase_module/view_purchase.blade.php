@@ -29,7 +29,7 @@
                         </li>
                         <li class="breadcrumb-item active">
                             <a href="#">
-                                {{ __('Purchase.AddNewPurchase') }}
+                                {{ __('Purchase.PurchaseDetails') }}
                             </a>
                         </li>
                     </ol>
@@ -46,7 +46,14 @@
                 <div class="col-md-12">
                     <div class="card card-primary card-outline table-responsive">
                         <div class="card-header">
-                            <h6>{{ __('Purchase.ViewPurchaseInfo') }}</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>{{ __('Purchase.ViewPurchaseInfo') }}</h6>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="{{ route('purchase.export.pdf', ['id' => encrypt($purchase->id)]) }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row">

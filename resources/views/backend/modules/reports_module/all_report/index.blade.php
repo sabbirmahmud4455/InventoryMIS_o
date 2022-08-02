@@ -147,7 +147,7 @@
                                     <div class="col-md-12">
                                         <center>
                                             @if (can('all_purchase_report'))
-                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllPurchaseReport') }}</a>
+                                                <a href="{{ route('purchase.index') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllPurchaseReport') }}</a>
                                             @endif
                                             @if (can('date_wise_purchase_report'))
                                                 <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.DateWisePurchaseReport') }}</a>
