@@ -201,7 +201,7 @@ class PurchaseController extends Controller
         }
     }
 
-    // Purchase Export Pdf route
+    // Purchase Export Pdf 
     public function purchase_export_pdf($id)
     {
         if(can('view_purchase')) {

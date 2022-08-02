@@ -74,10 +74,12 @@
 
                                                         </a>
 
-                                                        <a class="dropdown-item" href="#" data-content="{{ route('customer.edit.modal',$purchase->id) }}" data-target="#myModal" data-toggle="modal">
-                                                            <i class="fas fa-edit"></i>
-                                                            {{ __('Application.Edit') }}
-                                                        </a>
+                                                        @if (!\Illuminate\Support\Facades\URL::previous() == route('report.index'))
+                                                            <a class="dropdown-item" href="#" data-content="{{ route('customer.edit.modal',$purchase->id) }}" data-target="#myModal" data-toggle="modal">
+                                                                <i class="fas fa-edit"></i>
+                                                                {{ __('Application.Edit') }}
+                                                            </a>
+                                                        @endif
 
                                                     </div>
                                                 </div>
