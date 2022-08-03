@@ -15,7 +15,9 @@ class CreateStockInOutsTable extends Migration
     {
         Schema::create('stock_in_outs', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
             $table->unsignedBigInteger('purchase_id');
+            $table->unsignedBigInteger('sales_id');
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('unit_id');
             $table->unsignedBigInteger('variant_id');

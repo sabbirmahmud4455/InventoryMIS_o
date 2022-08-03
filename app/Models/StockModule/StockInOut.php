@@ -32,6 +32,42 @@ class StockInOut extends Model
         return $stock_lists;
     }
 
+    public function StockListByWarehouse($warehouse_id)
+    {
+        $stock_lists = DB::select('SELECT items.name as item_name, variants.name as variant_name,
+        units.name as unit_name,
+        lots.name as lot_name,
+        (SUM(in_quantity) - SUM(out_quantity)) as available_stock,
+        item_id, variant_id, unit_id
+        FROM stock_in_outs
+        LEFT JOIN items ON items.id = stock_in_outs.item_id
+        LEFT JOIN units ON units.id = stock_in_outs.unit_id
+        LEFT JOIN variants on variants.id = stock_in_outs.variant_id
+        LEFT JOIN lots on lots.id = stock_in_outs.lot_id
+        WHERE warehouse_id = ?
+        GROUP BY item_id, variant_id, unit_id;', [$warehouse_id]);
+
+        return $stock_lists;
+    }
+
+    public function StockListByDate($start_date, $end_date)
+    {
+        $stock_lists = DB::select('SELECT items.name as item_name, variants.name as variant_name,
+        units.name as unit_name,
+        lots.name as lot_name,
+        (SUM(in_quantity) - SUM(out_quantity)) as available_stock,
+        item_id, variant_id, unit_id
+        FROM stock_in_outs
+        LEFT JOIN items ON items.id = stock_in_outs.item_id
+        LEFT JOIN units ON units.id = stock_in_outs.unit_id
+        LEFT JOIN variants on variants.id = stock_in_outs.variant_id
+        LEFT JOIN lots on lots.id = stock_in_outs.lot_id
+        WHERE date BETWEEN ? AND ?
+        GROUP BY item_id, variant_id, unit_id;', [$start_date, $end_date]);
+
+        return $stock_lists;
+    }
+
     public function StockItemVariants($item_id)
     {
         $stock_item_variants = DB::select('SELECT variant_id, unit_id, variants.name as variant_name, units.name as unit_name

@@ -73,7 +73,7 @@
                                                 <td>
                                                     @if ($stock->available_stock > 3)
                                                        <span class="badge badge-success">{{ __('Stock.AvailableStock') }}</span>
-                                                    @elseif ($stock->available_stock <= 3)
+                                                    @elseif ($stock->available_stock > 0 && $stock->available_stock <= 3)
                                                        <span class="badge badge-warning">{{ __('Stock.LowStock') }}</span>
                                                     @else
                                                        <span class="badge badge-danger">{{ __('Stock.OutOfStock') }}</span>

@@ -183,10 +183,10 @@
                                                 <a href="{{ route('stock.list') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.CurrentStockReport') }}</a>
                                             @endif
                                             @if (can('warehouse_wise_stock_report'))
-                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.WarehouseWiseStockReport') }}</a>
+                                                <a href="" class="btn btn-sm btn-outline-secondary button_margin_bottom" data-toggle="modal" data-target="#warehouseWiseStockModal">{{ __('Report.WarehouseWiseStockReport') }}</a>
                                             @endif
                                             @if (can('date_wise_stock_report'))
-                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.DateWiseStockReport') }}</a>
+                                                <a href="" class="btn btn-sm btn-outline-primary button_margin_bottom" data-toggle="modal" data-target="#dateWiseStockModal">{{ __('Report.DateWiseStockReport') }}</a>
                                             @endif
                                         </center>
                                     </div>
@@ -440,6 +440,87 @@
 </div>
 <!-- Supplier wise purchase Report Modal Start -->
 
+<!-- Warehouse wise stock Report Modal Start -->
+<div class="modal fade" id="warehouseWiseStockModal" role="dialog" aria-labelledby="warehouseWiseStockLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="warehouseWiseStockLabel">Select Warehouse for Stock Report</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+            <div class="modal-body">
+                <form action="{{ route('stock.list') }}">
+                    <!-- supplier -->
+                    <div class="col-md-12 col-12 form-group">
+                        <label for="warehouse_id">{{ __('Warehouse.Warehouse') }}</label><span class="require-span">*</span>
+                        <select class="form-control select2" name="warehouse_id">
+                            <option disabled selected>Select Warehouse</option>
+                            @if ( count($warehouses) > 0 )
+                                @foreach ($warehouses as $warehouse)
+                                @php
+                                @endphp
+                                    <option value="{{ $warehouse->id }}">{{ $warehouse->name . ' - ' . $warehouse->location }}</option>
+                                @endforeach
+                            @else
+                                <option disabled>No Data Found</option>
+                            @endif
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 form-group text-right">
+                        <button type="submit" class="btn btn-sm btn-outline-dark">
+                            {{ __('Application.Submit') }}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+            </div>
+      </div>
+    </div>
+</div>
+<!-- Warehouse wise stock Report Modal Start -->
+
+
+<!-- Date wise stock Report Modal Start -->
+<div class="modal fade" id="dateWiseStockModal" role="dialog" aria-labelledby="dateWiseStockLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dateWiseStockLabel">Select Date for Stock Report</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+            <div class="modal-body">
+                <form action="{{ route('stock.list') }}">
+                    <!-- Date -->
+                    <div class="col-md-12 col-12 form-group">
+                        <center>
+                            <input type="text" class="form-control" name="stock_date">
+                        </center>
+                    </div>
+
+                    <div class="col-md-12 form-group text-right">
+                        <button type="submit" class="btn btn-sm btn-outline-dark">
+                            {{ __('Application.Submit') }}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+            </div>
+      </div>
+    </div>
+</div>
+<!-- Date wise stock Report Modal Start -->
+
 
 
 @endsection
@@ -480,6 +561,14 @@
         });
     });
 
+    $(document).ready(function domReady() {
+        $(".select2").select2({
+            dropdownAutoWidth: true,
+            width: '100%',
+            dropdownParent: $('#warehouseWiseStockModal')
+        });
+    });
+
 </script>
 
 <script>
@@ -494,6 +583,15 @@
 <script>
     $(function() {
         $('input[name="purchase_date"]').daterangepicker({
+        opens: 'left'
+        }, function(start, end, label) {
+        // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+    });
+</script>
+<script>
+    $(function() {
+        $('input[name="stock_date"]').daterangepicker({
         opens: 'left'
         }, function(start, end, label) {
         // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));

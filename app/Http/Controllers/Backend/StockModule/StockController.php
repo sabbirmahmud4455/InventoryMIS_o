@@ -7,6 +7,7 @@ use App\Models\PurchaseModule\Purchase;
 use App\Models\PurchaseModule\PurchaseDetails;
 use App\Models\StockModule\StockInOut;
 use App\Models\SystemDataModule\Warehouse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -68,7 +69,7 @@ class StockController extends Controller
     }
 
     //Stock Report
-    public function stock_list()
+    public function stock_list(Request $request)
     {
         if(can('stock_list')){
 
@@ -78,6 +79,19 @@ class StockController extends Controller
 
             $stock = new StockInOut();
             $stock_lists = $stock->StockList();
+
+            if($request->warehouse_id) {
+                $stock_lists = $stock->StockListByWarehouse($request->warehouse_id);
+            }
+
+            if($request->stock_date) {
+                $date = explode('-', $request->stock_date);
+
+                $start_date = Carbon::parse($date[0])->toDateString();
+                $end_date = Carbon::parse($date[1])->toDateString();
+
+                $stock_lists = $stock->StockListByDate($start_date, $end_date);
+            }
 
             config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
             DB::reconnect(); //Reconnect to DB
