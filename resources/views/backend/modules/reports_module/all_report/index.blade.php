@@ -306,7 +306,7 @@
                                     <div class="col-md-12">
                                         <center>
                                             @if (can('all_bank_report'))
-                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllBankReport') }}</a>
+                                                <a href="{{ route('bank_report.all_bank') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllBankReport') }}</a>
                                             @endif
                                             @if (can('bank_transaction_report'))
                                                 <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.BankTransactionReport') }}</a>

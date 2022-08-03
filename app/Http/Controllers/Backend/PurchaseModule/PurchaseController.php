@@ -36,7 +36,7 @@ class PurchaseController extends Controller
 
                 $start_date = Carbon::parse($date[0])->toDateString();
                 $end_date = Carbon::parse($date[1])->toDateString();
-                
+
                 $purchases = $purchases->whereBetween('date', [$start_date, $end_date]);
             }
 
@@ -140,6 +140,7 @@ class PurchaseController extends Controller
                     // Store Data on Permission Table
                     if(can('auto_stock')) {
                         $stock_in = new StockInOut();
+                        $stock_in->date = $today;
                         $stock_in->purchase_id = $purchase->id ;
                         $stock_in->item_id = $item['item_id'];
                         $stock_in->unit_id = $item['item_unit_id'];
@@ -187,10 +188,11 @@ class PurchaseController extends Controller
                     $transaction_deposit->supplier_id = $data['supplier_id'];
 
                     if ($data['purchase_payment_by'] == "BANK") {
+                        $transaction_deposit->payment_by = 'BANK';
                         $transaction_deposit->bank_id = $data['bank_id'];
                         $transaction_deposit->cheque_no = $data['cheque_no'];
                     }
-
+                    $transaction_deposit->payment_by = 'CASH';
                     $transaction_deposit->remarks = isset($data['remarks']) ? $data['remarks'] : '';
                     $transaction_deposit->cash_out = $data['purchase_deposite_amount'];
                     $transaction_deposit->created_by = Auth::user()->id;
@@ -218,7 +220,7 @@ class PurchaseController extends Controller
         }
     }
 
-    // Purchase Export Pdf 
+    // Purchase Export Pdf
     public function purchase_export_pdf($id)
     {
         if(can('view_purchase') || can('all_purchase_report') || can('date_wise_purchase_report') || can('supplier_wise_purchase_report')) {

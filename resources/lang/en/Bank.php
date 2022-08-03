@@ -16,6 +16,8 @@
         'SelectBank'        => 'Select Bank',
         'ChequeNo'          => 'Cheque No',
         'Transaction'       => 'Bank Transaction',
-        'TransactionDetails'       => 'Bank Transaction Details',
+        'TransactionDetails'=> 'Bank Transaction Details',
+        'BankBalance'       => 'Bank Balance',
+        'BankDetails'       => 'Bank Details'
     ];
 ?>

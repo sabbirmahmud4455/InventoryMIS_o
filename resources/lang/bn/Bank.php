@@ -17,6 +17,7 @@
         'ChequeNo'              => 'চেক নম্বর',
         'Transaction'           => 'ব্যাংক লেনদেন',
         'TransactionDetails'    => 'ব্যাংক লেনদেনর বিবরণ',
-
+        'BankBalance'           => 'ব্যাঙ্ক ব্যালেন্স',
+        'BankDetails'           => 'ব্যাংক বিবরণ',
     ];
 ?>
