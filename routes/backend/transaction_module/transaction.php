@@ -14,6 +14,12 @@ Route::group(['prefix' => 'transaction'], function (){
     // transaction create route
     Route::post('/create',[TransactionController::class,'transaction_create'])->name('transaction.create');
     
+    // transaction status change route
+    Route::get('/status-change/{id}',[TransactionController::class,'transaction_status_change'])->name('transaction.status.change');
+    
+    // transaction status update route
+    Route::post('/status-update/{id}',[TransactionController::class,'transaction_status_update'])->name('transaction.status.update');
+    
     // transaction details route
     Route::get('/details/{id}',[TransactionController::class,'transaction_details'])->name('transaction.details');
     

@@ -26,13 +26,13 @@
                             </li>
                             <li class="breadcrumb-item active">
                                 <a href="#">
-                                    {{ __('Report.UnitReport') }}
+                                    {{ __('Report.VariantWiseItemReport') }}
                                 </a>
                             </li>
                         </ol>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
-                        <a href="{{ route('unit.report.export.pdf') }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>
+                        <a href="{{ route('variant.wise.item.report.export.pdf') }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>
                     </div>
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -48,21 +48,46 @@
                             <div class="card-header text-right">
                             </div>
                             <div class="card-body">
-                                @if ($units && count($units) > 0)
+                                @if ($variant_wise_item_group && count($variant_wise_item_group) > 0)
                                     <table class="table table-sm table-bordered text-center">
                                         <thead>
                                             <tr>
-                                                <th>{{ __('Application.SerialNo') }}</th>
-                                                <th>{{ __('Unit.Name') }}</th>
-                                                <th>{{ __('Report.TotalItem') }}</th>
+                                                {{-- <th>{{ __('Application.SerialNo') }}</th> --}}
+                                                <th>{{ __('Variant.Variant') }}</th>
+                                                <th>{{ __('Item.Item') }}</th>
+                                                <th>{{ __('Application.Date') }}</th>
+                                                <th>{{ __('Report.InQuantity') }}</th>
+                                                {{-- <th>Out Quantity</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($units as $key => $unit)
+                                            @php
+                                                $total_row = 0;
+                                                $total_quantity = 0;
+                                            @endphp
+                                            @foreach ($variant_wise_item_group as $key => $variant_wise_items)
+
+                                                @foreach ($variant_wise_items->groupBY('item_id') as $variant_wise_item)
+                                                    @php
+                                                        $total_row += count($variant_wise_item) +1;
+                                                    @endphp
+                                                @endforeach
+                                                
                                                 <tr>
-                                                    <td>{{ ++ $key }}</td>
-                                                    <td>{{ $unit->name }}</td>
-                                                    <td>{{ $unit->purchase_details->count() }}</td>
+                                                    <td rowspan="{{ $total_row + 1 }}">{{ $variant_wise_items[0]->variant->name }}</td>
+                                                    
+                                                    @foreach ($variant_wise_items->groupBY('item_id') as $variant_wise_item)
+                                                        <tr>
+                                                            <td rowspan="{{ count($variant_wise_item) + 1 }}">{{ $variant_wise_item[0]->item->name }}</td>
+                                                            @foreach ($variant_wise_item as $item)
+                                                                <tr>
+                                                                    <td>{{ \Carbon\Carbon::Parse($item->created_at)->format('d-M-Y') }}</td>
+                                                                    <td>{{ $item->in_quantity }}</td>
+                                                                    {{-- <td>{{ $item->out_quantity }}</td> --}}
+                                                                </tr>
+                                                            @endforeach
+                                                        </tr>
+                                                    @endforeach
                                                 </tr>
                                             @endforeach
                                         </tbody>

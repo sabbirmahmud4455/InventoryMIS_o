@@ -7,6 +7,7 @@ use App\Models\BankModule\Bank;
 use App\Models\LotModule\Lot;
 use App\Models\PurchaseModule\Purchase;
 use App\Models\PurchaseModule\PurchaseDetails;
+use App\Models\SettingsModule\CompanyInfo;
 use App\Models\StockModule\StockInOut;
 use App\Models\SupplierModule\Supplier;
 use App\Models\SystemDataModule\Item;
@@ -16,18 +17,36 @@ use App\Models\SystemDataModule\Variant;
 use App\Models\SystemDataModule\Warehouse;
 use App\Models\TransactionModule\Transaction;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
     //Index
-    public function index()
+    public function index(Request $request)
     {
-        if(can('all_purchase')) {
+        if(can('all_purchase') || can('all_purchase_report') || can('date_wise_purchase_report') || can('supplier_wise_purchase_report')) {
+
             $purchases = Purchase::with('purchase_details', 'supplier')
-                        ->orderBy('id', 'desc')
-                        ->get();
+                        ->orderBy('id', 'desc');
+
+            if($request->purchase_date) {
+                $date = explode('-', $request->purchase_date);
+
+                $start_date = Carbon::parse($date[0])->toDateString();
+                $end_date = Carbon::parse($date[1])->toDateString();
+                
+                $purchases = $purchases->whereBetween('date', [$start_date, $end_date]);
+            }
+
+            if($request->supplier_id) {
+                $purchases = $purchases->whereHas('supplier', function($supplier) use($request) {
+                    return $supplier->where('id', $request->supplier_id);
+                });
+            }
+
+            $purchases = $purchases->get();
 
             return view('backend.modules.purchase_module.index', compact('purchases'));
         } else {
@@ -186,7 +205,7 @@ class PurchaseController extends Controller
     // View Specific Purchase Data
     public function view_purchase($id)
     {
-        if(can('view_purchase')) {
+        if(can('view_purchase') || can('all_purchase_report') || can('date_wise_purchase_report') || can('supplier_wise_purchase_report')) {
 
             $purchase = Purchase::with('purchase_details', 'supplier')->find(decrypt($id));
             $purchase_details = PurchaseDetails::with('lot', 'item', 'unit', 'variant')->where('purchase_id', decrypt($id))->get();
@@ -196,4 +215,67 @@ class PurchaseController extends Controller
             return view('errors.404');
         }
     }
+
+    // Purchase Export Pdf 
+    public function purchase_export_pdf($id)
+    {
+        if(can('view_purchase') || can('all_purchase_report') || can('date_wise_purchase_report') || can('supplier_wise_purchase_report')) {
+
+            $purchase = Purchase::with('purchase_details', 'supplier')->find(decrypt($id));
+            $purchase_details = PurchaseDetails::with('lot', 'item', 'unit', 'variant')->where('purchase_id', decrypt($id))->get();
+
+            $company_info = CompanyInfo::first();
+            $title = __('Purchase.PurchaseDetails');
+
+            $now = new DateTime();
+            $time = $now->format('F j, Y, g:i a');
+            $auth_user = Auth::user()->name;
+
+            $footer = "
+                    <span style='margin: 29px;'>Page :
+                    <span></span>{PAGENO} of {nbpg}</span>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+
+                    <span class='print_date'>Print Date : $time
+                </span>
+
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <span class='print_by'>
+                    Printed By : $auth_user
+                </span>
+
+                &nbsp;
+                &nbsp;
+                <span class='powered_by'> Powered By: RP AI Solutions </span>
+                &nbsp;
+                ";
+
+            $mpdf = new \Mpdf\Mpdf(
+                [
+                    // 'default_font_size' => 12,
+                    'default_font' => 'nikosh',
+                    'mode' => 'utf-8',
+                ]
+            );
+
+            $mpdf->SetTitle(__("Purchase.PurchaseDetails"));
+            $mpdf->SetFooter($footer);
+            $mpdf->WriteHTML(view('backend.modules.purchase_module.export.pdf.purchase_export_pdf', compact(
+                'purchase',
+                'purchase_details',
+                'company_info',
+                'title'
+            )));
+            $mpdf->Output("PurchaseDetails".'.pdf', "I");
+
+        } else {
+            return view('errors.404');
+        }
+    }
+
+
 }

@@ -101,6 +101,46 @@ class TransactionController extends Controller
         }
     }
 
+    // transaction status change
+    public function transaction_status_change($id) {
+        if(can('transaction_status_change')) {
+            $transaction = Transaction::findOrFail(decrypt($id));
+            return view('backend.modules.transaction_module.transaction.transaction_status_change', compact('transaction'));
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    // transaction status update
+    public function transaction_status_update(Request $request, $id) {
+        if(can('transaction_status_change')) {
+            $transaction = Transaction::findOrFail(decrypt($id));
+
+            $validator = Validator::make($request->all(), [
+                'status' => 'required',
+            ]);
+
+            if( $validator->fails() ){
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+            else{
+                try{
+                    $transaction->status = $request->status;
+                    $ChangeStatusSwal = __('Transaction.ChangeStatusSwal');
+                    if($transaction->save()) {
+                        return response()->json(['success' => $ChangeStatusSwal], 200);
+                    }
+                    
+                } catch(Exception $e) {
+                    return response()->json(['error' => $e->getMessage()]);
+                }
+            }
+
+        } else {
+            return view('errors.404');
+        }
+    }
+
     // transaction details
     public function transaction_details($id) {
         if(can('transaction_details')) {

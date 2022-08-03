@@ -9,11 +9,13 @@
         'WarehouseReport' => 'গোডাউন রিপোর্ট',
         'TransactionTypeReport' => 'লেনদেনের ধরন রিপোর্ট',
         'PaymentTypeReport' => 'পেমেন্টের ধরন রিপোর্ট',
-        'TotalProduct' => 'মোট পণ্য',
+        'TotalItem' => 'মোট পণ্য',
 
-        'ProductReport' => 'পণ্যের রিপোর্ট',
-        'UnitWiseProductReport' => 'ইউনিট অনুযায়ী পণ্যের রিপোর্ট',
-        'VariantWiseProductReport' => 'ভিন্নতা অনুযায়ী পণ্যের রিপোর্ট',
+        'ItemReport' => 'পণ্যের রিপোর্ট',
+        'AllItemReport' => 'সমস্ত পণ্যের রিপোর্ট',
+        'UnitWiseItemReport' => 'ইউনিট অনুযায়ী পণ্যের রিপোর্ট',
+        'VariantWiseItemReport' => 'ভিন্নতা অনুযায়ী পণ্যের রিপোর্ট',
+        'InQuantity' => 'ইন পরিমাণ',
 
         'PurchaseReport' => 'ক্রয় রিপোর্ট',
         'AllPurchaseReport' => 'সমস্ত ক্রয় রিপোর্ট',

@@ -87,7 +87,7 @@
                                                 <a href="{{ route('transaction.type.report.index') }}" class="btn btn-sm btn-outline-dark all-report button_margin_bottom">{{ __('Report.TransactionTypeReport') }}</a>
                                             @endif
                                             @if (can('payment_type_report'))
-                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.PaymentTypeReport') }}</a>
+                                                <a href="{{ route('payment.type.report.index') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.PaymentTypeReport') }}</a>
                                             @endif
                                         </center>
                                     </div>
@@ -98,14 +98,14 @@
                 @endif
                 <!--System Data Report End-->
 
-                <!--Product Report Start-->
-                @if (can('product_report'))
+                <!--Item Report Start-->
+                @if (can('item_report'))
                     <div class="col-md-12">
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <center><h5>{{ __('Report.ProductReport') }}</h5></center>
+                                        <center><h5>{{ __('Report.ItemReport') }}</h5></center>
                                     </div>
                                 </div>
                             </div>
@@ -113,11 +113,14 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <center>
-                                            @if (can('unit_wise_product_report'))
-                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.UnitWiseProductReport') }}</a>
+                                            @if (can('all_item_report'))
+                                                <a href="{{ route('all.item.report') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllItemReport') }}</a>
                                             @endif
-                                            @if (can('variant_wise_product_report'))
-                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.VariantWiseProductReport') }}</a>
+                                            @if (can('unit_wise_item_report'))
+                                                <a href="{{ route('unit.wise.item.report') }}" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.UnitWiseItemReport') }}</a>
+                                            @endif
+                                            @if (can('variant_wise_item_report'))
+                                                <a href="{{ route('variant.wise.item.report') }}" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.VariantWiseItemReport') }}</a>
                                             @endif
                                         </center>
                                     </div>
@@ -126,7 +129,7 @@
                         </div>
                     </div>
                 @endif
-                <!--Product Report End-->.
+                <!--Item Report End-->
 
                 <!--Purchase Report Start-->
                 @if (can('purchase_report'))
@@ -144,13 +147,13 @@
                                     <div class="col-md-12">
                                         <center>
                                             @if (can('all_purchase_report'))
-                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllPurchaseReport') }}</a>
+                                                <a href="{{ route('purchase.index') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllPurchaseReport') }}</a>
                                             @endif
                                             @if (can('date_wise_purchase_report'))
-                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.DateWisePurchaseReport') }}</a>
+                                                <a href="" class="btn btn-sm btn-outline-primary button_margin_bottom" data-toggle="modal" data-target="#dateWisePurchaseModal">{{ __('Report.DateWisePurchaseReport') }}</a>
                                             @endif
                                             @if (can('supplier_wise_purchase_report'))
-                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.SupplierWisePurchaseReport') }}</a>
+                                                <a href="" class="btn btn-sm btn-outline-secondary button_margin_bottom" data-toggle="modal" data-target="#supplierWisePurchaseModal">{{ __('Report.SupplierWisePurchaseReport') }}</a>
                                             @endif
                                         </center>
                                     </div>
@@ -177,7 +180,7 @@
                                     <div class="col-md-12">
                                         <center>
                                             @if (can('current_stock_report'))
-                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.CurrentStockReport') }}</a>
+                                                {{-- <a href="{{ route('stock.report.index') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.CurrentStockReport') }}</a> --}}
                                             @endif
                                             @if (can('warehouse_wise_stock_report'))
                                                 <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.WarehouseWiseStockReport') }}</a>
@@ -357,6 +360,87 @@
 </div>
 
 
+<!-- Date wise purchase Report Modal Start -->
+<div class="modal fade" id="dateWisePurchaseModal" role="dialog" aria-labelledby="dateWisePurchaseLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dateWisePurchaseLabel">Select Date for Purchase Report</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+            <div class="modal-body">
+                <form action="{{ route('purchase.index') }}">
+                    <!-- Date -->
+                    <div class="col-md-12 col-12 form-group">
+                        <center>
+                            <input type="text" class="form-control" name="purchase_date">
+                        </center>
+                    </div>
+
+                    <div class="col-md-12 form-group text-right">
+                        <button type="submit" class="btn btn-sm btn-outline-dark">
+                            {{ __('Application.Submit') }}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+            </div>
+      </div>
+    </div>
+</div>
+<!-- Date wise purchase Report Modal Start -->
+
+<!-- Supplier wise purchase Report Modal Start -->
+<div class="modal fade" id="supplierWisePurchaseModal" role="dialog" aria-labelledby="supplierWisePurchaseLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="supplierWisePurchaseLabel">Select Supplier for Purchase Report</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+            <div class="modal-body">
+                <form action="{{ route('purchase.index') }}">
+                    <!-- supplier -->
+                    <div class="col-md-12 col-12 form-group">
+                        <label for="supplier_id">{{ __('Supplier.SupplierName') }}</label><span class="require-span">*</span>
+                        <select class="form-control select2" name="supplier_id">
+                            <option disabled selected>Select Supplier</option>
+                            @if ( count($suppliers) > 0 )
+                                @foreach ($suppliers as $supplier)
+                                @php
+                                @endphp
+                                    <option value="{{ $supplier->id }}">{{ $supplier->name . ' - ' . $supplier->address }}</option>
+                                @endforeach
+                            @else
+                                <option disabled>No Data Found</option>
+                            @endif
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 form-group text-right">
+                        <button type="submit" class="btn btn-sm btn-outline-dark">
+                            {{ __('Application.Submit') }}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+            </div>
+      </div>
+    </div>
+</div>
+<!-- Supplier wise purchase Report Modal Start -->
+
+
 
 @endsection
 
@@ -388,6 +472,17 @@
 </script>
 
 <script>
+    $(document).ready(function domReady() {
+        $(".select2").select2({
+            dropdownAutoWidth: true,
+            width: '100%',
+            dropdownParent: $('#supplierWisePurchaseModal')
+        });
+    });
+
+</script>
+
+<script>
     $(function() {
         $('.all-report').on('click', function(e) {
             $(".loading").show()
@@ -395,6 +490,16 @@
     });
 </script>
 
+<!-- DatePicker JS -->
+<script>
+    $(function() {
+        $('input[name="purchase_date"]').daterangepicker({
+        opens: 'left'
+        }, function(start, end, label) {
+        // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+    });
+</script>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

@@ -19,6 +19,7 @@
         'NoPurchaseFound' => 'কোন ক্রয় পাওয়া যায়নি!',
 
         'ViewPurchaseInfo' => 'ক্রয়ের তথ্য দেখুন',
+        'PurchaseDetails'       => 'ক্রয়ের তথ্য',
 
     ];
 ?>

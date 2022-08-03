@@ -83,21 +83,46 @@
 
         <div class="row">
             <div class="col-md-12">
-                @if ($units && count($units) > 0)
-                    <table class="table table-sm table-bordered">
+                @if ($variant_wise_item_group && count($variant_wise_item_group) > 0)
+                    <table class="table table-sm table-bordered text-center">
                         <thead>
                             <tr>
-                                <th>{{ __('Application.SerialNo') }}</th>
-                                <th>{{ __('Unit.Name') }}</th>
-                                <th>{{ __('Report.TotalItem') }}</th>
+                                {{-- <th>{{ __('Application.SerialNo') }}</th> --}}
+                                <th>{{ __('Variant.Variant') }}</th>
+                                <th>{{ __('Item.Item') }}</th>
+                                <th>{{ __('Application.Date') }}</th>
+                                <th>{{ __('Report.InQuantity') }}</th>
+                                {{-- <th>Out Quantity</th> --}}
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($units as $key => $unit)
+                            @php
+                                $total_row = 0;
+                                $total_quantity = 0;
+                            @endphp
+                            @foreach ($variant_wise_item_group as $key => $variant_wise_items)
+
+                                @foreach ($variant_wise_items->groupBY('item_id') as $variant_wise_item)
+                                    @php
+                                        $total_row += count($variant_wise_item) +1;
+                                    @endphp
+                                @endforeach
+                                
                                 <tr>
-                                    <td style="text-align: center">{{ ++ $key }}</td>
-                                    <td style="text-align: center">{{ $unit->name }}</td>
-                                    <td style="text-align: center">{{ $unit->purchase_details->count() }}</td>
+                                    <td rowspan="{{ $total_row + 1 }}">{{ $variant_wise_items[0]->variant->name }}</td>
+                                    
+                                    @foreach ($variant_wise_items->groupBY('item_id') as $variant_wise_item)
+                                        <tr>
+                                            <td rowspan="{{ count($variant_wise_item) + 1 }}">{{ $variant_wise_item[0]->item->name }}</td>
+                                            @foreach ($variant_wise_item as $item)
+                                                <tr>
+                                                    <td>{{ \Carbon\Carbon::Parse($item->created_at)->format('d-M-Y') }}</td>
+                                                    <td>{{ $item->in_quantity }}</td>
+                                                    {{-- <td>{{ $item->out_quantity }}</td> --}}
+                                                </tr>
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
                                 </tr>
                             @endforeach
                         </tbody>

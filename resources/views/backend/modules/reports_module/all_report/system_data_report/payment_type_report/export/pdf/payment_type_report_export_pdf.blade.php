@@ -83,21 +83,19 @@
 
         <div class="row">
             <div class="col-md-12">
-                @if ($units && count($units) > 0)
-                    <table class="table table-sm table-bordered">
+                @if ($payment_types && count($payment_types) > 0)
+                    <table class="table table-sm table-bordered text-center">
                         <thead>
                             <tr>
                                 <th>{{ __('Application.SerialNo') }}</th>
-                                <th>{{ __('Unit.Name') }}</th>
-                                <th>{{ __('Report.TotalItem') }}</th>
+                                <th>{{ __('PaymentType.PaymentType') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($units as $key => $unit)
+                            @foreach ($payment_types as $key => $payment_type)
                                 <tr>
                                     <td style="text-align: center">{{ ++ $key }}</td>
-                                    <td style="text-align: center">{{ $unit->name }}</td>
-                                    <td style="text-align: center">{{ $unit->purchase_details->count() }}</td>
+                                    <td style="text-align: center">{{ $payment_type->name }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

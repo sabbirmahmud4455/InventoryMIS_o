@@ -46,7 +46,7 @@
                                             <tr>
                                                 <th>{{ __('Application.SerialNo') }}</th>
                                                 <th>{{ __('Application.Date') }}</th>
-                                                <th>{{ __('Application.TransactionCode') }}</th>
+                                                <th>{{ __('Transaction.TransactionCode') }}</th>
                                                 <th>{{ __('Transaction.Narration') }}</th>
                                                 <th>{{ __('Application.Status') }}</th>
                                                 <th>{{ __('Transaction.CashIn') }}</th>
@@ -77,6 +77,13 @@
                                                                         href="{{ route('transaction.details', ['id' => encrypt($transaction->id)]) }}">
                                                                         <i class="fas fa-eye"></i>
                                                                         {{ __('Transaction.TransactionDetails') }}
+                                                                    </a>
+                                                                @endif
+                                                                @if (can('transaction_status_change'))
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('transaction.status.change', ['id' => encrypt($transaction->id)]) }}">
+                                                                        <i class="fas fa-edit"></i>
+                                                                        {{ __('Transaction.ChangeStatus') }}
                                                                     </a>
                                                                 @endif
                                                             </div>

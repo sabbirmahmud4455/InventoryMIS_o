@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Backend\ReportsModule\AllReport\AllReportController;
+use App\Http\Controllers\Backend\ReportsModule\AllReport\ItemReportController;
+use App\Http\Controllers\Backend\ReportsModule\AllReport\PurchaseReportController;
+use App\Http\Controllers\Backend\ReportsModule\AllReport\StockReportController;
 use App\Http\Controllers\Backend\ReportsModule\AllReport\SystemDataReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -73,11 +76,57 @@ Route::group(['prefix' => 'all-reports'], function (){
         });
         // Transaction Type Report route end
 
+        // Payment Type Report route start
+        Route::group(['prefix' => 'payment-type-report'], function(){
+
+            // index route
+            Route::get('/', [SystemDataReportController::class, 'payment_type_report'])->name('payment.type.report.index');
+            
+            // Export pdf route
+            Route::get('/export-pdf', [SystemDataReportController::class, 'payment_type_report_export_pdf'])->name('payment.type.report.export.pdf');
+
+        });
+        // Payment Type Report route end
+
 
 
 
     });
     // System Data Report End
+
+
+    // Item Report Start
+    Route::group(['prefix' => 'item-report'], function() {
+
+        // all item report route
+        Route::get('/all-item-report', [ItemReportController::class, 'all_item_report'])->name('all.item.report');
+
+        // all item report export pdf route
+        Route::get('/all-item-report-export-pdf', [ItemReportController::class, 'all_item_report_export_pdf'])->name('all.item.report.export.pdf');
+        
+        // unit wise item report route
+        Route::get('/unit-wise-item-report', [ItemReportController::class, 'unit_wise_item_report'])->name('unit.wise.item.report');
+
+        // unit wise item report export pdf route
+        Route::get('/unit-wise-item-report-export-pdf', [ItemReportController::class, 'unit_wise_item_report_export_pdf'])->name('unit.wise.item.report.export.pdf');
+                
+        // variant wise item report route
+        Route::get('/variant-wise-item-report', [ItemReportController::class, 'variant_wise_item_report'])->name('variant.wise.item.report');
+
+        // variant wise item report export pdf route
+        Route::get('/variant-wise-item-report-export-pdf', [ItemReportController::class, 'variant_wise_item_report_export_pdf'])->name('variant.wise.item.report.export.pdf');
+
+    });
+    // Item Report End
+
+
+    // Stock Report Start
+    Route::group(['prefix' => 'stock-report'], function() {
+        // present stock report
+        Route::get('/', [StockReportController::class, 'stock_report'])->name('stock.report.index');
+    });
+    // Stock Report End
+
 
 
 

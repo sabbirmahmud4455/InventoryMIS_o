@@ -83,21 +83,25 @@
 
         <div class="row">
             <div class="col-md-12">
-                @if ($units && count($units) > 0)
-                    <table class="table table-sm table-bordered">
+                @if ($items && count($items) > 0)
+                    <table class="table table-sm table-bordered text-center">
                         <thead>
                             <tr>
                                 <th>{{ __('Application.SerialNo') }}</th>
-                                <th>{{ __('Unit.Name') }}</th>
+                                <th>{{ __('Item.Name') }}</th>
                                 <th>{{ __('Report.TotalItem') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($units as $key => $unit)
+                            @foreach ($items as $key => $item)
                                 <tr>
                                     <td style="text-align: center">{{ ++ $key }}</td>
-                                    <td style="text-align: center">{{ $unit->name }}</td>
-                                    <td style="text-align: center">{{ $unit->purchase_details->count() }}</td>
+                                    <td style="text-align: center">{{ $item->name }}</td>
+                                    @php
+                                        $in_quantity = $item->stocks->sum('in_quantity');
+                                        $out_quantity = $item->stocks->sum('out_quantity');
+                                    @endphp
+                                    <td style="text-align: center">{{ $in_quantity - $out_quantity }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
