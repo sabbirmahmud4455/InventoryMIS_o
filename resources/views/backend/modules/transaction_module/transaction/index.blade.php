@@ -64,7 +64,8 @@
                                         <tbody>
                                             @foreach ($transactions as $key => $transaction)
                                                 <tr>
-                                                    <td>{{ $transactions->firstItem() + $key }}</td>
+                                                    {{-- <td>{{ $transactions->firstItem() + $key }}</td> --}}
+                                                    <td>{{ ++ $key }}</td>
                                                     <td>{{ \Carbon\Carbon::Parse($transaction->date)->format('d-M-Y') }}</td>
                                                     <td>{{ $transaction->transaction_code  }}</td>
                                                     <td>{{ $transaction->narration }}</td>
@@ -103,7 +104,7 @@
                                 @else
                                     <h4 class="text-center text-danger my-2">No Data Found</h4>
                                 @endif
-                                <div class="mt-2">{{ $transactions->render() }}</div>
+                                {{-- <div class="mt-2">{{ $transactions->render() }}</div> --}}
                             </div>
                         </div>
                     </div>

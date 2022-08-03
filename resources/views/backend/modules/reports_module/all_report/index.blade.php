@@ -339,7 +339,7 @@
                                                 <a href="{{ route('transaction.all') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllTransactionReport') }}</a>
                                             @endif
                                             @if (can('type_wise_transaction_report'))
-                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.TypeWiseTransactionReport') }}</a>
+                                                <a href="" class="btn btn-sm btn-outline-primary button_margin_bottom" data-toggle="modal" data-target="#typeWiseTransactionModal">{{ __('Report.TypeWiseTransactionReport') }}</a>
                                             @endif
                                             @if (can('statement_report'))
                                                 <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.StatementReport') }}</a>
@@ -452,7 +452,7 @@
         </div>
             <div class="modal-body">
                 <form action="{{ route('stock.list') }}">
-                    <!-- supplier -->
+                    <!-- warehouse -->
                     <div class="col-md-12 col-12 form-group">
                         <label for="warehouse_id">{{ __('Warehouse.Warehouse') }}</label><span class="require-span">*</span>
                         <select class="form-control select2" name="warehouse_id">
@@ -566,6 +566,51 @@
 </div>
 <!-- Supplier Transaction Report Modal Start -->
 
+<!-- Type wise Transaction Report Modal Start -->
+<div class="modal fade" id="typeWiseTransactionModal" role="dialog" aria-labelledby="typeWiseTransactionLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="typeWiseTransactionLabel">Select Transaction Type for Transaction Report</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+            <div class="modal-body">
+                <form action="{{ route('transaction.all') }}">
+                    <!-- Transaction Type -->
+                    <div class="col-md-12 col-12 form-group">
+                        <label for="transaction_type_id">{{ __('TransactionType.TransactionType') }}</label><span class="require-span">*</span>
+                        <select class="form-control select2" name="transaction_type_id">
+                            <option disabled selected>Select Transaction Type</option>
+                            @if ( count($transaction_types) > 0 )
+                                @foreach ($transaction_types as $transaction_type)
+                                @php
+                                @endphp
+                                    <option value="{{ $transaction_type->id }}">{{ $transaction_type->name . ' - ' . $transaction_type->cash_type }}</option>
+                                @endforeach
+                            @else
+                                <option disabled>No Data Found</option>
+                            @endif
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 form-group text-right">
+                        <button type="submit" class="btn btn-sm btn-outline-dark">
+                            {{ __('Application.Submit') }}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+            </div>
+      </div>
+    </div>
+</div>
+<!-- Type wise Transaction Report Modal Start -->
+
 
 
 @endsection
@@ -619,6 +664,14 @@
             dropdownAutoWidth: true,
             width: '100%',
             dropdownParent: $('#supplierTransactionModal')
+        });
+    });
+
+    $(document).ready(function domReady() {
+        $(".select2").select2({
+            dropdownAutoWidth: true,
+            width: '100%',
+            dropdownParent: $('#typeWiseTransactionModal')
         });
     });
 

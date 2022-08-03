@@ -17,9 +17,19 @@ use Illuminate\Support\Facades\Validator;
 class TransactionController extends Controller
 {
     // all transaction function
-    public function all_transaction() {
-        if(can('all_transaction') || can('all_transaction_report')) {
-            $transactions = Transaction::orderBy('id', 'desc')->paginate(50);
+    public function all_transaction(Request $request) {
+        if(can('all_transaction') || can('all_transaction_report') || can('type_wise_transaction_report')) {
+            
+            $transactions = Transaction::orderBy('id', 'desc');
+
+            if($request->transaction_type_id) {
+                $transactions = $transactions->whereHas('transaction_type', function($transaction_type) use($request) {
+                    return $transaction_type->where('id', $request->transaction_type_id);
+                });
+            }
+
+            $transactions = $transactions->get();
+
             return view('backend.modules.transaction_module.transaction.index', compact('transactions'));
         } else {
             return view('errors.404');
@@ -143,7 +153,7 @@ class TransactionController extends Controller
 
     // transaction details
     public function transaction_details($id) {
-        if(can('transaction_details') || can('all_transaction_report')) {
+        if(can('transaction_details') || can('all_transaction_report') || can('type_wise_transaction_report')) {
             $transaction = Transaction::with('transaction_type', 'purchase', 'supplier', 'bank', 'created_by_user')->findOrFail(decrypt($id));
             return view('backend.modules.transaction_module.transaction.details.transaction_details', compact('transaction'));
         } else {
@@ -153,7 +163,7 @@ class TransactionController extends Controller
 
     // transaction details
     public function transaction_details_export_pdf($id) {
-        if(can('transaction_details') || can('all_transaction_report')) {
+        if(can('transaction_details') || can('all_transaction_report') || can('type_wise_transaction_report')) {
             $transaction = Transaction::with('transaction_type', 'purchase', 'supplier', 'bank', 'created_by_user')->findOrFail(decrypt($id));
 
             $company_info = CompanyInfo::first();
