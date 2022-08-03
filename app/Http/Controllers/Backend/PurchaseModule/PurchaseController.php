@@ -88,8 +88,6 @@ class PurchaseController extends Controller
                 $purchase->status = 'STOCK_IN';
             }
 
-
-
             if ($purchase->save()) {
 
                 // Generate Lot Code

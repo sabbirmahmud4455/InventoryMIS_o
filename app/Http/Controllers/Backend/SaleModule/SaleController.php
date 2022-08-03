@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Backend\SaleModule;
 
-use App\Http\Controllers\Controller;
-use App\Models\CustomerModule\Customer;
-use App\Models\LotModule\Lot;
-use App\Models\StockModule\StockInOut;
-use App\Models\SupplierModule\Supplier;
-use App\Models\SystemDataModule\Item;
-use App\Models\SystemDataModule\ItemVariant;
-use App\Models\SystemDataModule\Unit;
 use Illuminate\Http\Request;
+use App\Models\LotModule\Lot;
+use App\Models\BankModule\Bank;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\SystemDataModule\Item;
+use App\Models\SystemDataModule\Unit;
+use App\Models\StockModule\StockInOut;
+use App\Models\CustomerModule\Customer;
+use App\Models\SupplierModule\Supplier;
+use App\Models\SystemDataModule\Variant;
+use App\Models\SystemDataModule\Warehouse;
+use App\Models\SystemDataModule\ItemVariant;
 
 class SaleController extends Controller
 {
@@ -35,7 +38,10 @@ class SaleController extends Controller
             $items = Item::select('id', 'name')->where('is_active', true)->where('is_delete', false)->get();
             $lots = Lot::select('id', 'name')->get();
             $units = Unit::select('id', 'name')->get();
-            return view('backend.modules.sale_module.add_sale', compact('customers', 'items', 'lots', 'units'));
+            $variants = Variant::select('id', 'name')->get();
+            $banks = Bank::select('id', 'name')->where('is_active', true)->get();
+            // $warehouses = Warehouse::select('id', 'name')->where('is_active', true)->get();
+            return view('backend.modules.sale_module.add_sale', compact('customers', 'items', 'lots', 'units', 'variants', 'banks'));
         } else {
             return view('errors.404');
         }
@@ -148,4 +154,13 @@ class SaleController extends Controller
             return view('errors.404');
         }
     }
+
+    public function store_new_sale(Request $request)
+    {
+        $data = json_decode($request->data, true);
+
+        return $data;
+    }
+
+
 }
