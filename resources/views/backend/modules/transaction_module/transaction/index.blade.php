@@ -19,6 +19,13 @@
                                      {{ __('Application.Dashboard') }}
                                 </a>
                             </li>
+                            @if (\Illuminate\Support\Facades\URL::previous() == route('report.index'))
+                                <li class="breadcrumb-item active">
+                                    <a href="{{ route('report.index') }}">
+                                        {{ __('Report.AllReport') }}
+                                    </a>
+                                </li>
+                            @endif
                             <li class="breadcrumb-item active">
                                 <a href="#">
                                     {{ __('Transaction.Transaction') }}
@@ -79,7 +86,7 @@
                                                                         {{ __('Transaction.TransactionDetails') }}
                                                                     </a>
                                                                 @endif
-                                                                @if (can('transaction_status_change'))
+                                                                @if (can('transaction_status_change') && \Illuminate\Support\Facades\URL::previous() != route('report.index'))
                                                                     <a class="dropdown-item"
                                                                         href="{{ route('transaction.status.change', ['id' => encrypt($transaction->id)]) }}">
                                                                         <i class="fas fa-edit"></i>

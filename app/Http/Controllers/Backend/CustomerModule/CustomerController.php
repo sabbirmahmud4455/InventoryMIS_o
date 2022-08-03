@@ -15,7 +15,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        if( can('all_customer') ){
+        if( can('all_customer') || can('all_customer_report') ){
             $customers = Customer::select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc')->paginate(20);
 
             return view('backend.modules.system_data_module.customer.index', compact('customers'));
@@ -87,7 +87,7 @@ class CustomerController extends Controller
 
     //customer show modal start
     public function show($id){
-        if( can("view_customer")){
+        if( can("view_customer") || can('all_customer_report')){
             $customer = Customer::where("id",$id)->select("id", "name", "contact_no", 'address', 'remarks', "is_active")->first();
 
             return view("backend.modules.system_data_module.customer.modals.show", compact("customer"));

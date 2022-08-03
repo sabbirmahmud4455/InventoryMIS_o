@@ -213,10 +213,10 @@
                                     <div class="col-md-12">
                                         <center>
                                             @if (can('all_supplier_report'))
-                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllSupplierReport') }}</a>
+                                                <a href="{{ route('supplier.all') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllSupplierReport') }}</a>
                                             @endif
                                             @if (can('supplier_transaction_report'))
-                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.SupplierTransactionReport') }}</a>
+                                                <a href="" class="btn btn-sm btn-outline-secondary button_margin_bottom" data-toggle="modal" data-target="#supplierTransactionModal">{{ __('Report.SupplierTransactionReport') }}</a>
                                             @endif
                                         </center>
                                     </div>
@@ -243,7 +243,7 @@
                                     <div class="col-md-12">
                                         <center>
                                             @if (can('all_customer_report'))
-                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllCustomerReport') }}</a>
+                                                <a href="{{ route('customer.all') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllCustomerReport') }}</a>
                                             @endif
                                             @if (can('customer_transaction_report'))
                                                 <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.CustomerTransactionReport') }}</a>
@@ -336,7 +336,7 @@
                                     <div class="col-md-12">
                                         <center>
                                             @if (can('all_transaction_report'))
-                                                <a href="" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllTransactionReport') }}</a>
+                                                <a href="{{ route('transaction.all') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllTransactionReport') }}</a>
                                             @endif
                                             @if (can('type_wise_transaction_report'))
                                                 <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.TypeWiseTransactionReport') }}</a>
@@ -521,6 +521,51 @@
 </div>
 <!-- Date wise stock Report Modal Start -->
 
+<!-- Supplier Transaction Report Modal Start -->
+<div class="modal fade" id="supplierTransactionModal" role="dialog" aria-labelledby="supplierTransactionLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="supplierTransactionLabel">Select Supplier for Transaction Report</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+            <div class="modal-body">
+                <form action="{{ route('supplier.transactions', encrypt($supplier->id)) }}">
+                    <!-- supplier -->
+                    <div class="col-md-12 col-12 form-group">
+                        <label for="supplier_id">{{ __('Supplier.SupplierName') }}</label><span class="require-span">*</span>
+                        <select class="form-control select2" name="supplier_id">
+                            <option disabled selected>Select Supplier</option>
+                            @if ( count($suppliers) > 0 )
+                                @foreach ($suppliers as $supplier)
+                                @php
+                                @endphp
+                                    <option value="{{ $supplier->id }}">{{ $supplier->name . ' - ' . $supplier->address }}</option>
+                                @endforeach
+                            @else
+                                <option disabled>No Data Found</option>
+                            @endif
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 form-group text-right">
+                        <button type="submit" class="btn btn-sm btn-outline-dark">
+                            {{ __('Application.Submit') }}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+            </div>
+      </div>
+    </div>
+</div>
+<!-- Supplier Transaction Report Modal Start -->
+
 
 
 @endsection
@@ -566,6 +611,14 @@
             dropdownAutoWidth: true,
             width: '100%',
             dropdownParent: $('#warehouseWiseStockModal')
+        });
+    });
+
+    $(document).ready(function domReady() {
+        $(".select2").select2({
+            dropdownAutoWidth: true,
+            width: '100%',
+            dropdownParent: $('#supplierTransactionModal')
         });
     });
 

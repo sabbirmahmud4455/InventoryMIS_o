@@ -18,7 +18,7 @@ class TransactionController extends Controller
 {
     // all transaction function
     public function all_transaction() {
-        if(can('all_transaction')) {
+        if(can('all_transaction') || can('all_transaction_report')) {
             $transactions = Transaction::orderBy('id', 'desc')->paginate(50);
             return view('backend.modules.transaction_module.transaction.index', compact('transactions'));
         } else {
@@ -143,7 +143,7 @@ class TransactionController extends Controller
 
     // transaction details
     public function transaction_details($id) {
-        if(can('transaction_details')) {
+        if(can('transaction_details') || can('all_transaction_report')) {
             $transaction = Transaction::with('transaction_type', 'purchase', 'supplier', 'bank', 'created_by_user')->findOrFail(decrypt($id));
             return view('backend.modules.transaction_module.transaction.details.transaction_details', compact('transaction'));
         } else {
@@ -153,7 +153,7 @@ class TransactionController extends Controller
 
     // transaction details
     public function transaction_details_export_pdf($id) {
-        if(can('transaction_details')) {
+        if(can('transaction_details') || can('all_transaction_report')) {
             $transaction = Transaction::with('transaction_type', 'purchase', 'supplier', 'bank', 'created_by_user')->findOrFail(decrypt($id));
 
             $company_info = CompanyInfo::first();

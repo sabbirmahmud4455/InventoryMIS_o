@@ -19,6 +19,13 @@
                                      {{ __('Application.Dashboard') }}
                                 </a>
                             </li>
+                            @if (\Illuminate\Support\Facades\URL::previous() == route('report.index'))
+                                <li class="breadcrumb-item active">
+                                    <a href="{{ route('report.index') }}">
+                                        {{ __('Report.AllReport') }}
+                                    </a>
+                                </li>
+                            @endif
                             <li class="breadcrumb-item active">
                                 <a href="#">
                                     {{ __('Customer.Customer') }}
@@ -38,7 +45,7 @@
                     <div class="col-md-12">
                         <div class="card card-primary card-outline table-responsive">
                             <div class="card-header text-right">
-                                @if( can('add_customer') )
+                                @if( can('add_customer') && \Illuminate\Support\Facades\URL::previous() != route('report.index'))
                                     <button type="button" data-content="{{ route('customer.add.modal') }}" data-target="#myModal"
                                             class="btn btn-outline-dark" data-toggle="modal">
                                         {{ __('Customer.CustomerAdd') }}
@@ -83,10 +90,12 @@
                                                                 {{ __('Application.View') }}
                                                             </a>
 
-                                                            <a class="dropdown-item" href="#" data-content="{{ route('customer.edit.modal',$customer->id) }}" data-target="#myModal" data-toggle="modal">
-                                                                <i class="fas fa-edit"></i>
-                                                                {{ __('Application.Edit') }}
-                                                            </a>
+                                                            @if (\Illuminate\Support\Facades\URL::previous() != route('report.index'))
+                                                                <a class="dropdown-item" href="#" data-content="{{ route('customer.edit.modal',$customer->id) }}" data-target="#myModal" data-toggle="modal">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    {{ __('Application.Edit') }}
+                                                                </a>
+                                                            @endif
 
                                                         </div>
                                                     </div>

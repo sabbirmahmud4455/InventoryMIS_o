@@ -19,6 +19,13 @@
                                      {{ __('Application.Dashboard') }}
                                 </a>
                             </li>
+                            @if (\Illuminate\Support\Facades\URL::previous() == route('report.index'))
+                                <li class="breadcrumb-item active">
+                                    <a href="{{ route('report.index') }}">
+                                        {{ __('Report.AllReport') }}
+                                    </a>
+                                </li>
+                            @endif
                             <li class="breadcrumb-item">
                                 <a href="{{ route('supplier.all') }}">
                                      {{ __('Supplier.Supplier') }}

@@ -18,7 +18,7 @@ class SupplierController extends Controller
 {
     public function index()
     {
-        if( can('all_supplier') ){
+        if( can('all_supplier') || can('all_supplier_report') || can('supplier_transaction_report') ){
             $suppliers = Supplier::select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc')->paginate(20);
 
             return view('backend.modules.supplier.index', compact('suppliers'));
@@ -93,7 +93,7 @@ class SupplierController extends Controller
 
     //supplier show modal start
     public function show($id){
-        if( can("view_supplier")){
+        if( can("view_supplier") || can('all_supplier_report') || can('supplier_transaction_report')){
             $supplier = Supplier::where("id",$id)->select("id", "name", "contact_no", 'address', 'company', "is_active")->first();
 
             return view("backend.modules.supplier.modals.show", compact("supplier"));
@@ -158,7 +158,7 @@ class SupplierController extends Controller
     // Supplier Transaction
     public function suppllier_transactions($id)
     {
-        if(can('supplier_transactions')) {
+        if(can('supplier_transactions') || can('all_supplier_report') || can('supplier_transaction_report')) {
             $transaction = new Supplier();
             $supplier_transactions = $transaction->GetSupplierTransactions(decrypt($id));
 
@@ -171,7 +171,7 @@ class SupplierController extends Controller
     // Supplier Transaction Export Pdf
     public function supplier_transactions_export_pdf($id)
     {
-        if(can('supplier_transactions')) {
+        if(can('supplier_transactions') || can('all_supplier_report') || can('supplier_transaction_report')) {
             $transaction = new Supplier();
             $supplier_transactions = $transaction->GetSupplierTransactions(decrypt($id));
 
@@ -230,7 +230,7 @@ class SupplierController extends Controller
     // Supplier Transaction Details
     public function supplier_transaction_details($id)
     {
-        if(can('supplier_transactions')) {
+        if(can('supplier_transactions' || can('all_supplier_report') || can('supplier_transaction_report'))) {
             $transaction = new Transaction();
             $transaction_details = $transaction->SupplierTransactionDetails(decrypt($id));
 
@@ -243,7 +243,7 @@ class SupplierController extends Controller
     // Supplier Transaction Details Export Pdf
     public function supplier_transaction_details_export_pdf($id)
     {
-        if(can('supplier_transactions')) {
+        if(can('supplier_transactions') || can('all_supplier_report') || can('supplier_transaction_report')) {
             $transaction = new Transaction();
             $transaction_details = $transaction->SupplierTransactionDetails(decrypt($id));
 
