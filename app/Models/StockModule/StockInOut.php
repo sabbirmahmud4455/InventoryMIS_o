@@ -21,13 +21,13 @@ class StockInOut extends Model
         units.name as unit_name,
         lots.name as lot_name,
         (SUM(in_quantity) - SUM(out_quantity)) as available_stock,
-        item_id, variant_id
+        item_id, variant_id, unit_id
         FROM stock_in_outs
         LEFT JOIN items ON items.id = stock_in_outs.item_id
         LEFT JOIN units ON units.id = stock_in_outs.unit_id
         LEFT JOIN variants on variants.id = stock_in_outs.variant_id
         LEFT JOIN lots on lots.id = stock_in_outs.lot_id
-        GROUP BY item_id, variant_id;');
+        GROUP BY item_id, variant_id, unit_id;');
 
         return $stock_lists;
     }
