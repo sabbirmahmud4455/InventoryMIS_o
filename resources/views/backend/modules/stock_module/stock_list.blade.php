@@ -45,7 +45,14 @@
                     <div class="col-md-12">
                         <div class="card card-primary card-outline table-responsive">
                             <div class="card-header">
-                               <h5>{{ __('Stock.StockList') }}</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5>{{ __('Stock.StockList') }}</h5>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="{{ route('stock.list.export.pdf', ['warehouse' => $warehouse, 'stock_date' => $stock_date]) }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered table-sm table-striped dataTable dtr-inline datatable-data"

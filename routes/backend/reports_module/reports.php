@@ -121,15 +121,6 @@ Route::group(['prefix' => 'all-reports'], function (){
     // Item Report End
 
 
-    // Stock Report Start
-    Route::group(['prefix' => 'stock-report'], function() {
-        // present stock report
-        Route::get('/', [StockReportController::class, 'stock_report'])->name('stock.report.index');
-    });
-    // Stock Report End
-
-
-
     // Bank Report Start
     Route::group(['prefix' => 'bank-report', 'as' => 'bank_report.'], function() {
         Route::get('/all-bank', [BankReportController::class, 'all_bank'])->name('all_bank');
