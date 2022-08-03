@@ -19,6 +19,13 @@
                                 {{ __('Application.Dashboard') }}
                             </a>
                         </li>
+                        @if (\Illuminate\Support\Facades\URL::previous() == route('report.index'))
+                            <li class="breadcrumb-item active">
+                                <a href="{{ route('report.index') }}">
+                                    {{ __('Report.AllReport') }}
+                                </a>
+                            </li>
+                        @endif
                         <li class="breadcrumb-item active">
                             <a href="#">
                                 {{ __('Purchase.AllPurchase') }}
@@ -74,7 +81,7 @@
 
                                                         </a>
 
-                                                        @if (!\Illuminate\Support\Facades\URL::previous() == route('report.index'))
+                                                        @if (\Illuminate\Support\Facades\URL::previous() != route('report.index'))
                                                             <a class="dropdown-item" href="#" data-content="{{ route('customer.edit.modal',$purchase->id) }}" data-target="#myModal" data-toggle="modal">
                                                                 <i class="fas fa-edit"></i>
                                                                 {{ __('Application.Edit') }}
