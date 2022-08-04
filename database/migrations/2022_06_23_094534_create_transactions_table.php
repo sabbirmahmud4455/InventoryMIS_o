@@ -23,7 +23,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('purchase_id')->nullable();
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->unsignedBigInteger('customer_id')->nullable();
-            $table->unsignedBigInteger('sales_id')->nullable();
+            $table->unsignedBigInteger('sale_id')->nullable();
             $table->unsignedBigInteger('bank_id')->nullable();
             $table->string('cheque_no')->nullable();
             $table->string('remarks')->nullable();
