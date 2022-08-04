@@ -60,6 +60,7 @@
                                         <th>{{ __('Application.Id') }}</th>
                                         <th>{{ __('Supplier.SupplierName') }}</th>
                                         <th>{{ __('Supplier.SupplierPhone') }}</th>
+                                        <th>{{ __('Transaction.Balance') }}</th>
                                         <th>{{ __('Application.Status') }}</th>
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>
@@ -67,11 +68,13 @@
                                     <tbody>
                                         @foreach ($suppliers as $key => $supplier)
                                             <tr>
-                                                <td>{{ $suppliers->firstItem() + $key }}</td>
+                                                <td>{{ ++ $key }}</td>
+{{--                                                <td>{{ $suppliers->firstItem() + $key }}</td>--}}
                                                 <td>{{ $supplier->name }}</td>
                                                 <td>{{ $supplier->contact_no }}</td>
+                                                <td class="text-right">{{ '৳' . number_format($supplier->balance, 0) }}</td>
                                                 <td>
-                                                    @if ($supplier->is_active)
+                                                    @if ($supplier->is_active == 1)
                                                         <p class="badge badge-success">{{ __('Application.Active') }}</p>
                                                     @else
                                                         <p class="badge badge-danger">{{ __('Application.Inactive') }}</p>
@@ -80,24 +83,24 @@
                                                 <td>
 
                                                     <div class="dropdown">
-                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown{{ $supplier->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown{{ $supplier->supplier_id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             {{ __('Application.Action') }}
                                                         </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdown{{ $supplier->id }}">
+                                                        <div class="dropdown-menu" aria-labelledby="dropdown{{ $supplier->supplier_id }}">
 
-                                                            <a class="dropdown-item" href="#" data-content="{{ route('supplier.show', $supplier->id) }}" data-target="#myModal" data-toggle="modal">
+                                                            <a class="dropdown-item" href="#" data-content="{{ route('supplier.show', $supplier->supplier_id) }}" data-target="#myModal" data-toggle="modal">
                                                                 <i class="fas fa-eye"></i>
                                                                 {{ __('Application.View') }}
                                                             </a>
 
                                                             @if (\Illuminate\Support\Facades\URL::previous() != route('report.index'))
-                                                                <a class="dropdown-item" href="#" data-content="{{ route('supplier.edit.modal',$supplier->id) }}" data-target="#myModal" data-toggle="modal">
+                                                                <a class="dropdown-item" href="#" data-content="{{ route('supplier.edit.modal',$supplier->supplier_id) }}" data-target="#myModal" data-toggle="modal">
                                                                     <i class="fas fa-edit"></i>
                                                                     {{ __('Application.Edit') }}
                                                                 </a>
                                                             @endif
-                                                            
-                                                            <a class="dropdown-item" href="{{ route('supplier.transactions', encrypt($supplier->id)) }}">
+
+                                                            <a class="dropdown-item" href="{{ route('supplier.transactions', encrypt($supplier->supplier_id)) }}">
                                                                 <i class="fa fa-exchange-alt" aria-hidden="true"></i>
                                                                 {{ __('Application.Transaction') }}
                                                             </a>
@@ -114,7 +117,7 @@
                                 </table>
 
                                 <div class=" d-flex justify-content-center mt-3">
-                                    {{ $suppliers->links() }}
+{{--                                    {{ $suppliers->links() }}--}}
                                 </div>
 
                             </div>
