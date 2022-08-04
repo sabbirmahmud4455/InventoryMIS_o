@@ -19,7 +19,6 @@ Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
 
 
     Route::post('/add', [SaleController::class, 'store_new_sale'])->name('store');
-
 });
 
 ?>

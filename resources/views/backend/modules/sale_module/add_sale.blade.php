@@ -62,22 +62,24 @@
                                     {{-- Customer Name --}}
                                     <div class="col-md-2">
                                         <label>{{ __('Customer.CustomerName') }}</label>
-                                        <select name="customer_id" class="form-control form-control-sm select2"
+                                        <select required name="customer_id" class="form-control form-control-sm select2"
                                             id="customer_id">
-                                            <option value="0">{{ __('Customer.GuestCustomer') }}</option>
+                                            <option value="">{{ __('Customer.GuestCustomer') }}</option>
                                             @forelse ($customers as $customer)
                                             <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                             @empty
                                             @endforelse
                                         </select>
                                     </div>
+                                </div>
 
+                                <div class="row">
                                     {{-- Item Name --}}
                                     <div class="col-md-2">
                                         <label>{{ __('Item.Item') }}</label>
-                                        <select name="item_id" class="form-control form-control-sm select2"
+                                        <select required name="item_id" class="form-control form-control-sm select2"
                                             id="item_id">
-                                            <option selected disabled>{{ __('Item.SelectItem') }}</option>
+                                            <option value="" selected disabled>{{ __('Item.SelectItem') }}</option>
                                             @forelse ($items as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @empty
@@ -89,22 +91,22 @@
                                     {{-- Item Varient --}}
                                     <div class="col-md-2">
                                         <label>{{ __('Item.ItemVariant') }}</label>
-                                        <select name="variant_id" class="form-control form-control-sm select2"
+                                        <select required name="variant_id" class="form-control form-control-sm select2"
                                             id="item_variant_unit">
-                                            <option selected disabled>{{ __('variant.SelectVarient') }}</option>
+                                            <option value="" selected disabled>{{ __('variant.SelectVarient') }}</option>
                                         </select>
                                     </div>
 
                                     {{-- Lot --}}
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <label>{{ __('Lot.Lot') }}</label>
-                                        <select class="form-control form-control-sm select2" name="lot_id" id="lot_id">
-                                            <option selected disabled>{{ __('Lot.Lot') }}</option>
+                                        <select required class="form-control form-control-sm select2" name="lot_id" id="lot_id">
+                                            <option value="" selected disabled>{{ __('Lot.Lot') }}</option>
                                         </select>
                                     </div>
 
                                     {{-- Warehouse --}}
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <label>{{ __('Warehouse.Warehouse') }}</label>
                                         <select class="form-control form-control-sm select2" name="warehouse_id"
                                             id="warehouse_id">
@@ -113,30 +115,40 @@
                                     </div>
 
                                     {{-- Item Weight --}}
-                                    <div class="col-md-3">
+                                    <div class="col-md-1">
                                         <label>{{ __('Sale.Beg') }}</label>
-                                        <input type="text" class="form-control form-control-sm" name="beg" id="beg">
+                                        <input required type="text" class="form-control form-control-sm" name="beg" id="beg">
                                     </div>
 
                                     {{-- Item Price --}}
-                                    <div class="col-md-3">
+                                    <div class="col-md-1">
                                         <label>{{ __('Sale.Price') }}</label>
-                                        <input type="text" class="form-control form-control-sm" name="unit_price"
+                                        <input required type="text" class="form-control form-control-sm" name="unit_price"
                                             id="unit_price">
                                     </div>
 
                                     {{-- Total Price --}}
-                                    <div class="col-md-3">
-                                        <label>{{ __('Sale.TotalPrice') }}</label>
-                                        <input type="text" class="form-control form-control-sm" name="total_price"
+                                    <div class="col-md-2">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                 <label>{{ __('Sale.TotalPrice') }}</label>
+                                                <input required type="text" class="form-control form-control-sm" name="total_price"
                                             id="total_price" readonly>
+                                            </div>
+                                            <div class="col-2">
+                                                <button class="btn btn-info mt-4 btn-sm" ><i class="fa fa-plus"
+                                                aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>
+
+
+
                                     </div>
 
                                     {{-- Add Button --}}
-                                    <div class="col-md-3">
-                                        <button class="btn btn-info mt-4 btn-sm" ><i class="fa fa-plus"
-                                                aria-hidden="true"></i></button>
-                                    </div>
+                                    {{-- <div class="col-md-2">
+
+                                    </div> --}}
                                 </div>
                                 {{-- Item Adding End --}}
                                 <br>
