@@ -12,6 +12,7 @@ use App\Models\TransactionModule\Transaction;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class SupplierController extends Controller
@@ -19,7 +20,15 @@ class SupplierController extends Controller
     public function index()
     {
         if( can('all_supplier') || can('all_supplier_report') || can('supplier_transaction_report') ){
-            $suppliers = Supplier::select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc')->paginate(20);
+
+            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
+            DB::reconnect(); // Reconnect to DB
+
+            $suppliers = new Supplier();
+            $suppliers = $suppliers->GetAllSupplier();
+
+            config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
+            DB::reconnect(); //Reconnect to DB
 
             return view('backend.modules.supplier.index', compact('suppliers'));
 
