@@ -124,6 +124,8 @@ Route::group(['prefix' => 'all-reports'], function (){
     // Bank Report Start
     Route::group(['prefix' => 'bank-report', 'as' => 'bank_report.'], function() {
         Route::get('/all-bank', [BankReportController::class, 'all_bank'])->name('all_bank');
+        Route::get('/bank-details/{id}', [BankReportController::class, 'bank_details'])->name('bank_details');
+        Route::get('/bank-details/latest-transactions/{id}', [BankReportController::class, 'latest_transactions'])->name('latest_transactions');
     });
     // Bank Report End
 

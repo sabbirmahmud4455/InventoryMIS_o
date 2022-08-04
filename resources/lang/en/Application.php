@@ -31,7 +31,11 @@
         'Remarks'               => 'Remarks',
         'Download'              => 'Download',
         'CreatedBy'             => 'Created By',
-        'UpdatedBy'             => 'Updated By'
+        'UpdatedBy'             => 'Updated By',
+        'Filtering'             => 'Filtering',
+        'OrderBy'               => 'Order By',
+        'LatestToOld'           => 'Latest to Old',
+        'OldToLatest'           => 'Old to Latest'
     ]
 
 ?>

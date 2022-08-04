@@ -18,5 +18,6 @@
         'TransactionDetails'        => 'Transaction Details',
         'ChangeStatus'              => 'Change Status',
         'ChangeStatusSwal'          => 'Status Changed Successfully',
+        'TransactionFiltering'      => 'Transaction Filtering',
     ];
 ?>

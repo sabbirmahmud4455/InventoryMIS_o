@@ -70,9 +70,9 @@
                                         <td>{{ $bank->branch_name }}</td>
                                         <td>{{ $bank->balance }}</td>
                                         <td>
-                                            <button class="btn btn-primary btn-sm">
+                                            <a href="{{ route('bank_report.bank_details', encrypt($bank->bank_id) ) }}" class="btn btn-primary btn-sm">
                                                 {{ __('Bank.BankDetails') }}
-                                            </button>
+                                            </a>
                                         </td>
                                     </tr>
                                     @empty

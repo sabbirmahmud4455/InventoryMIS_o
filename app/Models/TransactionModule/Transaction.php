@@ -75,6 +75,16 @@ class Transaction extends Model
         }
     }
 
+    // Bank Transaction
+    public function BankTransactions($id)
+    {
+        $bank_transactions = DB::select('SELECT transactions.id as transaction_id, transactions.date as transaction_date, transaction_code, narration, status, cash_in, cash_out
+        FROM transactions
+        WHERE bank_id IS NOT NULL AND bank_id = ?;', [$id]);
+
+        return $bank_transactions;
+    }
+
     public function bank() {
         return $this->belongsTo(Bank::class);
     }
