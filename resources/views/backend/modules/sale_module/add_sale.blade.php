@@ -426,7 +426,7 @@
         const item_id = $("#item_id").val();
         const item_varient = split_varient_unit[0];
         const item_unit = split_varient_unit[1];
-        const lot = $("#lot").val();
+        const lot_id = $("#lot_id").val();
         const warehouse_id = $('#warehouse_id').val();
         const beg = $("#beg").val();
         const unit_price = $("#unit_price").val();
@@ -441,7 +441,7 @@
             "item_varient_name": variant_name,
             "item_unit_id": item_unit,
             "item_unit_name": unit_name,
-            "lot": lot,
+            "lot_id": lot_id,
             "warehouse_id" : warehouse_id,
             "beg": beg,
             "unit_price": unit_price,

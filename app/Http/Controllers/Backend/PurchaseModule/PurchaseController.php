@@ -93,14 +93,14 @@ class PurchaseController extends Controller
     {
         $data = json_decode($request->data, true);
 
-        $today = Carbon::now()->format('Y-m-d');
-        $date_arr = explode('-',$today);
+        $date = Carbon::parse($data['date'])->format('d-m-Y');
+        $date_arr = explode('-',$date);
         if ($data['added_items'] && count($data['added_items']) > 0) {
             // Store Data on Purchase Table
             $purchase = new Purchase();
             $purchase->supplier_id = $data['supplier_id'];
             $purchase->date =  $data['date'];
-            $purchase->challan_no = $today.'_'.rand(10000, 99999).'_'.$data['supplier_id'];
+            $purchase->challan_no = $date.'_'.rand(10000, 99999).'_'.$data['supplier_id'];
             $purchase->total_amount =  $data['purchase_total_price'];
             $purchase->created_by =  Auth::user()->id;
             if(can('auto_stock')) {
@@ -113,7 +113,7 @@ class PurchaseController extends Controller
                 $supplier_name = Supplier::select('name')->where('id', $data['supplier_id'])->first();
                 $first_name = explode(' ',$supplier_name->name);
                 $first_name[0];
-                $lot_code = $first_name[0].'#'.$data['lot_number'].'#'.$date_arr[2].$date_arr[1].$date_arr[0].'/'. Carbon::now()->format('H:i');
+                $lot_code = $first_name[0].'#'.$data['lot_number'].'#'.$date_arr[0].$date_arr[1].$date_arr[2].'/'. Carbon::now()->format('H:i');
 
                 $lot = new Lot();
                 $lot->name = $data['lot_number'];
@@ -128,7 +128,6 @@ class PurchaseController extends Controller
                     $purchase_details->item_id = $item['item_id'];
                     $purchase_details->unit_id = $item['item_unit_id'];
                     $purchase_details->variant_id = $item['item_varient_id'];
-                    // $purchase_details->lot_id = $item['lot'] ? $item['lot'] : null;
                     $purchase_details->lot_id = $lot->id;
                     $purchase_details->unit_price = $item['unit_price'];
                     $purchase_details->quantity = $item['beg'];
@@ -138,7 +137,7 @@ class PurchaseController extends Controller
                     // Store Data on Permission Table
                     if(can('auto_stock')) {
                         $stock_in = new StockInOut();
-                        $stock_in->date = $today;
+                        $stock_in->date = $data['date'];
                         $stock_in->purchase_id = $purchase->id ;
                         $stock_in->item_id = $item['item_id'];
                         $stock_in->unit_id = $item['item_unit_id'];
@@ -154,8 +153,8 @@ class PurchaseController extends Controller
 
                 // Store Data on Transaction Table
                 $transaction_purch = new Transaction();
-                $transaction_purch->date = $today;
-                $transaction_purch->transaction_code = $date_arr[0].$date_arr[1].$date_arr[2].'_'.rand(10000, 99999).'_'.$data['supplier_id'].'_'.$purchase->id;
+                $transaction_purch->date = $data['date'];
+                $transaction_purch->transaction_code = $date_arr[0].$date_arr[1].$date_arr[2].'_'.rand(10000, 99999).'_'.$data['supplier_id'].'_PI_'.$purchase->id;
                 $transaction_purch->invoice_no = $purchase->challan_no;
 
                 ////////////////
@@ -174,14 +173,14 @@ class PurchaseController extends Controller
                 if ($data['purchase_deposite_amount']) {
 
                     $transaction_deposit = new Transaction();
-                    $transaction_deposit->date = $today;
-                    $transaction_deposit->transaction_code = $date_arr[0].$date_arr[1].$date_arr[2].'_'.rand(10000, 99999).'_'.$data['supplier_id'].'_'.$purchase->id;
+                    $transaction_deposit->date = $data['date'];
+                    $transaction_deposit->transaction_code = $date_arr[0].$date_arr[1].$date_arr[2].'_'.rand(10000, 99999).'_'.$data['supplier_id'].'_PO_'.$purchase->id;
                     $transaction_deposit->invoice_no = $purchase->challan_no;
 
                     ////////////////
                     $transaction_deposit->transaction_type_id = 1;
                     /////////
-                    $transaction_deposit->narration = 'Deposite Amount';
+                    $transaction_deposit->narration = 'Purchase Deposite Amount';
                     $transaction_deposit->purchase_id = $purchase->id;
                     $transaction_deposit->supplier_id = $data['supplier_id'];
 
@@ -189,8 +188,10 @@ class PurchaseController extends Controller
                         $transaction_deposit->payment_by = 'BANK';
                         $transaction_deposit->bank_id = $data['bank_id'];
                         $transaction_deposit->cheque_no = $data['cheque_no'];
+                    } elseif ($data['purchase_payment_by'] == "CASH") {
+                        $transaction_deposit->payment_by = 'CASH';
                     }
-                    $transaction_deposit->payment_by = 'CASH';
+
                     $transaction_deposit->remarks = isset($data['remarks']) ? $data['remarks'] : '';
                     $transaction_deposit->cash_out = $data['purchase_deposite_amount'];
                     $transaction_deposit->created_by = Auth::user()->id;
