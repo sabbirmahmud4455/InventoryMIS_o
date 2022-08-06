@@ -276,10 +276,10 @@
                                                 <a href="{{ route('sale.report.index') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllSaleReport') }}</a>
                                             @endif
                                             @if (can('date_wise_sale_report'))
-                                                <a href="" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.DateWiseSaleReport') }}</a>
+                                                <a href="" class="btn btn-sm btn-outline-primary button_margin_bottom" data-toggle="modal" data-target="#dateWiseSaleReportModal">{{ __('Report.DateWiseSaleReport') }}</a>
                                             @endif
                                             @if (can('customer_wise_sale_report'))
-                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.CustomerWiseSaleReport') }}</a>
+                                                <a href="" class="btn btn-sm btn-outline-secondary button_margin_bottom" data-toggle="modal" data-target="#customerWiseSaleReportModal">{{ __('Report.CustomerWiseSaleReport') }}</a>
                                             @endif
                                         </center>
                                     </div>
@@ -612,6 +612,87 @@
 <!-- Type wise Transaction Report Modal Start -->
 
 
+<!-- Date wise Sale Report Modal Start -->
+<div class="modal fade" id="dateWiseSaleReportModal" role="dialog" aria-labelledby="dateWiseSaleLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dateWiseSaleLabel">Select Date for Sale Report</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('sale.report.index') }}">
+                    <!-- Date -->
+                    <div class="col-md-12 col-12 form-group">
+                        <center>
+                            <input type="text" class="form-control" name="sale_date">
+                        </center>
+                    </div>
+
+                    <div class="col-md-12 form-group text-right">
+                        <button type="submit" class="btn btn-sm btn-outline-dark">
+                            {{ __('Application.Submit') }}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Date wise Sale Report Modal Start -->
+
+<!-- Customer wise Transaction Report Modal Start -->
+<div class="modal fade" id="customerWiseSaleReportModal" role="dialog" aria-labelledby="typeWiseTransactionLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="typeWiseTransactionLabel">Select Customer for sale Report</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('sale.report.index') }}">
+                    <!-- Transaction Type -->
+                    <div class="col-md-12 col-12 form-group">
+                        <label for="customer_id">{{ __('Customer.CustomerName') }}</label><span class="require-span">*</span>
+                        <select class="form-control select2" name="customer_id">
+                            <option disabled selected>Select Customer</option>
+                            @if ( count($customers) > 0 )
+                                @foreach ($customers as $customer)
+                                    @php
+                                        @endphp
+                                    <option value="{{ $customer->id }}">{{ $customer->name . ' - ' . $customer->address }}</option>
+                                @endforeach
+                            @else
+                                <option disabled>No Data Found</option>
+                            @endif
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 form-group text-right">
+                        <button type="submit" class="btn btn-sm btn-outline-dark">
+                            {{ __('Application.Submit') }}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Customer wise Transaction Report Modal Start -->
+
+
 
 @endsection
 
@@ -675,6 +756,22 @@
         });
     });
 
+    $(document).ready(function domReady() {
+        $(".select2").select2({
+            dropdownAutoWidth: true,
+            width: '100%',
+            dropdownParent: $('#dateWiseSaleReportModal')
+        });
+    });
+
+    $(document).ready(function domReady() {
+        $(".select2").select2({
+            dropdownAutoWidth: true,
+            width: '100%',
+            dropdownParent: $('#customerWiseSaleReportModal')
+        });
+    });
+
 </script>
 
 <script>
@@ -698,6 +795,15 @@
 <script>
     $(function() {
         $('input[name="stock_date"]').daterangepicker({
+        opens: 'left'
+        }, function(start, end, label) {
+        // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+    });
+</script>
+<script>
+    $(function() {
+        $('input[name="sale_date"]').daterangepicker({
         opens: 'left'
         }, function(start, end, label) {
         // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
