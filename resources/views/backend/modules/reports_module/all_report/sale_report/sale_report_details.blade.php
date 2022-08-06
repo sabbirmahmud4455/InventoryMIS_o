@@ -53,7 +53,6 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h6>{{ __('Purchase.ViewPurchaseInfo') }}</h6>
                                     </div>
                                     <div class="col-md-6">
 {{--                                        <a href="{{ route('purchase.export.pdf', ['id' => encrypt($purchase->id)]) }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>--}}
