@@ -48,5 +48,25 @@ class Sale extends Model
         return $customer_wise_sale;
     }
 
+    // sale details
+    public function SaleDetails($sale_id) {
+        $sale_details = DB::select('SELECT sale_details.id, sale_details.sale_id,
+                        items.name AS item_name, units.name AS unit_name, variants.name AS variant_name,
+                        lots.name AS lot_name, quantity, unit_price, total_price
+                        FROM sale_details
+                        LEFT JOIN items
+                        ON sale_details.item_id = items.id
+                        LEFT JOIN units
+                        ON sale_details.unit_id = units.id
+                        LEFT JOIN variants
+                        ON sale_details.variant_id = variants.id
+                        LEFT JOIN lots
+                        ON sale_details.lot_id = lots.id
+                        WHERE sale_id = ?
+                        GROUP BY item_id, variant_id, unit_id;', [$sale_id]);
+
+        return $sale_details;
+    }
+
 
 }

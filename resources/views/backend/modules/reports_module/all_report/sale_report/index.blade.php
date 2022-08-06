@@ -54,6 +54,7 @@
                                                 <th>{{ __('Sale.ChallanNo') }}</th>
                                                 <th>{{ __('Customer.CustomerName') }}</th>
                                                 <th>{{ __('Application.Status') }}</th>
+                                                <th>{{ __('Application.Action') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -64,6 +65,22 @@
                                                 <td>{{ $sale->challan_no }}</td>
                                                 <td>{{ $sale->customer_name }}</td>
                                                 <td>{{ $sale->status }}</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown{{ $sale->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            {{ __('Application.Action') }}
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdown{{ $sale->id }}">
+
+                                                            <a class="dropdown-item" href="{{ route('sale.report.details', ['id' => encrypt($sale->id)]) }}">
+                                                                <i class="fas fa-eye"></i>
+                                                                {{ __('Application.Details') }}
+
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

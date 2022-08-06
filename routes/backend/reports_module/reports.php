@@ -126,6 +126,9 @@ Route::group(['prefix' => 'all-reports'], function (){
         // Index route
         Route::get('/', [SaleReportController::class, 'index'])->name('sale.report.index');
 
+        // sale report details
+        Route::get('/details/{id}', [SaleReportController::class, 'sale_report_details'])->name('sale.report.details');
+
     });
     // Sale Report End
 
