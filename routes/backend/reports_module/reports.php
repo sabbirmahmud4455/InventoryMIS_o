@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\ReportsModule\AllReport\AllReportController;
 use App\Http\Controllers\Backend\ReportsModule\AllReport\ItemReportController;
 use App\Http\Controllers\Backend\ReportsModule\AllReport\PurchaseReportController;
+use App\Http\Controllers\Backend\ReportsModule\AllReport\SaleReportController;
 use App\Http\Controllers\Backend\ReportsModule\AllReport\StockReportController;
 use App\Http\Controllers\Backend\ReportsModule\AllReport\SystemDataReportController;
 use App\Http\Controllers\Backend\ReportsModule\BankReportController;
@@ -119,6 +120,14 @@ Route::group(['prefix' => 'all-reports'], function (){
 
     });
     // Item Report End
+
+    // Sale Report Start
+    Route::group(['prefix' => 'sale-report'], function() {
+        // Index route
+        Route::get('/', [SaleReportController::class, 'index'])->name('sale.report.index');
+
+    });
+    // Sale Report End
 
 
     // Bank Report Start

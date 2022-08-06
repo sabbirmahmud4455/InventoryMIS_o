@@ -5,6 +5,7 @@
         'AddNewSale' => 'নতুন বিক্রয়',
         'Beg' => 'বস্তা',
         'Price' => 'দর',
+        'ChallanNo' => 'চালান নং',
         'TotalPrice' => 'মোট দাম',
         'Weight' => 'ওজন',
         'PreviousBalance' => 'সাবেক টাকা',

@@ -5,6 +5,7 @@
         'AddNewSale' => 'Add New Sale',
         'Beg' => 'Beg',
         'Price' => 'Price',
+        'ChallanNo' => 'Challan No',
         'TotalPrice' => 'Total Price',
         'Weight' => 'Weight',
         'PreviousBalance' => 'Previous Amount',
