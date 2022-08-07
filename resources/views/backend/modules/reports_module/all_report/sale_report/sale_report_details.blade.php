@@ -39,6 +39,10 @@
                             </li>
                         </ol>
                     </div><!-- /.col -->
+
+                    <div class="col-sm-6">
+                        <a href="{{ route('sale.report.details.export.pdf', ['id' => encrypt($sale_details['sale'][0]->id)]) }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>
+                    </div>
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
@@ -52,10 +56,23 @@
                         <div class="card card-primary card-outline table-responsive">
                             <div class="card-header">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                    </div>
-                                    <div class="col-md-6">
-{{--                                        <a href="{{ route('purchase.export.pdf', ['id' => encrypt($purchase->id)]) }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>--}}
+                                    <div class="col-md-12">
+                                        <table class="table table-sm table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th>{{ __('Application.Date') }}</th>
+                                                    <td>{{ $sale_details['sale'][0]->date }}</td>
+                                                    <th>{{ __('Sale.ChallanNo') }}</th>
+                                                    <td>{{ $sale_details['sale'][0]->challan_no }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>{{ __('Customer.CustomerName') }}</th>
+                                                    <td>{{ $sale_details['sale'][0]->customer_name }}</td>
+                                                    <th>{{ __('Customer.CustomerPhone') }}</th>
+                                                    <td>{{ $sale_details['sale'][0]->customer_phone }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +93,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($sale_details as $sale_detail)
+                                                @foreach($sale_details['sale_details'] as $sale_detail)
                                                     <tr>
                                                         <td>{{ $sale_detail->item_name }}</td>
                                                         <td>{{ $sale_detail->variant_name }}</td>

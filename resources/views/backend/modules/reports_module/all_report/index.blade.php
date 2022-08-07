@@ -650,7 +650,7 @@
 </div>
 <!-- Date wise Sale Report Modal Start -->
 
-<!-- Customer wise Transaction Report Modal Start -->
+<!-- Customer wise Sale Report Modal Start -->
 <div class="modal fade" id="customerWiseSaleReportModal" role="dialog" aria-labelledby="typeWiseTransactionLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -693,7 +693,7 @@
         </div>
     </div>
 </div>
-<!-- Customer wise Transaction Report Modal Start -->
+<!-- Customer wise Sale Report Modal Start -->
 
 
 
