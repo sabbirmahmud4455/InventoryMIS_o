@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\ReportsModule\AllReport\AllReportController;
+use App\Http\Controllers\Backend\ReportsModule\AllReport\CashReportController;
 use App\Http\Controllers\Backend\ReportsModule\AllReport\ItemReportController;
 use App\Http\Controllers\Backend\ReportsModule\AllReport\PurchaseReportController;
 use App\Http\Controllers\Backend\ReportsModule\AllReport\SaleReportController;
@@ -140,6 +141,13 @@ Route::group(['prefix' => 'all-reports'], function (){
         Route::get('/bank-details/latest-transactions/{id}', [BankReportController::class, 'latest_transactions'])->name('latest_transactions');
     });
     // Bank Report End
+
+    // CashReport Start
+    Route::group(['prefix' => 'cash-report', 'as' => 'cash_report.'], function() {
+        Route::get('/', [CashReportController::class, 'index'])->name('index');
+    });
+    // CashReport End
+
 
 
 });

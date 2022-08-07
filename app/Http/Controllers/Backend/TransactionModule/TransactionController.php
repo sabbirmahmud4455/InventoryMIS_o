@@ -19,7 +19,7 @@ class TransactionController extends Controller
     // all transaction function
     public function all_transaction(Request $request) {
         if(can('all_transaction') || can('all_transaction_report') || can('type_wise_transaction_report')) {
-            
+
             $transactions = Transaction::orderBy('id', 'desc');
 
             if($request->transaction_type_id) {
@@ -64,10 +64,10 @@ class TransactionController extends Controller
             }
             else{
                 try{
-                    
+
                     $transaction_type = TransactionType::where('id', $request->transaction_type_id)->first();
                     $cash_type = $transaction_type->cash_type;
-                    
+
 
                     $today = Carbon::now();
                     $transaction = new Transaction();
@@ -75,7 +75,7 @@ class TransactionController extends Controller
                     $transaction->transaction_code = $today.'Tran#'.$transaction_type->name;
                     $transaction->transaction_type_id = $request->transaction_type_id;
                     $transaction->narration = $transaction_type->name.' Transaction';
-                    
+
                     $transaction->remarks = 'Transaction of '.$transaction_type->name;
                     $transaction->created_by = auth('web')->user()->id;
 
@@ -88,9 +88,11 @@ class TransactionController extends Controller
                     }
 
                     if($request->payment_type === 'Bank') {
+                        $transaction->payment_by = 'BANK';
                         $transaction->bank_id = $request->bank_id;
                         $transaction->cheque_no = $request->cheque_no;
                     } else if($request->payment_type === 'Cash') {
+                        $transaction->payment_by = 'CASH';
                         $transaction->bank_id = null;
                         $transaction->cheque_no = null;
                     }
@@ -140,7 +142,7 @@ class TransactionController extends Controller
                     if($transaction->save()) {
                         return response()->json(['success' => $ChangeStatusSwal], 200);
                     }
-                    
+
                 } catch(Exception $e) {
                     return response()->json(['error' => $e->getMessage()]);
                 }

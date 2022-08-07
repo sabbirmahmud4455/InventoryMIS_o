@@ -19,6 +19,11 @@
         'ChangeStatus'              => 'স্ট্যাটাস বদলান',
         'ChangeStatusSwal'          => 'স্ট্যাটাস সফলভাবে পরিবর্তিত হয়েছে',
         'TransactionFiltering'      => 'লেনদেন ফিল্টারিং',
+        'TotalCashTransactions'     => 'মোট নগদ লেনদেন',
+        'TodayCashInTransaction'    => 'আজ ক্যাশ ইন লেনদেন',
+        'TodayCashOutTransaction'   => 'আজ ক্যাশ আউট লেনদেন',
+        'TotalCashAmount'           => 'মোট নগদ পরিমাণ',
+        'CashTransactionsList'      => 'নগদ লেনদেনের তালিকা'
 
     ];
 ?>

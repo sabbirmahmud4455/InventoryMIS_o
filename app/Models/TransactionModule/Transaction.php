@@ -10,6 +10,7 @@ use App\Models\UserModule\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\Return_;
 
 class Transaction extends Model
 {
@@ -83,6 +84,52 @@ class Transaction extends Model
         WHERE bank_id IS NOT NULL AND bank_id = ?;', [$id]);
 
         return $bank_transactions;
+    }
+
+    public function TotalCashTransactionCount()
+    {
+        $total_cash_transaction = DB::select("SELECT COUNT(id) as total_cash_transactions
+        FROM transactions
+        WHERE payment_by = 'CASH';");
+
+        return $total_cash_transaction;
+    }
+    // All Cash Transaction
+    public function AllCashTransactions()
+    {
+        $cash_transactions = DB::select("SELECT id, date, transaction_code, narration, status, cash_in, cash_out
+        FROM transactions
+        WHERE payment_by = 'CASH'
+        ORDER BY id = 'DESC';");
+
+        return $cash_transactions;
+    }
+
+    public function TodayCashInTransactions($date)
+    {
+        $today_cash_in_amount = DB::select("SELECT SUM(cash_in) as today_cash_in
+        FROM transactions
+        WHERE payment_by = 'CASH' AND date = ? AND bank_id IS NULL;",[$date]);
+
+        return $today_cash_in_amount;
+    }
+
+    public function TodayCashOutTransactions($date)
+    {
+        $today_cash_out_amount = DB::select("SELECT SUM(cash_out) as today_cash_out
+        FROM transactions
+        WHERE payment_by = 'CASH' AND date = ? AND bank_id IS NULL;",[$date]);
+
+        return $today_cash_out_amount;
+    }
+
+    public function CurrentCashBalance()
+    {
+        $current_cash_balance = DB::select("SELECT (SUM(cash_in) - SUM(cash_out)) as cash_balance
+        FROM transactions
+        WHERE payment_by = 'CASH' AND bank_id IS NULL;");
+
+        return $current_cash_balance;
     }
 
     public function bank() {
