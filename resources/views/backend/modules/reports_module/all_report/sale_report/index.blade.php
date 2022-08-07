@@ -157,10 +157,23 @@
     <script>
         $(function() {
             $('input[name="sale_date"]').daterangepicker({
-                opens: 'left'
+                opens: 'left',
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear'
+                }
             }, function(start, end, label) {
                 // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
             });
+
+            $('input[name="sale_date"]').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            });
+
+            $('input[name="sale_date"]').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+
         });
     </script>
 
