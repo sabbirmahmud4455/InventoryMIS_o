@@ -51,9 +51,9 @@
                     <div class="col-md-12">
                         <div class="card card-primary card-outline table-responsive">
                             <div class="card-header text-right">
-                                <div class="row">
+                                {{--<div class="row">
                                     <div class="col-md-12">
-                                        <form action="">
+                                        <form action="{{ route('sale.report.index') }}">
                                             <div class="row">
                                                 <!-- Transaction Type -->
                                                 <div class="col-md-3 col-3 form-group">
@@ -88,7 +88,7 @@
 
                                         </form>
                                     </div>
-                                </div>
+                                </div>--}}
                             </div>
                             <div class="card-body">
                                 @if ($sales && count($sales) > 0)
