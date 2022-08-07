@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\ReportsModule\AllReport;
 
 use App\Http\Controllers\Controller;
+use App\Models\CustomerModule\Customer;
 use App\Models\SaleModule\Sale;
 use App\Models\SettingsModule\CompanyInfo;
 use Carbon\Carbon;
@@ -30,7 +31,9 @@ class SaleReportController extends Controller
                 $sales = $sale->CustomerWiseSale($request->customer_id);
             }
 
-            return view('backend.modules.reports_module.all_report.sale_report.index', compact('sales'));
+            $customers = Customer::where('is_active', true)->orderBy('id', 'desc')->get();
+
+            return view('backend.modules.reports_module.all_report.sale_report.index', compact('sales', 'customers'));
         } else {
             return view('errors.404');
         }

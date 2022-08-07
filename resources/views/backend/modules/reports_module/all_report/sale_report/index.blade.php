@@ -3,6 +3,14 @@
 @section('per_page_css')
     <link href="{{ asset('backend/css/datatable/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('backend/css/select2/form-select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/css/select2/select2-materialize.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/css/select2/select2.min.css') }}" rel="stylesheet">
+
+    <!-- DatePicker CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- DatePicker CSS -->
 @endsection
 
 @section('body-content')
@@ -43,6 +51,44 @@
                     <div class="col-md-12">
                         <div class="card card-primary card-outline table-responsive">
                             <div class="card-header text-right">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form action="">
+                                            <div class="row">
+                                                <!-- Transaction Type -->
+                                                <div class="col-md-3 col-3 form-group">
+                                                    <select class="form-control select2" name="customer_id">
+                                                        <option disabled selected>Select Customer</option>
+                                                        @if ( count($customers) > 0 )
+                                                            @foreach ($customers as $customer)
+                                                                @php
+                                                                    @endphp
+                                                                <option value="{{ $customer->id }}" @if(request()->customer_id == $customer->id) selected @endif>{{ $customer->name . ' - ' . $customer->address }}</option>
+                                                            @endforeach
+                                                        @else
+                                                            <option disabled>No Data Found</option>
+                                                        @endif
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-3 col-3 form-group">
+                                                    <input type="text" class="form-control" name="sale_date" value="{{ request()->sale_date }}">
+                                                </div>
+                                                <div class="col-md-3 form-group text-left">
+                                                    <button type="submit" class="btn btn-sm btn-outline-dark">
+                                                        {{ __('Application.Submit') }}
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-3 form-group text-right">
+                                                    <a href="{{ route('sale.report.index') }}" type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="fa fa-undo" ></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
                                 @if ($sales && count($sales) > 0)
@@ -102,8 +148,39 @@
 @endsection
 
 @section('per_page_js')
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('backend/js/custom-script.min.js') }}"></script>
     <script src="{{  asset('backend/js/ajax_form_submit.js') }}"></script>
+
+    <!-- DatePicker JS -->
+    <script>
+        $(function() {
+            $('input[name="sale_date"]').daterangepicker({
+                opens: 'left'
+            }, function(start, end, label) {
+                // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            });
+        });
+    </script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!-- DatePicker JS -->
+
+    <script src="{{ asset('backend/js/select2/form-select2.min.js') }}"></script>
+    <script src="{{ asset('backend/js/select2/select2.full.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function domReady() {
+            $(".select2").select2({
+                dropdownAutoWidth: true,
+                width: '100%',
+                // dropdownParent: $('#myModal')
+            });
+        });
+
+    </script>
 
 @endsection
