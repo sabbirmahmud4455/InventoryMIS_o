@@ -129,6 +129,9 @@ Route::group(['prefix' => 'all-reports'], function (){
         // sale report details
         Route::get('/details/{id}', [SaleReportController::class, 'sale_report_details'])->name('sale.report.details');
 
+        // sale report details export pdf
+        Route::get('/details-export-pdf/{id}', [SaleReportController::class, 'sale_report_details_export_pdf'])->name('sale.report.details.export.pdf');
+
     });
     // Sale Report End
 

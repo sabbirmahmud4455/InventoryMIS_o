@@ -39,6 +39,10 @@
                             </li>
                         </ol>
                     </div><!-- /.col -->
+
+                    <div class="col-sm-6">
+                        <a href="{{ route('sale.report.details.export.pdf', ['id' => encrypt($sale_details['sale'][0]->id)]) }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>
+                    </div>
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
