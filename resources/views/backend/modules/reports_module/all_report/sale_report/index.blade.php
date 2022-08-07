@@ -53,7 +53,8 @@
                                                 <th>{{ __('Application.Date') }}</th>
                                                 <th>{{ __('Sale.ChallanNo') }}</th>
                                                 <th>{{ __('Customer.CustomerName') }}</th>
-                                                <th>{{ __('Application.Status') }}</th>
+                                                <th>{{ __('Customer.CustomerPhone') }}</th>
+                                                <td>{{ __('Sale.TotalPrice') }}</td>
                                                 <th>{{ __('Application.Action') }}</th>
                                             </tr>
                                         </thead>
@@ -64,7 +65,8 @@
                                                 <td>{{ $sale->date }}</td>
                                                 <td>{{ $sale->challan_no }}</td>
                                                 <td>{{ $sale->customer_name }}</td>
-                                                <td>{{ $sale->status }}</td>
+                                                <td>{{ $sale->customer_phone }}</td>
+                                                <td>{{ '৳ ' . number_format($sale->total_amount, 0) }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown{{ $sale->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -12,8 +12,8 @@ class Sale extends Model
 
     // all sale
     public function AllSale() {
-        $all_sale = DB::select('SELECT sales.id, sales.date, sales.challan_no, sales.customer_id, sales.status,
-                    customers.name AS customer_name
+        $all_sale = DB::select('SELECT sales.id, sales.date, sales.challan_no, sales.customer_id, sales.status, sales.total_amount,
+                    customers.name AS customer_name, customers.contact_no AS customer_phone
                     FROM sales
                     LEFT JOIN customers
                     ON sales.customer_id = customers.id
@@ -24,8 +24,8 @@ class Sale extends Model
 
     // date wise sale
     public function DateWiseSale($start_date, $end_date) {
-        $date_wise_sale = DB::select('SELECT sales.id, sales.date, sales.challan_no, sales.customer_id, sales.status,
-                    customers.name AS customer_name
+        $date_wise_sale = DB::select('SELECT sales.id, sales.date, sales.challan_no, sales.customer_id, sales.status, sales.total_amount,
+                    customers.name AS customer_name, customers.contact_no AS customer_phone
                     FROM sales
                     LEFT JOIN customers
                     ON sales.customer_id = customers.id
@@ -37,8 +37,8 @@ class Sale extends Model
 
     // customer wise sale
     public function CustomerWiseSale($customer_id) {
-        $customer_wise_sale = DB::select('SELECT sales.id, sales.date, sales.challan_no, sales.customer_id, sales.status,
-                    customers.name AS customer_name
+        $customer_wise_sale = DB::select('SELECT sales.id, sales.date, sales.challan_no, sales.customer_id, sales.status, sales.total_amount,
+                    customers.name AS customer_name, customers.contact_no AS customer_phone
                     FROM sales
                     LEFT JOIN customers
                     ON sales.customer_id = customers.id
