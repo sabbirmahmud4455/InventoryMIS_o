@@ -48,6 +48,19 @@ class Sale extends Model
         return $customer_wise_sale;
     }
 
+    // customer wise sale
+    public function DateCustomerWiseSale($customer_id, $start_date, $end_date) {
+        $date_customer_wise_sale = DB::select('SELECT sales.id, sales.date, sales.challan_no, sales.customer_id, sales.status, sales.total_amount,
+                    customers.name AS customer_name, customers.contact_no AS customer_phone
+                    FROM sales
+                    LEFT JOIN customers
+                    ON sales.customer_id = customers.id
+                    WHERE customer_id = ? AND date BETWEEN ? AND ?
+                    ORDER BY sales.id DESC;', [$customer_id, $start_date, $end_date]);
+
+        return $date_customer_wise_sale;
+    }
+
     // sale details
     public function SaleDetails($sale_id) {
 

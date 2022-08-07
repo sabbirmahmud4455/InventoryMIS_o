@@ -32,9 +32,13 @@ class SaleReportController extends Controller
                 $sales = $sale->CustomerWiseSale($request->customer_id);
             }
 
-            /*if($request->sale_date && $request->customer_id) {
-                return $request->sale_date . ' ' . $request->customer_id;
-            }*/
+            if($request->sale_date && $request->customer_id) {
+
+                $date = explode('-', $request->sale_date);
+                $start_date = Carbon::parse($date[0])->toDateString();
+                $end_date = Carbon::parse($date[1])->toDateString();
+                $sales = $sale->DateCustomerWiseSale($request->customer_id, $start_date, $end_date);
+            }
 
             $customers = Customer::where('is_active', true)->orderBy('id', 'desc')->get();
 
