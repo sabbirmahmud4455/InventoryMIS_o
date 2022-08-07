@@ -19,5 +19,6 @@
         'TransactionDetails'    => 'ব্যাংক লেনদেনর বিবরণ',
         'BankBalance'           => 'ব্যাঙ্ক ব্যালেন্স',
         'BankDetails'           => 'ব্যাংক বিবরণ',
+        'AllBankReport'         => 'সমস্ত ব্যাংক রিপোর্ট'
     ];
 ?>

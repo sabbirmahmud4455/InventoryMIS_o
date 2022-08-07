@@ -18,6 +18,7 @@
         'Transaction'       => 'Bank Transaction',
         'TransactionDetails'=> 'Bank Transaction Details',
         'BankBalance'       => 'Bank Balance',
-        'BankDetails'       => 'Bank Details'
+        'BankDetails'       => 'Bank Details',
+        'AllBankReport'     => 'All Bank Report'
     ];
 ?>

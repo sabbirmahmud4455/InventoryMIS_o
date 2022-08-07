@@ -311,6 +311,9 @@
                                             @if (can('bank_transaction_report'))
                                                 <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.BankTransactionReport') }}</a>
                                             @endif
+                                            @if (can('bank_transaction_report'))
+                                                <a href="{{ route('cash_report.index') }}" class="btn btn-sm btn-outline-info all-report button_margin_bottom">{{ __('Report.CashReport') }}</a>
+                                            @endif
                                         </center>
                                     </div>
                                 </div>

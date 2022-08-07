@@ -19,5 +19,10 @@
         'ChangeStatus'              => 'Change Status',
         'ChangeStatusSwal'          => 'Status Changed Successfully',
         'TransactionFiltering'      => 'Transaction Filtering',
+        'TotalCashTransactions'     => 'Total Cash Transactions',
+        'TodayCashInTransaction'    => 'Today Cash IN Transaction',
+        'TodayCashOutTransaction'   => 'Today Cash Out Transaction',
+        'TotalCashAmount'           => 'Total Cash Amount',
+        'CashTransactionsList'      => 'Cash Transactions List'
     ];
 ?>
