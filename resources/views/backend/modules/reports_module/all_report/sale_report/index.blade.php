@@ -55,7 +55,7 @@
                                     <div class="col-md-12">
                                         <form action="">
                                             <div class="row">
-                                                <!-- Transaction Type -->
+                                                <!-- Customer -->
                                                 <div class="col-md-3 col-3 form-group">
                                                     <select class="form-control select2" name="customer_id">
                                                         <option disabled selected>Select Customer</option>
