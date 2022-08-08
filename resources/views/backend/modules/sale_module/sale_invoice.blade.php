@@ -120,7 +120,7 @@
                                                     <tr>
                                                         <td>জমা-</td>
                                                         @php
-                                                            $deposit = $sale_details['sale_transaction'][1]->cash_in;
+                                                            $deposit = count($sale_details['sale_transaction']) > 1 ? $sale_details['sale_transaction'][1]->cash_in : 0;
                                                         @endphp
                                                         <td>{{ '৳ ' . number_format($deposit, 0) }}</td>
                                                     </tr>
