@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Backend\StockModule;
 
-use App\Http\Controllers\Controller;
-use App\Models\PurchaseModule\Purchase;
-use App\Models\PurchaseModule\PurchaseDetails;
-use App\Models\SettingsModule\CompanyInfo;
-use App\Models\StockModule\StockInOut;
-use App\Models\SystemDataModule\Warehouse;
-use Carbon\Carbon;
 use DateTime;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\SystemDataModule\Item;
+use App\Models\SystemDataModule\Unit;
+use App\Models\StockModule\StockInOut;
+use App\Models\PurchaseModule\Purchase;
+use App\Models\SettingsModule\CompanyInfo;
+use App\Models\SystemDataModule\Warehouse;
+use App\Models\PurchaseModule\PurchaseDetails;
+use App\Models\SystemDataModule\Variant;
 
 class StockController extends Controller
 {
@@ -74,39 +77,44 @@ class StockController extends Controller
     //Stock Report
     public function stock_list(Request $request)
     {
-        if(can('stock_list') || can('current_stock_report') || can('warehouse_wise_stock_report') || can('date_wise_stock_report')){
+        $item_id = $request->item_id;
+        $item_variant = $request->item_varient;
+        $item_unit = $request->item_unit;
+        $warehouse_id = $request->warehouse_id;
 
+
+        if ($request->item_variant_unit) {
+            $variant_unit_arr = explode('_', $request->item_variant_unit);
+            $item_variant = $variant_unit_arr[0];
+            $item_unit = $variant_unit_arr[1];
+        }
+
+        if(can('stock_list') || can('current_stock_report') || can('warehouse_wise_stock_report') || can('date_wise_stock_report')){
 
             config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
             DB::reconnect(); // Reconnect to DB
 
             $stock = new StockInOut();
-            $stock_lists = $stock->StockList();
+            $stock_lists = $stock->StockList($item_id, $item_variant, $item_unit, $warehouse_id);
 
-            $warehouse = 'null';
-            $stock_date = 'null';  
+            $item = new Item();
+            $active_items = $item->active_list();
 
-            if($request->warehouse_id) {
-                $stock_lists = $stock->StockListByWarehouse($request->warehouse_id);
-                $warehouse = $request->warehouse_id;
-            }
 
-            if($request->stock_date) {
-                // return $request->stock_date;
-                $date = explode('-', $request->stock_date);
+            $active_warehouses = Warehouse::select('id', 'name')->where('is_active', true)->get();
+            $variants = Variant::where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
+            $units = Unit::where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
 
-                $start_date = Carbon::parse($date[0])->toDateString();
-                $end_date = Carbon::parse($date[1])->toDateString();
 
-                $stock_lists = $stock->StockListByDate($start_date, $end_date);
-             
-                $stock_date = $start_date. ' '.$end_date;               
-            }
 
             config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
             DB::reconnect(); //Reconnect to DB
 
-            return view('backend.modules.stock_module.stock_list', compact('stock_lists', 'warehouse', 'stock_date'));
+
+
+
+
+            return view('backend.modules.stock_module.stock_list', compact('stock_lists', 'active_items', 'active_warehouses', 'variants', 'units'));
         }
     }
 
@@ -137,9 +145,9 @@ class StockController extends Controller
 
                 $stock_lists = $stock->StockListByDate($start_date, $end_date);
 
-                $stock_date = $stock_date;                
+                $stock_date = $stock_date;
             }
-                          
+
 
             config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
             DB::reconnect(); //Reconnect to DB

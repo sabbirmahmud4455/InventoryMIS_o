@@ -32,6 +32,7 @@
         'Download'              => 'Download',
         'CreatedBy'             => 'Created By',
         'UpdatedBy'             => 'Updated By',
+        'Filter'                => 'Filter',
         'Filtering'             => 'Filtering',
         'OrderBy'               => 'Order By',
         'LatestToOld'           => 'Latest to Old',

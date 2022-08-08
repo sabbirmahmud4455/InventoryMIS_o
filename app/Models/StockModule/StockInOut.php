@@ -14,11 +14,14 @@ class StockInOut extends Model
     use HasFactory;
     protected $fillable = ['purchase_id', 'item_id', 'unit_id', 'varient_id', 'lot_id', 'in_quantity', 'out_quantity'];
 
-
-    public function StockList()
+    public function StockList($item_id, $item_variant, $item_unit, $warehouse_id)
     {
-        $stock_lists = DB::select('SELECT items.name as item_name, variants.name as variant_name,
-        units.name as unit_name,
+        $item_query = $item_id ? "AND stock_in_outs.item_id = $item_id" : "";
+        $item_variant_query = $item_variant ? "AND stock_in_outs.variant_id = $item_variant" : "";
+        $item_unit_query = $item_unit ? "AND stock_in_outs.unit_id = $item_unit" : "";
+        $warehouse_query = $warehouse_id ? "AND stock_in_outs.warehouse_id	 = $warehouse_id" : "";
+
+        $query = "SELECT items.name as item_name, variants.name as variant_name,units.name as unit_name,
         lots.name as lot_name,
         (SUM(in_quantity) - SUM(out_quantity)) as available_stock,
         item_id, variant_id, unit_id
@@ -27,7 +30,13 @@ class StockInOut extends Model
         LEFT JOIN units ON units.id = stock_in_outs.unit_id
         LEFT JOIN variants on variants.id = stock_in_outs.variant_id
         LEFT JOIN lots on lots.id = stock_in_outs.lot_id
-        GROUP BY item_id, variant_id, unit_id;');
+        WHERE stock_in_outs.id > 0"
+        .' '.$item_query.' '.$item_variant_query.' '.$item_unit_query.' '.$warehouse_query.' '.
+        " GROUP BY item_id, variant_id, unit_id;";
+
+        $stock_lists = DB::select($query);
+
+
 
         return $stock_lists;
     }
@@ -101,16 +110,18 @@ class StockInOut extends Model
         return $warehouse_with_stock;
     }
 
-    public function unit() {
+    public function unit()
+    {
         return $this->belongsTo(Unit::class);
     }
 
-    public function item() {
+    public function item()
+    {
         return $this->belongsTo(Item::class);
     }
 
-    public function variant() {
+    public function variant()
+    {
         return $this->belongsTo(Variant::class);
     }
-
 }

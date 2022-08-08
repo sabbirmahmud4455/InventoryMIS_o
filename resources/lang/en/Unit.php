@@ -8,5 +8,7 @@
         'EditUnit' => 'Edit Unit',
         'AddSwal' => 'New Unit Created',
         'EditSwal' => 'Unit Updated',
+        'SelectUnit' => 'Select Unit',
+
     ];
 ?>

@@ -8,6 +8,6 @@
         'EditVariant' => 'Edit Variant',
         'AddSwal' => 'New Variant Created',
         'EditSwal' => 'Variant Updated',
-        'SelectVarient' => 'Select Item Varient',
+        'SelectVariant' => 'Select Variant',
     ];
 ?>

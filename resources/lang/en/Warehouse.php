@@ -9,6 +9,8 @@
         'EditWarehouse'             => 'Edit Warehouse',
         'AddSwal'                   => 'New Warehouse Created',
         'EditSwal'                  => 'Warehouse Updated',
-        'OneWearhouse'              => 'All Product in One Wearhouse?'
+        'OneWearhouse'              => 'All Product in One Wearhouse?',
+        'SelectWarehouse'           => 'Select Warehouse',
+
     ];
 ?>
