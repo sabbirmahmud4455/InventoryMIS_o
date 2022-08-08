@@ -83,7 +83,7 @@
                                                     <th>{{ __('Lot.Lot') }}</th>
                                                     <th>{{ __('Sale.Quantity') }}</th>
                                                     <th>{{ __('Sale.UnitPrice') }}</th>
-                                                    <td>{{ __('Sale.TotalPrice') }}</td>
+                                                    <th>{{ __('Sale.TotalPrice') }}</th>
 
                                                 </tr>
                                             </thead>

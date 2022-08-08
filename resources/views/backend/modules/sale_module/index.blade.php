@@ -76,7 +76,7 @@
                                                 </button>
                                             </div>
                                             <div class="col-md-3 form-group text-right">
-                                                <a href="{{ route('sale.report.index') }}" type="submit" class="btn btn-sm btn-danger">
+                                                <a href="{{ route('sale.index') }}" type="submit" class="btn btn-sm btn-danger">
                                                     <i class="fa fa-undo" ></i>
                                                 </a>
                                             </div>
@@ -96,7 +96,7 @@
                                         <th>{{ __('Sale.ChallanNo') }}</th>
                                         <th>{{ __('Customer.CustomerName') }}</th>
                                         <th>{{ __('Customer.CustomerPhone') }}</th>
-                                        <td>{{ __('Sale.TotalPrice') }}</td>
+                                        <th>{{ __('Sale.TotalPrice') }}</th>
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>
                                     </thead>
@@ -119,6 +119,11 @@
                                                         <a class="dropdown-item" href="{{ route('sale.details', ['id' => encrypt($sale->id)]) }}">
                                                             <i class="fas fa-eye"></i>
                                                             {{ __('Application.Details') }}
+
+                                                        </a>
+                                                        <a class="dropdown-item" href="{{ route('sale.invoice', ['id' => encrypt($sale->id)]) }}">
+                                                            <i class="fas fa-file-invoice"></i>
+                                                            {{ __('Sale.SaleInvoice') }}
 
                                                         </a>
 

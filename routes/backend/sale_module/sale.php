@@ -26,6 +26,14 @@ Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
 
 
     Route::post('/add', [SaleController::class, 'store_new_sale'])->name('store');
+
+
+    // sale invoice
+    Route::get('/invoice/{id}', [SaleController::class, 'sale_invoice'])->name('invoice');
+
+    // sale invoice export pdf
+    Route::get('/invoice-export-pdf/{id}', [SaleController::class, 'sale_invoice_export_pdf'])->name('invoice.export.pdf');
+
 });
 
 ?>

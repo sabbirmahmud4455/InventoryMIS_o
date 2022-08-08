@@ -83,10 +83,44 @@ class Sale extends Model
                         ON sale_details.variant_id = variants.id
                         LEFT JOIN lots
                         ON sale_details.lot_id = lots.id
-                        WHERE sale_id = ?
+                        WHERE sale_details.sale_id = ?
                         GROUP BY item_id, variant_id, unit_id;', [$sale_id]);
 
         return ['sale' => $sale, 'sale_details' => $sale_details];
+    }
+
+    // sale details
+    public function SaleInvoice($sale_id) {
+
+        $sale = DB::select('SELECT sales.id, sales.date, sales.challan_no, sales.customer_id, sales.status, sales.total_amount,
+                    customers.name AS customer_name, customers.contact_no AS customer_phone, customers.address AS customer_address
+                    FROM sales
+                    LEFT JOIN customers
+                    ON sales.customer_id = customers.id
+                    WHERE sales.id = ? ;', [$sale_id]);
+
+        $sale_details = DB::select('SELECT sale_details.id, sale_details.sale_id,
+                        items.name AS item_name, units.name AS unit_name, variants.name AS variant_name,
+                        lots.name AS lot_name, quantity, unit_price, total_price
+                        FROM sale_details
+                        LEFT JOIN items
+                        ON sale_details.item_id = items.id
+                        LEFT JOIN units
+                        ON sale_details.unit_id = units.id
+                        LEFT JOIN variants
+                        ON sale_details.variant_id = variants.id
+                        LEFT JOIN lots
+                        ON sale_details.lot_id = lots.id
+                        WHERE sale_id = ?
+                        GROUP BY item_id, variant_id, unit_id;', [$sale_id]);
+
+        $sale_transaction = DB::select('SELECT transactions.id, transactions.date, transactions.transaction_code, transactions.invoice_no,
+                            transactions.customer_id, transactions.sale_id, transactions.cash_in,
+                            transactions.cash_out, transactions.status
+                            FROM transactions
+                            WHERE sale_id = ?;', [$sale_id]);
+
+        return ['sale' => $sale, 'sale_details' => $sale_details, 'sale_transaction' => $sale_transaction];
     }
 
 
