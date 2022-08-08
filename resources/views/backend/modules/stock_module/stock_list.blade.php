@@ -1,8 +1,9 @@
 @extends("backend.template.layout")
 
 @section('per_page_css')
-    <link href="{{ asset('backend/css/datatable/jquery.dataTables.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('backend/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+<link href="{{ asset('backend/css/select2/form-select2.min.css') }}" rel="stylesheet">
+<link href="{{ asset('backend/css/select2/select2-materialize.css') }}" rel="stylesheet">
+<link href="{{ asset('backend/css/select2/select2.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('body-content')
@@ -50,11 +51,84 @@
                                         <h5>{{ __('Stock.StockList') }}</h5>
                                     </div>
                                     <div class="col-md-6">
-                                        <a href="{{ route('stock.list.export.pdf', ['warehouse' => $warehouse, 'stock_date' => $stock_date]) }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a>
+                                        {{-- <a href="{{ route('stock.list.export.pdf', ['warehouse' => request('warehouse_id')? request('warehouse_id') : '', 'stock_date' => "adf"]) }}" target="_blank" class="btn btn-sm btn-info float-right">{{ __("Application.Download") }}</a> --}}
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
+
+                                <form action="" method="get">
+
+                                    <div class="row pb-2">
+                                        <div class="col-md-2">
+                                            <label>{{ __('Item.Item') }}</label>
+                                            <select name="item_id" class="form-control form-control-sm select2" onchange="item_change()"
+                                                id="item_id">
+                                                <option value="" selected >{{ __('Item.SelectItem') }}</option>
+                                                @foreach ($active_items as $item)
+                                                    <option {{ request("item_id") == $item->id ? "selected" : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div id="variant_unit" class="col-md-2 d-none">
+                                            <label>{{ __('Item.ItemVariant') }}</label>
+                                            <select name="item_variant_unit" class="form-control form-control-sm select2 "
+                                                id="item_variant_unit" >
+                                                <option value="" selected >{{ __('variant.SelectVarient') }}</option>
+                                            </select>
+                                        </div>
+
+
+                                        {{-- Item Varient --}}
+                                        <div id="variant" class="col-md-2">
+                                            <label>{{ __('Item.ItemVariant') }}</label>
+                                            <select name="item_varient" class="form-control form-control-sm select2" id="item_varient">
+                                                <option value="" selected>{{ __('variant.SelectVariant') }}</option>
+                                                @foreach ($variants as $variant)
+                                                    <option {{ request('item_varient') == $variant->id ? "selected" : '' }} value="{{ $variant->id }}">{{ $variant->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        {{-- Unit --}}
+
+                                        <div id="unit" class="col-md-2">
+                                            <label>{{ __('Unit.Unit') }}</label>
+                                            <select name="item_unit" class="form-control form-control-sm select2" id="item_unit">
+                                                <option value="" selected>{{ __('Unit.SelectUnit') }}</option>
+                                                @foreach ($units as $unit)
+                                                    <option {{ request('item_unit') == $unit->id ? "selected" : '' }} value="{{ $unit->id }}">{{ $unit->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label>{{ __('Warehouse.Warehouse') }}</label>
+                                            <select name="warehouse_id" class="form-control form-control-sm select2" id="warehouse_id">
+                                                <option value="" selected>{{ __('Warehouse.SelectWarehouse') }}</option>
+
+                                                @foreach ($active_warehouses as $warehouse)
+                                                    <option {{ request('warehouse_id') == $warehouse->id ? 'selected' : '' }} value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-2 text-left d-flex align-items-end">
+                                            <a href="{{ route('stock.list') }}" type="submit" class="btn btn-sm btn-danger">
+                                                <i class="fa fa-undo" ></i>
+                                            </a>
+                                            <button type="submit" class="btn btn-sm btn-outline-dark ml-1 ">
+                                                {{ __('Application.Filter') }}
+                                            </button>
+                                        </div>
+                                        <div class="col-md-2 form-group text-right ">
+
+                                        </div>
+                                    </div>
+                                </form>
+
+
                                 <table class="table table-bordered table-sm table-striped dataTable dtr-inline datatable-data"
                                        id="datatable">
                                     <thead>
@@ -113,8 +187,77 @@
 @endsection
 
 @section('per_page_js')
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="{{ asset('backend/js/custom-script.min.js') }}"></script>
-    <script src="{{  asset('backend/js/ajax_form_submit.js') }}"></script>
+
+<script src="{{ asset('backend/js/select2/form-select2.min.js') }}"></script>
+<script src="{{ asset('backend/js/select2/select2.full.min.js') }}"></script>
+<script>
+
+
+    $(document).ready(function domReady() {
+        $(".select2").select2({
+            dropdownAutoWidth: true,
+            width: '100%'
+        });
+
+
+    });
+
+
+    function item_change(){
+        const select = "{{ request("item_variant_unit") }}";
+
+        console.log(select);
+
+        const item_id = $("#item_id").val();
+        const variant_id = $('#item_variant_unit');
+
+        if (item_id) {
+            $('#variant_unit').removeClass('d-none');
+            $('#variant').addClass('d-none');
+            $('#unit').addClass('d-none');
+
+        } else {
+            $('#variant_unit').addClass('d-none');
+            $('#variant').removeClass('d-none');
+            $('#unit').removeClass('d-none');
+            variant_id.val('');
+        }
+
+        $('.loading').show();
+        $.ajax({
+            url: "{{ route('sale.item_stock_variant') }}",
+            data: {
+                item_id: item_id
+            },
+            method: 'GET',
+            success: function (data) {
+                $('.loading').hide();
+
+                variant_id.html(
+                    '<option value="" selected disabled>Choose Variant</option>');
+                $.each(data, function (index, value) {
+
+                    const id = `${value.variant_id}_${value.unit_id}`;
+
+                    const adf = select == id ? 'selected' : '';
+
+                    variant_id.append(`<option ${adf} value = "${id}"> ${value.variant_name}
+                        ( ${value.unit_name} )</option>`)
+                });
+            }
+        });
+    }
+
+        item_change();
+
+
+</script>
+
+
+
+
+
+
+
 
 @endsection

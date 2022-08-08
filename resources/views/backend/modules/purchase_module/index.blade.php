@@ -1,9 +1,18 @@
 @extends("backend.template.layout")
 
+
 @section('per_page_css')
-<link href="{{ asset('backend/css/datatable/jquery.dataTables.min.css') }}" rel="stylesheet">
-<link href="{{ asset('backend/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('backend/css/select2/form-select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/css/select2/select2-materialize.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/css/select2/select2.min.css') }}" rel="stylesheet">
+
+    <!-- DatePicker CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- DatePicker CSS -->
 @endsection
+
+
 
 @section('body-content')
 <div class="content-wrapper" style="min-height: 147px;">
@@ -44,9 +53,38 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary card-outline table-responsive">
-                        <div class="row">
 
-                        </div>
+                        <form action="" method="get" class="px-3 pt-1">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Select Supplier</label>
+                                      <select class="form-control select2" name="supplier_id">
+                                        <option value="" selected>Select Supplier</option>
+                                        @foreach ($suppliers as $supplier)
+                                            <option {{ request('supplier_id') == $supplier->id ? 'selected' : '' }} value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                        @endforeach
+                                      </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-3 form-group">
+                                    <label for="">Select Date</label>
+                                    <input type="text" class="form-control" name="purchase_date" value="{{ request()->purchase_date }}">
+                                </div>
+                                <div class="col-md-3 form-group text-left d-flex align-items-end">
+                                    <button type="submit" class="btn btn-sm btn-outline-dark ">
+                                        {{ __('Application.Submit') }}
+                                    </button>
+                                </div>
+                                <div class="col-md-3 form-group text-right ">
+                                    <a href="{{ route('purchase.index') }}" type="submit" class="btn btn-sm btn-danger">
+                                        <i class="fa fa-undo" ></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+
                         <div class="card-body">
                             <table class="table table-bordered table-striped dataTable dtr-inline datatable-data"
                                 id="datatable">
@@ -118,8 +156,39 @@
 @endsection
 
 @section('per_page_js')
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="{{ asset('backend/js/custom-script.min.js') }}"></script>
-<script src="{{  asset('backend/js/ajax_form_submit.js') }}"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<!-- DatePicker JS -->
+
+<script src="{{ asset('backend/js/select2/form-select2.min.js') }}"></script>
+<script src="{{ asset('backend/js/select2/select2.full.min.js') }}"></script>
+
+<script>
+    $('input[name="purchase_date"]').daterangepicker({
+        opens: 'left',
+        autoUpdateInput: false,
+
+        locale: {
+            cancelLabel: 'Clear',
+        }
+    }, function(start, end, label) {
+        // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
+
+    $('input[name="purchase_date"]').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+    });
+
+    $('input[name="purchase_date"]').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+    });
+
+    $(".select2").select2({
+        dropdownAutoWidth: true,
+        width: '100%',
+        // dropdownParent: $('#myModal')
+    });
+</script>
 
 @endsection
