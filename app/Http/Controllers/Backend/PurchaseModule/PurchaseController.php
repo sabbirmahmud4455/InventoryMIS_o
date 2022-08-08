@@ -34,8 +34,8 @@ class PurchaseController extends Controller
             if($request->purchase_date) {
                 $date = explode('-', $request->purchase_date);
 
-                $start_date = Carbon::parse($date[0])->toDateString();
-                $end_date = Carbon::parse($date[1])->toDateString();
+                $start_date = Carbon::parse($date[0])->format('Y-m-d');
+                $end_date = Carbon::parse($date[1])->format('Y-m-d');
 
                 $purchases = $purchases->whereBetween('date', [$start_date, $end_date]);
             }
@@ -47,8 +47,9 @@ class PurchaseController extends Controller
             }
 
             $purchases = $purchases->get();
+            $suppliers = Supplier::select('id', 'name', 'is_active')->where('is_active', true)->get();
 
-            return view('backend.modules.purchase_module.index', compact('purchases'));
+            return view('backend.modules.purchase_module.index', compact('purchases', 'suppliers'));
         } else {
             return view('errors.404');
         }
