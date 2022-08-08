@@ -4,7 +4,14 @@ use App\Http\Controllers\Backend\SaleModule\SaleController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
+
     Route::get('/', [SaleController::class, 'index'])->name('index');
+
+    // sale details
+    Route::get('/details/{id}', [SaleController::class, 'sale_details'])->name('details');
+
+    // sale details export pdf
+    Route::get('/details-export-pdf/{id}', [SaleController::class, 'sale_details_export_pdf'])->name('details.export.pdf');
 
     // Add New sale
     Route::get('/add', [SaleController::class, 'add_new_sale'])->name('add');
@@ -19,6 +26,14 @@ Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
 
 
     Route::post('/add', [SaleController::class, 'store_new_sale'])->name('store');
+
+
+    // sale invoice
+    Route::get('/invoice/{id}', [SaleController::class, 'sale_invoice'])->name('invoice');
+
+    // sale invoice export pdf
+    Route::get('/invoice-export-pdf/{id}', [SaleController::class, 'sale_invoice_export_pdf'])->name('invoice.export.pdf');
+
 });
 
 ?>

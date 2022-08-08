@@ -17,5 +17,7 @@
         'PaymentBy' => 'Payment By',
         'Cash' => 'Cash',
         'Bank' => 'Bank',
+        'SaleDetails' => 'Sale Details',
+        'SaleInvoice' => 'Sale Invoice',
     ];
 ?>
