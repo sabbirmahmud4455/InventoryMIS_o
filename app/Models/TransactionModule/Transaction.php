@@ -86,6 +86,7 @@ class Transaction extends Model
         return $bank_transactions;
     }
 
+    // TOTAL CASH TRANSACTIONS COUNT
     public function TotalCashTransactionCount()
     {
         $total_cash_transaction = DB::select("SELECT COUNT(id) as total_cash_transactions
@@ -94,7 +95,7 @@ class Transaction extends Model
 
         return $total_cash_transaction;
     }
-    // All Cash Transaction
+    // ALL CASH TRANSACTIONS
     public function AllCashTransactions()
     {
         $cash_transactions = DB::select("SELECT id, date, transaction_code, narration, status, cash_in, cash_out
@@ -105,6 +106,7 @@ class Transaction extends Model
         return $cash_transactions;
     }
 
+    // TODAY CASH IN TRANSACTIONS
     public function TodayCashInTransactions($date)
     {
         $today_cash_in_amount = DB::select("SELECT SUM(cash_in) as today_cash_in
@@ -114,6 +116,7 @@ class Transaction extends Model
         return $today_cash_in_amount;
     }
 
+    // TODAY CASH OUT TRANSACTIONS
     public function TodayCashOutTransactions($date)
     {
         $today_cash_out_amount = DB::select("SELECT SUM(cash_out) as today_cash_out
@@ -123,6 +126,7 @@ class Transaction extends Model
         return $today_cash_out_amount;
     }
 
+    // CURRENT CASH BALANCE
     public function CurrentCashBalance()
     {
         $current_cash_balance = DB::select("SELECT (SUM(cash_in) - SUM(cash_out)) as cash_balance
@@ -130,6 +134,26 @@ class Transaction extends Model
         WHERE payment_by = 'CASH' AND bank_id IS NULL;");
 
         return $current_cash_balance;
+    }
+
+    // TOTAL CASH IN
+    public function TotalCashIn()
+    {
+        $total_cash_in = DB::select("SELECT SUM(cash_in) as total_cash_in
+        FROM transactions
+        WHERE payment_by = 'CASH' AND bank_id IS NULL;");
+
+        return $total_cash_in;
+    }
+
+    // TOTAL CASH OUT
+    public function TotalCashOut()
+    {
+        $total_cash_out = DB::select("SELECT SUM(cash_out) as total_cash_out
+        FROM transactions
+        WHERE payment_by = 'CASH' AND bank_id IS NULL;");
+
+        return $total_cash_out;
     }
 
     public function bank() {

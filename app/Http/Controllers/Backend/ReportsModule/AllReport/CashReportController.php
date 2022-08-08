@@ -20,9 +20,11 @@ class CashReportController extends Controller
             $today_cash_in_amount = $transaction->TodayCashInTransactions($today);
             $today_cash_out_amount = $transaction->TodayCashOutTransactions($today);
             $current_cash_balance = $transaction->CurrentCashBalance();
+            $total_cash_in = $transaction->TotalCashIn();
+            $total_cash_out = $transaction->TotalCashOut();
 
             return view('backend.modules.reports_module.all_report.cash_report.index', compact('cash_transactions', 'today_cash_in_amount',
-                        'today_cash_out_amount', 'total_cash_transaction', 'current_cash_balance'));
+                        'today_cash_out_amount', 'total_cash_transaction', 'current_cash_balance', 'total_cash_in', 'total_cash_out'));
         } else {
             return view('errors.404');
         }

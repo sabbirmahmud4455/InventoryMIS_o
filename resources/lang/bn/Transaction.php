@@ -22,6 +22,8 @@
         'TotalCashTransactions'     => 'মোট নগদ লেনদেন',
         'TodayCashInTransaction'    => 'আজ ক্যাশ ইন লেনদেন',
         'TodayCashOutTransaction'   => 'আজ ক্যাশ আউট লেনদেন',
+        'TotalCashIn'               => 'মোট নগদ ইন',
+        'TotalCashOut'              => 'মোট নগদ আউট',
         'TotalCashAmount'           => 'মোট নগদ পরিমাণ',
         'CashTransactionsList'      => 'নগদ লেনদেনের তালিকা'
 

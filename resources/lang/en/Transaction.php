@@ -22,6 +22,8 @@
         'TotalCashTransactions'     => 'Total Cash Transactions',
         'TodayCashInTransaction'    => 'Today Cash IN Transaction',
         'TodayCashOutTransaction'   => 'Today Cash Out Transaction',
+        'TotalCashIn'               => 'Total Cash IN',
+        'TotalCashOut'              => 'Total Cash Out',
         'TotalCashAmount'           => 'Total Cash Amount',
         'CashTransactionsList'      => 'Cash Transactions List'
     ];

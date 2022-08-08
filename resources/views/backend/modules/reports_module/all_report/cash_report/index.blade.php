@@ -58,28 +58,42 @@
                         <div class="card-body">
                             <div class="row">
 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="card balance-card">
                                         <span style="margin-top: 15%">{{ __('Transaction.TotalCashTransactions') }}</span>
-                                        {{ $total_cash_transaction[0]->total_cash_transactions }}
+                                        {{ $total_cash_transaction[0]->total_cash_transactions ? $total_cash_transaction[0]->total_cash_transactions : '0'}}
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="card balance-card">
                                         <span style="margin-top: 15%">{{ __('Transaction.TodayCashInTransaction') }}</span>
-                                        {{ $today_cash_in_amount[0]->today_cash_in }}
+                                        {{ $today_cash_in_amount[0]->today_cash_in ? $today_cash_in_amount[0]->today_cash_in : '0' }}
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="card balance-card">
                                         <span style="margin-top: 15%">{{ __('Transaction.TodayCashOutTransaction') }}</span>
-                                        {{ $today_cash_out_amount[0]->today_cash_out }}
+                                        {{ $today_cash_out_amount[0]->today_cash_out ? $today_cash_out_amount[0]->today_cash_out : '0' }}
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
+                                    <div class="card balance-card">
+                                        <span style="margin-top: 15%">{{ __('Transaction.TotalCashIn') }}</span>
+                                        {{ $total_cash_in[0]->total_cash_in ? $total_cash_in[0]->total_cash_in : '0' }}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="card balance-card">
+                                        <span style="margin-top: 15%">{{ __('Transaction.TotalCashOut') }}</span>
+                                        {{ $total_cash_out[0]->total_cash_out ? $total_cash_out[0]->total_cash_out : '0' }}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
                                     <div class="card balance-card">
                                         <span style="margin-top: 15%">{{ __('Transaction.TotalCashAmount') }}</span>
                                         @if ($current_cash_balance[0]->cash_balance < 100)
@@ -126,6 +140,18 @@
                                         </td>
                                     </tr>
                                     @endforelse
+                                    <tr>
+                                        <td colspan="5" class="text-right">
+                                            <strong>{{ __('Application.Total') }}</strong>
+                                        </td>
+
+                                        <td>
+                                            <span class="badge badge-success"> {{ $total_cash_in[0]->total_cash_in ? $total_cash_in[0]->total_cash_in : '0' }} </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-danger">{{ $total_cash_out[0]->total_cash_out ? $total_cash_out[0]->total_cash_out : '0' }}</span>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

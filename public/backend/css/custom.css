@@ -93,7 +93,7 @@ div.dataTables_wrapper div.dataTables_processing {
 
 .balance-card{
     height: 120px;
-    width: 260px;
+    width: 100%;
     font-size: 15px;
     font-family: 'Bree Serif';
     background-color: white;

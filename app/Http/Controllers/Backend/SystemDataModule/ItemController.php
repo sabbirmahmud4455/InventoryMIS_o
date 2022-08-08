@@ -124,16 +124,16 @@ class ItemController extends Controller
                                 $item_variant = new ItemVariant();
                                 $item_variant->item_id = $item->id;
                                 $item_variant->variant_id = $variant_id;
-        
+
                                 $check_duplicate_item_variant = ItemVariant::where('item_id', $item->id)->where('variant_id',$variant_id)->get();
-        
+
                                 $ItemVariantDuplicateSwal = __('Item.ItemVariantDuplicateSwal');
                                 if (count($check_duplicate_item_variant) > 0) {
                                     return response()->json(['error' => $ItemVariantDuplicateSwal], 200);
                                 }
-        
+
                                 $item_variant->save();
-        
+
                             }
 
                         }
@@ -194,7 +194,7 @@ class ItemController extends Controller
                     $item->is_active = $request->is_active;
                     $item->is_delete = false;
                     $EditSwal = __('Item.EditSwal');
-                    
+
                     if( $item->save() ){
 
                         ItemVariant::where('item_id',$id)->delete();
@@ -207,16 +207,16 @@ class ItemController extends Controller
                                 $item_variant = new ItemVariant();
                                 $item_variant->item_id = $item->id;
                                 $item_variant->variant_id = $variant_id;
-        
+
                                 $check_duplicate_item_variant = ItemVariant::where('item_id', $item->id)->where('variant_id',$variant_id)->get();
-        
+
                                 $ItemVariantDuplicateSwal = __('Item.ItemVariantDuplicateSwal');
                                 if (count($check_duplicate_item_variant) > 0) {
                                     return response()->json(['error' => $ItemVariantDuplicateSwal], 200);
                                 }
-        
+
                                 $item_variant->save();
-        
+
                             }
 
                         }
