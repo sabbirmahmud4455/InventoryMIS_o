@@ -16,9 +16,9 @@ class ItemReportController extends Controller
     public function all_item_report() {
         if(can('item_report')) {
             $items = Item::with('stocks')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
-            
+
             return view('backend.modules.reports_module.all_report.item_report.all_item_report', compact('items'));
-            
+
         } else {
             return view('errors.404');
         }
@@ -28,7 +28,7 @@ class ItemReportController extends Controller
     public function all_item_report_export_pdf() {
         if(can('item_report')) {
             $items = Item::with('stocks')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
-            
+
             $company_info = CompanyInfo::first();
             $title = __('Report.AllItemReport');
 
@@ -76,7 +76,7 @@ class ItemReportController extends Controller
             )));
             $mpdf->Output("AllItemReport".'.pdf', "I");
 
-            
+
         } else {
             return view('errors.404');
         }
@@ -93,12 +93,12 @@ class ItemReportController extends Controller
             return view('errors.404');
         }
     }
-    
+
     //unit wise item report export pdf function
     public function unit_wise_item_report_export_pdf() {
         if(can('item_report')) {
             $unit_wise_item_group = StockInOut::with('unit', 'item')->get()->groupBy('unit_id');
-            
+
             $company_info = CompanyInfo::first();
             $title = __('Report.UnitWiseItemReport');
 
@@ -146,12 +146,12 @@ class ItemReportController extends Controller
             )));
             $mpdf->Output("UnitWiseItemReport".'.pdf', "I");
 
-            
+
         } else {
             return view('errors.404');
         }
     }
-    
+
     // unit wise item report
     public function variant_wise_item_report() {
         if(can('variant_wise_item_report')) {
@@ -164,12 +164,12 @@ class ItemReportController extends Controller
         }
     }
 
-        
+
     //unit wise item report export pdf function
     public function variant_wise_item_report_export_pdf() {
         if(can('variant_wise_item_report')) {
             $variant_wise_item_group = StockInOut::with('variant', 'item')->get()->groupBy('variant_id');
-            
+
             $company_info = CompanyInfo::first();
             $title = __('Report.VariantWiseItemReport');
 
@@ -217,7 +217,7 @@ class ItemReportController extends Controller
             )));
             $mpdf->Output("VariantWiseItemReport".'.pdf', "I");
 
-            
+
         } else {
             return view('errors.404');
         }

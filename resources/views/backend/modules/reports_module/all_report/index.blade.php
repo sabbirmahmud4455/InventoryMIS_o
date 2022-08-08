@@ -120,7 +120,7 @@
                                                 <a href="{{ route('unit.wise.item.report') }}" class="btn btn-sm btn-outline-primary all-report button_margin_bottom">{{ __('Report.UnitWiseItemReport') }}</a>
                                             @endif
                                             @if (can('variant_wise_item_report'))
-                                                <a href="{{ route('variant.wise.item.report') }}" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.VariantWiseItemReport') }}</a>
+{{--                                                <a href="{{ route('variant.wise.item.report') }}" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.VariantWiseItemReport') }}</a>--}}
                                             @endif
                                         </center>
                                     </div>
