@@ -122,9 +122,6 @@
                                                 {{ __('Application.Filter') }}
                                             </button>
                                         </div>
-                                        <div class="col-md-2 form-group text-right ">
-
-                                        </div>
                                     </div>
                                 </form>
 
@@ -206,8 +203,6 @@
     function item_change(){
         const select = "{{ request("item_variant_unit") }}";
 
-        console.log(select);
-
         const item_id = $("#item_id").val();
         const variant_id = $('#item_variant_unit');
 
@@ -223,32 +218,34 @@
             variant_id.val('');
         }
 
-        $('.loading').show();
-        $.ajax({
-            url: "{{ route('sale.item_stock_variant') }}",
-            data: {
-                item_id: item_id
-            },
-            method: 'GET',
-            success: function (data) {
-                $('.loading').hide();
+        if (item_id) {
+            $('.loading').show();
+            $.ajax({
+                url: "{{ route('sale.item_stock_variant') }}",
+                data: {
+                    item_id: item_id
+                },
+                method: 'GET',
+                success: function (data) {
+                    $('.loading').hide();
 
-                variant_id.html(
-                    '<option value="" selected disabled>Choose Variant</option>');
-                $.each(data, function (index, value) {
+                    variant_id.html(
+                        '<option value="" selected disabled>Choose Variant</option>');
+                    $.each(data, function (index, value) {
 
-                    const id = `${value.variant_id}_${value.unit_id}`;
+                        const id = `${value.variant_id}_${value.unit_id}`;
 
-                    const adf = select == id ? 'selected' : '';
+                        const adf = select == id ? 'selected' : '';
 
-                    variant_id.append(`<option ${adf} value = "${id}"> ${value.variant_name}
-                        ( ${value.unit_name} )</option>`)
-                });
-            }
-        });
+                        variant_id.append(`<option ${adf} value = "${id}"> ${value.variant_name}
+                            ( ${value.unit_name} )</option>`)
+                    });
+                }
+            });
+        }
     }
 
-        item_change();
+    item_change();
 
 
 </script>
