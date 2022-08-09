@@ -120,10 +120,18 @@
                                     <h4 class="btn btn-info rounded-pill btn-1">নগদ/বাকী/মেমো</h4>
                                     <h1>মেসার্স মান্নান এন্টারপ্রাইজ</h1>
                                     <h4 class="btn btn-info rounded-pill btn-2">প্রোঃ মোঃ আওলাদ হোসেন</h4>
-                                    <h6>প্রসিদ্ধ ধান, চাউল, ভূষা মালের আড়ৎ ও পাইকারী বিক্রেতা।</h6>
-                                    <h6>বলিভদ্র বাজার, রপ্তানী এলাকা, আশুলিয়া, সাভার, ঢাকা।</h6>
-                                    <span style="float:left;" class="challan_no">নং- {{ $sale_details['sale'][0]->challan_no }} </span>  <span style="float:right">তারিখ- {{ $sale_details['sale'][0]->date }} </span>
-                                    <div class="input-group mb-3">
+                                    <p style="font-size: 15px">প্রসিদ্ধ ধান, চাউল, ভূষা মালের আড়ৎ ও পাইকারী বিক্রেতা।</p>
+                                    <p style="font-size: 15px">বলিভদ্র বাজার, রপ্তানী এলাকা, আশুলিয়া, সাভার, ঢাকা।</p>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td><b> নং- </b> {{ $sale_details['sale'][0]->challan_no }}</td>
+                                                <td style="text-align: right"><b>তারিখ - </b> {{ $sale_details['sale'][0]->date }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+{{--                                    <span style="float:left;" class="challan_no">নং- {{ $sale_details['sale'][0]->challan_no }} </span>  <span style="float:right">তারিখ- {{ $sale_details['sale'][0]->date }} </span>--}}
+                                    {{--<div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">ক্রেতার নাম - </span>
                                             <span>{{ $sale_details['sale'][0]->customer_name }}</span>
@@ -134,7 +142,15 @@
                                             <span class="input-group-text">ঠিকানা - </span>
                                             <span>{{ $sale_details['sale'][0]->customer_address }}</span>
                                         </div>
-                                    </div>
+                                    </div>--}}
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td><b>ক্রেতার নাম - </b> {{ $sale_details['sale'][0]->customer_name }}</td>
+                                            <td style="text-align: right"><b>ঠিকানা - </b> {{ $sale_details['sale'][0]->customer_address }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                     <table class="table table-sm table-bordered">
                                         <thead>
                                         <tr>
@@ -148,6 +164,7 @@
                                         </thead>
                                         @php
                                             $total_price = 0;
+                                            $total_quantity = 0;
                                         @endphp
                                         <tbody>
                                         @foreach($sale_details['sale_details'] as $sale_detail)
@@ -155,6 +172,9 @@
                                                 <td>{{ $sale_detail->lot_name }}</td>
                                                 <td>{{ $sale_detail->item_name }}</td>
                                                 <td>{{ $sale_detail->quantity }}</td>
+                                                @php
+                                                    $total_quantity += $sale_detail->quantity;
+                                                @endphp
                                                 <td>{{ $sale_detail->variant_name }}</td>
                                                 <td>{{ '৳ ' . number_format($sale_detail->unit_price, 0) }}</td>
                                                 <td>{{ '৳ ' . number_format($sale_detail->total_price, 0) }}</td>
@@ -196,6 +216,34 @@
                                                 <td>{{ '৳ ' . number_format($due, 0) }}</td>
                                             </tr>
                                         </tfooter>
+                                    </table>
+                                    <p>বিঃ দ্রঃ উল্লেখিত সমস্ত মাল ওজনে সঠিক দরে নমুনা অনুযায়ী বুঝিয়া পাইলাম।</p>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td>ক্রেতার স্বাক্ষর</td>
+                                            <td style="text-align: right">মেসার্স মান্নান এন্টারপ্রাইজ - এর পক্ষে</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr>
+                                    <h1>মেসার্স মান্নান এন্টারপ্রাইজ</h1>
+                                    <p style="font-size: 17px; font-weight: bold">রপ্তানি প্রমান পত্র</p>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td><b> নং- </b> {{ $sale_details['sale'][0]->challan_no }}</td>
+                                            <td style="text-align: right"><b>তারিখ - </b> {{ $sale_details['sale'][0]->date }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td><b>ক্রেতার নাম - </b> {{ $sale_details['sale'][0]->customer_name }} </td>
+                                            <td style="text-align: right"><b>বস্তা পরিমান - </b> {{ $total_quantity }} </td>
+                                        </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
