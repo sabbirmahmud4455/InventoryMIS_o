@@ -56,8 +56,8 @@
                                             <h4 class="btn btn-info rounded-pill">নগদ/বাকী/মেমো</h4>
                                             <h1>মেসার্স মান্নান এন্টারপ্রাইজ</h1>
                                             <h4 class="btn btn-info rounded-pill">প্রোঃ মোঃ আওলাদ হোসেন</h4>
-                                            <h5>প্রসিদ্ধ ধান, চাউল, ভূষা মালের আড়ৎ ও পাইকারী বিক্রেতা।</h5>
-                                            <h5>বলিভদ্র বাজার, রপ্তানী এলাকা, আশুলিয়া, সাভার, ঢাকা।</h5>
+                                            <h6>প্রসিদ্ধ ধান, চাউল, ভূষা মালের আড়ৎ ও পাইকারী বিক্রেতা।</h6>
+                                            <h6>বলিভদ্র বাজার, রপ্তানী এলাকা, আশুলিয়া, সাভার, ঢাকা।</h6>
                                             <p> <span style="float:left">নং- {{ $sale_details['sale'][0]->challan_no }} </span>  <span style="float:right">তারিখ- {{ $sale_details['sale'][0]->date }} </span> </p>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
@@ -103,29 +103,29 @@
                                                 <tfooter>
                                                     <tr>
                                                         <td colspan="4" rowspan="5"></td>
-                                                        <td>মোট-</td>
+                                                        <th>মোট-</th>
                                                         <td>{{ '৳ ' . number_format($total_price, 0) }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>সাবেক-</td>
+                                                        <th>সাবেক-</th>
                                                         <td>{{ '৳ ' . number_format($customer_previous_balance, 0) }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>সর্বমোট-</td>
+                                                        <th>সর্বমোট-</th>
                                                         @php
                                                             $grand_total = $total_price + $customer_previous_balance;
                                                         @endphp
                                                         <td>{{ '৳ ' . number_format($grand_total, 0) }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>জমা-</td>
+                                                        <th>জমা-</th>
                                                         @php
                                                             $deposit = count($sale_details['sale_transaction']) > 1 ? $sale_details['sale_transaction'][1]->cash_in : 0;
                                                         @endphp
                                                         <td>{{ '৳ ' . number_format($deposit, 0) }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>বাকী-</td>
+                                                        <th>বাকী-</th>
                                                         @php
                                                             $due = $grand_total - $deposit;
                                                         @endphp

@@ -60,6 +60,34 @@
         .mrg{
             margin-left: 50% !important;
         }
+        .btn-1 {
+            /*display: block;*/
+            width: 100px;
+            margin: 0 auto;
+            /*position: absolute;*/
+            /*text-align: center;*/
+            color: #fff;
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+            box-shadow: none;
+            border-radius: 50rem !important;
+            padding: 15px;
+
+        }
+        .btn-2 {
+            /*display: block;*/
+            width: 150px;
+            margin: 0 auto;
+            /*position: absolute;*/
+            /*text-align: center;*/
+            color: #fff;
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+            box-shadow: none;
+            border-radius: 50rem !important;
+            padding: 15px;
+
+        }
 
     </style>
 </head>
@@ -88,24 +116,24 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 table-responsive">
-                                <center>
-                                    <h4 class="btn btn-info rounded-pill">নগদ/বাকী/মেমো</h4>
+                                <div style="text-align: center;">
+                                    <h4 class="btn btn-info rounded-pill btn-1">নগদ/বাকী/মেমো</h4>
                                     <h1>মেসার্স মান্নান এন্টারপ্রাইজ</h1>
-                                    <h4 class="btn btn-info rounded-pill">প্রোঃ মোঃ আওলাদ হোসেন</h4>
-                                    <h5>প্রসিদ্ধ ধান, চাউল, ভূষা মালের আড়ৎ ও পাইকারী বিক্রেতা।</h5>
-                                    <h5>বলিভদ্র বাজার, রপ্তানী এলাকা, আশুলিয়া, সাভার, ঢাকা।</h5>
-                                    <p> <span style="margin-right: 100px;">নং- {{ $sale_details['sale'][0]->challan_no }} </span>  <span style="margin-left: 100px;">তারিখ- {{ $sale_details['sale'][0]->date }} </span> </p>
+                                    <h4 class="btn btn-info rounded-pill btn-2">প্রোঃ মোঃ আওলাদ হোসেন</h4>
+                                    <h6>প্রসিদ্ধ ধান, চাউল, ভূষা মালের আড়ৎ ও পাইকারী বিক্রেতা।</h6>
+                                    <h6>বলিভদ্র বাজার, রপ্তানী এলাকা, আশুলিয়া, সাভার, ঢাকা।</h6>
+                                    <span style="float:left;" class="challan_no">নং- {{ $sale_details['sale'][0]->challan_no }} </span>  <span style="float:right">তারিখ- {{ $sale_details['sale'][0]->date }} </span>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">ক্রেতার নাম</span>
+                                            <span class="input-group-text">ক্রেতার নাম - </span>
+                                            <span>{{ $sale_details['sale'][0]->customer_name }}</span>
                                         </div>
-                                        <input type="text" value="{{ $sale_details['sale'][0]->customer_name }}" class="form-control" readonly>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">ঠিকানা</span>
+                                            <span class="input-group-text">ঠিকানা - </span>
+                                            <span>{{ $sale_details['sale'][0]->customer_address }}</span>
                                         </div>
-                                        <input type="text" value="{{ $sale_details['sale'][0]->customer_address }}" class="form-control" readonly>
                                     </div>
                                     <table class="table table-sm table-bordered">
                                         <thead>
@@ -131,34 +159,37 @@
                                                 <td>{{ '৳ ' . number_format($sale_detail->unit_price, 0) }}</td>
                                                 <td>{{ '৳ ' . number_format($sale_detail->total_price, 0) }}</td>
                                             </tr>
+                                            @php
+                                                $total_price += $sale_detail->total_price;
+                                            @endphp
                                         @endforeach
                                         </tbody>
                                         <tfooter>
                                             <tr>
                                                 <td colspan="4" rowspan="5"></td>
-                                                <td>মোট-</td>
+                                                <th>মোট-</th>
                                                 <td>{{ '৳ ' . number_format($total_price, 0) }}</td>
                                             </tr>
                                             <tr>
-                                                <td>সাবেক-</td>
+                                                <th>সাবেক-</th>
                                                 <td>{{ '৳ ' . number_format($customer_previous_balance, 0) }}</td>
                                             </tr>
                                             <tr>
-                                                <td>সর্বমোট-</td>
+                                                <th>সর্বমোট-</th>
                                                 @php
                                                     $grand_total = $total_price + $customer_previous_balance;
                                                 @endphp
                                                 <td>{{ '৳ ' . number_format($grand_total, 0) }}</td>
                                             </tr>
                                             <tr>
-                                                <td>জমা-</td>
+                                                <th>জমা-</th>
                                                 @php
-                                                    $deposit = $sale_details['sale_transaction'][1]->cash_in;
+                                                    $deposit = count($sale_details['sale_transaction']) > 1 ? $sale_details['sale_transaction'][1]->cash_in : 0;
                                                 @endphp
                                                 <td>{{ '৳ ' . number_format($deposit, 0) }}</td>
                                             </tr>
                                             <tr>
-                                                <td>বাকী-</td>
+                                                <th>বাকী-</th>
                                                 @php
                                                     $due = $grand_total - $deposit;
                                                 @endphp
@@ -166,7 +197,7 @@
                                             </tr>
                                         </tfooter>
                                     </table>
-                                </center>
+                                </div>
                             </div>
                         </div>
                     </div>
