@@ -86,24 +86,32 @@
                 @if ($items && count($items) > 0)
                     <table class="table table-sm table-bordered text-center">
                         <thead>
-                            <tr>
-                                <th>{{ __('Application.SerialNo') }}</th>
-                                <th>{{ __('Item.Name') }}</th>
-                                <th>{{ __('Report.TotalItem') }}</th>
-                            </tr>
+                        <tr>
+                            <th>{{ __('Application.SerialNo') }}</th>
+                            <th>{{ __('Item.Name') }}</th>
+                            <th>{{ __('Report.TotalItem') }}</th>
+                        </tr>
                         </thead>
+                        @php
+                            $total_item = 0;
+                        @endphp
                         <tbody>
-                            @foreach ($items as $key => $item)
-                                <tr>
-                                    <td style="text-align: center">{{ ++ $key }}</td>
-                                    <td style="text-align: center">{{ $item->name }}</td>
-                                    @php
-                                        $in_quantity = $item->stocks->sum('in_quantity');
-                                        $out_quantity = $item->stocks->sum('out_quantity');
-                                    @endphp
-                                    <td style="text-align: center">{{ $in_quantity - $out_quantity }}</td>
-                                </tr>
-                            @endforeach
+                        @foreach ($items as $key => $item)
+                            <tr>
+                                <td>{{ ++ $key }}</td>
+                                <td>{{ $item->name }}</td>
+                                @php
+                                    $in_quantity = $item->stocks->sum('in_quantity');
+                                    $out_quantity = $item->stocks->sum('out_quantity');
+                                    $total_item += ($in_quantity - $out_quantity);
+                                @endphp
+                                <td>{{ $in_quantity - $out_quantity }}</td>
+                            </tr>
+                        @endforeach
+                        <tr style="background-color: #9F9F9F">
+                            <th colspan="2">{{ __('Application.Total') }}</th>
+                            <td>{{ $total_item }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 @else

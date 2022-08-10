@@ -72,13 +72,13 @@
                                                         $total_row += count($unit_wise_item) +1;
                                                     @endphp
                                                 @endforeach
-                                                
+
                                                 <tr>
-                                                    <td rowspan="{{ $total_row + 1 }}">{{ $unit_wise_items[0]->unit->name }}</td>
-                                                    
+                                                    <td rowspan="{{ $total_row + 1 }}" style="vertical-align: middle">{{ $unit_wise_items[0]->unit->name }}</td>
+
                                                     @foreach ($unit_wise_items->groupBY('item_id') as $unit_wise_item)
                                                         <tr>
-                                                            <td rowspan="{{ count($unit_wise_item) + 1 }}">{{ $unit_wise_item[0]->item->name }}</td>
+                                                            <td rowspan="{{ count($unit_wise_item) + 1 }}" style="vertical-align: middle">{{ $unit_wise_item[0]->item->name }}</td>
                                                             @foreach ($unit_wise_item as $item)
                                                                 <tr>
                                                                     <td>{{ \Carbon\Carbon::Parse($item->created_at)->format('d-M-Y') }}</td>
