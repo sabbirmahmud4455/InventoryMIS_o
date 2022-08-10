@@ -242,7 +242,7 @@ class SaleController extends Controller
                 $transaction_sale->invoice_no = $sale->challan_no;
 
                 ////////////////
-                $transaction_sale->transaction_type_id = 1;
+                // $transaction_sale->transaction_type_id = 1;
                 /////////
 
                 $transaction_sale->narration = 'Sale New Order';
@@ -263,7 +263,7 @@ class SaleController extends Controller
                     $transaction_deposit->invoice_no = $sale->challan_no;
 
                     ////////////////
-                    $transaction_deposit->transaction_type_id = 1;
+                    // $transaction_deposit->transaction_type_id = 1;
                     /////////
 
                     $transaction_deposit->narration = 'Sale Deposite Amount';

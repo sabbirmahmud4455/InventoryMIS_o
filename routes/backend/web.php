@@ -106,6 +106,11 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
         require_once 'reports_module/reports.php';
     });
 
+    // Return Module
+    Route::group(['prefix' => 'return-module'], function() {
+        require_once 'return_module/return.php';
+    });
+
 
 });
 //backend route group end
