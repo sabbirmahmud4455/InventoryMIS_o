@@ -58,6 +58,9 @@
                                                 <th>{{ __('Transaction.TransactionAmount') }}</th>
                                             </tr>
                                         </thead>
+                                        @php
+                                            $total_transaction = 0;
+                                        @endphp
                                         <tbody>
                                             @foreach ($transaction_types as $key => $transaction_type)
                                                 <tr>
@@ -67,10 +70,19 @@
                                                     @php
                                                         $cash_in = $transaction_type->transactions->sum('cash_in');
                                                         $cash_out = $transaction_type->transactions->sum('cash_out');
+                                                        $total_transaction += $cash_in - $cash_out;
                                                     @endphp
-                                                    <td>{{ '৳ ' . number_format($cash_in - $cash_out,) }}</td>
+                                                    @if($transaction_type->cash_type === 'Cash In')
+                                                        <td>{{ '৳ ' . number_format($cash_in, 0) }}</td>
+                                                    @elseif($transaction_type->cash_type === 'Cash Out')
+                                                        <td>{{ '৳ ' . number_format($cash_out, 0) }}</td>
+                                                    @endif
                                                 </tr>
                                             @endforeach
+                                            <tr style="background-color: #9F9F9F">
+                                                <th colspan="3">{{ __('Application.Total') }}</th>
+                                                <td>{{ '৳ ' . number_format($total_transaction, 0) }}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 @else

@@ -86,26 +86,38 @@
                 @if ($transaction_types && count($transaction_types) > 0)
                     <table class="table table-sm table-bordered text-center">
                         <thead>
-                            <tr>
-                                <th>{{ __('Application.SerialNo') }}</th>
-                                <th>{{ __('TransactionType.TransactionType') }}</th>
-                                <th>{{ __('TransactionType.CashType') }}</th>
-                                <th>{{ __('Transaction.TransactionAmount') }}</th>
-                            </tr>
+                        <tr>
+                            <th>{{ __('Application.SerialNo') }}</th>
+                            <th>{{ __('TransactionType.TransactionType') }}</th>
+                            <th>{{ __('TransactionType.CashType') }}</th>
+                            <th>{{ __('Transaction.TransactionAmount') }}</th>
+                        </tr>
                         </thead>
+                        @php
+                            $total_transaction = 0;
+                        @endphp
                         <tbody>
-                            @foreach ($transaction_types as $key => $transaction_type)
-                                <tr>
-                                    <td style="text-align: center">{{ ++ $key }}</td>
-                                    <td style="text-align: center">{{ $transaction_type->name }}</td>
-                                    <td style="text-align: center">{{ $transaction_type->cash_type }}</td>
-                                    @php
-                                        $cash_in = $transaction_type->transactions->sum('cash_in');
-                                        $cash_out = $transaction_type->transactions->sum('cash_out');
-                                    @endphp
-                                    <td style="text-align: center">{{ '৳ ' . number_format($cash_in - $cash_out,) }}</td>
-                                </tr>
-                            @endforeach
+                        @foreach ($transaction_types as $key => $transaction_type)
+                            <tr>
+                                <td>{{ ++ $key }}</td>
+                                <td>{{ $transaction_type->name }}</td>
+                                <td>{{ $transaction_type->cash_type }}</td>
+                                @php
+                                    $cash_in = $transaction_type->transactions->sum('cash_in');
+                                    $cash_out = $transaction_type->transactions->sum('cash_out');
+                                    $total_transaction += $cash_in - $cash_out;
+                                @endphp
+                                @if($transaction_type->cash_type === 'Cash In')
+                                    <td>{{ '৳ ' . number_format($cash_in, 0) }}</td>
+                                @elseif($transaction_type->cash_type === 'Cash Out')
+                                    <td>{{ '৳ ' . number_format($cash_out, 0) }}</td>
+                                @endif
+                            </tr>
+                        @endforeach
+                        <tr style="background-color: #9F9F9F">
+                            <th colspan="3">{{ __('Application.Total') }}</th>
+                            <td>{{ '৳ ' . number_format($total_transaction, 0) }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 @else
