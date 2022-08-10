@@ -41,7 +41,7 @@ class SystemDataReportController extends Controller
     //unit report export pdf function
     public function unit_report_export_pdf() {
         if(can('unit_report')) {
-            
+
             config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
             DB::reconnect(); // Reconnect to DB
 
@@ -108,7 +108,17 @@ class SystemDataReportController extends Controller
     //variant report function
     public function variant_report() {
         if(can('variant_report')) {
-            $variants = Variant::with('purchase_details')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
+
+            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
+            DB::reconnect(); // Reconnect to DB
+
+            $variant = new Variant();
+
+            $variants = $variant->VariantWithStock();
+
+            config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
+            DB::reconnect(); //Reconnect to DB
+
 
             return view('backend.modules.reports_module.all_report.system_data_report.variant_report.index', compact('variants'));
 
@@ -120,7 +130,16 @@ class SystemDataReportController extends Controller
     //variant report export pdf function
     public function variant_report_export_pdf() {
         if(can('variant_report')) {
-            $variants = Variant::with('purchase_details')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
+
+            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
+            DB::reconnect(); // Reconnect to DB
+
+            $variant = new Variant();
+
+            $variants = $variant->VariantWithStock();
+
+            config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
+            DB::reconnect(); //Reconnect to DB
 
             $company_info = CompanyInfo::first();
             $title = __('Report.VariantReport');
