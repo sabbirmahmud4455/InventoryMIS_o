@@ -13,16 +13,26 @@ use App\Models\SystemDataModule\Warehouse;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SystemDataReportController extends Controller
 {
     //unit report function
     public function unit_report() {
         if(can('unit_report')) {
-            $units = Unit::with('purchase_details')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
-            
+
+            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
+            DB::reconnect(); // Reconnect to DB
+
+            $unit = new Unit();
+
+            $units = $unit->UnitWithStock();
+
+            config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
+            DB::reconnect(); //Reconnect to DB
+
             return view('backend.modules.reports_module.all_report.system_data_report.unit_report.index', compact('units'));
-            
+
         } else {
             return view('errors.404');
         }
@@ -31,8 +41,17 @@ class SystemDataReportController extends Controller
     //unit report export pdf function
     public function unit_report_export_pdf() {
         if(can('unit_report')) {
-            $units = Unit::with('purchase_details')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
             
+            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
+            DB::reconnect(); // Reconnect to DB
+
+            $unit = new Unit();
+
+            $units = $unit->UnitWithStock();
+
+            config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
+            DB::reconnect(); //Reconnect to DB
+
             $company_info = CompanyInfo::first();
             $title = __('Report.UnitReport');
 
@@ -80,7 +99,7 @@ class SystemDataReportController extends Controller
             )));
             $mpdf->Output("UnitReport".'.pdf', "I");
 
-            
+
         } else {
             return view('errors.404');
         }
@@ -90,9 +109,9 @@ class SystemDataReportController extends Controller
     public function variant_report() {
         if(can('variant_report')) {
             $variants = Variant::with('purchase_details')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
-            
+
             return view('backend.modules.reports_module.all_report.system_data_report.variant_report.index', compact('variants'));
-            
+
         } else {
             return view('errors.404');
         }
@@ -102,7 +121,7 @@ class SystemDataReportController extends Controller
     public function variant_report_export_pdf() {
         if(can('variant_report')) {
             $variants = Variant::with('purchase_details')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
-            
+
             $company_info = CompanyInfo::first();
             $title = __('Report.VariantReport');
 
@@ -150,7 +169,7 @@ class SystemDataReportController extends Controller
             )));
             $mpdf->Output("VariantReport".'.pdf', "I");
 
-            
+
         } else {
             return view('errors.404');
         }
@@ -160,9 +179,9 @@ class SystemDataReportController extends Controller
     public function item_type_report() {
         if(can('item_type_report')) {
             $item_types = ItemType::with('items')->where('is_active', true)->orderBy('id', 'desc')->get();
-            
+
             return view('backend.modules.reports_module.all_report.system_data_report.item_type_report.index', compact('item_types'));
-            
+
         } else {
             return view('errors.404');
         }
@@ -172,7 +191,7 @@ class SystemDataReportController extends Controller
     public function item_type_report_export_pdf() {
         if(can('item_type_report')) {
             $item_types = ItemType::with('items')->where('is_active', true)->orderBy('id', 'desc')->get();
-            
+
             $company_info = CompanyInfo::first();
             $title = __('Report.ItemTypeReport');
 
@@ -220,7 +239,7 @@ class SystemDataReportController extends Controller
             )));
             $mpdf->Output("ItemTypeReport".'.pdf', "I");
 
-            
+
         } else {
             return view('errors.404');
         }
@@ -230,9 +249,9 @@ class SystemDataReportController extends Controller
     public function warehouse_report() {
         if(can('warehouse_report')) {
             $warehouses = Warehouse::with('stocks')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
-            
+
             return view('backend.modules.reports_module.all_report.system_data_report.warehouse_report.index', compact('warehouses'));
-            
+
         } else {
             return view('errors.404');
         }
@@ -242,7 +261,7 @@ class SystemDataReportController extends Controller
     public function warehouse_report_export_pdf() {
         if(can('warehouse_report')) {
             $warehouses = Warehouse::with('stocks')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
-            
+
             $company_info = CompanyInfo::first();
             $title = __('Report.WarehouseReport');
 
@@ -290,7 +309,7 @@ class SystemDataReportController extends Controller
             )));
             $mpdf->Output("WarehouseReport".'.pdf', "I");
 
-            
+
         } else {
             return view('errors.404');
         }
@@ -300,9 +319,9 @@ class SystemDataReportController extends Controller
     public function transaction_type_report() {
         if(can('transaction_type_report')) {
             $transaction_types = TransactionType::with('transactions')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
-            
+
             return view('backend.modules.reports_module.all_report.system_data_report.transaction_type_report.index', compact('transaction_types'));
-            
+
         } else {
             return view('errors.404');
         }
@@ -312,7 +331,7 @@ class SystemDataReportController extends Controller
     public function transaction_type_report_export_pdf() {
         if(can('transaction_type_report')) {
             $transaction_types = TransactionType::with('transactions')->where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
-            
+
             $company_info = CompanyInfo::first();
             $title = __('Report.TransactionTypeReport');
 
@@ -360,7 +379,7 @@ class SystemDataReportController extends Controller
             )));
             $mpdf->Output("TransactionTypeReport".'.pdf', "I");
 
-            
+
         } else {
             return view('errors.404');
         }
@@ -370,9 +389,9 @@ class SystemDataReportController extends Controller
     public function payment_type_report() {
         if(can('payment_type_report')) {
             $payment_types = PaymentType::where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
-            
+
             return view('backend.modules.reports_module.all_report.system_data_report.payment_type_report.index', compact('payment_types'));
-            
+
         } else {
             return view('errors.404');
         }
@@ -382,7 +401,7 @@ class SystemDataReportController extends Controller
     public function payment_type_report_export_pdf() {
         if(can('payment_type_report')) {
             $payment_types = PaymentType::where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
-            
+
             $company_info = CompanyInfo::first();
             $title = __('Report.PaymentTypeReport');
 
@@ -430,7 +449,7 @@ class SystemDataReportController extends Controller
             )));
             $mpdf->Output("PaymentTypeReport".'.pdf', "I");
 
-            
+
         } else {
             return view('errors.404');
         }
