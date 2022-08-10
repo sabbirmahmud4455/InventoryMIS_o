@@ -60,11 +60,11 @@
                                         <tbody>
                                             @foreach ($item_types as $key => $item_type)
                                                 <tr>
-                                                    <td>{{ ++ $key }}</td>
-                                                    <td>{{ $item_type->name }}</td>
+                                                    <td class="align-middle">{{ ++ $key }}</td>
+                                                    <td class="align-middle">{{ $item_type->name }}</td>
                                                     <td>
                                                         @foreach ($item_type->items as $item)
-                                                            <span>{{ $item->name . ' , ' }}</span>
+                                                            <span>{{ $item->name }}<br></span>
                                                         @endforeach
                                                     </td>
                                                 </tr>
