@@ -124,4 +124,14 @@ class Sale extends Model
     }
 
 
+    // Get All InvoiceNo/ChallanNo
+    public function GetSaleChallanNo()
+    {
+        $invoices = DB::select('SELECT id, challan_no FROM sales
+        ORDER BY id DESC;');
+
+        return $invoices;
+    }
+
+
 }

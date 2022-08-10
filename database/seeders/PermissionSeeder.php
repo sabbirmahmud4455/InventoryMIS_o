@@ -1205,10 +1205,65 @@ class PermissionSeeder extends Seeder
             ],
             // Reports Module Permission end
 
-
+            // Return Module Permission Start
+            [
+                'id' => 128,
+                'key' => 'return',
+                'display_name_en' => 'Return',
+                'display_name_bn' => 'রিটার্ন',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 129,
+                'key' => 'add_return',
+                'display_name_en' => '--- Add Return',
+                'display_name_bn' => '--- রিটার্ন যোগ করা',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 130,
+                'key' => 'customer_return',
+                'display_name_en' => '--- Customer Return',
+                'display_name_bn' => '--- ক্রেতার রিটার্ন',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 131,
+                'key' => 'customer_return_edit',
+                'display_name_en' => '--- Customer Return Edit',
+                'display_name_bn' => '--- ক্রেতার রিটার্ন পরিবর্তন',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 132,
+                'key' => 'supplier_return',
+                'display_name_en' => '--- Supplier Return',
+                'display_name_bn' => '--- মহাজন রিটার্ন',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 133,
+                'key' => 'supplier_return_edit',
+                'display_name_en' => '--- Supplier Return Edit',
+                'display_name_bn' => '--- মহাজনের রিটার্ন পরিবর্তন',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Return Module Permission End
 
         ]);
 
-        // Last ID: 127, New ID: 128
+        // Last ID: 133, New ID: 134
     }
 }

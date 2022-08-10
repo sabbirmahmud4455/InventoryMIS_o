@@ -141,9 +141,20 @@ class ModuleSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+            [
+                'id' => 12,
+                'name_en' => 'Return',
+                'name_bn' => 'রিটার্ন',
+                'key' => 'return',
+                'icon' => 'fa fa-retweet',
+                'position' => 11,
+                'route' => null,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
 
         ]);
 
-        // LAST ID : 11. NEXT ID : 12 [Settings Position : 20]
+        // LAST ID : 12. NEXT ID : 13 [Settings Position : 20]
     }
 }
