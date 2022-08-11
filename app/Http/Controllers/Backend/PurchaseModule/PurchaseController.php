@@ -159,7 +159,7 @@ class PurchaseController extends Controller
                 $transaction_purch->invoice_no = $purchase->challan_no;
 
                 ////////////////
-                $transaction_purch->transaction_type_id = 1;
+                // $transaction_purch->transaction_type_id = 1;
                 /////////
                 $transaction_purch->narration = 'Purchase New Order';
                 $transaction_purch->purchase_id = $purchase->id;
@@ -179,7 +179,7 @@ class PurchaseController extends Controller
                     $transaction_deposit->invoice_no = $purchase->challan_no;
 
                     ////////////////
-                    $transaction_deposit->transaction_type_id = 1;
+                    // $transaction_deposit->transaction_type_id = 1;
                     /////////
                     $transaction_deposit->narration = 'Purchase Deposite Amount';
                     $transaction_deposit->purchase_id = $purchase->id;

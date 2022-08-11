@@ -6,6 +6,7 @@ use App\Models\SupplierModule\Supplier;
 use App\Models\UserModule\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Purchase extends Model
 {
@@ -25,5 +26,15 @@ class Purchase extends Model
     public function created_by_user()
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    // Get Purchase InvoiceNo/ChallanNo
+    public function GetPurchaseChallanNo()
+    {
+        $purchase_challan_no = DB::select('SELECT id, challan_no
+        FROM purchases
+        ORDER BY id DESC;');
+
+        return $purchase_challan_no;
     }
 }
