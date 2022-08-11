@@ -52,6 +52,28 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-primary card-outline table-responsive">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th>{{ __('Supplier.SupplierName') }}</th>
+                                                    <td>{{ $supplier_transactions['supplier'][0]->name }}</td>
+                                                    <th>{{ __('Supplier.SupplierPhone') }}</th>
+                                                    <td>{{ $supplier_transactions['supplier'][0]->contact_no }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>{{ __('Supplier.SupplierCompany') }}</th>
+                                                    <td>{{ $supplier_transactions['supplier'][0]->company }}</td>
+                                                    <th>{{ __('Supplier.SupplierAddress') }}</th>
+                                                    <td>{{ $supplier_transactions['supplier'][0]->address }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="card-body">
                                 <table class="table table-bordered table-sm table-striped dataTable dtr-inline datatable-data">
@@ -74,7 +96,7 @@
                                     @endphp
 
                                     <tbody>
-                                        @forelse ($supplier_transactions as $key => $transaction)
+                                        @forelse ($supplier_transactions['supplier_transactions'] as $key => $transaction)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $transaction->date }}</td>
