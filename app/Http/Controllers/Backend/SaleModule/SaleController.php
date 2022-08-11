@@ -50,6 +50,10 @@ class SaleController extends Controller
                 $sales = $sale->DateCustomerWiseSale($request->customer_id, $start_date, $end_date);
             }
 
+            if ($request->sale_search) {
+                $sales = $sale->SaleSearch($request->sale_search);
+            }
+
             $customers = Customer::where('is_active', true)->orderBy('id', 'desc')->get();
 
             return view('backend.modules.sale_module.index', compact('sales', 'customers'));

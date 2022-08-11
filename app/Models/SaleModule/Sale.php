@@ -61,6 +61,19 @@ class Sale extends Model
         return $date_customer_wise_sale;
     }
 
+    // sale search
+    public function SaleSearch($sale_search)
+    {
+        $sale_search = DB::select('SELECT sales.id AS sale_id, sales.date, sales.challan_no, sales.customer_id, sales.total_amount,
+                        customers.id, customers.name AS customer_name , customers.contact_no AS customer_phone
+                        FROM sales
+                        LEFT JOIN customers ON sales.customer_id = customers.id
+                        WHERE sales.date LIKE ? OR sales.challan_no LIKE ? OR sales.total_amount LIKE ? OR customers.name LIKE ? OR customers.contact_no LIKE ?
+                        ORDER BY sales.id DESC;', ['%'.$sale_search.'%', '%'.$sale_search.'%', '%'.$sale_search.'%', '%'.$sale_search.'%', '%'.$sale_search.'%']);
+
+        return $sale_search;
+    }
+
     // sale details
     public function SaleDetails($sale_id) {
 

@@ -70,12 +70,16 @@
                                             <div class="col-md-3 col-3 form-group">
                                                 <input type="text" class="form-control" name="sale_date" value="{{ request()->sale_date }}">
                                             </div>
-                                            <div class="col-md-3 form-group text-left">
+
+                                            <div class="col-md-3 col-3 form-group">
+                                                <input type="text" class="form-control" name="sale_search" value="{{ request()->sale_search }}" placeholder="Search Sale">
+                                            </div>
+                                            <div class="col-md-2 form-group text-left">
                                                 <button type="submit" class="btn btn-sm btn-outline-dark">
                                                     {{ __('Application.Submit') }}
                                                 </button>
                                             </div>
-                                            <div class="col-md-3 form-group text-right">
+                                            <div class="col-md-1 form-group text-right">
                                                 <a href="{{ route('sale.index') }}" type="submit" class="btn btn-sm btn-danger">
                                                     <i class="fa fa-undo" ></i>
                                                 </a>
@@ -88,7 +92,7 @@
                         </div>
                         <div class="card-body">
                             @if ($sales && count($sales) > 0)
-                                <table class="table table-sm table-bordered text-center">
+                                <table class="table table-sm table-bordered">
                                     <thead>
                                     <tr>
                                         <th>{{ __('Application.SerialNo') }}</th>
@@ -103,7 +107,7 @@
                                     @php
                                         $total_sale = 0;
                                     @endphp
-                                    <tbody>
+                                    <tbody class="text-center">
                                     @foreach ($sales as $key => $sale)
                                         <tr>
                                             <td>{{ ++ $key }}</td>
