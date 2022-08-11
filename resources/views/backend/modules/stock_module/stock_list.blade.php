@@ -142,6 +142,9 @@
                                         <th>{{ __('Application.Status') }}</th>
                                     </tr>
                                     </thead>
+                                    @php
+                                        $total_stock = 0;
+                                    @endphp
                                     <tbody>
                                         @forelse ($stock_lists as $key => $stock)
                                             <tr>
@@ -150,6 +153,9 @@
                                                 <td>{{ $stock->variant_name }}</td>
                                                 <td>{{ $stock->unit_name }}</td>
                                                 {{-- <td>{{ $stock->lot_name }}</td> --}}
+                                                @php
+                                                    $total_stock += $stock->available_stock;
+                                                @endphp
                                                 <td>{{ $stock->available_stock }}</td>
                                                 <td>
                                                     @if ($stock->available_stock > 3)
@@ -173,6 +179,12 @@
                                             </tr>
                                         @endforelse
                                     </tbody>
+                                    <tfooter>
+                                        <tr style="background-color: #9F9F9F">
+                                            <th colspan="4">{{ __('Application.Total') }}</th>
+                                            <td colspan="2">{{ $total_stock }}</td>
+                                        </tr>
+                                    </tfooter>
                                 </table>
 
                             </div>
