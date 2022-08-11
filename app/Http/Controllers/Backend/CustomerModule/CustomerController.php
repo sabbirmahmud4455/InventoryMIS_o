@@ -18,7 +18,7 @@ class CustomerController extends Controller
         if( can('all_customer') || can('all_customer_report') ){
             $customers = Customer::with('transactions')->select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc')->paginate(20);
 
-            return view('backend.modules.system_data_module.customer.index', compact('customers'));
+            return view('backend.modules.customer_module.index', compact('customers'));
 
         } else {
             return view("errors.404");
@@ -28,7 +28,7 @@ class CustomerController extends Controller
     //customer add modal start
     public function add_modal(){
         if( can('add_customer') ){
-            return view("backend.modules.system_data_module.customer.modals.add");
+            return view("backend.modules.customer_module.modals.add");
 
         } else{
             return view("errors.404");
@@ -90,7 +90,7 @@ class CustomerController extends Controller
         if( can("view_customer") || can('all_customer_report')){
             $customer = Customer::where("id",$id)->select("id", "name", "contact_no", 'address', 'remarks', "is_active")->first();
 
-            return view("backend.modules.system_data_module.customer.modals.show", compact("customer"));
+            return view("backend.modules.customer_module.modals.show", compact("customer"));
         }
         else{
             return view("errors.404");
@@ -102,7 +102,7 @@ class CustomerController extends Controller
         if( can("edit_customer") ){
             $customer = Customer::where("id",$id)->select("id", "name", "contact_no", 'address', 'remarks', "is_active")->first();
 
-            return view("backend.modules.system_data_module.customer.modals.edit", compact("customer"));
+            return view("backend.modules.customer_module.modals.edit", compact("customer"));
         }
         else{
             return view("errors.404");
