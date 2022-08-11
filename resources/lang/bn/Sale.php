@@ -20,5 +20,7 @@
         'SaleDetails' => 'বিক্রয় বিস্তারিত',
         'SaleInvoice' => 'বিক্রয় চালান',
         'InvoiceNo' => 'ইনভয়েস নং',
+        'SoldItemList' => 'বিক্রিত আইটেম তালিকা'
+
     ];
 ?>

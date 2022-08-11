@@ -32,13 +32,12 @@ class ReturnAddController extends Controller
         if(can('customer_return')) {
             $sale_id = $request->customer_sale_id;
 
-            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
-            DB::reconnect(); // Reconnect to DB
+            DisableDBStrictMode();
 
             $sale = new Sale();
             $sale_info = $sale->SaleDetails($sale_id);
-            config()->set('database.connections.mysql.strict', true); // Enable DB strict Mode
-            DB::reconnect(); // Reconnect to DB
+
+            EnableDBStrictMode();
 
             return view('backend.modules.return_module.sale_return.sale_return_view', compact('sale_info'));
         } else {

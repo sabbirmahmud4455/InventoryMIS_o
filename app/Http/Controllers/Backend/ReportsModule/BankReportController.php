@@ -13,14 +13,13 @@ class BankReportController extends Controller
     public function all_bank()
     {
         if(can('all_bank_report')) {
-            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
-            DB::reconnect(); // Reconnect to DB
+
+            DisableDBStrictMode();
 
             $bank = new Bank();
             $all_banks = $bank->AllBanksWithBalance();
 
-            config()->set('database.connections.mysql.strict', true); // Disable DB strict Mode
-            DB::reconnect(); // Reconnect to DB
+            EnableDBStrictMode();
 
             return view('backend.modules.reports_module.all_report.bank_report.all_bank', compact('all_banks'));
         } else {
