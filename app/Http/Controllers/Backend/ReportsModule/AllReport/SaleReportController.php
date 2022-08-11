@@ -137,6 +137,107 @@ class SaleReportController extends Controller
         }
     }
 
+    // sale report invoice
+    public function sale_report_invoice($id) {
+        if(can('all_sale_report') || can('date_wise_sale_report') || can('customer_wise_sale_report')) {
+
+            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
+            DB::reconnect(); // Reconnect to DB
+
+            $sale = new Sale();
+
+            $sale_details = $sale->SaleInvoice(decrypt($id));
+
+            config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
+            DB::reconnect(); //Reconnect to DB
+
+            $customer_id = $sale_details['sale'][0]->customer_id;
+
+            $customer = new Customer();
+
+            $customer_previous_balance = $customer->CustomerPreviuosBalance($customer_id)->previous_balance;
+
+
+            return view('backend.modules.reports_module.all_report.sale_report.sale_report_invoice', compact('sale_details', 'customer_previous_balance'));
+        } else {
+            return view('errors.404');
+        }
+    }
+
+
+    //sale report invoice export pdf
+    public function sale_report_invoice_export_pdf($id) {
+        if(can('all_sale_report') || can('date_wise_sale_report') || can('customer_wise_sale_report')) {
+
+            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
+            DB::reconnect(); // Reconnect to DB
+
+            $sale = new Sale();
+
+            $sale_details = $sale->SaleInvoice(decrypt($id));
+
+            config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
+            DB::reconnect(); //Reconnect to DB
+
+            $customer_id = $sale_details['sale'][0]->customer_id;
+
+            $customer = new Customer();
+
+            $customer_previous_balance = $customer->CustomerPreviuosBalance($customer_id)->previous_balance;
+
+            $company_info = CompanyInfo::first();
+            $title = __('Sale.SaleInvoice');
+
+            $now = new \DateTime();
+            $time = $now->format('F j, Y, g:i a');
+            $auth_user = Auth::user()->name;
+
+            $footer = "
+                    <span style='margin: 29px;'>Page :
+                    <span></span>{PAGENO} of {nbpg}</span>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+
+                    <span class='print_date'>Print Date : $time
+                </span>
+
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <span class='print_by'>
+                    Printed By : $auth_user
+                </span>
+
+                &nbsp;
+                &nbsp;
+                <span class='powered_by'> Powered By: RP AI Solutions </span>
+                &nbsp;
+                ";
+
+            $mpdf = new \Mpdf\Mpdf(
+                [
+                    // 'default_font_size' => 12,
+                    'default_font' => 'nikosh',
+                    'mode' => 'utf-8',
+                ]
+            );
+
+            $mpdf->SetTitle(__("Sale.SaleInvoice"));
+            $mpdf->SetFooter($footer);
+            $mpdf->WriteHTML(view('backend.modules.reports_module.all_report.sale_report.export.pdf.sale_report_invoice_export_pdf', compact(
+                'sale_details',
+                'customer_previous_balance',
+                'company_info',
+                'title'
+            )));
+            $mpdf->Output("SaleInvoice".'.pdf', "I");
+
+        } else {
+            return view('errors.404');
+        }
+    }
+
 
 
 }

@@ -133,6 +133,12 @@ Route::group(['prefix' => 'all-reports'], function (){
         // sale report details export pdf
         Route::get('/details-export-pdf/{id}', [SaleReportController::class, 'sale_report_details_export_pdf'])->name('sale.report.details.export.pdf');
 
+        // sale report invoice
+        Route::get('/invoice/{id}', [SaleReportController::class, 'sale_report_invoice'])->name('sale.report.invoice');
+
+        // sale report invoice export pdf
+        Route::get('/invoice-export-pdf/{id}', [SaleReportController::class, 'sale_report_invoice_export_pdf'])->name('sale.report.invoice.export.pdf');
+
     });
     // Sale Report End
 

@@ -100,6 +100,9 @@
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>
                                     </thead>
+                                    @php
+                                        $total_sale = 0;
+                                    @endphp
                                     <tbody>
                                     @foreach ($sales as $key => $sale)
                                         <tr>
@@ -107,7 +110,9 @@
                                             <td>{{ $sale->date }}</td>
                                             <td>{{ $sale->challan_no }}</td>
                                             <td>{{ $sale->customer_name }}</td>
-                                            <td>{{ $sale->customer_phone }}</td>
+                                            <td>{{ $sale->customer_phone }}</td>@php
+                                                $total_sale += $sale->total_amount;
+                                            @endphp
                                             <td>{{ '৳ ' . number_format($sale->total_amount, 0) }}</td>
                                             <td>
                                                 <div class="dropdown">
@@ -133,6 +138,12 @@
                                         </tr>
                                     @endforeach
                                     </tbody>
+                                    <tfooter>
+                                        <tr style="background-color: #9F9F9F">
+                                            <th colspan="5">{{ __('Application.Total') }}</th>
+                                            <td colspan="2">{{ '৳ ' . number_format($total_sale, 0) }}</td>
+                                        </tr>
+                                    </tfooter>
                                 </table>
                             @else
                                 <h4 class="text-center text-danger my-2">{{ __('Application.NoDataFound') }}</h4>
