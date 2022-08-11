@@ -13,6 +13,7 @@
         'SupplierTransactions'      => 'Supplier Transactions',
         'SupplierTransactionDetails'=> 'Supplier Transaction Details',
         'ChallanNo'                 => 'Challan No',
+        'Payable'                    => 'Payable',
 
     ];
 ?>

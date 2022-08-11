@@ -11,5 +11,6 @@
         'CustomerWarningMsg'        => 'Something Wrong. Try Again !!',
         'OpeningBalance'            => 'Opening Balance',
         'GuestCustomer'             => 'Guest Customer',
+        'Receivable'                => 'Receivable',
     ];
 ?>

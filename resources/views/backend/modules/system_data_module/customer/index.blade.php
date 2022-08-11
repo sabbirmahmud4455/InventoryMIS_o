@@ -60,16 +60,27 @@
                                         <th>{{ __('Application.Id') }}</th>
                                         <th>{{ __('Customer.CustomerName') }}</th>
                                         <th>{{ __('Customer.CustomerPhone') }}</th>
+                                        <th>{{ __('Customer.Receivable') }}</th>
                                         <th>{{ __('Application.Status') }}</th>
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>
                                     </thead>
+                                    @php
+                                        $total_transaction = 0;
+                                    @endphp
                                     <tbody>
                                         @foreach ($customers as $key => $customer)
                                             <tr>
                                                 <td>{{ $customer->id }}</td>
                                                 <td>{{ $customer->name }}</td>
                                                 <td>{{ $customer->contact_no }}</td>
+                                                @php
+                                                    $cash_in = $customer->transactions->sum('cash_in');
+                                                    $cash_out = $customer->transactions->sum('cash_out');
+                                                    $receivable = $cash_in - $cash_out;
+                                                    $total_transaction += $receivable;
+                                                @endphp
+                                                <td>{{ '৳ ' . number_format($receivable, 0) }}</td>
                                                 <td>
                                                     @if ($customer->is_active)
                                                         <p class="badge badge-success">{{ __('Application.Active') }}</p>
@@ -106,6 +117,12 @@
                                         @endforeach
 
                                     </tbody>
+                                    <tfooter>
+                                        <tr style="background-color: #9F9F9F">
+                                            <th colspan="3">{{ __('Application.Total') }}</th>
+                                            <td colspan="3">{{ '৳ ' . number_format($total_transaction, 0) }}</td>
+                                        </tr>
+                                    </tfooter>
                                 </table>
 
                                 <div class=" d-flex justify-content-center mt-3">

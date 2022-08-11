@@ -59,8 +59,8 @@
                                     <tr>
                                         <th>{{ __('Application.Id') }}</th>
                                         <th>{{ __('Supplier.SupplierName') }}</th>
-                                        <th>{{ __('Supplier.SupplierPhone') }}</th>~
-                                        <th>{{ __('Transaction.Balance') }}</th>
+                                        <th>{{ __('Supplier.SupplierPhone') }}</th>
+                                        <th>{{ __('Supplier.Payable') }}</th>
                                         <th>{{ __('Application.Status') }}</th>
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>

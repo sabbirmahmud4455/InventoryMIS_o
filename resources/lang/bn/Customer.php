@@ -11,6 +11,7 @@
         'CustomerWarningMsg'        => ' কিছু ভুল হয়েছে| আবার চেষ্টা করুন !!',
         'OpeningBalance'            => 'বকেয়া টাকার পরিমান',
         'GuestCustomer'             => 'খুচরা ক্রেতা',
+        'Receivable'                => 'পাওনা',
 
 
     ];

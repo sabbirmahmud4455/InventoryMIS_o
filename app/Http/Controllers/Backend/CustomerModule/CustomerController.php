@@ -16,7 +16,7 @@ class CustomerController extends Controller
     public function index()
     {
         if( can('all_customer') || can('all_customer_report') ){
-            $customers = Customer::select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc')->paginate(20);
+            $customers = Customer::with('transactions')->select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc')->paginate(20);
 
             return view('backend.modules.system_data_module.customer.index', compact('customers'));
 
