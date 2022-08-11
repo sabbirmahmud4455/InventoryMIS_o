@@ -57,15 +57,12 @@ class SaleReportController extends Controller
     public function sale_report_details($id) {
         if(can('all_sale_report') || can('date_wise_sale_report') || can('customer_wise_sale_report')) {
 
-            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
-            DB::reconnect(); // Reconnect to DB
+            DisableDBStrictMode();
 
             $sale = new Sale();
-
             $sale_details = $sale->SaleDetails(decrypt($id));
 
-            config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
-            DB::reconnect(); //Reconnect to DB
+            EnableDBStrictMode();
 
 
             return view('backend.modules.reports_module.all_report.sale_report.sale_report_details', compact('sale_details'));

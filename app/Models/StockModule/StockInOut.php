@@ -36,8 +36,6 @@ class StockInOut extends Model
 
         $stock_lists = DB::select($query);
 
-
-
         return $stock_lists;
     }
 
