@@ -13,10 +13,32 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if( can('all_customer') || can('all_customer_report') ){
-            $customers = Customer::with('transactions')->select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc')->paginate(20);
+
+            $append = [];
+
+
+            $customers = Customer::with('transactions')->select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc');
+
+            if ($request->customer_id) {
+                $customers = $customers->where('id', $request->customer_id);
+                $append['customer_id'] = $request->customer_id;
+            }
+            if ($request->customer_search != null) {
+                $customers = $customers->where(function ($query) use($request) {
+                                        $query->where('name', 'like', '%' . $request->customer_search . '%')
+                                        ->orWhere('contact_no', 'like', '%' . $request->customer_search . '%')
+//                                        ->orWhere('address', 'like', '%' . $request->customer_search . '%')
+                                        /*->whereHas('transactions', function ($transaction) use($request) {
+                                            $transaction->where('cash_in', $request->customer_search);
+                                        })*/;
+                                    });
+                $append['customer_search'] = $request->customer_search;
+            }
+
+            $customers = $customers->paginate(10)->appends($append);
 
             return view('backend.modules.customer_module.index', compact('customers'));
 

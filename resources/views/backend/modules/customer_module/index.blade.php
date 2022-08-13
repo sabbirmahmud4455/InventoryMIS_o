@@ -33,6 +33,14 @@
                             </li>
                         </ol>
                     </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        @if( can('add_customer') && \Illuminate\Support\Facades\URL::previous() != route('report.index'))
+                            <button type="button" data-content="{{ route('customer.add.modal') }}" data-target="#myModal"
+                                    class="btn btn-outline-dark float-right" data-toggle="modal">
+                                {{ __('Customer.CustomerAdd') }}
+                            </button>
+                        @endif
+                    </div>
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
@@ -45,12 +53,44 @@
                     <div class="col-md-12">
                         <div class="card card-primary card-outline table-responsive">
                             <div class="card-header text-right">
-                                @if( can('add_customer') && \Illuminate\Support\Facades\URL::previous() != route('report.index'))
-                                    <button type="button" data-content="{{ route('customer.add.modal') }}" data-target="#myModal"
-                                            class="btn btn-outline-dark" data-toggle="modal">
-                                        {{ __('Customer.CustomerAdd') }}
-                                    </button>
-                                @endif
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form action="">
+                                            <div class="row">
+                                                <!-- Customer -->
+                                                {{--<div class="col-md-3 col-3 form-group">
+                                                    <select class="form-control select2" name="customer_id">
+                                                        <option disabled selected>Select Customer</option>
+                                                        @if ( count($customers) > 0 )
+                                                            @foreach ($customers as $customer)
+                                                                @php
+                                                                    @endphp
+                                                                <option value="{{ $customer->id }}" @if(request()->customer_id == $customer->id) selected @endif>{{ $customer->name . ' - ' . $customer->address }}</option>
+                                                            @endforeach
+                                                        @else
+                                                            <option disabled>No Data Found</option>
+                                                        @endif
+                                                    </select>
+                                                </div>--}}
+
+                                                <div class="col-md-3 col-3 form-group">
+                                                    <input type="text" class="form-control" name="customer_search" value="{{ request()->customer_search }}" placeholder="Search Customer">
+                                                </div>
+                                                <div class="col-md-2 form-group text-left">
+                                                    <button type="submit" class="btn btn-sm btn-outline-dark">
+                                                        {{ __('Application.Submit') }}
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-1 form-group text-right">
+                                                    <a href="{{ route('customer.all') }}" type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="fa fa-undo" ></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered table-striped dataTable dtr-inline datatable-data"
@@ -71,7 +111,7 @@
                                     <tbody>
                                         @foreach ($customers as $key => $customer)
                                             <tr>
-                                                <td>{{ $customer->id }}</td>
+                                                <td>{{ $customers->firstItem() + $key }}</td>
                                                 <td>{{ $customer->name }}</td>
                                                 <td>{{ $customer->contact_no }}</td>
                                                 @php
