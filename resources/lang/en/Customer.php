@@ -12,5 +12,6 @@
         'OpeningBalance'            => 'Opening Balance',
         'GuestCustomer'             => 'Guest Customer',
         'Receivable'                => 'Receivable',
+        'SearchCustomer'            => 'Search Customer',
     ];
 ?>

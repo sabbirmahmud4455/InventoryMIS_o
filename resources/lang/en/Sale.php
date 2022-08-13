@@ -20,7 +20,8 @@
         'SaleDetails' => 'Sale Details',
         'SaleInvoice' => 'Sale Invoice',
         'InvoiceNo' => 'Invoice No',
-        'SoldItemList' => 'Sold Item List'
+        'SoldItemList' => 'Sold Item List',
+        'SaleSearch' => 'Sale Search',
 
     ];
 ?>

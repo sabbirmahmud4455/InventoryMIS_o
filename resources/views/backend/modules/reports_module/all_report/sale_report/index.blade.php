@@ -76,7 +76,7 @@
                                                 </div>
 
                                                 <div class="col-md-3 col-3 form-group">
-                                                    <input type="text" class="form-control" name="sale_search" value="{{ request()->sale_search }}" placeholder="Search Sale">
+                                                    <input type="text" class="form-control" name="sale_search" value="{{ request()->sale_search }}" placeholder="{{ __('Sale.SaleSearch') }}">
                                                 </div>
                                                 <div class="col-md-2 form-group text-left">
                                                     <button type="submit" class="btn btn-sm btn-outline-dark">

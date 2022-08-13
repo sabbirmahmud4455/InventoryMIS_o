@@ -59,7 +59,7 @@
                                             <div class="row">
 
                                                 <div class="col-md-3 col-3 form-group">
-                                                    <input type="text" class="form-control" name="customer_search" value="{{ request()->customer_search }}" placeholder="Search Customer">
+                                                    <input type="text" class="form-control" name="customer_search" value="{{ request()->customer_search }}" placeholder="{{__( 'Customer.SearchCustomer' )}}">
                                                 </div>
                                                 <div class="col-md-2 form-group text-left">
                                                     <button type="submit" class="btn btn-sm btn-outline-dark">

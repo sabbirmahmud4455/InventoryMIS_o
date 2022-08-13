@@ -20,7 +20,8 @@
         'SaleDetails' => 'বিক্রয় বিস্তারিত',
         'SaleInvoice' => 'বিক্রয় চালান',
         'InvoiceNo' => 'ইনভয়েস নং',
-        'SoldItemList' => 'বিক্রিত আইটেম তালিকা'
+        'SoldItemList' => 'বিক্রিত আইটেম তালিকা',
+        'SaleSearch' => 'বিক্রয় অনুসন্ধান',
 
     ];
 ?>

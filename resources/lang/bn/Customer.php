@@ -12,6 +12,7 @@
         'OpeningBalance'            => 'বকেয়া টাকার পরিমান',
         'GuestCustomer'             => 'খুচরা ক্রেতা',
         'Receivable'                => 'পাওনা',
+        'SearchCustomer'            => 'ক্রেতা অনুসন্ধান',
 
 
     ];
