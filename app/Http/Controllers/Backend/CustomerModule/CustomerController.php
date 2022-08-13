@@ -22,18 +22,10 @@ class CustomerController extends Controller
 
             $customers = Customer::with('transactions')->select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc');
 
-            if ($request->customer_id) {
-                $customers = $customers->where('id', $request->customer_id);
-                $append['customer_id'] = $request->customer_id;
-            }
             if ($request->customer_search != null) {
                 $customers = $customers->where(function ($query) use($request) {
                                         $query->where('name', 'like', '%' . $request->customer_search . '%')
-                                        ->orWhere('contact_no', 'like', '%' . $request->customer_search . '%')
-//                                        ->orWhere('address', 'like', '%' . $request->customer_search . '%')
-                                        /*->whereHas('transactions', function ($transaction) use($request) {
-                                            $transaction->where('cash_in', $request->customer_search);
-                                        })*/;
+                                        ->orWhere('contact_no', 'like', '%' . $request->customer_search . '%');
                                     });
                 $append['customer_search'] = $request->customer_search;
             }

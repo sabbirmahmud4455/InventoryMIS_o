@@ -57,21 +57,6 @@
                                     <div class="col-md-12">
                                         <form action="">
                                             <div class="row">
-                                                <!-- Customer -->
-                                                {{--<div class="col-md-3 col-3 form-group">
-                                                    <select class="form-control select2" name="customer_id">
-                                                        <option disabled selected>Select Customer</option>
-                                                        @if ( count($customers) > 0 )
-                                                            @foreach ($customers as $customer)
-                                                                @php
-                                                                    @endphp
-                                                                <option value="{{ $customer->id }}" @if(request()->customer_id == $customer->id) selected @endif>{{ $customer->name . ' - ' . $customer->address }}</option>
-                                                            @endforeach
-                                                        @else
-                                                            <option disabled>No Data Found</option>
-                                                        @endif
-                                                    </select>
-                                                </div>--}}
 
                                                 <div class="col-md-3 col-3 form-group">
                                                     <input type="text" class="form-control" name="customer_search" value="{{ request()->customer_search }}" placeholder="Search Customer">
