@@ -158,6 +158,23 @@ class Transaction extends Model
         return $total_cash_out;
     }
 
+    // TOTAL CASH IN HAND & BANK Balance
+    public function TotalCashInHandAndBankBalance()
+    {
+        $cash_in_hand_balance = DB::select("SELECT (SUM(cash_in) - SUM(cash_out)) as cash_balance
+        FROM
+        transactions
+        WHERE payment_by = 'CASH';");
+
+        $bank_balance = DB::select("SELECT (SUM(cash_in) - SUM(cash_out)) as bank_balance
+        FROM
+        transactions
+        WHERE payment_by = 'BANK';");
+
+        return ['cash_in_hand_balance' => $cash_in_hand_balance, 'bank_balance' => $bank_balance];
+
+    }
+
     public function bank() {
         return $this->belongsTo(Bank::class);
     }
