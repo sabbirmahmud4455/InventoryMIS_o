@@ -3,7 +3,9 @@
 namespace App\Models\TransactionModule;
 
 use App\Models\BankModule\Bank;
+use App\Models\CustomerModule\Customer;
 use App\Models\PurchaseModule\Purchase;
+use App\Models\SaleModule\Sale;
 use App\Models\SupplierModule\Supplier;
 use App\Models\SystemDataModule\TransactionType;
 use App\Models\UserModule\User;
@@ -173,6 +175,16 @@ class Transaction extends Model
 
     public function created_by_user() {
         return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class);
     }
 
 }

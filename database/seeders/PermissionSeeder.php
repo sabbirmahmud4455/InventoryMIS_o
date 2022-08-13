@@ -577,6 +577,15 @@ class PermissionSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+            [
+                'id' => 134,
+                'key' => 'customer_transaction',
+                'display_name_en' => '-- Customer Transaction',
+                'display_name_bn' => '-- ক্রেতার লেনদেন',
+                'module_id' => 5,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
             // Customer Module Permission End
 
 
@@ -1264,6 +1273,6 @@ class PermissionSeeder extends Seeder
 
         ]);
 
-        // Last ID: 133, New ID: 134
+        // Last ID: 134, New ID: 135
     }
 }

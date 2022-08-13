@@ -165,11 +165,15 @@ class SupplierController extends Controller
     }
 
     // Supplier Transaction
-    public function suppllier_transactions($id)
+    public function supplier_transactions(Request $request)
     {
         if(can('supplier_transactions') || can('all_supplier_report') || can('supplier_transaction_report')) {
             $transaction = new Supplier();
+
+            $id = encrypt($request->supplier_id);
+
             $supplier_transactions = $transaction->GetSupplierTransactions(decrypt($id));
+
 
             return view('backend.modules.supplier.supplier_transactions', compact('supplier_transactions', 'id'));
         } else {

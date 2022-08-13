@@ -22,6 +22,7 @@
         'InvoiceNo' => 'Invoice No',
         'SoldItemList' => 'Sold Item List',
         'SaleSearch' => 'Sale Search',
+        'ViewSaleInfo' => 'View Sale Info',
 
     ];
 ?>

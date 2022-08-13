@@ -146,5 +146,10 @@ class Sale extends Model
         return $invoices;
     }
 
+    public function sale_details()
+    {
+        return $this->hasMany(SaleDetails::class);
+    }
+
 
 }

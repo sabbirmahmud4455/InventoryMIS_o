@@ -106,10 +106,13 @@
                                                                 </a>
                                                             @endif
 
-                                                            <a class="dropdown-item" href="{{ route('supplier.transactions', encrypt($supplier->supplier_id)) }}">
-                                                                <i class="fa fa-exchange-alt" aria-hidden="true"></i>
-                                                                {{ __('Application.Transaction') }}
-                                                            </a>
+                                                            <form action="{{ route('supplier.transactions') }}">
+                                                                <button class="dropdown-item p-2">
+                                                                    <i class="fa fa-exchange-alt" aria-hidden="true"></i>
+                                                                    <input type="hidden" name="supplier_id" value="{{ $supplier->supplier_id }}">
+                                                                    {{ __('Application.Transaction') }}
+                                                                </button>
+                                                            </form>
 
                                                         </div>
                                                     </div>

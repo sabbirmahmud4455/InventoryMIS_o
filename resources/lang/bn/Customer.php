@@ -13,6 +13,8 @@
         'GuestCustomer'             => 'খুচরা ক্রেতা',
         'Receivable'                => 'পাওনা',
         'SearchCustomer'            => 'ক্রেতা অনুসন্ধান',
+        'Transaction'               => 'ক্রেতার লেনদেন',
+        'TransactionDetails'        => 'ক্রেতার লেনদেনর বিবরণ',
 
 
     ];

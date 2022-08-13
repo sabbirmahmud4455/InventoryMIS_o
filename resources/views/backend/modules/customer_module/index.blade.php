@@ -133,6 +133,14 @@
                                                                 </a>
                                                             @endif
 
+                                                            <form action="{{ route('customer.transaction') }}">
+                                                                <button class="dropdown-item p-2">
+                                                                    <input type="hidden" name="customer_id" value="{{ $customer->id }}">
+                                                                    <i class="fa fa-exchange-alt" aria-hidden="true"></i>
+                                                                    {{ __('Application.Transaction') }}
+                                                                </button>
+                                                            </form>
+
                                                         </div>
                                                     </div>
 

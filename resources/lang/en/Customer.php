@@ -13,5 +13,7 @@
         'GuestCustomer'             => 'Guest Customer',
         'Receivable'                => 'Receivable',
         'SearchCustomer'            => 'Search Customer',
+        'Transaction'               => 'Customer Transaction',
+        'TransactionDetails'        => 'ক্Customer Transaction Details',
     ];
 ?>
