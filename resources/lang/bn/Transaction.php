@@ -25,7 +25,9 @@
         'TotalCashIn'               => 'মোট নগদ ইন',
         'TotalCashOut'              => 'মোট নগদ আউট',
         'TotalCashAmount'           => 'মোট নগদ পরিমাণ',
-        'CashTransactionsList'      => 'নগদ লেনদেনের তালিকা'
+        'CashTransactionsList'      => 'নগদ লেনদেনের তালিকা',
+        'TotalCashInHandBalance'    => 'মোট ক্যাশ ইন হ্যান্ড ব্যালেন্স',
+        'TotalBankBalance'          => 'মোট ব্যাঙ্ক ব্যালেন্স',
 
     ];
 ?>

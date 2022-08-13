@@ -36,7 +36,7 @@
         'Filtering'             => 'Filtering',
         'OrderBy'               => 'Order By',
         'LatestToOld'           => 'Latest to Old',
-        'OldToLatest'           => 'Old to Latest'
+        'OldToLatest'           => 'Old to Latest',
     ]
 
 ?>
