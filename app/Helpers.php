@@ -50,5 +50,11 @@ use Illuminate\Support\Facades\DB;
         DB::reconnect();
     }
 
+    // Generate Transaction Code
+    function TransactionCode()
+    {
+        
+    }
+
 
 ?>
