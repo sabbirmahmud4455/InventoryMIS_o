@@ -23,9 +23,10 @@
 
                         <li class="breadcrumb-item active">
                             <a href="#">
-                                {{ __('Return.AddReturn') }}
+                                {{ __('Return.SalesReturnList') }}
                             </a>
                         </li>
+
                     </ol>
                 </div>
             </div>
@@ -38,68 +39,61 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary card-outline table-responsive">
-                        <div class="card-body">
+                        <div class="card-header">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <form action="{{ route('return.customer_return_view') }}" method="POST">
-                                        @csrf
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5>{{ __('Return.CustomerReturn') }}</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <label> {{ __('Sale.InvoiceNo') }} </label>
-
-                                                <select name="customer_sale_id" class="form-control select2">
-                                                    <option selected disabled>{{ __('Application.Select') }}</option>
-                                                    @forelse ($sale_challan_no as $challan_no)
-                                                    <option value="{{ $challan_no->id }}">{{ $challan_no->challan_no }}
-                                                    </option>
-                                                    @empty
-                                                    <option disabled>{{ __('Application.NoDataFound') }}</option>
-                                                    @endforelse
-                                                </select>
-                                            </div>
-
-                                            <div class="card-footer">
-                                                <center>
-                                                    <button class="btn btn-primary">
-                                                        {{ __('Application.Submit') }}
-                                                    </button>
-                                                </center>
-                                            </div>
-                                        </div>
-                                    </form>
+                                <div class="col-md-8">
+                                    <h6>{{ __('Return.SalesReturnList') }}</h6>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>{{ __('Return.SupplierReturn') }}</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <label> {{ __('Sale.InvoiceNo') }} </label>
-
-                                            <select name="" class="form-control select2">
-                                                <option selected disabled>{{ __('Application.Select') }}</option>
-                                                @forelse ($purchase_challan_no as $challan)
-                                                <option value="{{ $challan->id }}">{{ $challan->challan_no }}</option>
-                                                @empty
-                                                <option disabled>{{ __('Application.NoDataFound') }}</option>
-                                                @endforelse
-                                            </select>
-                                        </div>
-
-                                        <div class="card-footer">
-                                            <center>
-                                                <button class="btn btn-primary">
-                                                    {{ __('Application.Submit') }}
-                                                </button>
-                                            </center>
-                                        </div>
-                                    </div>
+                                <div class="col-md-4">
+                                    <input type="text" name="sale_return_search" placeholder="Search Here..." class="form-control form-control-sm">
                                 </div>
                             </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <th>{{ __('Application.SerialNo') }}</th>
+                                    <th>{{ __('Application.Date') }}</th>
+                                    <th>{{ __('Sale.InvoiceNo') }}</th>
+                                    <th>{{ __('Customer.CustomerName') }}</th>
+                                    <th>{{ __('Application.Total') }}</th>
+                                    <th>{{ __('Application.Status') }}</th>
+                                    <th>{{ __('Application.Action') }}</th>
+                                </thead>
+
+                                <tbody>
+                                    @forelse ($sales_return as $key => $sale)
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $sale->return_date }}</td>
+                                            <td>{{ $sale->invoice_no }}</td>
+                                            <td>{{ $sale->customer_name }}</td>
+                                            <td>{{ $sale->return_amount }}</td>
+                                            <td>
+                                                @if ($sale->status == 'AdjustWithStock')
+                                                    <span class="badge badge-success">Stock Adjust</span>
+                                                @else
+                                                    <span class="badge badge-danger">Wastage</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-info btn-sm">
+                                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7">
+                                                <center>
+                                                    <span class="badge badge-danger">{{ __('Application.NoDataFound') }}</span>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

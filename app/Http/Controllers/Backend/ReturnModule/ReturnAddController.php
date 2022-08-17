@@ -65,7 +65,7 @@ class ReturnAddController extends Controller
     public function customer_return_store(Request $request)
     {
         if(can('customer_return')) {
-            // return $request->all();
+            $request->all();
             $this->ItemReturnStore($request);
 
         } else {
@@ -90,8 +90,12 @@ class ReturnAddController extends Controller
             $item_return->status = 'Wastage';
         }
 
+        if($request->return_amount && $request->return_amount > 0){
+            $this->ReturnTransactionCashIn($request);
+        }
+
         if($request->deposit_amount && $request->deposit_amount > 0) {
-            $this->ReturnTransaction($request);
+            $this->ReturnTransactionCashOut($request);
         }
 
         if($item_return->save()){
@@ -133,15 +137,14 @@ class ReturnAddController extends Controller
         }
     }
 
-
-
-    protected function ReturnTransaction($request){
+    protected function ReturnTransactionCashIn($request){
         $transaction                        = new Transaction();
         $transaction->date                  = Carbon::now()->toDateString();
         $transaction->transaction_code      = TransactionCode();
         $transaction->narration             = 'Return Items Transaction';
         $transaction->invoice_no            = $request->invoice_no;
         $transaction->sale_id               = $request->sale_id;
+        $transaction->customer_id           = $request->customer_id;
         $transaction->created_by            = Auth('web')->user()->id;
 
         if($request->payment_by == 'BANK'){
@@ -151,7 +154,28 @@ class ReturnAddController extends Controller
             $transaction->payment_by = 'CASH';
         }
 
-        $transaction->cash_out = $request->return_amount;
+        $transaction->cash_in = $request->return_amount;
+        $transaction->save();
+    }
+
+    protected function ReturnTransactionCashOut($request){
+        $transaction                        = new Transaction();
+        $transaction->date                  = Carbon::now()->toDateString();
+        $transaction->transaction_code      = TransactionCode();
+        $transaction->narration             = 'Return Items Given Amount';
+        $transaction->invoice_no            = $request->invoice_no;
+        $transaction->sale_id               = $request->sale_id;
+        $transaction->customer_id           = $request->customer_id;
+        $transaction->created_by            = Auth('web')->user()->id;
+
+        if($request->payment_by == 'BANK'){
+            $transaction->bank_id = $request->bank_id;
+            $transaction->payment_by = 'BANK';
+        } else {
+            $transaction->payment_by = 'CASH';
+        }
+
+        $transaction->cash_out = $request->deposit_amount;
         $transaction->save();
     }
 }

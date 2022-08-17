@@ -67,6 +67,7 @@
                             @csrf
                             <input type="hidden" name="sale_id" value="{{ $sale_info['sale'][0]->id }}">
                             <input type="hidden" name="invoice_no" value="{{ $sale_info['sale'][0]->challan_no }}">
+                            <input type="hidden" name="customer_id" value="{{ $sale_info['sale'][0]->customer_id }}">
 
                             <div class="card-body table-responsive">
                                 {{-- Sale Table Data Start --}}
