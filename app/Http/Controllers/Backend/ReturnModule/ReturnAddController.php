@@ -65,15 +65,6 @@ class ReturnAddController extends Controller
     public function customer_return_store(Request $request)
     {
         if(can('customer_return')) {
-            $now = Carbon::now();
-            $day = $now->day;
-            $month = $now->month;
-            if($month <= 9){
-                $month = '0'.$month;
-            }
-            $year = $now->year;
-
-            return $day.$month.$year.'#'.rand ( 10000 , 99999 );
             // return $request->all();
             $this->ItemReturnStore($request);
 
@@ -99,7 +90,7 @@ class ReturnAddController extends Controller
             $item_return->status = 'Wastage';
         }
 
-        if($request->return_amount) {
+        if($request->deposit_amount && $request->deposit_amount > 0) {
             $this->ReturnTransaction($request);
         }
 
@@ -147,7 +138,7 @@ class ReturnAddController extends Controller
     protected function ReturnTransaction($request){
         $transaction                        = new Transaction();
         $transaction->date                  = Carbon::now()->toDateString();
-        $transaction->transaction_code      = '001225';
+        $transaction->transaction_code      = TransactionCode();
         $transaction->narration             = 'Return Items Transaction';
         $transaction->invoice_no            = $request->invoice_no;
         $transaction->sale_id               = $request->sale_id;
