@@ -66,6 +66,9 @@
                                     <th>{{ __('Application.Action') }}</th>
                                 </thead>
 
+                                @php
+                                    $total_balance = 0;
+                                @endphp
                                 <tbody>
                                     @forelse ($all_banks as $key => $bank)
                                     <tr>
@@ -75,6 +78,9 @@
                                         <td>{{ $bank->account_no }}</td>
                                         <td>{{ $bank->branch_name }}</td>
                                         <td>{{ $bank->balance }}</td>
+                                        @php
+                                            $total_balance += $bank->balance;
+                                        @endphp
                                         <td>
                                             <a href="{{ route('bank_report.bank_details', encrypt($bank->bank_id) ) }}" class="btn btn-primary btn-sm">
                                                 {{ __('Bank.BankDetails') }}
@@ -90,6 +96,10 @@
                                         </td>
                                     </tr>
                                     @endforelse
+                                    <tr style="background-color: #9F9F9F">
+                                        <th colspan="5">{{ __('Application.Total') }}</th>
+                                        <td colspan="2">{{ $total_balance }}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
