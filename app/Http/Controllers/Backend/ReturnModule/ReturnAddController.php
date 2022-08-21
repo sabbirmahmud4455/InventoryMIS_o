@@ -69,7 +69,11 @@ class ReturnAddController extends Controller
 
     // Purchase Return
     public function purchase_return_view(Request $request){
-
+        if(can('purchase_return')) {
+            return $request->all();
+        } else {
+            return view('errors.404');
+        }
     }
 
     // Return Is Exists or Not
@@ -112,7 +116,7 @@ class ReturnAddController extends Controller
 
         if($request->return_amount && $request->return_amount > 0){
             $this->ReturnTransactionCashIn($request);
-        }
+        }   
 
         if($request->deposit_amount && $request->deposit_amount > 0) {
             $this->ReturnTransactionCashOut($request);

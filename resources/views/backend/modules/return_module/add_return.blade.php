@@ -44,9 +44,11 @@
                                     <form action="{{ route('return.sales_return_view') }}" method="POST">
                                         @csrf
                                         <div class="card">
+                                            <!-- Show Sale Item Return Error Message -->
                                             @if($errors->any())
                                                 <span class="badge badge-danger">{{$errors->first()}}</span>
                                             @endif
+
                                             <div class="card-header">
                                                 <h5>{{ __('Return.CustomerReturn') }}</h5>
                                             </div>
@@ -76,31 +78,33 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>{{ __('Return.SupplierReturn') }}</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <label> {{ __('Sale.InvoiceNo') }} </label>
+                                    <form action="{{ route('return.purchase_return_view') }}" method="post">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>{{ __('Return.SupplierReturn') }}</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <label> {{ __('Sale.InvoiceNo') }} </label>
 
-                                            <select name="" class="form-control select2">
-                                                <option selected disabled>{{ __('Application.Select') }}</option>
-                                                @forelse ($purchase_challan_no as $challan)
-                                                <option value="{{ $challan->id }}">{{ $challan->challan_no }}</option>
-                                                @empty
-                                                <option disabled>{{ __('Application.NoDataFound') }}</option>
-                                                @endforelse
-                                            </select>
-                                        </div>
+                                                <select name="" class="form-control select2">
+                                                    <option selected disabled>{{ __('Application.Select') }}</option>
+                                                    @forelse ($purchase_challan_no as $challan)
+                                                    <option value="{{ $challan->id }}">{{ $challan->challan_no }}</option>
+                                                    @empty
+                                                    <option disabled>{{ __('Application.NoDataFound') }}</option>
+                                                    @endforelse
+                                                </select>
+                                            </div>
 
-                                        <div class="card-footer">
-                                            <center>
-                                                <button class="btn btn-primary">
-                                                    {{ __('Application.Submit') }}
-                                                </button>
-                                            </center>
+                                            <div class="card-footer">
+                                                <center>
+                                                    <button class="btn btn-primary">
+                                                        {{ __('Application.Submit') }}
+                                                    </button>
+                                                </center>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
