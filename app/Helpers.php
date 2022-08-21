@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use App\Models\UserManagement\SuperAdmin;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 
     function can($can){
         if( auth('web')->check() && auth('web')->user()->is_super_admin == false  ){
@@ -48,6 +50,24 @@ use Illuminate\Support\Facades\DB;
     {
         config()->set('database.connections.mysql.strict', true);
         DB::reconnect();
+    }
+
+    // Generate Unique Transaction Code
+    function TransactionCode()
+    {
+        $now = Carbon::now();
+        $day = $now->day;
+        $month = $now->month;
+        $year = $now->year;
+
+        if($day <= 9){
+            $day = '0'.$day;
+        }
+        if($month <= 9){
+            $month = '0'.$month;
+        }
+
+        return $day.$month.$year.'#'.rand ( 10000 , 99999 );
     }
 
 

@@ -4,6 +4,12 @@
 <link href="{{ asset('backend/css/select2/form-select2.min.css') }}" rel="stylesheet">
 <link href="{{ asset('backend/css/select2/select2-materialize.css') }}" rel="stylesheet">
 <link href="{{ asset('backend/css/select2/select2.min.css') }}" rel="stylesheet">
+
+<style>
+    .disable_input{
+        background-color: #ffff!important;
+    }
+</style>
 @endsection
 
 @section('body-content')
@@ -28,7 +34,7 @@
                         </li>
 
                         <li class="breadcrumb-item active">
-                            <a href="£">
+                            <a href="#">
                                 {{ __('Return.SaleReturnView') }}
                             </a>
                         </li>
@@ -50,147 +56,245 @@
                                     <h5>{{ __('Return.CustomerReturn') }}</h5>
                                 </div>
                                 <div class="col-md-6">
-                                    <button class="btn btn-info btn-sm float-right">
+                                    <a href="{{ route('return.add') }}" class="btn btn-info btn-sm float-right">
                                         {{ __('Return.AddReturn') }}
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body table-responsive">
-                            {{-- Sale Table Data Start --}}
-                            <table class="table table-sm table-bordered">
-                                <tr>
-                                    <th>{{ __('Application.Date') }}</th>
-                                    <td> {{ $sale_info['sale'][0]->date }} </td>
 
-                                    <th>{{ __('Sale.InvoiceNo') }}</th>
-                                    <td> {{ $sale_info['sale'][0]->challan_no }} </td>
+                        <form action="{{ route('return.customer_return_store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="sale_id" value="{{ $sale_info['sale'][0]->id }}">
+                            <input type="hidden" name="invoice_no" value="{{ $sale_info['sale'][0]->challan_no }}">
+                            <input type="hidden" name="customer_id" value="{{ $sale_info['sale'][0]->customer_id }}">
 
-                                    <th>{{ __('Application.Status') }}</th>
-                                    <td> {{ $sale_info['sale'][0]->status }} </td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{ __('Customer.CustomerName') }}</th>
-                                    <td> {{ $sale_info['sale'][0]->customer_name }} </td>
-
-                                    <th>{{ __('Customer.CustomerPhone') }}</th>
-                                    <td> {{ $sale_info['sale'][0]->customer_phone }} </td>
-
-                                    <th>{{ __('Sale.InTotalAmount') }}</th>
-                                    <td> {{ number_format($sale_info['sale'][0]->total_amount, 0) }} </td>
-                                </tr>
-                            </table>
-                            {{-- Sale Table Data End --}}
-
-                            <span class="badge badge-info mt-3 mb-3">{{ __('Sale.SoldItemList') }}</span>
-
-                            <table class="table table-sm table-bordered">
-                                <thead>
-                                    <th>{{ __('Application.SerialNo') }}</th>
-                                    <th>{{ __('Item.Item') }}</th>
-                                    <th>{{ __('Variant.Variant') }}</th>
-                                    <th>{{ __('Unit.Unit') }}</th>
-                                    <th>{{ __('Sale.Quantity') }}</th>
-                                    <th>{{ __('Sale.UnitPrice') }}</th>
-                                    <th>{{ __('Return.ReturnQnty') }}</th>
-                                    <th>{{ __('Return.ReturnPrice') }}</th>
-                                </thead>
-
-                                <tbody>
-                                    @forelse ($sale_info['sale_details'] as $key => $detail)
+                            <div class="card-body table-responsive">
+                                {{-- Sale Table Data Start --}}
+                                <table class="table table-sm table-bordered">
                                     <tr>
-                                        <td>
-                                            <span> {{ $key + 1 }} </span>
-                                        </td>
-                                        <td>
-                                            <span class="form-control form-control-sm">{{ $detail->item_name }}</span>
-                                        </td>
-                                        <td>
-                                            <span
-                                                class="form-control form-control-sm">{{ $detail->variant_name }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="form-control form-control-sm">{{ $detail->unit_name }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="form-control form-control-sm" >{{ $detail->quantity }}</span>
-                                            <input type="hidden" id="quantity_{{ $key }}" value="{{ $detail->quantity }}">
-                                        </td>
-                                        <td>
-                                            <span class="form-control form-control-sm">{{ $detail->unit_price }}</span>
-                                            <input type="hidden" id="unit_price_{{ $key }}" value="{{ $detail->unit_price }}">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control form-control-sm"
-                                                placeholder="{{ __('Return.ReturnQnty') }}" autofocus
-                                                max="{{ $detail->quantity }}" id="return_qnty_{{ $key }}" onkeyup="return_qnty({{ $key }})">
-                                        </td>
-                                        <td>
-                                            <input type="number" readonly name=""
-                                                class="form-control form-control-sm" id="return_amount_{{ $key }}">
-                                        </td>
+                                        <th>{{ __('Application.Date') }}</th>
+                                        <td> {{ $sale_info['sale'][0]->date }} </td>
+
+                                        <th>{{ __('Sale.InvoiceNo') }}</th>
+                                        <td> {{ $sale_info['sale'][0]->challan_no }} </td>
+
+                                        <th>{{ __('Application.Status') }}</th>
+                                        <td> {{ $sale_info['sale'][0]->status }} </td>
                                     </tr>
 
-
-                                    @empty
                                     <tr>
-                                        <td colspan="8">{{ __('Application.NoDataFound') }}</td>
+                                        <th>{{ __('Customer.CustomerName') }}</th>
+                                        <td> {{ $sale_info['sale'][0]->customer_name }} </td>
+
+                                        <th>{{ __('Customer.CustomerPhone') }}</th>
+                                        <td> {{ $sale_info['sale'][0]->customer_phone }} </td>
+
+                                        <th>{{ __('Sale.InTotalAmount') }}</th>
+                                        <td> {{ number_format($sale_info['sale'][0]->total_amount, 0) }} </td>
                                     </tr>
-                                    @endforelse
-                                </tbody>
+                                </table>
+                                {{-- Sale Table Data End --}}
 
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="2" rowspan="2">
-                                            <div>
+                                <span class="badge badge-info mt-3 mb-3">{{ __('Sale.SoldItemList') }}</span>
+
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <th>{{ __('Application.SerialNo') }}</th>
+                                        <th>{{ __('Item.Item') }}</th>
+                                        <th>{{ __('Variant.Variant') }}</th>
+                                        <th>{{ __('Unit.Unit') }}</th>
+                                        <th>{{ __('Sale.Quantity') }}</th>
+                                        <th>{{ __('Sale.UnitPrice') }}</th>
+                                        <th>{{ __('Return.ReturnQnty') }}</th>
+                                        <th>{{ __('Return.ReturnPrice') }}</th>
+                                    </thead>
+
+                                    <tbody>
+                                        @forelse ($sale_info['sale_details'] as $key => $detail)
+                                        <tr>
+                                            <td>
+                                                <span> {{ $key + 1 }} </span>
+                                            </td>
+
+                                            <!-- Item Name -->
+                                            <td>
+                                                <span class="form-control form-control-sm"> {{ $detail->item_name }} </span>
+                                                <input type="hidden" name="item_id[]" readonly value="{{ $detail->item_id }}">
+                                            </td>
+
+                                            <!-- Variant Name -->
+                                            <td>
+                                                <span class="form-control form-control-sm"> {{ $detail->variant_name }} </span>
+                                                <input type="hidden" name="variant_id[]" readonly value="{{ $detail->variant_id }}">
+                                            </td>
+
+                                            <!-- Unit Name -->
+                                            <td>
+                                                <span class="form-control form-control-sm"> {{ $detail->unit_name }} </span>
+                                                <input type="hidden" name="unit_id[]" readonly value="{{ $detail->unit_id }}">
+                                            </td>
+
+                                            <!-- Quantity -->
+                                            <td>
+                                                <span class="form-control form-control-sm"> {{ $detail->quantity }} </span>
+                                                <input type="hidden"  id="quantity_{{ $key }}" name="quantity[]" readonly value="{{ $detail->quantity }}">
+                                            </td>
+
+                                            <!-- Unit Price -->
+                                            <td>
+                                                <span class="form-control form-control-sm"> {{ $detail->unit_price }} </span>
+                                                <input type="hidden" id="unit_price_{{ $key }}" readonly name="unit_price[]" value="{{ $detail->unit_price }}">
+                                            </td>
+
+                                            <!-- Return Quantity -->
+                                            <td>
+                                                <input type="number" class="form-control form-control-sm return_qnty" name="return_quantity[]" placeholder="{{ __('Return.ReturnQnty') }}" autofocus
+                                                max="{{ $detail->quantity }}"  id="return_qnty_{{ $key }}" onkeyup="return_qnty({{ $key }})" required>
+                                            </td>
+
+                                            <!-- Return Amount -->
+                                            <td>
+                                                <input type="number" readonly name="return_amount[]" class="form-control form-control-sm disable_input return_amount"
+                                                id="return_amount_{{ $key }}">
+                                            </td>
+                                        </tr>
+
+                                        @empty
+                                        <tr>
+                                            <td colspan="8">{{ __('Application.NoDataFound') }}</td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+
+                                <div class="row">
+                                    <div class="col-md-8 bg card mt-3">
+                                        <div class="row">
+                                            <!-- Stock Adjust -->
+                                            <div class="col-md-3">
+                                                <!-- Adjust With Stock Radio Button -->
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                        id="flexRadioDefault1" checked>
-                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                    <input class="form-check-input" type="radio" name="adjust"
+                                                    id="stock" checked value="1">
+
+                                                    <label class="form-check-label" for="stock">
                                                         {{ __('Return.AdjustWithStock') }}
                                                     </label>
                                                 </div>
+
+                                                <!-- Wastage Radio Button -->
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                        id="flexRadioDefault2">
-                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                    <input class="form-check-input" type="radio" name="adjust"
+                                                    id="wastage" value="0">
+                                                    <label class="form-check-label" for="wastage">
                                                         {{ __('Return.Wastage') }}
                                                     </label>
                                                 </div>
                                             </div>
-                                        </td>
 
-                                        <td colspan="4" rowspan="2">
-                                            <div>
+                                            <!-- Remarks -->
+                                            <div class="col-md-9">
                                                 <textarea name="remarks"
-                                                    class="form-control form-control-sm mt-2 mb-2 mr-2"
+                                                    class="form-control form-control-sm mt-2 mb-2 mr-2" name="remarks"
                                                     placeholder="{{ __('Application.Remarks') }}">
 
                                                 </textarea>
                                             </div>
-                                        </td>
+                                        </div>
 
-                                        <td>
-                                            <label class="float-right">{{ __('Return.TotalReturnItem') }}</label>
-                                        </td>
+                                        <!-- Total Cash In and Bank Balance -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h6>{{ __('Transaction.TotalCashInHandBalance') }}</h6>
+                                                        <span class="badge badge-primary">{{ number_format($total_amount['cash_in_hand_balance'][0]->cash_balance,0) }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                        <td>
-                                            <input type="number" class="form-control form-control-sm" id="return_item_qnty" readonly>
-                                        </td>
-                                    </tr>
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h6>{{ __('Transaction.TotalBankBalance') }}</h6>
+                                                        <span class="badge badge-primary">{{ number_format($total_amount['bank_balance'][0]->bank_balance,0) }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    <tr>
-                                        <td>
-                                            <label class="float-right">{{ __('Return.TotalReturnItem') }}</label>
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control form-control-sm" id="return_item_amount" value="0" readonly>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
+                                    <!-- Summation DIV -->
+                                    <div class="col-md-4 bg card mt-3">
+                                        <div class="row mt-2">
+
+                                            <!-- Total Item Count -->
+                                            <div class="col-md-4">
+                                                <label class="float-right">{{ __('Return.TotalReturnAmount') }}</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="number" class="form-control form-control-sm disable_input" id="return_item_qnty" readonly>
+                                            </div>
+
+                                            <!-- Total Item Amount -->
+                                            <div class="col-md-4">
+                                                <label class="float-right">{{ __('Return.TotalReturnAmount') }}</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="number" name="return_amount" class="form-control form-control-sm disable_input" id="return_item_amount" readonly>
+                                            </div>
+
+                                            <!-- Total Payble Amount -->
+                                            <div class="col-md-4 ">
+                                                <label class="float-right">{{ __('Purchase.DepositeAmount') }}</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" name="deposit_amount" id="deposit_amount" class="form-control form-control-sm">
+                                            </div>
+
+                                            <!-- Balance or Due -->
+                                            <div class="col-md-4">
+                                                <label class="float-right">{{ __('Purchase.DueAmount') }}</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" name="due_amount" id="due_amount" class="form-control form-control-sm disable_input" readonly>
+                                            </div>
+
+                                            <!-- Payment By -->
+                                            <div class="col-md-4">
+                                                <label class="float-right"> {{ __('Sale.PaymentBy') }} </label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <select name="payment_by" id="payment_by" class="form-control form-control-sm">
+                                                    <option value="CASH">Cash</option>
+                                                    <option value="BANK">Bank</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Bank List with Balance -->
+                                            <div class="col-md-4 bank_div">
+                                                <label class="float-right"> {{ __('Bank.BankName') }} </label>
+                                            </div>
+                                            <div class="col-md-8 bank_div">
+                                                <select name="bank_id" id="bank_id" class="form-control form-control-sm">
+                                                    @forelse ($banks as $bank)
+                                                        <option value="{{ $bank->bank_id }}">{{ $bank->bank_name }} [{{ number_format($bank->balance,0) }}]</option>
+                                                    @empty
+                                                        <option disabled>{{ __('Application.NoDataFound') }}</option>
+                                                    @endforelse
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <button class="btn btn-info float-right mt-3" type="submit">
+                                    {{ __('Application.Add') }}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -242,25 +346,82 @@
         const qnty = $(`#return_qnty_${key}`).val();
         const previous_qnty = $(`#quantity_${key}`).val();
 
-        total_item_count = parseInt(total_item_count) + parseInt(qnty);
-
+        // IF Given Quantity is Larger Then Sale Quantity.
         if(parseInt(qnty) > parseInt(previous_qnty)) {
             alert('Return quantity can not be grater then sale quantity');
+            $(`#return_qnty_${key}`).val(0);
+            $(`#return_amount_${key}`).val(0);
             return false;
         }
 
         const unit_price = $(`#unit_price_${key}`).val();
-
         const return_amount = qnty * unit_price;
         $(`#return_amount_${key}`).val(return_amount);
+
+        AddTotalItemAmount();
     }
 
-    console.log(total_item_count);
+    function AddTotalItemAmount() {
+        let return_qnty = $('.return_qnty');
+        let return_amount = $('.return_amount');
 
+        total_item_count = 0;
+        total_item_amount = 0;
+
+        return_qnty.each((index, element) => {
+            const item_qnty = parseInt(element.value);
+
+            if(item_qnty && item_qnty >= 0){
+              total_item_count  += item_qnty
+            }
+        });
+
+        return_amount.each((index, element) => {
+            const return_amount = parseInt(element.value);
+
+            if(return_amount && return_amount >= 0){
+                total_item_amount  += return_amount
+            }
+        });
+
+        $(`#return_item_qnty`).val(total_item_count);
+        $(`#return_item_amount`).val(total_item_amount);
+
+        if(total_item_amount < 0){
+            $('#deposit_amount').attr('disabled','disabled');
+        } else {
+            $('#deposit_amount').removeAttr('disabled');
+        }
+    }
 
     $(document).ready(function(){
+        $('.bank_div').hide();
         $('#return_item_qnty').val(total_item_count);
         $('#return_item_amount').val(total_item_amount);
+        $('#deposit_amount').attr('disabled','disabled');
+
+        // Deposit Amount
+        $('#deposit_amount').keyup(function(){
+            const deposit_amount = $(this).val();
+            const return_amount = $('#return_item_amount').val();
+            if(deposit_amount && deposit_amount > 0){
+                const due_amount = parseInt(return_amount) - parseInt(deposit_amount);
+                $('#due_amount').val(due_amount);
+            }else {
+                $('#due_amount').val(0);
+            }
+
+        })
+
+        // Payment By Bank
+        $('#payment_by').change(function(){
+            if($(this).val() === 'BANK'){
+                $('.bank_div').show();
+            } else {
+                $('.bank_div').hide();
+                $('#bank_id').val('');
+            }
+        })
     });
 
 </script>

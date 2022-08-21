@@ -13,5 +13,7 @@
         'Wastage'               => 'Wastage',
         'TotalReturnItem'       => 'Total Return Item',
         'TotalReturnAmount'     => 'Total Return Amount',
+        'SalesReturnList'       => 'Sales Return List',
+        'PurchaseReturnList'    => 'Purchase Return List',
     ];
 ?>

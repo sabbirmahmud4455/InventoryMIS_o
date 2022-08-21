@@ -25,6 +25,8 @@
         'TotalCashIn'               => 'Total Cash IN',
         'TotalCashOut'              => 'Total Cash Out',
         'TotalCashAmount'           => 'Total Cash Amount',
-        'CashTransactionsList'      => 'Cash Transactions List'
+        'CashTransactionsList'      => 'Cash Transactions List',
+        'TotalCashInHandBalance'    => 'Total Cash In Hand Balance',
+        'TotalBankBalance'          => 'Total Bank Balance',
     ];
 ?>

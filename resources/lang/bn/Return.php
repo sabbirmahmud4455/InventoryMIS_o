@@ -13,5 +13,7 @@
         'Wastage'               => 'অপচয়',
         'TotalReturnItem'       => 'মোট রিটার্ন পণ্য',
         'TotalReturnAmount'     => 'মোট রিটার্ন টাকা',
+        'SalesReturnList'       => 'বিক্রয় রিটার্ন তালিকা',
+        'PurchaseReturnList'    => 'ক্রয় রিটার্ন তালিকা',
     ];
 ?>
