@@ -63,7 +63,7 @@
                             </div>
                         </div>
 
-                        <form action="{{ route('return.customer_return_store') }}" method="POST">
+                        <form action="{{ route('return.sales_return_store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="sale_id" value="{{ $sale_info['sale'][0]->id }}">
                             <input type="hidden" name="invoice_no" value="{{ $sale_info['sale'][0]->challan_no }}">
@@ -101,11 +101,13 @@
                                 <table class="table table-sm table-bordered">
                                     <thead>
                                         <th>{{ __('Application.SerialNo') }}</th>
+                                        <th>{{ __('Lot.LotName') }}</th>
                                         <th>{{ __('Item.Item') }}</th>
                                         <th>{{ __('Variant.Variant') }}</th>
                                         <th>{{ __('Unit.Unit') }}</th>
                                         <th>{{ __('Sale.Quantity') }}</th>
                                         <th>{{ __('Sale.UnitPrice') }}</th>
+                                        <th>{{ __('Warehouse.Warehouse') }}</th>
                                         <th>{{ __('Return.ReturnQnty') }}</th>
                                         <th>{{ __('Return.ReturnPrice') }}</th>
                                     </thead>
@@ -115,6 +117,12 @@
                                         <tr>
                                             <td>
                                                 <span> {{ $key + 1 }} </span>
+                                            </td>
+
+                                            <!-- Lot Name -->
+                                            <td>
+                                                <span class="form-control form-control-sm">{{ $detail->lot_name }}</span>
+                                                <input type="hidden" name="lot_id[]" readonly value="{{ $detail->lot_id }}">
                                             </td>
 
                                             <!-- Item Name -->
@@ -145,6 +153,18 @@
                                             <td>
                                                 <span class="form-control form-control-sm"> {{ $detail->unit_price }} </span>
                                                 <input type="hidden" id="unit_price_{{ $key }}" readonly name="unit_price[]" value="{{ $detail->unit_price }}">
+                                            </td>
+
+                                            <!-- Warehouse -->
+                                            <td>
+                                                <select name="warehouse_id[]" class="form-control form-control-sm" required>
+                                                    <option disabled selected>{{ __('Warehouse.SelectWarehouse') }}</option>
+                                                    @forelse ($warehouses as $warehouse)
+                                                        <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                                    @empty
+                                                        <option disabled>{{ __('Application.NoDataFound') }}</option>
+                                                    @endforelse
+                                                </select>
                                             </td>
 
                                             <!-- Return Quantity -->

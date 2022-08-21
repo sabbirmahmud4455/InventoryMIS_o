@@ -15,6 +15,7 @@ class CreateItemReturnsTable extends Migration
     {
         Schema::create('item_returns', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
             $table->unsignedBigInteger('sale_id')->nullable();
             $table->unsignedBigInteger('purchase_id')->nullable();
             $table->string('invoice_no');

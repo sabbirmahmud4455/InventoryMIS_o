@@ -41,9 +41,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <form action="{{ route('return.customer_return_view') }}" method="POST">
+                                    <form action="{{ route('return.sales_return_view') }}" method="POST">
                                         @csrf
                                         <div class="card">
+                                            @if($errors->any())
+                                                <span class="badge badge-danger">{{$errors->first()}}</span>
+                                            @endif
                                             <div class="card-header">
                                                 <h5>{{ __('Return.CustomerReturn') }}</h5>
                                             </div>
@@ -115,7 +118,6 @@
 
 <script src="{{ asset('backend/js/select2/form-select2.min.js') }}"></script>
 <script src="{{ asset('backend/js/select2/select2.full.min.js') }}"></script>
-
 <script>
     $('input[name="purchase_date"]').daterangepicker({
         opens: 'left',

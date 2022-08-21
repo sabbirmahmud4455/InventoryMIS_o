@@ -17,11 +17,13 @@ class CreateItemReturnDetailsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('item_return_id');
             $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('lot_id');
             $table->unsignedBigInteger('variant_id');
             $table->unsignedBigInteger('unit_id');
             $table->integer('return_qnty')->default(0);
             $table->double('unit_price')->default(0);
             $table->double('total_price');
+            $table->unsignedBigInteger('warehouse_id');
             $table->timestamps();
         });
     }
