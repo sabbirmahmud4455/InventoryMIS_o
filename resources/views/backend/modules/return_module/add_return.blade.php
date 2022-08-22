@@ -79,6 +79,7 @@
 
                                 <div class="col-md-6">
                                     <form action="{{ route('return.purchase_return_view') }}" method="post">
+                                        @csrf
                                         <div class="card">
                                             <div class="card-header">
                                                 <h5>{{ __('Return.SupplierReturn') }}</h5>
@@ -86,7 +87,7 @@
                                             <div class="card-body">
                                                 <label> {{ __('Sale.InvoiceNo') }} </label>
 
-                                                <select name="" class="form-control select2">
+                                                <select name="purchase_id" class="form-control select2">
                                                     <option selected disabled>{{ __('Application.Select') }}</option>
                                                     @forelse ($purchase_challan_no as $challan)
                                                     <option value="{{ $challan->id }}">{{ $challan->challan_no }}</option>

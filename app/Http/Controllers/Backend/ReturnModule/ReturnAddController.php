@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Nwidart\Modules\Commands\EnableCommand;
 
 class ReturnAddController extends Controller
 {
@@ -43,7 +44,7 @@ class ReturnAddController extends Controller
             $is_exists = $this->return_is_exists($sale_id);
 
             if($is_exists == true){
-                return redirect()->route('return.add')->withErrors(['msg' => 'Item Return Already Exists']);
+                return redirect()->route('return.add')->withErrors(['msg' => __('Return.ItemReturnExists')]);
             }
 
             DisableDBStrictMode();
@@ -70,7 +71,34 @@ class ReturnAddController extends Controller
     // Purchase Return
     public function purchase_return_view(Request $request){
         if(can('purchase_return')) {
-            return $request->all();
+
+            $purchase_id = $request->purchase_id;
+
+            // Check If this return id is exists on return table or not.
+            $is_exists = $this->return_is_exists($purchase_id);
+            if($is_exists == true){
+                return redirect()->route('return.add')->withErrors(['msg' => __('Return.ItemReturnExists')]);
+            }
+
+            // Getting Required Data from DB
+            DisableDBStrictMode();
+            $purchase = new Purchase();
+            $purchase_info = $purchase->PurchaseDetails($purchase_id);
+
+            $bank = new Bank();
+            $banks = $bank->AllBanksWithBalance();
+
+            $transaction = new Transaction();
+            $total_amount = $transaction->TotalCashInHandAndBankBalance();
+
+            EnableDBStrictMode();
+
+            $warehouses = Warehouse::select('id', 'name')->where('is_active', true)->where('is_delete', false)->get();
+
+
+            return view('backend.modules.return_module.purchase_return.purchase_return_view',
+                        compact('purchase_info','warehouses', 'banks', 'total_amount' ));
+
         } else {
             return view('errors.404');
         }
@@ -116,7 +144,7 @@ class ReturnAddController extends Controller
 
         if($request->return_amount && $request->return_amount > 0){
             $this->ReturnTransactionCashIn($request);
-        }   
+        }
 
         if($request->deposit_amount && $request->deposit_amount > 0) {
             $this->ReturnTransactionCashOut($request);
