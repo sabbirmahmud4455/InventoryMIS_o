@@ -15,5 +15,6 @@
         'TotalReturnAmount'     => 'Total Return Amount',
         'SalesReturnList'       => 'Sales Return List',
         'PurchaseReturnList'    => 'Purchase Return List',
+        'ItemReturnExists'      => 'Item Return Already Exists',
     ];
 ?>

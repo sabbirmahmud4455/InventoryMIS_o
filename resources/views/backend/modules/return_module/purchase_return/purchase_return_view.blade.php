@@ -35,7 +35,7 @@
 
                         <li class="breadcrumb-item active">
                             <a href="#">
-                                {{ __('Return.SaleReturnView') }}
+                                {{ __('Return.PurchaseReturn') }}
                             </a>
                         </li>
                     </ol>
@@ -53,7 +53,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h5>{{ __('Return.CustomerReturn') }}</h5>
+                                    <h5>{{ __('Return.PurchaseReturn') }}</h5>
                                 </div>
                                 <div class="col-md-6">
                                     <a href="{{ route('return.add') }}" class="btn btn-info btn-sm float-right">
@@ -65,33 +65,30 @@
 
                         <form action="{{ route('return.sales_return_store') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="sale_id" value="{{ $sale_info['sale'][0]->id }}">
-                            <input type="hidden" name="invoice_no" value="{{ $sale_info['sale'][0]->challan_no }}">
-                            <input type="hidden" name="customer_id" value="{{ $sale_info['sale'][0]->customer_id }}">
 
                             <div class="card-body table-responsive">
                                 {{-- Sale Table Data Start --}}
                                 <table class="table table-sm table-bordered">
                                     <tr>
                                         <th>{{ __('Application.Date') }}</th>
-                                        <td> {{ $sale_info['sale'][0]->date }} </td>
+                                        <td> {{ $purchase_info['purchase']->date }} </td>
 
                                         <th>{{ __('Sale.InvoiceNo') }}</th>
-                                        <td> {{ $sale_info['sale'][0]->challan_no }} </td>
+                                        <td> {{ $purchase_info['purchase']->challan_no }} </td>
 
                                         <th>{{ __('Application.Status') }}</th>
-                                        <td> {{ $sale_info['sale'][0]->status }} </td>
+                                        <td> {{ $purchase_info['purchase']->purchase_status }} </td>
                                     </tr>
 
                                     <tr>
-                                        <th>{{ __('Customer.CustomerName') }}</th>
-                                        <td> {{ $sale_info['sale'][0]->customer_name }} </td>
+                                        <th>{{ __('Supplier.SupplierName') }}</th>
+                                        <td> {{ $purchase_info['purchase']->supplier_name }} </td>
 
-                                        <th>{{ __('Customer.CustomerPhone') }}</th>
-                                        <td> {{ $sale_info['sale'][0]->customer_phone }} </td>
+                                        <th>{{ __('Supplier.SupplierPhone') }}</th>
+                                        <td> {{ $purchase_info['purchase']->supplier_contact }} </td>
 
-                                        <th>{{ __('Sale.InTotalAmount') }}</th>
-                                        <td> {{ number_format($sale_info['sale'][0]->total_amount, 0) }} </td>
+                                        <th>{{ __('Purchase.TotalAmount') }}</th>
+                                        <td> {{ number_format($purchase_info['purchase']->total_amount, 0) }} </td>
                                     </tr>
                                 </table>
                                 {{-- Sale Table Data End --}}
@@ -113,7 +110,7 @@
                                     </thead>
 
                                     <tbody>
-                                        @forelse ($sale_info['sale_details'] as $key => $detail)
+                                        @forelse ($purchase_info['purchase_details'] as $key => $detail)
                                         <tr>
                                             <td>
                                                 <span> {{ $key + 1 }} </span>
@@ -157,14 +154,8 @@
 
                                             <!-- Warehouse -->
                                             <td>
-                                                <select name="warehouse_id[]" class="form-control form-control-sm" required>
-                                                    <option disabled selected>{{ __('Warehouse.SelectWarehouse') }}</option>
-                                                    @forelse ($warehouses as $warehouse)
-                                                        <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
-                                                    @empty
-                                                        <option disabled>{{ __('Application.NoDataFound') }}</option>
-                                                    @endforelse
-                                                </select>
+                                                <span class="form-control form-control-sm"> {{ $detail->warehouse_name }} </span>
+                                                <input type="hidden" readonly name="warehouse_id[]" value="{{ $detail->warehouse_id }}">
                                             </td>
 
                                             <!-- Return Quantity -->

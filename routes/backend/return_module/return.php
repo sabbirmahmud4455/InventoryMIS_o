@@ -8,8 +8,10 @@ Route::group(['prefix' => 'return', 'as' => 'return.'], function(){
 
     Route::get('/add', [ReturnAddController::class, 'add'])->name('add');
 
-    Route::post('/customer-return-view', [ReturnAddController::class, 'customer_return_view'])->name('customer_return_view');
-    Route::post('/customer-return-store', [ReturnAddController::class, 'customer_return_store'])->name('customer_return_store');
+    Route::post('/sales-return-view', [ReturnAddController::class, 'sales_return_view'])->name('sales_return_view');
+    Route::post('/sales-return-store', [ReturnAddController::class, 'sales_return_store'])->name('sales_return_store');
+
+    Route::post('/purchase-return-view', [ReturnAddController::class, 'purchase_return_view'])->name('purchase_return_view');
 
     // Sales Return List
     Route::group(['prefix' => 'sales-return', 'as' => 'sales_return.'], function(){

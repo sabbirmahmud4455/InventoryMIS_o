@@ -15,5 +15,8 @@
         'TotalReturnAmount'     => 'মোট রিটার্ন টাকা',
         'SalesReturnList'       => 'বিক্রয় রিটার্ন তালিকা',
         'PurchaseReturnList'    => 'ক্রয় রিটার্ন তালিকা',
+        'ItemReturnExists'      => 'আইটেম রিটার্ন ইতিমধ্যেই বিদ্যমান',
+        'SalesReturn'           => 'বিক্রয় রিটার্ন',
+        'PurchaseReturn'        => 'ক্রয় রিটার্ন'
     ];
 ?>

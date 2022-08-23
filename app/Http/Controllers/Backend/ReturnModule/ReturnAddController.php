@@ -9,11 +9,13 @@ use App\Models\ReturnModule\ItemReturn;
 use App\Models\ReturnModule\ItemReturnDetails;
 use App\Models\SaleModule\Sale;
 use App\Models\StockModule\StockInOut;
+use App\Models\SystemDataModule\Warehouse;
 use App\Models\TransactionModule\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Nwidart\Modules\Commands\EnableCommand;
 
 class ReturnAddController extends Controller
 {
@@ -34,10 +36,16 @@ class ReturnAddController extends Controller
     }
 
     // Customer Return View
-    public function customer_return_view(Request $request)
+    public function sales_return_view(Request $request)
     {
-        if(can('customer_return')) {
+        if(can('sales_return')) {
+
             $sale_id = $request->customer_sale_id;
+            $is_exists = $this->return_is_exists($sale_id);
+
+            if($is_exists == true){
+                return redirect()->route('return.add')->withErrors(['msg' => __('Return.ItemReturnExists')]);
+            }
 
             DisableDBStrictMode();
 
@@ -50,24 +58,68 @@ class ReturnAddController extends Controller
             $transaction = new Transaction();
             $total_amount = $transaction->TotalCashInHandAndBankBalance();
 
-
             EnableDBStrictMode();
 
+            $warehouses = Warehouse::select('id', 'name')->where('is_active', true)->where('is_delete', false)->get();
 
-
-            return view('backend.modules.return_module.sale_return.sale_return_view', compact('sale_info', 'banks', 'total_amount'));
+            return view('backend.modules.return_module.sale_return.sale_return_view', compact('sale_info', 'banks', 'total_amount', 'warehouses'));
         } else {
             return view('errors.404');
         }
     }
 
-    // Customer Return Store
-    public function customer_return_store(Request $request)
-    {
-        if(can('customer_return')) {
-            $request->all();
-            $this->ItemReturnStore($request);
+    // Purchase Return
+    public function purchase_return_view(Request $request){
+        if(can('purchase_return')) {
 
+            $purchase_id = $request->purchase_id;
+
+            // Check If this return id is exists on return table or not.
+            $is_exists = $this->return_is_exists($purchase_id);
+            if($is_exists == true){
+                return redirect()->route('return.add')->withErrors(['msg' => __('Return.ItemReturnExists')]);
+            }
+
+            // Getting Required Data from DB
+            DisableDBStrictMode();
+            $purchase = new Purchase();
+            $purchase_info = $purchase->PurchaseDetails($purchase_id);
+
+            $bank = new Bank();
+            $banks = $bank->AllBanksWithBalance();
+
+            $transaction = new Transaction();
+            $total_amount = $transaction->TotalCashInHandAndBankBalance();
+
+            EnableDBStrictMode();
+
+            $warehouses = Warehouse::select('id', 'name')->where('is_active', true)->where('is_delete', false)->get();
+
+
+            return view('backend.modules.return_module.purchase_return.purchase_return_view',
+                        compact('purchase_info','warehouses', 'banks', 'total_amount' ));
+
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    // Return Is Exists or Not
+    protected function return_is_exists($sale_id){
+        $item_return = ItemReturn::select('sale_id')
+                    ->where('sale_id', $sale_id)
+                    ->first();
+
+        if($item_return){
+            return true;
+        }
+    }
+
+    // Customer Return Store
+    public function sales_return_store(Request $request)
+    {
+        if(can('sales_return')) {
+            $this->ItemReturnStore($request);
         } else {
             return view('errors.404');
         }
@@ -108,12 +160,13 @@ class ReturnAddController extends Controller
             $item_return_details                    = new ItemReturnDetails();
             $item_return_details->item_return_id    = $item_id;
             $item_return_details->item_id           = $item;
+            $item_return_details->lot_id            = $request->lot_id[$key];
             $item_return_details->variant_id        = $request->variant_id[$key];
             $item_return_details->unit_id           = $request->unit_id[$key];
             $item_return_details->return_qnty       = $request->return_quantity[$key];
             $item_return_details->unit_price        = $request->unit_price[$key];
             $item_return_details->total_price       = $request->return_amount[$key];
-
+            $item_return_details->warehouse_id      = $request->warehouse_id[$key];
             $item_return_details->save();
         }
     }
@@ -130,8 +183,8 @@ class ReturnAddController extends Controller
             $stock_in->variant_id   = $request->variant_id[$key];
             $stock_in->unit_id      = $request->unit_id[$key];
             $stock_in->in_quantity  = $request->return_quantity[$key];
-            $stock_in->warehouse_id = 1;
-            $stock_in->lot_id       = 1;
+            $stock_in->warehouse_id = $request->warehouse_id[$key];
+            $stock_in->lot_id       = $request->lot_id[$key];
 
             $stock_in->save();
         }
