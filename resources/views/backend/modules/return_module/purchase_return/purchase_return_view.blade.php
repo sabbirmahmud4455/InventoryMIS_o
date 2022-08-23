@@ -63,8 +63,11 @@
                             </div>
                         </div>
 
-                        <form action="{{ route('return.sales_return_store') }}" method="POST">
+                        <form action="{{ route('return.purchase_return_store') }}" method="POST">
                             @csrf
+                            <input type="hidden" name="purchase_id" value="{{ $purchase_info['purchase']->purchase_id }}" required>
+                            <input type="hidden" name="invoice_no" value="{{ $purchase_info['purchase']->challan_no }}" required>
+                            <input type="hidden" name="supplier_id" value="{{ $purchase_info['purchase']->supplier_id }}" required>
 
                             <div class="card-body table-responsive">
                                 {{-- Sale Table Data Start --}}

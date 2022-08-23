@@ -40,14 +40,19 @@
                     <div class="card card-primary card-outline table-responsive">
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-md-12">
+                                    <!-- Show Item Return Error Message -->
+                                    <center>
+                                        @if($errors->any())
+                                            <span class="badge badge-danger">{{$errors->first()}}</span>
+                                        @endif
+                                    </center>
+                                </div>
+
                                 <div class="col-md-6">
                                     <form action="{{ route('return.sales_return_view') }}" method="POST">
                                         @csrf
                                         <div class="card">
-                                            <!-- Show Sale Item Return Error Message -->
-                                            @if($errors->any())
-                                                <span class="badge badge-danger">{{$errors->first()}}</span>
-                                            @endif
 
                                             <div class="card-header">
                                                 <h5>{{ __('Return.CustomerReturn') }}</h5>
@@ -58,8 +63,7 @@
                                                 <select name="customer_sale_id" class="form-control select2">
                                                     <option selected disabled>{{ __('Application.Select') }}</option>
                                                     @forelse ($sale_challan_no as $challan_no)
-                                                    <option value="{{ $challan_no->id }}">{{ $challan_no->challan_no }}
-                                                    </option>
+                                                    <option value="{{ $challan_no->id }}">{{ $challan_no->challan_no }}</option>
                                                     @empty
                                                     <option disabled>{{ __('Application.NoDataFound') }}</option>
                                                     @endforelse
@@ -132,7 +136,6 @@
             cancelLabel: 'Clear',
         }
     }, function (start, end, label) {
-        // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     });
 
     $('input[name="purchase_date"]').on('apply.daterangepicker', function (ev, picker) {
@@ -146,7 +149,6 @@
     $(".select2").select2({
         dropdownAutoWidth: true,
         width: '100%',
-        // dropdownParent: $('#myModal')
     });
 
 </script>

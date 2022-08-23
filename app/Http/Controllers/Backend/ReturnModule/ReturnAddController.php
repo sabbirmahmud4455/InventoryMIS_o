@@ -41,7 +41,7 @@ class ReturnAddController extends Controller
         if(can('sales_return')) {
 
             $sale_id = $request->customer_sale_id;
-            $is_exists = $this->return_is_exists($sale_id);
+            $is_exists = $this->return_is_exists($sale_id, $from = 'SalesReturn');
 
             if($is_exists == true){
                 return redirect()->route('return.add')->withErrors(['msg' => __('Return.ItemReturnExists')]);
@@ -75,7 +75,7 @@ class ReturnAddController extends Controller
             $purchase_id = $request->purchase_id;
 
             // Check If this return id is exists on return table or not.
-            $is_exists = $this->return_is_exists($purchase_id);
+            $is_exists = $this->return_is_exists($purchase_id, $from = 'PurchaseReturn');
             if($is_exists == true){
                 return redirect()->route('return.add')->withErrors(['msg' => __('Return.ItemReturnExists')]);
             }
@@ -105,9 +105,16 @@ class ReturnAddController extends Controller
     }
 
     // Return Is Exists or Not
-    protected function return_is_exists($sale_id){
-        $item_return = ItemReturn::select('sale_id')
-                    ->where('sale_id', $sale_id)
+    protected function return_is_exists($id, $from){
+
+        if($from == 'SalesReturn') {
+            $column_name = 'sale_id';
+        } else {
+            $column_name = 'purchase_id';
+        }
+
+        $item_return = ItemReturn::select($column_name)
+                    ->where($column_name, $id)
                     ->first();
 
         if($item_return){
@@ -125,6 +132,16 @@ class ReturnAddController extends Controller
         }
     }
 
+    // Supplier or Purchase Return Store
+    public function purchase_return_store(Request $request)
+    {
+        if(can('purchase_return')) {
+            $this->ItemReturnStore($request);
+        } else {
+            return view('errors.404');
+        }
+    }
+
     protected function ItemReturnStore($request){
 
         $date = Carbon::now();
@@ -132,9 +149,16 @@ class ReturnAddController extends Controller
 
         $item_return = new ItemReturn();
         $item_return->date = $today;
-        $item_return->sale_id = $request->sale_id;
+
+        if($request->sale_id) {
+            $item_return->sale_id = $request->sale_id;
+        }
+        else {
+            $item_return->purchase_id = $request->purchase_id;
+        }
         $item_return->invoice_no = $request->invoice_no;
         $item_return->return_amount = $request->return_amount;
+
         if($request->adjust == 1){
             $item_return->status = 'AdjustWithStock';
             $this->AdjustWithStock($request);
@@ -191,14 +215,35 @@ class ReturnAddController extends Controller
     }
 
     protected function ReturnTransactionCashIn($request){
-        $transaction                        = new Transaction();
-        $transaction->date                  = Carbon::now()->toDateString();
-        $transaction->transaction_code      = TransactionCode();
-        $transaction->narration             = 'Return Items Transaction';
-        $transaction->invoice_no            = $request->invoice_no;
-        $transaction->sale_id               = $request->sale_id;
-        $transaction->customer_id           = $request->customer_id;
-        $transaction->created_by            = Auth('web')->user()->id;
+        $transaction                       = new Transaction();
+        $transaction->date                 = Carbon::now()->toDateString();
+        $transaction->transaction_code     = TransactionCode();
+        $transaction->invoice_no           = $request->invoice_no;
+        $transaction->created_by           = Auth('web')->user()->id;
+
+        /*
+        IF Request has sale ID then consider its come from Sales Return Form.
+        On Sale Return Total Return Amount goes to Cash IN field. Because Sale Return means Product or Item return on my store and the
+        price of the items or products is into my store. Thats why its Cash IN.
+        */
+        if($request->sale_id) {
+            $transaction->sale_id          = $request->sale_id;
+            $transaction->customer_id      = $request->customer_id;
+            $transaction->narration        = 'Sales Return Items Transaction';
+            $transaction->cash_in          = $request->return_amount;
+        }
+
+        /*
+        IF Request has Purchase ID then consider its come from Purchase Return Form.
+        On Purchase Return Total Return Amount goes to Cash OUT field. Because Purchase Return means Product or Item will be gone from my store and the
+        price of the items or products is out of my store. Thats why its Cash OUT.
+        */
+        else {
+            $transaction->purchase_id      = $request->purchase_id;
+            $transaction->supplier_id      = $request->supplier_id;
+            $transaction->narration        = 'Purchase Return Items Transaction';
+            $transaction->cash_out         = $request->return_amount;
+        }
 
         if($request->payment_by == 'BANK'){
             $transaction->bank_id = $request->bank_id;
@@ -207,19 +252,41 @@ class ReturnAddController extends Controller
             $transaction->payment_by = 'CASH';
         }
 
-        $transaction->cash_in = $request->return_amount;
         $transaction->save();
     }
 
     protected function ReturnTransactionCashOut($request){
-        $transaction                        = new Transaction();
-        $transaction->date                  = Carbon::now()->toDateString();
-        $transaction->transaction_code      = TransactionCode();
-        $transaction->narration             = 'Return Items Given Amount';
-        $transaction->invoice_no            = $request->invoice_no;
-        $transaction->sale_id               = $request->sale_id;
-        $transaction->customer_id           = $request->customer_id;
-        $transaction->created_by            = Auth('web')->user()->id;
+        $transaction                    = new Transaction();
+        $transaction->date              = Carbon::now()->toDateString();
+        $transaction->transaction_code  = TransactionCode();
+        $transaction->created_by        = Auth('web')->user()->id;
+        $transaction->invoice_no        = $request->invoice_no;
+
+        /*
+        IF Request has sale ID then consider its come from Sales Return Form.
+        On Sale Return Total Return Amount goes to Cash IN field. Because Sale Return means Product or Item return on my store and the
+        price of the items or products is into my store. Thats why its Cash IN.
+        */
+        if($request->sale_id) {
+            $transaction->sale_id       = $request->sale_id;
+            $transaction->customer_id   = $request->customer_id;
+            $transaction->narration     = 'Sale Return Items Given Amount';
+            $transaction->cash_out      = $request->deposit_amount;
+        }
+
+        /*
+        IF Request has Purchase ID then consider its come from Purchase Return Form.
+        On Purchase Return Total Return Amount goes to Cash OUT field. Because Purchase Return means Product or Item will be gone from my store and the
+        price of the items or products is out of my store. Thats why its Cash OUT.
+        */
+        else {
+            $transaction->purchase_id   = $request->purchase_id;
+            $transaction->supplier_id   = $request->supplier_id;
+            $transaction->narration     = 'Purchase Return Items Given Amount';
+            $transaction->cash_in       = $request->deposit_amount;
+        }
+
+
 
         if($request->payment_by == 'BANK'){
             $transaction->bank_id = $request->bank_id;
@@ -228,7 +295,6 @@ class ReturnAddController extends Controller
             $transaction->payment_by = 'CASH';
         }
 
-        $transaction->cash_out = $request->deposit_amount;
         $transaction->save();
     }
 }
