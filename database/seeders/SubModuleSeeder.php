@@ -364,7 +364,7 @@ class SubModuleSeeder extends Seeder
                 'name_bn' => 'ক্রয় রিটার্ন তালিকা',
                 'key' => 'purchase_return',
                 'position' => 3,
-                'route' => 'report.index',
+                'route' => 'return.purchase_return.index',
                 'module_id' => 12,
                 'created_at' => $date,
                 'updated_at' => $date,

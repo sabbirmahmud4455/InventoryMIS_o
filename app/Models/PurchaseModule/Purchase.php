@@ -68,4 +68,7 @@ class Purchase extends Model
             ];
         }
     }
+
+
+
 }

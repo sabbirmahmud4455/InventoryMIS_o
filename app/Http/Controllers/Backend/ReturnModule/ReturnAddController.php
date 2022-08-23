@@ -137,6 +137,8 @@ class ReturnAddController extends Controller
     {
         if(can('purchase_return')) {
             $this->ItemReturnStore($request);
+            return redirect()->route('return.purchase_return.index')->with(['msg' => 'Purchase Return Successful']);
+
         } else {
             return view('errors.404');
         }

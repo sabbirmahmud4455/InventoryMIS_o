@@ -13,7 +13,7 @@ class SalesReturnController extends Controller
     {
         if(can('sales_return')) {
             $item_return = new ItemReturn();
-            $sales_return = $item_return->GetAllItemReturnList();
+            $sales_return = $item_return->GetAllItemReturnList($prefix = 'SalesReturn');
 
             return view('backend.modules.return_module.sale_return.sale_return_list', compact('sales_return'));
         } else {
