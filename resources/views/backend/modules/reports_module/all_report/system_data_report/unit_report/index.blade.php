@@ -57,14 +57,24 @@
                                                 <th>{{ __('Report.TotalItem') }}</th>
                                             </tr>
                                         </thead>
+                                        @php
+                                            $total_item = 0;
+                                        @endphp
                                         <tbody>
                                             @foreach ($units as $key => $unit)
                                                 <tr>
                                                     <td>{{ ++ $key }}</td>
                                                     <td>{{ $unit->name }}</td>
-                                                    <td>{{ $unit->purchase_details->count() }}</td>
+                                                    @php
+                                                        $total_item += $unit->total_quantity;
+                                                    @endphp
+                                                    <td>{{ $unit->total_quantity ? $unit->total_quantity : '0.00' }}</td>
                                                 </tr>
                                             @endforeach
+                                            <tr style="background-color: #9F9F9F">
+                                                <th colspan="2">{{ __('Application.Total') }}</th>
+                                                <td>{{ $total_item }}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 @else

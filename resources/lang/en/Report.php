@@ -16,6 +16,7 @@
         'UnitWiseItemReport'            => 'Unit Wise Item Report',
         'VariantWiseItemReport'         => 'Variant Wise Item Report',
         'InQuantity'                    => 'In Quantity',
+        'OutQuantity'                    => 'Out Quantity',
 
         'PurchaseReport'                => 'Purchase Report',
         'AllPurchaseReport'             => 'All Purchase Report',

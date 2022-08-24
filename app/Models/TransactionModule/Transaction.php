@@ -3,7 +3,9 @@
 namespace App\Models\TransactionModule;
 
 use App\Models\BankModule\Bank;
+use App\Models\CustomerModule\Customer;
 use App\Models\PurchaseModule\Purchase;
+use App\Models\SaleModule\Sale;
 use App\Models\SupplierModule\Supplier;
 use App\Models\SystemDataModule\TransactionType;
 use App\Models\UserModule\User;
@@ -156,6 +158,23 @@ class Transaction extends Model
         return $total_cash_out;
     }
 
+    // TOTAL CASH IN HAND & BANK Balance
+    public function TotalCashInHandAndBankBalance()
+    {
+        $cash_in_hand_balance = DB::select("SELECT (SUM(cash_in) - SUM(cash_out)) as cash_balance
+        FROM
+        transactions
+        WHERE payment_by = 'CASH';");
+
+        $bank_balance = DB::select("SELECT (SUM(cash_in) - SUM(cash_out)) as bank_balance
+        FROM
+        transactions
+        WHERE payment_by = 'BANK';");
+
+        return ['cash_in_hand_balance' => $cash_in_hand_balance, 'bank_balance' => $bank_balance];
+
+    }
+
     public function bank() {
         return $this->belongsTo(Bank::class);
     }
@@ -173,6 +192,16 @@ class Transaction extends Model
 
     public function created_by_user() {
         return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class);
     }
 
 }

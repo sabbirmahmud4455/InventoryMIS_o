@@ -84,22 +84,32 @@
         <div class="row">
             <div class="col-md-12">
                 @if ($variants && count($variants) > 0)
-                    <table class="table table-sm table-bordered">
+                    <table class="table table-sm table-bordered text-center">
                         <thead>
-                            <tr>
-                                <th>{{ __('Application.SerialNo') }}</th>
-                                <th>{{ __('Unit.Name') }}</th>
-                                <th>{{ __('Report.TotalItem') }}</th>
-                            </tr>
+                        <tr>
+                            <th>{{ __('Application.SerialNo') }}</th>
+                            <th>{{ __('Variant.Name') }}</th>
+                            <th>{{ __('Report.TotalItem') }}</th>
+                        </tr>
                         </thead>
+                        @php
+                            $total_item = 0;
+                        @endphp
                         <tbody>
-                            @foreach ($variants as $key => $variant)
-                                <tr>
-                                    <td style="text-align: center">{{ ++ $key }}</td>
-                                    <td style="text-align: center">{{ $variant->name }}</td>
-                                    <td style="text-align: center">{{ $variant->purchase_details->count() }}</td>
-                                </tr>
-                            @endforeach
+                        @foreach ($variants as $key => $variant)
+                            <tr>
+                                <td>{{ ++ $key }}</td>
+                                <td>{{ $variant->name }}</td>
+                                @php
+                                    $total_item += $variant->total_quantity;
+                                @endphp
+                                <td>{{ $variant->total_quantity ? $variant->total_quantity : '0.00' }}</td>
+                            </tr>
+                        @endforeach
+                        <tr style="background-color: #9F9F9F">
+                            <th colspan="2">{{ __('Application.Total') }}</th>
+                            <td>{{ $total_item }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 @else

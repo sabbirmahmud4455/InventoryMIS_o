@@ -60,6 +60,9 @@
         .mrg{
             margin-left: 50% !important;
         }
+        .align-middle {
+            vertical-align: middle!important;
+        }
 
     </style>
 </head>
@@ -95,11 +98,11 @@
                         <tbody>
                             @foreach ($item_types as $key => $item_type)
                                 <tr>
-                                    <td style="text-align: center">{{ ++ $key }}</td>
-                                    <td style="text-align: center">{{ $item_type->name }}</td>
-                                    <td style="text-align: center">
+                                    <td style="text-align: center;" class="align-middle">{{ ++ $key }}</td>
+                                    <td style="text-align: center;" class="align-middle">{{ $item_type->name }}</td>
+                                    <td style="text-align: center;">
                                         @foreach ($item_type->items as $item)
-                                            <span>{{ $item->name . ' , ' }}</span>
+                                            <span>{{ $item->name }} <br></span>
                                         @endforeach
                                     </td>
                                 </tr>

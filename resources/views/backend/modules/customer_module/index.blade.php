@@ -33,6 +33,14 @@
                             </li>
                         </ol>
                     </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        @if( can('add_customer') && \Illuminate\Support\Facades\URL::previous() != route('report.index'))
+                            <button type="button" data-content="{{ route('customer.add.modal') }}" data-target="#myModal"
+                                    class="btn btn-outline-dark float-right" data-toggle="modal">
+                                {{ __('Customer.CustomerAdd') }}
+                            </button>
+                        @endif
+                    </div>
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
@@ -45,12 +53,29 @@
                     <div class="col-md-12">
                         <div class="card card-primary card-outline table-responsive">
                             <div class="card-header text-right">
-                                @if( can('add_customer') && \Illuminate\Support\Facades\URL::previous() != route('report.index'))
-                                    <button type="button" data-content="{{ route('customer.add.modal') }}" data-target="#myModal"
-                                            class="btn btn-outline-dark" data-toggle="modal">
-                                        {{ __('Customer.CustomerAdd') }}
-                                    </button>
-                                @endif
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form action="">
+                                            <div class="row">
+
+                                                <div class="col-md-3 col-3 form-group">
+                                                    <input type="text" class="form-control" name="customer_search" value="{{ request()->customer_search }}" placeholder="{{__( 'Customer.SearchCustomer' )}}">
+                                                </div>
+                                                <div class="col-md-2 form-group text-left">
+                                                    <button type="submit" class="btn btn-sm btn-outline-dark">
+                                                        {{ __('Application.Submit') }}
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-1 form-group text-right">
+                                                    <a href="{{ route('customer.all') }}" type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="fa fa-undo" ></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered table-striped dataTable dtr-inline datatable-data"
@@ -60,16 +85,27 @@
                                         <th>{{ __('Application.Id') }}</th>
                                         <th>{{ __('Customer.CustomerName') }}</th>
                                         <th>{{ __('Customer.CustomerPhone') }}</th>
+                                        <th>{{ __('Customer.Receivable') }}</th>
                                         <th>{{ __('Application.Status') }}</th>
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>
                                     </thead>
+                                    @php
+                                        $total_transaction = 0;
+                                    @endphp
                                     <tbody>
                                         @foreach ($customers as $key => $customer)
                                             <tr>
-                                                <td>{{ $customer->id }}</td>
+                                                <td>{{ $customers->firstItem() + $key }}</td>
                                                 <td>{{ $customer->name }}</td>
                                                 <td>{{ $customer->contact_no }}</td>
+                                                @php
+                                                    $cash_in = $customer->transactions->sum('cash_in');
+                                                    $cash_out = $customer->transactions->sum('cash_out');
+                                                    $receivable = $cash_in - $cash_out;
+                                                    $total_transaction += $receivable;
+                                                @endphp
+                                                <td>{{ '৳ ' . number_format($receivable, 0) }}</td>
                                                 <td>
                                                     @if ($customer->is_active)
                                                         <p class="badge badge-success">{{ __('Application.Active') }}</p>
@@ -97,6 +133,14 @@
                                                                 </a>
                                                             @endif
 
+                                                            <form action="{{ route('customer.transaction') }}">
+                                                                <button class="dropdown-item p-2">
+                                                                    <input type="hidden" name="customer_id" value="{{ $customer->id }}">
+                                                                    <i class="fa fa-exchange-alt" aria-hidden="true"></i>
+                                                                    {{ __('Application.Transaction') }}
+                                                                </button>
+                                                            </form>
+
                                                         </div>
                                                     </div>
 
@@ -106,6 +150,12 @@
                                         @endforeach
 
                                     </tbody>
+                                    <tfooter>
+                                        <tr style="background-color: #9F9F9F">
+                                            <th colspan="3">{{ __('Application.Total') }}</th>
+                                            <td colspan="3">{{ '৳ ' . number_format($total_transaction, 0) }}</td>
+                                        </tr>
+                                    </tfooter>
                                 </table>
 
                                 <div class=" d-flex justify-content-center mt-3">

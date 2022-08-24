@@ -61,6 +61,19 @@ class Sale extends Model
         return $date_customer_wise_sale;
     }
 
+    // sale search
+    public function SaleSearch($sale_search)
+    {
+        $sale_search = DB::select('SELECT sales.id AS sale_id, sales.date, sales.challan_no, sales.customer_id, sales.total_amount,
+                        customers.id, customers.name AS customer_name , customers.contact_no AS customer_phone
+                        FROM sales
+                        LEFT JOIN customers ON sales.customer_id = customers.id
+                        WHERE sales.date LIKE ? OR sales.challan_no LIKE ? OR sales.total_amount LIKE ? OR customers.name LIKE ? OR customers.contact_no LIKE ?
+                        ORDER BY sales.id DESC;', ['%'.$sale_search.'%', '%'.$sale_search.'%', '%'.$sale_search.'%', '%'.$sale_search.'%', '%'.$sale_search.'%']);
+
+        return $sale_search;
+    }
+
     // sale details
     public function SaleDetails($sale_id) {
 
@@ -71,7 +84,7 @@ class Sale extends Model
                     ON sales.customer_id = customers.id
                     WHERE sales.id = ? ;', [$sale_id]);
 
-        $sale_details = DB::select('SELECT sale_details.id, sale_details.sale_id,
+        $sale_details = DB::select('SELECT sale_details.id, sale_details.sale_id, sale_details.item_id, sale_details.unit_id, sale_details.variant_id, sale_details.lot_id,
                         items.name AS item_name, units.name AS unit_name, variants.name AS variant_name,
                         lots.name AS lot_name, quantity, unit_price, total_price
                         FROM sale_details
@@ -121,6 +134,21 @@ class Sale extends Model
                             WHERE sale_id = ?;', [$sale_id]);
 
         return ['sale' => $sale, 'sale_details' => $sale_details, 'sale_transaction' => $sale_transaction];
+    }
+
+
+    // Get All InvoiceNo/ChallanNo
+    public function GetSaleChallanNo()
+    {
+        $invoices = DB::select('SELECT id, challan_no FROM sales
+        ORDER BY id DESC;');
+
+        return $invoices;
+    }
+
+    public function sale_details()
+    {
+        return $this->hasMany(SaleDetails::class);
     }
 
 

@@ -58,6 +58,9 @@
                                                 <th>{{ __('Report.TotalItem') }}</th>
                                             </tr>
                                         </thead>
+                                        @php
+                                            $total_item = 0;
+                                        @endphp
                                         <tbody>
                                             @foreach ($warehouses as $key => $warehouse)
                                                 <tr>
@@ -67,10 +70,16 @@
                                                     @php
                                                         $in_quantity = $warehouse->stocks->sum('in_quantity');
                                                         $out_quantity = $warehouse->stocks->sum('out_quantity');
+                                                        $total_stock = $in_quantity - $out_quantity;
+                                                        $total_item += $total_stock;
                                                     @endphp
-                                                    <td>{{ $in_quantity - $out_quantity }}</td>
+                                                    <td>{{ $total_stock }}</td>
                                                 </tr>
                                             @endforeach
+                                            <tr style="background-color: #9F9F9F">
+                                                <th colspan="3">{{ __('Application.Total') }}</th>
+                                                <td>{{ $total_item }}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 @else

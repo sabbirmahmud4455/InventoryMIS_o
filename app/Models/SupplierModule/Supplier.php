@@ -26,12 +26,16 @@ class Supplier extends Model
     // Get Specific Supplier Transaction History
     public function GetSupplierTransactions($id)
     {
+        $supplier = DB::select('SELECT id, name, contact_no, address, company
+                                FROM suppliers
+                                WHERE id = ?', [$id]);
+
         $supplier_transactions = DB::select('SELECT id, date, transaction_code, narration, status, cash_in, cash_out
                                 FROM transactions
                                 WHERE supplier_id = ?
                                 ORDER BY id ASC;', [$id]);
 
-        return $supplier_transactions;
+        return ['supplier' => $supplier, 'supplier_transactions' => $supplier_transactions];
     }
 
     public function transactions()

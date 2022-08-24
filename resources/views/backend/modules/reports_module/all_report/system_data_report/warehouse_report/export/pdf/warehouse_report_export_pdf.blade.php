@@ -93,19 +93,28 @@
                                 <th>{{ __('Report.TotalItem') }}</th>
                             </tr>
                         </thead>
+                        @php
+                            $total_item = 0;
+                        @endphp
                         <tbody>
-                            @foreach ($warehouses as $key => $warehouse)
-                                <tr>
-                                    <td style="text-align: center">{{ ++ $key }}</td>
-                                    <td style="text-align: center">{{ $warehouse->name }}</td>
-                                    <td style="text-align: center">{{ $warehouse->location }}</td>
-                                    @php
-                                        $in_quantity = $warehouse->stocks->sum('in_quantity');
-                                        $out_quantity = $warehouse->stocks->sum('out_quantity');
-                                    @endphp
-                                    <td style="text-align: center">{{ $in_quantity - $out_quantity }}</td>
-                                </tr>
-                            @endforeach
+                        @foreach ($warehouses as $key => $warehouse)
+                            <tr>
+                                <td>{{ ++ $key }}</td>
+                                <td>{{ $warehouse->name }}</td>
+                                <td>{{ $warehouse->location }}</td>
+                                @php
+                                    $in_quantity = $warehouse->stocks->sum('in_quantity');
+                                    $out_quantity = $warehouse->stocks->sum('out_quantity');
+                                    $total_stock = $in_quantity - $out_quantity;
+                                    $total_item += $total_stock;
+                                @endphp
+                                <td>{{ $total_stock }}</td>
+                            </tr>
+                        @endforeach
+                        <tr style="background-color: #9F9F9F">
+                            <th colspan="3">{{ __('Application.Total') }}</th>
+                            <td>{{ $total_item }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 @else

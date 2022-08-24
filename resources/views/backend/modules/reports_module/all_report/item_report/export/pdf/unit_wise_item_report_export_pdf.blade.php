@@ -73,7 +73,7 @@
                 <br>
                 <span style="font-size: 20px;font-weight: bold">{{ $company_info->name }}</span><br>
                 <span style="font-size: 15px;">{{ $company_info->address }}</span><br>
-                <span style="font-size: 15px;">Conatct No : {{ $company_info->phone }}, Email : {{ $company_info->email }}</span><br>
+                <span style="font-size: 15px;">Contact No : {{ $company_info->phone }}, Email : {{ $company_info->email }}</span><br>
                 <hr>
 
                 <h3 style="font-size: 15px">{{ $title }}</h3>
@@ -90,15 +90,17 @@
                                 {{-- <th>{{ __('Application.SerialNo') }}</th> --}}
                                 <th>{{ __('Unit.Unit') }}</th>
                                 <th>{{ __('Item.Item') }}</th>
-                                <th>{{ __('Application.Date') }}</th>
+                                {{--                                                <th>{{ __('Application.Date') }}</th>--}}
                                 <th>{{ __('Report.InQuantity') }}</th>
-                                {{-- <th>Out Quantity</th> --}}
+                                <th>{{ __('Report.OutQuantity') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php
                                 $total_row = 0;
                                 $total_quantity = 0;
+                                $in_quantity = 0;
+                                $out_quantity = 0;
                             @endphp
                             @foreach ($unit_wise_item_group as $key => $unit_wise_items)
 
@@ -107,18 +109,23 @@
                                         $total_row += count($unit_wise_item) +1;
                                     @endphp
                                 @endforeach
-                                
+
                                 <tr>
-                                    <td rowspan="{{ $total_row + 1 }}" style="text-align: center">{{ $unit_wise_items[0]->unit->name }}</td>
-                                    
+                                    <td rowspan="{{ $total_row + 1 }}" style="vertical-align: middle">{{ $unit_wise_items[0]->unit->name }}</td>
+
                                     @foreach ($unit_wise_items->groupBY('item_id') as $unit_wise_item)
                                         <tr>
-                                            <td rowspan="{{ count($unit_wise_item) + 1 }}" style="text-align: center">{{ $unit_wise_item[0]->item->name }}</td>
+                                            <td rowspan="{{ count($unit_wise_item) + 1 }}" style="vertical-align: middle">{{ $unit_wise_item[0]->item->name }}</td>
                                             @foreach ($unit_wise_item as $item)
                                                 <tr>
-                                                    <td style="text-align: center">{{ \Carbon\Carbon::Parse($item->created_at)->format('d-M-Y') }}</td>
-                                                    <td style="text-align: center">{{ $item->in_quantity }}</td>
-                                                    {{-- <td>{{ $item->out_quantity }}</td> --}}
+                                                    {{--                                                                    <td>{{ \Carbon\Carbon::Parse($item->created_at)->format('d-M-Y') }}</td>--}}
+                                                    {{--                                                                    <td>{{ $item->in_quantity - $item->out_quantity }}</td>--}}
+                                                    @php
+                                                        $in_quantity += $item->in_quantity;
+                                                        $out_quantity += $item->out_quantity;
+                                                    @endphp
+                                                    <td>{{ $item->in_quantity }}</td>
+                                                    <td>{{ $item->out_quantity }}</td>
                                                 </tr>
                                             @endforeach
                                         </tr>
@@ -126,6 +133,13 @@
                                 </tr>
                             @endforeach
                         </tbody>
+                        <tfooter>
+                            <tr style="background-color: #9F9F9F">
+                                <th colspan="1">{{ __('Application.Total') }}</th>
+                                <td>{{ $in_quantity }}</td>
+                                <td>{{ $out_quantity }}</td>
+                            </tr>
+                        </tfooter>
                     </table>
                 @else
                     <h4 class="text-center text-danger my-2 not-found-txt">{{ __('Application.NoDataFound') }}</h4>

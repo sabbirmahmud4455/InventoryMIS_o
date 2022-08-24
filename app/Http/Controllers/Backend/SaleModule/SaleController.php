@@ -50,6 +50,10 @@ class SaleController extends Controller
                 $sales = $sale->DateCustomerWiseSale($request->customer_id, $start_date, $end_date);
             }
 
+            if ($request->sale_search) {
+                $sales = $sale->SaleSearch($request->sale_search);
+            }
+
             $customers = Customer::where('is_active', true)->orderBy('id', 'desc')->get();
 
             return view('backend.modules.sale_module.index', compact('sales', 'customers'));
@@ -242,7 +246,7 @@ class SaleController extends Controller
                 $transaction_sale->invoice_no = $sale->challan_no;
 
                 ////////////////
-                $transaction_sale->transaction_type_id = 1;
+                // $transaction_sale->transaction_type_id = 1;
                 /////////
 
                 $transaction_sale->narration = 'Sale New Order';
@@ -263,7 +267,7 @@ class SaleController extends Controller
                     $transaction_deposit->invoice_no = $sale->challan_no;
 
                     ////////////////
-                    $transaction_deposit->transaction_type_id = 1;
+                    // $transaction_deposit->transaction_type_id = 1;
                     /////////
 
                     $transaction_deposit->narration = 'Sale Deposite Amount';

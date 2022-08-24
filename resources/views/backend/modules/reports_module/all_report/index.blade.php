@@ -246,7 +246,7 @@
                                                 <a href="{{ route('customer.all') }}" class="btn btn-sm btn-outline-success all-report button_margin_bottom">{{ __('Report.AllCustomerReport') }}</a>
                                             @endif
                                             @if (can('customer_transaction_report'))
-                                                <a href="" class="btn btn-sm btn-outline-secondary all-report button_margin_bottom">{{ __('Report.CustomerTransactionReport') }}</a>
+                                                <a href="" class="btn btn-sm btn-outline-secondary button_margin_bottom" data-toggle="modal" data-target="#customerTransactionModal">{{ __('Report.CustomerTransactionReport') }}</a>
                                             @endif
                                         </center>
                                     </div>
@@ -535,7 +535,7 @@
           </button>
         </div>
             <div class="modal-body">
-                <form action="{{ route('supplier.transactions', encrypt($supplier->id)) }}">
+                <form action="{{ route('supplier.transactions') }}">
                     <!-- supplier -->
                     <div class="col-md-12 col-12 form-group">
                         <label for="supplier_id">{{ __('Supplier.SupplierName') }}</label><span class="require-span">*</span>
@@ -568,6 +568,51 @@
     </div>
 </div>
 <!-- Supplier Transaction Report Modal Start -->
+
+<!-- Customer Transaction Report Modal Start -->
+<div class="modal fade" id="customerTransactionModal" role="dialog" aria-labelledby="customerTransactionLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="customerTransactionLabel">Select Customer for Transaction Report</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+            <div class="modal-body">
+                <form action="{{ route('customer.transaction') }}">
+                    <!-- supplier -->
+                    <div class="col-md-12 col-12 form-group">
+                        <label for="supplier_id">{{ __('Customer.CustomerName') }}</label><span class="require-span">*</span>
+                        <select class="form-control select2" name="customer_id">
+                            <option disabled selected>Select Customer</option>
+                            @if ( count($customers) > 0 )
+                                @foreach ($customers as $customer)
+                                @php
+                                @endphp
+                                    <option value="{{ $customer->id }}">{{ $customer->name . ' - ' . $customer->address }}</option>
+                                @endforeach
+                            @else
+                                <option disabled>No Data Found</option>
+                            @endif
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 form-group text-right">
+                        <button type="submit" class="btn btn-sm btn-outline-dark">
+                            {{ __('Application.Submit') }}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+            </div>
+      </div>
+    </div>
+</div>
+<!-- Customer Transaction Report Modal Start -->
 
 <!-- Type wise Transaction Report Modal Start -->
 <div class="modal fade" id="typeWiseTransactionModal" role="dialog" aria-labelledby="typeWiseTransactionLabel" aria-hidden="true">
@@ -772,6 +817,14 @@
             dropdownAutoWidth: true,
             width: '100%',
             dropdownParent: $('#customerWiseSaleReportModal')
+        });
+    });
+
+    $(document).ready(function domReady() {
+        $(".select2").select2({
+            dropdownAutoWidth: true,
+            width: '100%',
+            dropdownParent: $('#customerTransactionModal')
         });
     });
 

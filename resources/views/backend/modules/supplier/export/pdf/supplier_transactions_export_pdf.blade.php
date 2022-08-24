@@ -81,9 +81,27 @@
         </div>
         <!-- Company Info End -->
 
-        <!-- Employee Details Start -->
+
         <div class="row">
             <div class="col-md-12">
+
+                <table class="table table-bordered" style="margin-bottom: 10px;">
+                    <tbody>
+                    <tr>
+                        <th>{{ __('Supplier.SupplierName') }}</th>
+                        <td>{{ $supplier_transactions['supplier'][0]->name }}</td>
+                        <th>{{ __('Supplier.SupplierPhone') }}</th>
+                        <td>{{ $supplier_transactions['supplier'][0]->contact_no }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ __('Supplier.SupplierCompany') }}</th>
+                        <td>{{ $supplier_transactions['supplier'][0]->company }}</td>
+                        <th>{{ __('Supplier.SupplierAddress') }}</th>
+                        <td>{{ $supplier_transactions['supplier'][0]->address }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
                 @if ($supplier_transactions && count($supplier_transactions) > 0)
                     <table class="table table-bordered table-sm">
                         <thead>
@@ -105,7 +123,7 @@
                         @endphp
 
                         <tbody>
-                            @forelse ($supplier_transactions as $key => $transaction)
+                            @forelse ($supplier_transactions['supplier_transactions'] as $key => $transaction)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $transaction->date }}</td>
@@ -178,7 +196,7 @@
                 @endif
             </div>
         </div>
-        <!-- Employee Details End -->
+
 
 
 

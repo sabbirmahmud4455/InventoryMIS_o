@@ -97,6 +97,9 @@
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>
                                 </thead>
+                                @php
+                                    $total_transaction = 0;
+                                @endphp
                                 <tbody>
                                     @forelse ($purchases as $key => $purchase)
                                         <tr>
@@ -104,6 +107,9 @@
                                             <td>{{ Carbon\Carbon::parse($purchase->date)->toFormattedDateString() }}</td>
                                             <td>{{ $purchase->supplier->name }}</td>
                                             <td>{{ $purchase->supplier->contact_no }}</td>
+                                            @php
+                                                $total_transaction += $purchase->total_amount;
+                                            @endphp
                                             <td>{{ $purchase->total_amount }}</td>
                                             <td>
                                                 <div class="dropdown">
@@ -137,6 +143,12 @@
                                         </tr>
                                     @endforelse
                                 </tbody>
+                                <tfooter>
+                                    <tr style="background-color: #9F9F9F">
+                                        <th colspan="4">{{ __('Application.Total') }}</th>
+                                        <td colspan="2">{{ $total_transaction }}</td>
+                                    </tr>
+                                </tfooter>
                             </table>
 
                             <div class=" d-flex justify-content-center mt-3">

@@ -56,8 +56,8 @@
                                             <h4 class="btn btn-info rounded-pill">নগদ/বাকী/মেমো</h4>
                                             <h1>মেসার্স মান্নান এন্টারপ্রাইজ</h1>
                                             <h4 class="btn btn-info rounded-pill">প্রোঃ মোঃ আওলাদ হোসেন</h4>
-                                            <h5>প্রসিদ্ধ ধান, চাউল, ভূষা মালের আড়ৎ ও পাইকারী বিক্রেতা।</h5>
-                                            <h5>বলিভদ্র বাজার, রপ্তানী এলাকা, আশুলিয়া, সাভার, ঢাকা।</h5>
+                                            <h6>প্রসিদ্ধ ধান, চাউল, ভূষা মালের আড়ৎ ও পাইকারী বিক্রেতা।</h6>
+                                            <h6>বলিভদ্র বাজার, রপ্তানী এলাকা, আশুলিয়া, সাভার, ঢাকা।</h6>
                                             <p> <span style="float:left">নং- {{ $sale_details['sale'][0]->challan_no }} </span>  <span style="float:right">তারিখ- {{ $sale_details['sale'][0]->date }} </span> </p>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
@@ -84,6 +84,7 @@
                                                 </thead>
                                                 @php
                                                     $total_price = 0;
+                                                    $total_quantity = 0;
                                                 @endphp
                                                 <tbody>
                                                     @foreach($sale_details['sale_details'] as $sale_detail)
@@ -91,6 +92,9 @@
                                                             <td>{{ $sale_detail->lot_name }}</td>
                                                             <td>{{ $sale_detail->item_name }}</td>
                                                             <td>{{ $sale_detail->quantity }}</td>
+                                                            @php
+                                                            $total_quantity += $sale_detail->quantity;
+                                                            @endphp
                                                             <td>{{ $sale_detail->variant_name }}</td>
                                                             <td>{{ '৳ ' . number_format($sale_detail->unit_price, 0) }}</td>
                                                             <td>{{ '৳ ' . number_format($sale_detail->total_price, 0) }}</td>
@@ -103,29 +107,29 @@
                                                 <tfooter>
                                                     <tr>
                                                         <td colspan="4" rowspan="5"></td>
-                                                        <td>মোট-</td>
+                                                        <th>মোট-</th>
                                                         <td>{{ '৳ ' . number_format($total_price, 0) }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>সাবেক-</td>
+                                                        <th>সাবেক-</th>
                                                         <td>{{ '৳ ' . number_format($customer_previous_balance, 0) }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>সর্বমোট-</td>
+                                                        <th>সর্বমোট-</th>
                                                         @php
                                                             $grand_total = $total_price + $customer_previous_balance;
                                                         @endphp
                                                         <td>{{ '৳ ' . number_format($grand_total, 0) }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>জমা-</td>
+                                                        <th>জমা-</th>
                                                         @php
                                                             $deposit = count($sale_details['sale_transaction']) > 1 ? $sale_details['sale_transaction'][1]->cash_in : 0;
                                                         @endphp
                                                         <td>{{ '৳ ' . number_format($deposit, 0) }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>বাকী-</td>
+                                                        <th>বাকী-</th>
                                                         @php
                                                             $due = $grand_total - $deposit;
                                                         @endphp
@@ -133,6 +137,25 @@
                                                     </tr>
                                                 </tfooter>
                                             </table>
+                                            <p>বিঃ দ্রঃ উল্লেখিত সমস্ত মাল ওজনে সঠিক দরে নমুনা অনুযায়ী বুঝিয়া পাইলাম।</p>
+                                            <p> <span style="float: left">ক্রেতার স্বাক্ষর</span> <span style="float: right">মেসার্স মান্নান এন্টারপ্রাইজ - এর পক্ষে</span></p>
+                                            <br>
+                                            <hr>
+                                            <h1>মেসার্স মান্নান এন্টারপ্রাইজ</h1>
+                                            <h6>রপ্তানি প্রমান পত্র</h6>
+                                            <p> <span style="float:left">নং- {{ $sale_details['sale'][0]->challan_no }} </span>  <span style="float:right">তারিখ- {{ $sale_details['sale'][0]->date }} </span> </p>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">ক্রেতার নাম</span>
+                                                </div>
+                                                <input type="text" value="{{ $sale_details['sale'][0]->customer_name }}" class="form-control" readonly>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">বস্তা পরিমান</span>
+                                                </div>
+                                                <input type="text" value="{{ $total_quantity }}" class="form-control" readonly>
+                                            </div>
                                         </center>
                                     </div>
                                 </div>

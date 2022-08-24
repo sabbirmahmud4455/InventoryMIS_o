@@ -334,14 +334,45 @@ class SubModuleSeeder extends Seeder
             // Module id 11 [Report Module] End
 
 
+            // Module id 12 [Return Module] Start
+            [
+                'id' => 26,
+                'name_en' => 'Add Return',
+                'name_bn' => 'রিটার্ন যোগ করুন',
+                'key' => 'add_return',
+                'position' => 1,
+                'route' => 'return.add',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
 
-
-
-
-
+            [
+                'id' => 27,
+                'name_en' => 'Sales Return List',
+                'name_bn' => 'বিক্রয় রিটার্ন তালিকা',
+                'key' => 'sales_return',
+                'position' => 2,
+                'route' => 'return.sales_return.index',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 28,
+                'name_en' => 'Purchase Return List',
+                'name_bn' => 'ক্রয় রিটার্ন তালিকা',
+                'key' => 'purchase_return',
+                'position' => 3,
+                'route' => 'report.index',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Module id 12 [Return Module] End
         ]);
 
         // #########################
-        //LAST ID : 25. NEXT ID : 26
+        //LAST ID : 28. NEXT ID : 29
     }
 }

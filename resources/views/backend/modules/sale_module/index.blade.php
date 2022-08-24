@@ -70,12 +70,16 @@
                                             <div class="col-md-3 col-3 form-group">
                                                 <input type="text" class="form-control" name="sale_date" value="{{ request()->sale_date }}">
                                             </div>
-                                            <div class="col-md-3 form-group text-left">
+
+                                            <div class="col-md-3 col-3 form-group">
+                                                <input type="text" class="form-control" name="sale_search" value="{{ request()->sale_search }}" placeholder="{{ __('Sale.SaleSearch') }}">
+                                            </div>
+                                            <div class="col-md-2 form-group text-left">
                                                 <button type="submit" class="btn btn-sm btn-outline-dark">
                                                     {{ __('Application.Submit') }}
                                                 </button>
                                             </div>
-                                            <div class="col-md-3 form-group text-right">
+                                            <div class="col-md-1 form-group text-right">
                                                 <a href="{{ route('sale.index') }}" type="submit" class="btn btn-sm btn-danger">
                                                     <i class="fa fa-undo" ></i>
                                                 </a>
@@ -88,7 +92,7 @@
                         </div>
                         <div class="card-body">
                             @if ($sales && count($sales) > 0)
-                                <table class="table table-sm table-bordered text-center">
+                                <table class="table table-sm table-bordered">
                                     <thead>
                                     <tr>
                                         <th>{{ __('Application.SerialNo') }}</th>
@@ -100,14 +104,19 @@
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    @php
+                                        $total_sale = 0;
+                                    @endphp
+                                    <tbody class="text-center">
                                     @foreach ($sales as $key => $sale)
                                         <tr>
                                             <td>{{ ++ $key }}</td>
                                             <td>{{ $sale->date }}</td>
                                             <td>{{ $sale->challan_no }}</td>
                                             <td>{{ $sale->customer_name }}</td>
-                                            <td>{{ $sale->customer_phone }}</td>
+                                            <td>{{ $sale->customer_phone }}</td>@php
+                                                $total_sale += $sale->total_amount;
+                                            @endphp
                                             <td>{{ '৳ ' . number_format($sale->total_amount, 0) }}</td>
                                             <td>
                                                 <div class="dropdown">
@@ -133,6 +142,12 @@
                                         </tr>
                                     @endforeach
                                     </tbody>
+                                    <tfooter>
+                                        <tr style="background-color: #9F9F9F">
+                                            <th colspan="5">{{ __('Application.Total') }}</th>
+                                            <td colspan="2">{{ '৳ ' . number_format($total_sale, 0) }}</td>
+                                        </tr>
+                                    </tfooter>
                                 </table>
                             @else
                                 <h4 class="text-center text-danger my-2">{{ __('Application.NoDataFound') }}</h4>

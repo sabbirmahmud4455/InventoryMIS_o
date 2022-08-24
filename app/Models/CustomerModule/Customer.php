@@ -2,6 +2,7 @@
 
 namespace App\Models\CustomerModule;
 
+use App\Models\TransactionModule\Transaction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -18,4 +19,11 @@ class Customer extends Model
 
         return $balance[0];
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+
 }

@@ -577,6 +577,15 @@ class PermissionSeeder extends Seeder
                 'created_at' => $date,
                 'updated_at' => $date,
             ],
+            [
+                'id' => 134,
+                'key' => 'customer_transaction',
+                'display_name_en' => '-- Customer Transaction',
+                'display_name_bn' => '-- ক্রেতার লেনদেন',
+                'module_id' => 5,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
             // Customer Module Permission End
 
 
@@ -1205,10 +1214,65 @@ class PermissionSeeder extends Seeder
             ],
             // Reports Module Permission end
 
-
+            // Return Module Permission Start
+            [
+                'id' => 128,
+                'key' => 'return',
+                'display_name_en' => 'Return',
+                'display_name_bn' => 'রিটার্ন',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 129,
+                'key' => 'add_return',
+                'display_name_en' => '--- Add Return',
+                'display_name_bn' => '--- রিটার্ন যোগ করা',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 130,
+                'key' => 'sales_return',
+                'display_name_en' => '--- Sales Return',
+                'display_name_bn' => '--- বিক্রয় রিটার্ন',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 131,
+                'key' => 'sales_return_edit',
+                'display_name_en' => '--- Sales Return Edit',
+                'display_name_bn' => '--- বিক্রয় রিটার্ন পরিবর্তন',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 132,
+                'key' => 'purchase_return',
+                'display_name_en' => '--- Purchase Return',
+                'display_name_bn' => '--- ক্রয় রিটার্ন',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            [
+                'id' => 133,
+                'key' => 'purchase_return_edit',
+                'display_name_en' => '--- Purchase Return Edit',
+                'display_name_bn' => '--- ক্রয় রিটার্ন পরিবর্তন',
+                'module_id' => 12,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ],
+            // Return Module Permission End
 
         ]);
 
-        // Last ID: 127, New ID: 128
+        // Last ID: 134, New ID: 135
     }
 }

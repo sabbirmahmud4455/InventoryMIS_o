@@ -11,6 +11,10 @@
         'CustomerWarningMsg'        => ' কিছু ভুল হয়েছে| আবার চেষ্টা করুন !!',
         'OpeningBalance'            => 'বকেয়া টাকার পরিমান',
         'GuestCustomer'             => 'খুচরা ক্রেতা',
+        'Receivable'                => 'পাওনা',
+        'SearchCustomer'            => 'ক্রেতা অনুসন্ধান',
+        'Transaction'               => 'ক্রেতার লেনদেন',
+        'TransactionDetails'        => 'ক্রেতার লেনদেনর বিবরণ',
 
 
     ];

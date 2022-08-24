@@ -19,5 +19,10 @@
         'Bank' => 'Bank',
         'SaleDetails' => 'Sale Details',
         'SaleInvoice' => 'Sale Invoice',
+        'InvoiceNo' => 'Invoice No',
+        'SoldItemList' => 'Sold Item List',
+        'SaleSearch' => 'Sale Search',
+        'ViewSaleInfo' => 'View Sale Info',
+
     ];
 ?>
