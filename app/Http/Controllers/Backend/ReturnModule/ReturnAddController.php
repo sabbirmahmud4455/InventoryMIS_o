@@ -13,9 +13,6 @@ use App\Models\SystemDataModule\Warehouse;
 use App\Models\TransactionModule\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Nwidart\Modules\Commands\EnableCommand;
 
 class ReturnAddController extends Controller
 {
@@ -224,9 +221,9 @@ class ReturnAddController extends Controller
         $transaction->created_by           = Auth('web')->user()->id;
 
         /*
-        IF Request has sale ID then consider its come from Sales Return Form.
-        On Sale Return Total Return Amount goes to Cash IN field. Because Sale Return means Product or Item return on my store and the
-        price of the items or products is into my store. Thats why its Cash IN.
+        If there is a sales ID then this request is from a sales return.
+        In case of sales return, the return money will go to cash in. Because of sales returns
+        It means that the product has come to me from the customer.
         */
         if($request->sale_id) {
             $transaction->sale_id          = $request->sale_id;
@@ -236,9 +233,9 @@ class ReturnAddController extends Controller
         }
 
         /*
-        IF Request has Purchase ID then consider its come from Purchase Return Form.
-        On Purchase Return Total Return Amount goes to Cash OUT field. Because Purchase Return means Product or Item will be gone from my store and the
-        price of the items or products is out of my store. Thats why its Cash OUT.
+        If there is no sales ID then this request is from a purchase return.
+        In case of purchase return, the return money will go to cash out.
+        Because of the purchase return means the product has gone from me to the Supplier.
         */
         else {
             $transaction->purchase_id      = $request->purchase_id;
@@ -265,9 +262,9 @@ class ReturnAddController extends Controller
         $transaction->invoice_no        = $request->invoice_no;
 
         /*
-        IF Request has sale ID then consider its come from Sales Return Form.
-        On Sale Return Total Return Amount goes to Cash IN field. Because Sale Return means Product or Item return on my store and the
-        price of the items or products is into my store. Thats why its Cash IN.
+        If there is a sales ID then this request is from a sales return.
+        In case of sales return, the deposit will go to cash out. Because of sales returns,
+        In this case I will refund the customer.
         */
         if($request->sale_id) {
             $transaction->sale_id       = $request->sale_id;
@@ -277,9 +274,9 @@ class ReturnAddController extends Controller
         }
 
         /*
-        IF Request has Purchase ID then consider its come from Purchase Return Form.
-        On Purchase Return Total Return Amount goes to Cash OUT field. Because Purchase Return means Product or Item will be gone from my store and the
-        price of the items or products is out of my store. Thats why its Cash OUT.
+        If there is no sales ID then this request is from a purchase return.
+        In case of purchase return, the deposit will go to cash in. Because of the purchase return
+        In this case, the supplier returned the money to me.
         */
         else {
             $transaction->purchase_id   = $request->purchase_id;

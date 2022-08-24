@@ -27,6 +27,8 @@ Route::post('/do-logout', [LogoutController::class, 'do_logout'])->name('do.logo
 Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Admin Dashboard Data Routes
+    Route::get('/get-current-stock-list', [DashboardController::class, 'current_stock_list'])->name('dashboard.current_stock_list');
 
     //profile module routes start
     Route::group(['prefix' => 'profile_module'], function () {

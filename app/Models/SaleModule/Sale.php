@@ -2,9 +2,11 @@
 
 namespace App\Models\SaleModule;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Exception;
 use Illuminate\Support\Facades\DB;
+use App\Models\SaleModule\SaleDetails;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Sale extends Model
 {
@@ -150,6 +152,36 @@ class Sale extends Model
     {
         return $this->hasMany(SaleDetails::class);
     }
+
+    /*
+    Total Sale Amount.
+    If you want to get a single day total sale, then just pass the date as first perameter. and also pass null as a second perameter
+    OR
+    If you want to get total sale amount in date range then just pass two date as as perameter
+    */
+    public function TotalSaleAmount($start_date, $end_date)
+    {
+        if($start_date && $end_date){
+            $left_query = 'BETWEEN ? AND ?';
+            $query_value = [$start_date, $end_date];
+        }else {
+            $left_query = '= ?';
+            $query_value = [$start_date];
+        }
+
+        try{
+            $total_sale = DB::select('SELECT SUM(total_amount) as total_amount FROM sales
+            WHERE date '.$left_query.';', $query_value);
+
+            if($total_sale) {
+                return $total_sale;
+            }
+
+        } catch(Exception $e){
+            return $e->getMessage();
+        }
+    }
+
 
 
 }

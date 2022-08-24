@@ -30,7 +30,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>{{ $total_purchase[0]->total_amount ? number_format($total_purchase[0]->total_amount,0) : '0' }}</h3>
 
                             <p> {{ __('Dashboard.TodayPurchaseAmount') }} </p>
                         </div>
@@ -57,7 +57,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>{{ $total_sale[0]->total_amount ? number_format($total_sale[0]->total_amount,0) : '0' }}</h3>
 
                             <p>{{ __('Dashboard.TodaySaleAmount') }}</p>
                         </div>
@@ -250,6 +250,21 @@
 {{-- Apex Chart CDN --}}
 <script src="{{ asset('backend/js/apax-chart.js') }}"></script>
 
+
+
+<script>
+    function GetStockList(){
+        var data = 'Nazib';
+        $.ajax({
+            url: "{{ route('dashboard.current_stock_list') }}",
+            method: 'GET',
+            success: function(data){
+                console.log(data.stock_list);
+            }
+        });
+    }
+</script>
+
 <!-- Customer Status PIE Chart -->
 <script>
      var options = {
@@ -304,6 +319,18 @@
 
 <!-- Current Stock Status -->
 <script>
+    var stockData = [];
+    $.ajax({
+            url: "{{ route('dashboard.current_stock_list') }}",
+            method: 'GET',
+            success: function(data){
+                for(const i = 0; i <  data.stock_list.length; i++) {
+                    console.log(i);
+                }
+            }
+        });
+
+    console.log(stockData);
     var options = {
           series: [{
           data: [21, 22, 10, 28, 16, 21, 13, 30, 16, 21, 13, 30]

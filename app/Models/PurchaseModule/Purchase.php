@@ -4,6 +4,7 @@ namespace App\Models\PurchaseModule;
 
 use App\Models\SupplierModule\Supplier;
 use App\Models\UserModule\User;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -69,6 +70,35 @@ class Purchase extends Model
         }
     }
 
+
+    /*
+    Total Purchase Amount.
+    If you want to get a single day total sale, then just pass the date as first perameter. and also pass null as a second perameter
+    OR
+    If you want to get total sale amount in date range then just pass two date as as perameter
+    */
+    public function TotalPurchaseAmount($start_date, $end_date)
+    {
+        if($start_date && $end_date){
+            $left_query = 'BETWEEN ? AND ?';
+            $query_value = [$start_date, $end_date];
+        }else {
+            $left_query = '= ?';
+            $query_value = [$start_date];
+        }
+
+        try{
+            $total_purchase = DB::select('SELECT SUM(total_amount) as total_amount FROM purchases
+            WHERE date '.$left_query.';', $query_value);
+
+            if($total_purchase) {
+                return $total_purchase;
+            }
+
+        } catch(Exception $e){
+            return $e->getMessage();
+        }
+    }
 
 
 }

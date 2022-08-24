@@ -91,8 +91,7 @@ class StockController extends Controller
 
         if(can('stock_list') || can('current_stock_report') || can('warehouse_wise_stock_report') || can('date_wise_stock_report')){
 
-            config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
-            DB::reconnect(); // Reconnect to DB
+            DisableDBStrictMode();
 
             $stock = new StockInOut();
             $stock_lists = $stock->StockList($item_id, $item_variant, $item_unit, $warehouse_id);
@@ -105,10 +104,7 @@ class StockController extends Controller
             $variants = Variant::where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
             $units = Unit::where('is_active', true)->where('is_delete', false)->orderBy('id', 'desc')->get();
 
-
-
-            config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
-            DB::reconnect(); //Reconnect to DB
+            EnableDBStrictMode();
 
 
 

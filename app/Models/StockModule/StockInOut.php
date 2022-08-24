@@ -21,6 +21,7 @@ class StockInOut extends Model
         $item_unit_query = $item_unit ? "AND stock_in_outs.unit_id = $item_unit" : "";
         $warehouse_query = $warehouse_id ? "AND stock_in_outs.warehouse_id	 = $warehouse_id" : "";
 
+
         $query = "SELECT items.name as item_name, variants.name as variant_name,units.name as unit_name,
         lots.name as lot_name,
         (SUM(in_quantity) - SUM(out_quantity)) as available_stock,
