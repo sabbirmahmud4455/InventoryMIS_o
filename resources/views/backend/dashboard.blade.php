@@ -30,7 +30,8 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>{{ $total_purchase[0]->total_amount ? number_format($total_purchase[0]->total_amount,0) : '0' }}</h3>
+                            <h3>{{ $total_purchase[0]->total_amount ? number_format($total_purchase[0]->total_amount,0) : '0' }}
+                            </h3>
 
                             <p> {{ __('Dashboard.TodayPurchaseAmount') }} </p>
                         </div>
@@ -57,7 +58,8 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>{{ $total_sale[0]->total_amount ? number_format($total_sale[0]->total_amount,0) : '0' }}</h3>
+                            <h3>{{ $total_sale[0]->total_amount ? number_format($total_sale[0]->total_amount,0) : '0' }}
+                            </h3>
 
                             <p>{{ __('Dashboard.TodaySaleAmount') }}</p>
                         </div>
@@ -250,194 +252,187 @@
 {{-- Apex Chart CDN --}}
 <script src="{{ asset('backend/js/apax-chart.js') }}"></script>
 
-
-
 <script>
-    function GetStockList(){
-        var data = 'Nazib';
+    // Declear Stock List Variable
+    var availbaleStockValue = [];
+    var itemName = [];
+
+    // Declear This Month Sales Variable
+    var saleAmount = [];
+    var saleDate = [];
+
+    $(document).ready(function () {
+        GetDashboardData();
+    });
+
+    function GetDashboardData() {
+        $('.loading').show();
         $.ajax({
-            url: "{{ route('dashboard.current_stock_list') }}",
+            url: "{{ route('dashboard.get_dashboard_data') }}",
             method: 'GET',
-            success: function(data){
-                console.log(data.stock_list);
+            success: function (data) {
+                $('.loading').hide();
+                if (data.stock_list) {
+                    for (let i = 0; i < data.stock_list.length; i++) {
+                        availbaleStockValue.push(data.stock_list[i].available_stock);
+                        itemName.push(data.stock_list[i].item_name + '(' + data.stock_list[i].variant_name +
+                            ' ' + data.stock_list[i].unit_name + ')');
+                    }
+                }
+
+                if (data.this_month_sales) {
+                    for (let i = 0; i < data.this_month_sales.length; i++) {
+                        saleDate.push(data.this_month_sales[i].date);
+                        saleAmount.push(data.this_month_sales[i].sale_amount);
+                    }
+                }
+
+                StockList(availbaleStockValue, itemName);
+                ThisMonthSales(saleAmount, saleDate);
             }
         });
     }
+
+
+    function StockList(stockData, ItemName) {
+        var options = {
+            series: [{
+                data: stockData
+            }],
+            chart: {
+                height: 350,
+                type: 'bar',
+                events: {
+                    click: function (chart, w, e) {}
+                }
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: '45%',
+                    distributed: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            legend: {
+                show: false
+            },
+            xaxis: {
+                categories: ItemName,
+                labels: {
+                    style: {
+                        fontSize: '12px'
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#current-stock-status"),
+            options);
+        chart.render();
+    }
+
+
+    function ThisMonthSales(Amount, DateOfSale) {
+        var options = {
+            series: [{
+                name: "Desktops",
+                data: Amount
+            }],
+            chart: {
+                height: 350,
+                type: 'line',
+                zoom: {
+                    enabled: false
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'straight'
+            },
+            title: {
+                text: 'Product Trends by Month',
+                align: 'left'
+            },
+            grid: {
+                row: {
+                    colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                    opacity: 0.5
+                },
+            },
+            xaxis: {
+                categories: DateOfSale,
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#this-month-sale-status"), options);
+        chart.render();
+    }
+
 </script>
+
 
 <!-- Customer Status PIE Chart -->
 <script>
-     var options = {
-          series: [44, 55, 48, 30],
-          chart: {
-          width: 380,
-          type: 'pie',
+    var options = {
+        series: [44, 55, 48, 30],
+        chart: {
+            width: 380,
+            type: 'pie',
         },
         labels: ['Old Customer', 'New Customer', 'This Month', 'Last Month'],
         responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: 'bottom'
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
             }
-          }
         }]
-        };
+    };
 
-        var chart = new ApexCharts(document.querySelector("#customer-status-pie"), options);
-        chart.render();
+    var chart = new ApexCharts(document.querySelector("#customer-status-pie"), options);
+    chart.render();
+
 </script>
 
 <!-- Supplier Status PIE Chart -->
 <script>
     var options = {
-         series: [44, 55, 35, 48],
-         chart: {
-         width: 380,
-         type: 'pie',
-       },
-       labels: ['Old Supplier', 'New Supplier', 'This Month', 'Last Month'],
-       responsive: [{
-         breakpoint: 480,
-         options: {
-           chart: {
-             width: 200
-           },
-           legend: {
-             position: 'bottom'
-           }
-         }
-       }]
-       };
-
-       var chart = new ApexCharts(document.querySelector("#supplier-status-pie"), options);
-       chart.render();
-</script>
-
-<!-- Current Stock Status -->
-<script>
-    var stockData = [];
-    $.ajax({
-            url: "{{ route('dashboard.current_stock_list') }}",
-            method: 'GET',
-            success: function(data){
-                for(const i = 0; i <  data.stock_list.length; i++) {
-                    console.log(i);
+        series: [44, 55, 35, 48],
+        chart: {
+            width: 380,
+            type: 'pie',
+        },
+        labels: ['Old Supplier', 'New Supplier', 'This Month', 'Last Month'],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
                 }
             }
-        });
+        }]
+    };
 
-    console.log(stockData);
-    var options = {
-          series: [{
-          data: [21, 22, 10, 28, 16, 21, 13, 30, 16, 21, 13, 30]
-        }],
-          chart: {
-          height: 350,
-          type: 'bar',
-          events: {
-            click: function(chart, w, e) {
-              // console.log(chart, w, e)
-            }
-          }
-        },
-        plotOptions: {
-          bar: {
-            columnWidth: '45%',
-            distributed: true,
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        legend: {
-          show: false
-        },
-        xaxis: {
-          categories: [
-            ['John', 'Doe'],
-            ['Joe', 'Smith'],
-            ['Jake', 'Williams'],
-            'Amber',
-            ['Peter', 'Brown'],
-            ['Mary', 'Evans'],
-            ['David', 'Wilson'],
-            ['Lily', 'Roberts'],
-            ['Peter', 'Brown'],
-            ['Mary', 'Evans'],
-            ['David', 'Wilson'],
-            ['Lily', 'Roberts'],
-          ],
-          labels: {
-            style: {
-              fontSize: '12px'
-            }
-          }
-        }
-        };
+    var chart = new ApexCharts(document.querySelector("#supplier-status-pie"), options);
+    chart.render();
 
-        var chart = new ApexCharts(document.querySelector("#current-stock-status"), options);
-        chart.render();
 </script>
+
 
 <!-- This Month Sale Status -->
 <script>
-    var options = {
-          series: [{
-          name: 'Sales',
-          data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
-        }],
-          chart: {
-          height: 350,
-          type: 'line',
-        },
-        forecastDataPoints: {
-          count: 7
-        },
-        stroke: {
-          width: 5,
-          curve: 'smooth'
-        },
-        xaxis: {
-          type: 'datetime',
-          categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000', '8/11/2000', '9/11/2000', '10/11/2000', '11/11/2000', '12/11/2000', '1/11/2001', '2/11/2001', '3/11/2001','4/11/2001' ,'5/11/2001' ,'6/11/2001'],
-          tickAmount: 10,
-          labels: {
-            formatter: function(value, timestamp, opts) {
-              return opts.dateFormatter(new Date(timestamp), 'dd MMM')
-            }
-          }
-        },
-        title: {
-          text: 'Forecast',
-          align: 'left',
-          style: {
-            fontSize: "16px",
-            color: '#666'
-          }
-        },
-        fill: {
-          type: 'gradient',
-          gradient: {
-            shade: 'dark',
-            gradientToColors: [ '#FDD835'],
-            shadeIntensity: 1,
-            type: 'horizontal',
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [0, 100, 100, 100]
-          },
-        },
-        yaxis: {
-          min: -10,
-          max: 40
-        }
-        };
 
-        var chart = new ApexCharts(document.querySelector("#this-month-sale-status"), options);
-        chart.render();
+
 </script>
 @endsection

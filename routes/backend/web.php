@@ -29,6 +29,8 @@ Route::group(['prefix' => 'admindashboard', 'middleware' => ['auth', 'Language']
 
     // Admin Dashboard Data Routes
     Route::get('/get-current-stock-list', [DashboardController::class, 'current_stock_list'])->name('dashboard.current_stock_list');
+    Route::get('/get-dashboard-data', [DashboardController::class, 'get_dashboard_data'])->name('dashboard.get_dashboard_data');
+
 
     //profile module routes start
     Route::group(['prefix' => 'profile_module'], function () {

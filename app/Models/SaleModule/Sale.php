@@ -182,6 +182,24 @@ class Sale extends Model
         }
     }
 
+    public function ThisMonthSalesGraph($start_date, $end_date){
+        try{
+
+            $this_month_sales = DB::select('SELECT date, sum(total_amount) as sale_amount
+            FROM sales
+            WHERE date BETWEEN ? AND ?
+            GROUP BY date;',[$start_date, $end_date]);
+
+            if($this_month_sales) {
+                return $this_month_sales;
+            }
+
+        } catch(Exception $e){
+            return $e->getMessage();
+        }
+
+    }
+
 
 
 }
