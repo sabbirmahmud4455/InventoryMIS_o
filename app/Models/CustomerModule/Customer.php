@@ -32,15 +32,16 @@ class Customer extends Model
     {
         $date = new Carbon();
 
-        $old_customer = DB::select('SELECT COUNT(id) FROM customers WHERE created_at BETWEEN  ? AND  ?;',
-                        [$date->now()->startOfMonth()->subMonth()->format('Y-m-d').'%', $date->now()->subMonth()->endOfMonth()->format('Y-m-d').'%']);
-
-        $new_customer = DB::select('SELECT COUNT(id) FROM customers WHERE created_at BETWEEN ? AND ?;',
+        $old_customer = DB::select('SELECT COUNT(id) AS old_customer FROM customers WHERE created_at NOT BETWEEN  ? AND  ?;',
                         [$date->now()->startOfMonth()->format('Y-m-d').'%', $date->now()->endOfMonth()->format('Y-m-d').'%']);
 
+        $new_customer = DB::select('SELECT COUNT(id) AS new_customer FROM customers WHERE created_at BETWEEN ? AND ?;',
+                        [$date->now()->startOfMonth()->format('Y-m-d').'%', $date->now()->endOfMonth()->format('Y-m-d').'%']);
+
+
         return[
-            'old_customers' => $old_customer,
-            'new_customers' => $new_customer
+            'old_customer' => $old_customer[0],
+            'new_customer' => $new_customer[0],
         ];
     }
 

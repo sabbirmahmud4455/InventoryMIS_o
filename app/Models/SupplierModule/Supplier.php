@@ -3,6 +3,7 @@
 namespace App\Models\SupplierModule;
 
 use App\Models\TransactionModule\Transaction;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -41,5 +42,23 @@ class Supplier extends Model
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    // Get Supplier Staus
+    public function SupplierStatus()
+    {
+        $date = new Carbon();
+
+        $old_supplier = DB::select('SELECT COUNT(id) AS old_supplier FROM suppliers WHERE created_at NOT BETWEEN  ? AND  ?;',
+                        [$date->now()->startOfMonth()->format('Y-m-d').'%', $date->now()->endOfMonth()->format('Y-m-d').'%']);
+
+        $new_supplier = DB::select('SELECT COUNT(id) AS new_supplier FROM suppliers WHERE created_at BETWEEN ? AND ?;',
+                        [$date->now()->startOfMonth()->format('Y-m-d').'%', $date->now()->endOfMonth()->format('Y-m-d').'%']);
+
+
+        return[
+            'old_supplier' => $old_supplier[0],
+            'new_supplier' => $new_supplier[0],
+        ];
     }
 }

@@ -7,6 +7,7 @@ use App\Models\CustomerModule\Customer;
 use App\Models\PurchaseModule\Purchase;
 use App\Models\SaleModule\Sale;
 use App\Models\StockModule\StockInOut;
+use App\Models\SupplierModule\Supplier;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -18,14 +19,20 @@ class DashboardController extends Controller
 
             $sale           = new Sale();
             $total_sale     = $sale->TotalSaleAmount($today, null);
+            $per_day_sales_qnty = $sale->PerDaySaleQnty($today);
 
             $purchase       = new Purchase();
             $total_purchase = $purchase->TotalPurchaseAmount($today, null);
 
             $customer           = new Customer();
-            return $customer_status    = $customer->CustomerStatus();
+            $customer_status    = $customer->CustomerStatus();
 
-            return view('backend.dashboard', compact('total_sale', 'total_purchase'));
+            $supplier           = new Supplier();
+            $supplier_status    = $supplier->SupplierStatus();
+
+
+            return view('backend.dashboard', compact(
+                    'total_sale', 'total_purchase', 'customer_status', 'supplier_status', 'per_day_sale_qnty'));
 
         }else{
             return view("errors.404");

@@ -101,4 +101,7 @@ class Purchase extends Model
     }
 
 
+    
+
+
 }

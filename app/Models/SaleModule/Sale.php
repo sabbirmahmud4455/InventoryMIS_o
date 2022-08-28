@@ -5,6 +5,7 @@ namespace App\Models\SaleModule;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Models\SaleModule\SaleDetails;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -176,6 +177,22 @@ class Sale extends Model
             if($total_sale) {
                 return $total_sale;
             }
+
+        } catch(Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    // Per Day Sales Quantity
+    function PerDaySaleQnty($date)
+    {
+        try{
+
+            $PerDaySaleQnty = DB::select("SELECT SUM(quantity) as total_sale_qnty
+            FROM sale_details
+            WHERE created_at LIKE ?;", [$date.'%']);
+
+            return $PerDaySaleQnty;
 
         } catch(Exception $e){
             return $e->getMessage();

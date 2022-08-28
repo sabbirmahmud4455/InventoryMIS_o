@@ -45,7 +45,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
+                            <h3>53<sup style="font-size: 20px"></sup></h3>
                             <p>{{ __('Dashboard.TodayPurchaseQnty') }}</p>
                         </div>
                         <div class="icon">
@@ -73,7 +73,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h3>{{ $per_day_sale_qnty }}</h3>
 
                             <p>{{ __('Dashboard.TodaySaleQnty') }}</p>
                         </div>
@@ -98,27 +98,27 @@
                         </div>
 
                         <div class="card-body table-responsive">
-                            <table class="table table-sm table-bordered table-striped">
+                            <table class="table table-sm table-bordered">
                                 <thead>
                                     <th>{{ __('Dashboard.CustomerStatus') }}</th>
                                     <th>{{ __('Dashboard.NumberOfCustomer') }}</th>
-                                    <th>{{ __('Dashboard.ThisMonth') }}</th>
-                                    <th>{{ __('Dashboard.LastMonth') }}</th>
+                                    <th rowspan="2">{{ __('Dashboard.TotalCustomer') }}</th>
                                 </thead>
 
                                 <tbody>
                                     <tr>
                                         <td>{{ __('Dashboard.OldCustomer') }}</td>
-                                        <td>10</td>
-                                        <td>10,02541</td>
-                                        <td>100025</td>
+                                        <td>{{ $customer_status['old_customer']->old_customer ? $customer_status['old_customer']->old_customer : '0'  }}</td>
+                                        <td rowspan="2" class="align-middle">
+                                            <strong>
+                                                {{ $customer_status['old_customer']->old_customer + $customer_status['new_customer']->new_customer }}
+                                            </strong>
+                                        </td>
                                     </tr>
 
                                     <tr>
                                         <td>{{ __('Dashboard.NewCustomer') }}</td>
-                                        <td>10</td>
-                                        <td>10,02541</td>
-                                        <td>100025</td>
+                                        <td>{{ $customer_status['new_customer']->new_customer ? $customer_status['new_customer']->new_customer : '0' }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -137,27 +137,27 @@
                         </div>
 
                         <div class="card-body table-responsive">
-                            <table class="table table-sm table-bordered table-striped">
+                            <table class="table table-sm table-bordered">
                                 <thead>
                                     <th>{{ __('Dashboard.SupplierStatus') }}</th>
                                     <th>{{ __('Dashboard.NumberOfSupplier') }}</th>
-                                    <th>{{ __('Dashboard.ThisMonth') }}</th>
-                                    <th>{{ __('Dashboard.LastMonth') }}</th>
+                                    <th rowspan="2">{{ __('Dashboard.TotalSupplier') }}</th>
                                 </thead>
 
                                 <tbody>
                                     <tr>
                                         <td>{{ __('Dashboard.OldSupplier') }}</td>
-                                        <td>10</td>
-                                        <td>10,02541</td>
-                                        <td>100025</td>
+                                        <td>{{ $supplier_status['old_supplier']->old_supplier ? $supplier_status['old_supplier']->old_supplier : '0' }}</td>
+                                        <td rowspan="2" class="align-middle">
+                                            <strong>
+                                                {{ $supplier_status['old_supplier']->old_supplier + $supplier_status['new_supplier']->new_supplier }}
+                                            </strong>
+                                        </td>
                                     </tr>
 
                                     <tr>
                                         <td>{{ __('Dashboard.NewSupplier') }}</td>
-                                        <td>10</td>
-                                        <td>10,02541</td>
-                                        <td>100025</td>
+                                        <td>{{ $supplier_status['new_supplier']->new_supplier ? $supplier_status['old_supplier']->old_supplier : '0' }}</td>
                                     </tr>
                                 </tbody>
                             </table>

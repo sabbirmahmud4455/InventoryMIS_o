@@ -9,11 +9,13 @@
         'OldCustomer'                   => 'Old Customer',
         'NewCustomer'                   => 'New Customer',
         'NumberOfCustomer'              => 'Number of Customer',
+        'TotalCustomer'                 => 'Total Customer',
 
         'SupplierStatus'                => 'Supplier Staus',
         'OldSupplier'                   => 'Old Supplier',
         'NewSupplier'                   => 'New Supplier',
         'NumberOfSupplier'              => 'Number of Supplier',
+        'TotalSupplier'                 => 'Total Supplier',
 
         'ThisMonth'                     => 'This Month',
         'LastMonth'                     => 'Last Month',

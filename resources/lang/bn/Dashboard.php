@@ -9,11 +9,13 @@
         'OldCustomer'                   => 'পুরাতন কাস্টমার',
         'NewCustomer'                   => 'নতুন কাস্টমার',
         'NumberOfCustomer'              => 'কাস্টমার সংখ্যা',
+        'TotalCustomer'                 => 'মোট কাস্টমার',
 
         'SupplierStatus'                => 'মহাজন অবস্থা',
         'OldSupplier'                   => 'পুরাতন মহাজন',
         'NewSupplier'                   => 'নতুন মহাজন',
         'NumberOfSupplier'              => 'মহাজন সংখ্যা',
+        'TotalSupplier'                 => 'মোট মহাজন',
 
         'ThisMonth'                     => 'এই মাস',
         'LastMonth'                     => 'গত মাসে',
