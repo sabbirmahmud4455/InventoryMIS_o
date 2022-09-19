@@ -13,8 +13,7 @@
         'SupplierTransactions'      => 'মহাজনের লেনদেন',
         'SupplierTransactionDetails'=> 'মহাজনের লেনদেনের বিবরণ',
         'ChallanNo'                 => 'চালান নং',
+        'SelectSupplier'            => 'মহাজন সিলেক্ট করুন',
         'Payable'                    => 'দেনা',
-
-
     ];
 ?>

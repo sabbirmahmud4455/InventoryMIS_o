@@ -55,7 +55,7 @@
 
                                     <!-- date -->
                                     <div class="col-md-2">
-                                        <label for="date">{{ __('sale.Date') }}</label>
+                                        <label for="date">{{ __('Application.Date') }}</label>
                                         <input type="date" value="<?php echo date('Y-m-d') ?>" class="form-control" name="date" id="date" required>
                                     </div>
 
@@ -117,7 +117,7 @@
                                     {{-- Item Weight --}}
                                     <div class="col-md-1">
                                         <label>{{ __('Sale.Beg') }}</label>
-                                        <input required type="text" class="form-control form-control-sm" name="beg" id="beg">
+                                        <input required type="number" class="form-control form-control-sm" name="beg" id="beg">
                                     </div>
 
                                     {{-- Item Price --}}
@@ -140,9 +140,6 @@
                                                 aria-hidden="true"></i></button>
                                             </div>
                                         </div>
-
-
-
                                     </div>
 
                                     {{-- Add Button --}}
@@ -354,16 +351,23 @@
                 method: 'GET',
                 success: function (data) {
                     $('.loading').hide();
-                    warehouse_id.html(
-                        '<option value="" selected disabled>Choose Warehouse</option>');
+                    warehouse_id.html('<option value="" selected disabled>Choose Warehouse</option>');
+
                     $.each(data, function (index, value) {
-                        warehouse_id.append('<option value = "' + value
-                            .warehouse_id + '">' + value.warehouse_name + '(' +
-                            value.available_stock + ')' + '</option>')
+                        warehouse_id.append(`<option value ="${value.warehouse_id}_${value.available_stock}"> ${value.warehouse_name} ( ${value.available_stock} )</option>`)
                     });
                 }
             });
         });
+
+
+        $("#warehouse_id").change(function(){
+            const val = $(this).val();
+            const val_arr = val.split("_");
+
+            $("#beg").attr('max', val_arr[1]);
+            $("#beg").attr('min', "1");
+        })
 
 
         // Getting Customer Previous Balance
@@ -422,32 +426,54 @@
     function add_new_item(event) {
         event.preventDefault();
 
+        const warehouse = $('#warehouse_id').val();
+        const warehouse_arr = warehouse.split("_");
+
         const split_varient_unit = $("#item_variant_unit").val().split("_");
         const item_id = $("#item_id").val();
         const item_varient = split_varient_unit[0];
         const item_unit = split_varient_unit[1];
         const lot_id = $("#lot_id").val();
-        const warehouse_id = $('#warehouse_id').val();
         const beg = $("#beg").val();
+        const warehouse_id = warehouse_arr[0];
+        const warehouse_stock_qty = warehouse_arr[1];
         const unit_price = $("#unit_price").val();
         const total_price = $("#total_price").val();
 
         const variant_name = variants.find(e => e.id == item_varient).name;
         const unit_name = units.find(e => e.id == item_unit).name;
 
-        const item_obj = {
-            "item_id": item_id,
-            "item_varient_id": item_varient,
-            "item_varient_name": variant_name,
-            "item_unit_id": item_unit,
-            "item_unit_name": unit_name,
-            "lot_id": lot_id,
-            "warehouse_id" : warehouse_id,
-            "beg": beg,
-            "unit_price": unit_price,
-            "total_price": total_price,
+
+        const find_index = added_items.findIndex(item => item.item_id == item_id && item.item_varient_id == item_varient && item.item_unit_id == item_unit && item.lot_id == lot_id && item.warehouse_id == warehouse_id && item.unit_price == unit_price);
+
+        if (find_index >= 0 && added_items[find_index]) {
+
+            const qty = parseFloat(added_items[find_index].beg) + parseFloat(beg);
+
+            if (qty < parseFloat(added_items[find_index].warehouse_stock_qty)) {
+                added_items[find_index].beg = qty
+            } else{
+                alert("stock not available")
+                return false;
+            }
+
+        } else {
+            const item_obj = {
+                "item_id": item_id,
+                "item_varient_id": item_varient,
+                "item_varient_name": variant_name,
+                "item_unit_id": item_unit,
+                "item_unit_name": unit_name,
+                "lot_id": lot_id,
+                "warehouse_id" : warehouse_id,
+                "warehouse_stock_qty" : warehouse_stock_qty,
+                "beg": beg,
+                "unit_price": unit_price,
+                "total_price": total_price,
+            }
+            added_items.push(item_obj)
         }
-        added_items.push(item_obj)
+
         show_items()
     }
 
@@ -486,10 +512,6 @@
         const sale_total_price = $('#sale_total_price').val();
         const previous_balance = $("#previous_balance").val();
         const intotal_amount = parseFloat(sale_total_price) + parseFloat(previous_balance)
-
-
-        console.log(previous_balance);
-
 
         $('#intotal_amount').val(intotal_amount);
 

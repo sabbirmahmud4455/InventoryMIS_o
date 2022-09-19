@@ -58,9 +58,9 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="">Select Supplier</label>
+                                        <label for="">{{ __('Application.Select') }} {{ __('Supplier.Supplier') }}</label>
                                       <select class="form-control select2" name="supplier_id">
-                                        <option value="" selected>Select Supplier</option>
+                                        <option value="" selected>{{ __('Supplier.SelectSupplier') }}</option>
                                         @foreach ($suppliers as $supplier)
                                             <option {{ request('supplier_id') == $supplier->id ? 'selected' : '' }} value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                                         @endforeach
@@ -69,18 +69,17 @@
                                 </div>
 
                                 <div class="col-md-3 col-3 form-group">
-                                    <label for="">Select Date</label>
+                                    <label for="">{{ __('Application.Select') }} {{ __('Application.Date') }}</label>
                                     <input type="text" class="form-control" name="purchase_date" value="{{ request()->purchase_date }}">
                                 </div>
-                                <div class="col-md-3 form-group text-left d-flex align-items-end">
-                                    <button type="submit" class="btn btn-sm btn-outline-dark ">
-                                        {{ __('Application.Submit') }}
-                                    </button>
-                                </div>
-                                <div class="col-md-3 form-group text-right ">
+
+                                <div class="col-md-2 text-left d-flex align-items-center">
                                     <a href="{{ route('purchase.index') }}" type="submit" class="btn btn-sm btn-danger">
                                         <i class="fa fa-undo" ></i>
                                     </a>
+                                    <button type="submit" class="btn btn-sm btn-outline-dark ml-1">
+                                        {{ __('Application.Filter') }}
+                                    </button>
                                 </div>
                             </div>
                         </form>
