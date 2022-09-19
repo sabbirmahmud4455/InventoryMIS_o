@@ -14,6 +14,7 @@
         'SupplierTransactionDetails'=> 'Supplier Transaction Details',
         'ChallanNo'                 => 'Challan No',
         'SelectSupplier'            => 'Select Supplier',
-        'Payable'                    => 'Payable',
+        'Payable'                   => 'Payable',
+        'TotalPayable'              => 'Total Payable'
     ];
 ?>

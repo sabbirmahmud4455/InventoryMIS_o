@@ -37,6 +37,7 @@
         'OrderBy'               => 'Order By',
         'LatestToOld'           => 'Latest to Old',
         'OldToLatest'           => 'Old to Latest',
+        'SearchHere'            => 'Search Here...',
     ]
 
 ?>
