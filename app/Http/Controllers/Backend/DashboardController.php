@@ -32,7 +32,7 @@ class DashboardController extends Controller
 
 
             return view('backend.dashboard', compact(
-                    'total_sale', 'total_purchase', 'customer_status', 'supplier_status', 'per_day_sale_qnty'));
+                    'total_sale', 'total_purchase', 'customer_status', 'supplier_status'));
 
         }else{
             return view("errors.404");

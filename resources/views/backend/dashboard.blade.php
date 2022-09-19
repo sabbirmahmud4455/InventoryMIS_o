@@ -73,7 +73,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>{{ $per_day_sale_qnty }}</h3>
+                            <h3>125</h3>
 
                             <p>{{ __('Dashboard.TodaySaleQnty') }}</p>
                         </div>

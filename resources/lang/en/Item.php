@@ -5,7 +5,7 @@
         'SelectItemType' => 'Select Item Type',
         'ItemCode' => 'Item Code',
         'ItemVariantCheck' => 'Do You have any Item Variant ?',
-        'ItemVariant' => 'Item Variant',
+        'ItemVariant' => 'UOM',
         'ItemVariantDuplicateSwal' => 'Item Variant is already created',
         'AddItem' => 'Add Item',
         'Name' => 'Name',
