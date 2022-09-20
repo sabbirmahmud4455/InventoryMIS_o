@@ -17,20 +17,38 @@ use Illuminate\Support\Facades\Validator;
 
 class SupplierController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if( can('all_supplier') || can('all_supplier_report') || can('supplier_transaction_report') ){
 
             config()->set('database.connections.mysql.strict', false); // Disable DB strict Mode
             DB::reconnect(); // Reconnect to DB
 
-            $suppliers = new Supplier();
-            $suppliers = $suppliers->GetAllSupplier();
+            $search = $request->search;
+
+            $supplier_id = $request->supplier_id;
+
+            $purchase_date = $request->purchase_date;
+
+            $date = explode('-', $purchase_date);
+            $start_date = $purchase_date != null ? Carbon::parse($date[0])->format('Y-m-d') : null;
+            $end_date = $purchase_date != null ?  Carbon::parse($date[1])->format('Y-m-d') : null;
+
+            $supplier = new Supplier();
+            $suppliers = $supplier->GetAllSupplier($search, $supplier_id, $start_date, $end_date);
+
+            /*if ($request->search) {
+                $search = $request->search;
+//                return $request;
+                $suppliers = $supplier->GetAllSupplier($search);
+            }*/
 
             config()->set('database.connections.mysql.strict', true); //Enable DB Strict Mode
             DB::reconnect(); //Reconnect to DB
 
-            return view('backend.modules.supplier.index', compact('suppliers'));
+            $supplier_list = Supplier::where('is_active', true)->get();
+
+            return view('backend.modules.supplier.index', compact('suppliers', 'supplier_list'));
 
         } else {
             return view("errors.404");

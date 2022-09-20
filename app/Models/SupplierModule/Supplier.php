@@ -13,14 +13,19 @@ class Supplier extends Model
     use HasFactory;
 
     // get all supplier
-    public function GetAllSupplier() {
+    public function GetAllSupplier($search, $supplier_id, $start_date, $end_date) {
         $suppliers = DB::select('SELECT suppliers.id as supplier_id, suppliers.name, suppliers.contact_no,
-                    suppliers.is_active, transactions.id as transaction_id, transactions.supplier_id as t_supplier_id,
+                    suppliers.is_active, transactions.id as transaction_id, transactions.date, transactions.supplier_id as t_supplier_id,
                     (SUM(transactions.cash_in) - SUM(transactions.cash_out)) AS balance
                     FROM suppliers LEFT JOIN transactions
                     ON suppliers.id = transactions.supplier_id
+                    WHERE (? IS NULL OR suppliers.name LIKE ? OR suppliers.contact_no LIKE ? OR (SELECT SUM(transactions.cash_in) - SUM(transactions.cash_out)) LIKE ?)
+                    AND (? IS NULL OR supplier_id = ?)
+                    AND  (? IS NULL OR transactions.date >= ?)
+                    AND  (? IS NULL OR transactions.date <= ?)
                     GROUP BY transactions.supplier_id
-                    ORDER BY suppliers.id DESC;');
+                    ORDER BY suppliers.id DESC
+                    ;', [$search, '%'.$search.'%', '%'.$search.'%', '%'.$search.'%', $supplier_id, $supplier_id, $start_date, $start_date, $end_date, $end_date]);
         return $suppliers;
     }
 

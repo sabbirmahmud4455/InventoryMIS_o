@@ -71,41 +71,60 @@
                     <div class="card card-primary card-outline table-responsive">
                         <!-- Filtering Start -->
                         <div class="card-header">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <input type="text" name="search" class="form-control"
-                                        placeholder="{{ __('Application.SearchHere') }}">
-                                </div>
+                            @php
+                                $header_total_transaction = 0;
+                            @endphp
+                            @foreach ($suppliers as $key => $supplier)
+                                @php
+                                    $header_total_transaction += $supplier->balance;
+                                @endphp
+                            @endforeach
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input type="text" name="search" class="form-control"
+                                               placeholder="{{ __('Application.SearchHere') }}" value="{{ request()->search }}">
+                                    </div>
 
-                                <div class="col-md-2">
-                                    <select name="supplier_id" class="form-control select2">
-                                        <option selected disabled>{{ __('Supplier.SelectSupplier') }}</option>
-                                        @forelse ($suppliers as $supplier)
-                                        <option value="{{ $supplier->supplier_id }}">{{ $supplier->name }}</option>
-                                        @empty
-                                        <option disabled>{{ __('Application.NoDataFound') }}</option>
-                                        @endforelse
-                                    </select>
-                                </div>
+                                    <div class="col-md-2">
+                                        <select name="supplier_id" class="form-control select2">
+                                            <option selected disabled>{{ __('Supplier.SelectSupplier') }}</option>
+                                            @forelse ($supplier_list as $supplier)
+                                                <option value="{{ $supplier->id }}" @if(request()->supplier_id == $supplier->id) selected @endif>{{ $supplier->name }}</option>
+                                            @empty
+                                                <option disabled>{{ __('Application.NoDataFound') }}</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
 
-                                <div class="col-md-3">
-                                    <input type="text" class="form-control" name="purchase_date" placeholder="{{ __('Application.Date') }}">
-                                </div>
+                                    <div class="col-md-1">
+                                        <input type="text" class="form-control" name="purchase_date" value="{{ request()->purchase_date }}" placeholder="{{ __('Application.Date') }}">
 
-                                <div class="col-md-3">
-                                    <h5 class="mt-2">{{ __('Supplier.TotalPayable') }} : {{ number_format('354564546', 0) }}</h5>
-                                </div>
+                                    </div>
 
-                                <div class="col-md-1">
-                                    <button class="btn btn-warning">
-                                        <i class="fa fa-retweet" aria-hidden="true"></i>
-                                    </button>
+                                    <div class="col-md-1">
+                                        <button class="btn btn-success" type="submit">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
 
-                                    <button class="btn btn-primary">
-                                        <i class="fa fa-download" aria-hidden="true"></i>
-                                    </button>
+
+                                    <div class="col-md-2">
+
+                                        <h5 class="mt-2">{{ __('Supplier.TotalPayable') }} : {{ '৳' . number_format($header_total_transaction, 0) }}</h5>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <a href="{{ route('supplier.all') }}" class="btn btn-danger">
+                                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                                        </a>
+
+                                        <button class="btn btn-primary float-right">
+                                            <i class="fa fa-download" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
 
                         </div>
                         <!-- Filtering End -->
