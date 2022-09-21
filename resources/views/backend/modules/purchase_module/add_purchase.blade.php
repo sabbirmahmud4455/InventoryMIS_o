@@ -92,7 +92,7 @@
                                     <div class="col-md-2">
                                         <label>{{ __('Item.Item') }}</label>
                                         <select required name="item_id" class="form-control form-control-sm select2" id="item_id">
-                                            <option selected disabled>{{ __('Item.SelectItem') }}</option>
+                                            <option selected value="">{{ __('Item.SelectItem') }}</option>
                                             @forelse ($items as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @empty
@@ -434,6 +434,15 @@
         }
         added_items.push(item_obj)
         show_items()
+
+        $("#item_id").val('');
+        $("#item_varient").val('');
+        $("#item_unit").val('');
+        $("#beg").val('');
+        $("#unit_price").val('');
+        $("#total_price").val('');
+        $('#warehouse_id').val('');
+
     }
 
     function show_items() {
@@ -492,8 +501,6 @@
             "bank_id" : $('#bank_id').val(),
             "cheque_no" : $('#cheque_no').val()
         }
-
-
 
         $("#purchase_data").val(JSON.stringify(data_asdf));
 

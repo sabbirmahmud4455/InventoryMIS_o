@@ -19,9 +19,6 @@ class CustomerController extends Controller
     {
         if( can('all_customer') || can('all_customer_report') ){
 
-            $append = [];
-
-
             $customers = Customer::with('transactions')->select('id', 'name', 'contact_no', 'is_active')->orderBy('id', 'desc');
 
             if ($request->customer_search != null) {
@@ -32,7 +29,7 @@ class CustomerController extends Controller
                 $append['customer_search'] = $request->customer_search;
             }
 
-            $customers = $customers->paginate(10)->appends($append);
+            $customers = $customers->get();
 
             return view('backend.modules.customer_module.index', compact('customers'));
 

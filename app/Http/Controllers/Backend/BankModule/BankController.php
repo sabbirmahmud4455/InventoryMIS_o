@@ -20,7 +20,19 @@ class BankController extends Controller
     {
         if (can('bank'))
         {
-            return view('backend.modules.bank_module.bank.index');
+
+            DisableDBStrictMode();
+
+            $bank = new Bank();
+            $banks = $bank->AllBanksWithBalance();
+
+            EnableDBStrictMode();
+
+
+
+            // $banks = Bank::select("id", "name", 'account_name', 'account_no', 'branch_name', "is_active", 'is_delete')->get();
+
+            return view('backend.modules.bank_module.bank.index', compact('banks'));
         }
         else
         {

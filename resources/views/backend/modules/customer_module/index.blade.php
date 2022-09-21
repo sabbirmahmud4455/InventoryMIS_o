@@ -65,11 +65,30 @@
                                                     <button type="submit" class="btn btn-sm btn-outline-dark">
                                                         {{ __('Application.Submit') }}
                                                     </button>
-                                                </div>
-                                                <div class="col-md-1 form-group text-right">
                                                     <a href="{{ route('customer.all') }}" type="submit" class="btn btn-sm btn-danger">
                                                         <i class="fa fa-undo" ></i>
                                                     </a>
+                                                </div>
+                                                <div class="col-md-7 form-group text-md-right">
+
+                                                    <h5 class="">
+                                                        @php
+                                                            $cash_in = 0;
+                                                            $cash_out = 0;
+
+                                                            foreach ($customers as $key => $value) {
+                                                                foreach ($value->transactions as $key => $ddd) {
+                                                                    $cash_in += $ddd->cash_in;
+                                                                    $cash_out += $ddd->cash_out;
+                                                                }
+                                                            }
+
+                                                        @endphp
+
+                                                        {{ __('Customer.TotalPayable') }} : {{ '৳' . number_format( $cash_in - $cash_out , 0) }}
+
+                                                    </h5>
+
                                                 </div>
                                             </div>
 
@@ -96,7 +115,7 @@
                                     <tbody>
                                         @foreach ($customers as $key => $customer)
                                             <tr>
-                                                <td>{{ $customers->firstItem() + $key }}</td>
+                                                <td>{{ $key + 1 }}</td>
                                                 <td>{{ $customer->name }}</td>
                                                 <td>{{ $customer->contact_no }}</td>
                                                 @php
@@ -159,7 +178,7 @@
                                 </table>
 
                                 <div class=" d-flex justify-content-center mt-3">
-                                    {{ $customers->links() }}
+                                    {{-- {{ $customers->links() }} --}}
                                 </div>
 
                             </div>
