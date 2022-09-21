@@ -114,14 +114,14 @@
                                         <h5 class="mt-2">{{ __('Supplier.TotalPayable') }} : {{ '৳' . number_format($header_total_transaction, 0) }}</h5>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 float-right">
+                                        <button class="btn btn-primary">
+                                            <i class="fa fa-download" aria-hidden="true"></i>
+                                        </button>
+
                                         <a href="{{ route('supplier.all') }}" class="btn btn-danger">
                                             <i class="fa fa-retweet" aria-hidden="true"></i>
                                         </a>
-
-                                        <button class="btn btn-primary float-right">
-                                            <i class="fa fa-download" aria-hidden="true"></i>
-                                        </button>
                                     </div>
                                 </div>
                             </form>
