@@ -85,7 +85,7 @@
 
                                                         @endphp
 
-                                                        {{ __('Customer.TotalPayable') }} : {{ '৳' . number_format( $cash_in - $cash_out , 0) }}
+                                                        {{ __('Customer.Receivable') }} : {{ '৳' . number_format( $cash_in - $cash_out , 0) }}
 
                                                     </h5>
 

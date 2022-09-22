@@ -94,6 +94,9 @@ class PurchaseController extends Controller
     {
         $data = json_decode($request->data, true);
 
+    //    return $data;
+
+
         $date = Carbon::parse($data['date'])->format('d-m-Y');
         $date_arr = explode('-',$date);
         if ($data['added_items'] && count($data['added_items']) > 0) {
@@ -104,6 +107,8 @@ class PurchaseController extends Controller
             $purchase->challan_no = $date.'_'.rand(10000, 99999).'_'.$data['supplier_id'];
             $purchase->total_amount =  $data['purchase_total_price'];
             $purchase->created_by =  Auth::user()->id;
+            $purchase->remarks = $data['remarks'];
+
             if(can('auto_stock')) {
                 $purchase->status = 'STOCK_IN';
             }

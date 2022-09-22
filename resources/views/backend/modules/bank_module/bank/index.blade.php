@@ -98,6 +98,7 @@
                                     <tr>
                                         <th>{{ __('Application.SerialNo') }}</th>
                                         <th>{{ __('Bank.BankName') }}</th>
+                                        <th>{{ __('Bank.BankBalance') }}</th>
                                         <th>{{ __('Application.Status') }}</th>
                                         <th>{{ __('Application.Action') }}</th>
                                     </tr>
@@ -108,11 +109,12 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $bank->bank_name }}</td>
+                                                <td>৳ {{ $bank->balance }}</td>
                                                 <td>
                                                     @if ($bank->status)
-                                                        <span class=" text-success">Active</span>
+                                                        <span class=" text-success"> {{ __('Application.Active') }}</span>
                                                     @else
-                                                        <span class=" text-danger">Active</span>
+                                                        <span class=" text-danger">{{ __('Application.Inactive') }}</span>
                                                     @endif
 
                                                 </td>

@@ -123,13 +123,13 @@
                                     {{-- Beg --}}
                                     <div class="col-md-2">
                                         <label>{{ __('Purchase.Beg') }}</label>
-                                        <input required type="text" class="form-control form-control-sm" onchange="total_price_calculation()" id="beg" name="beg">
+                                        <input required type="text" class="form-control form-control-sm" onkeyup="total_price_calculation()" id="beg" name="beg">
                                     </div>
 
                                     {{-- Item Price --}}
                                     <div class="col-md-2">
                                         <label>{{ __('Purchase.Price') }}</label>
-                                        <input required type="text" class="form-control form-control-sm" onchange="total_price_calculation()" id="unit_price" name="unit_price">
+                                        <input required type="text" class="form-control form-control-sm" onkeyup="total_price_calculation()" id="unit_price" name="unit_price">
                                     </div>
 
                                     {{-- Total Price --}}
@@ -180,10 +180,14 @@
 
                                         <tbody id="added_items_list">
 
-
-
                                         </tbody>
                                     </table>
+
+                                    <div class="form-group mt-2">
+
+                                      <label for="">Remarks</label>
+                                      <input type="text" name="remarks" id="remarks" class="form-control" placeholder="" maxlength="190">
+                                    </div>
                                 </div>
                                 {{-- Added Item List End --}}
 
@@ -233,7 +237,7 @@
                                         @csrf
 
                                         <input type="hidden" name="data" id="purchase_data">
-                                        <button class="btn btn-success btn-sm mt-3 ">
+                                        <button class="btn btn-success btn-sm mt-3 " id="sumit_buttom" disabled>
                                             {{ __('Application.Add') }}
                                         </button>
                                     </form>
@@ -476,6 +480,13 @@
 
         $('#purchase_in_total_amount').val(total_amount + parseFloat(previous_balance));
         due_amount_calculation()
+
+        if (added_items.length > 0) {
+            $("#sumit_buttom").attr('disabled', false);
+        } else {
+            $("#sumit_buttom").attr('disabled', true)
+        }
+
     }
 
     function remove_item(index){
@@ -499,7 +510,8 @@
             "purchase_payment_by" : $("#purchase_payment_by").val(),
             "added_items": added_items,
             "bank_id" : $('#bank_id').val(),
-            "cheque_no" : $('#cheque_no').val()
+            "cheque_no" : $('#cheque_no').val(),
+            "remarks" : $('#remarks').val()
         }
 
         $("#purchase_data").val(JSON.stringify(data_asdf));
@@ -508,8 +520,6 @@
     }
 
     show_items()
-
-
 
 </script>
 
