@@ -101,7 +101,7 @@
                                             <tr>
                                                 <th>{{ __('Application.SerialNo') }}</th>
                                                 <th>{{ __('Application.Date') }}</th>
-                                                <th>{{ __('Sale.ChallanNo') }}</th>
+                                                <th>{{ __('Application.ChallanNo') }}</th>
                                                 <th>{{ __('Customer.CustomerName') }}</th>
                                                 <th>{{ __('Customer.CustomerPhone') }}</th>
                                                 <td>{{ __('Sale.TotalPrice') }}</td>

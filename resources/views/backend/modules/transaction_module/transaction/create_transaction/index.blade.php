@@ -58,19 +58,33 @@
                                         <div class="col-md-3 col-6 form-group">
                                             <label for="transaction_type_id">{{ __('TransactionType.TransactionType') }}</label><span class="require-span">*</span>
                                             <select class="form-control select2" name="transaction_type_id">
-                                                <option value="" selected disabled>Select Transaction Type</option>
+                                                <option value="" selected disabled>{{ __('Application.Select') }} {{ __('TransactionType.TransactionType') }} </option>
                                                 @foreach ($transaction_types as $transaction_type)
                                                     <option value="{{ $transaction_type->id }}" >{{ $transaction_type->name . ' - ' . $transaction_type->cash_type }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-    
+
+                                        <!-- challan no -->
+                                        <div class="col-md-3 col-6 form-group">
+                                            <label for="transaction_type_id">{{ __('Application.ChallanNo') }}</label><span class="require-span">*</span>
+                                            <select class="form-control select2" name="purchase_sale_id">
+                                                <option value="" selected disabled>{{ __('Application.Select') }} {{ __('Application.ChallanNo') }}</option>
+                                                @foreach ($purchases as $purchase)
+                                                    <option value="{{ $purchase->id }}_purchase" >{{ $purchase->challan_no }} (purchase)</option>
+                                                @endforeach
+                                                @foreach ($sales as $sale)
+                                                    <option value="{{ $sale->id }}_sale" >{{ $sale->challan_no }} (sale)</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
                                         <!-- Transaction Amount -->
                                         <div class="col-md-3 col-6 form-group">
                                             <label for="name">{{ __('Transaction.TransactionAmount') }}</label><span class="require-span">*</span>
                                             <input type="text" class="form-control" name="transaction_amount" required>
                                         </div>
-    
+
                                         <!-- Payment Type -->
                                         <div class="col-md-3 col-6 form-group">
                                             <label for="payment_type">{{ __('Transaction.PaymentType') }}</label><span class="require-span">*</span>
@@ -80,11 +94,11 @@
                                                     <option value="Bank">{{ __('Transaction.Bank') }}</option>
                                             </select>
                                         </div>
-    
-                                        
-    
+
+
+
                                     </div>
-    
+
                                     <div id="bank_info" class="row d-none">
                                         <!-- Bank -->
                                         <div class="col-md-4 col-6 form-group">

@@ -19,6 +19,6 @@
         'NoPurchaseFound'       => 'No Purchase Found!',
         'ViewPurchaseInfo'      => 'View Purchase Information',
         'PurchaseDetails'       => 'Purchase Details',
-        
+
     ];
 ?>

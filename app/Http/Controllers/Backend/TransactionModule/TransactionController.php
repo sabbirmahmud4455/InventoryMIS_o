@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Backend\TransactionModule;
 
-use App\Http\Controllers\Controller;
-use App\Models\BankModule\Bank;
-use App\Models\SettingsModule\CompanyInfo;
-use App\Models\SystemDataModule\TransactionType;
-use App\Models\TransactionModule\Transaction;
-use Carbon\Carbon;
 use DateTime;
 use Exception;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\BankModule\Bank;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\PurchaseModule\Purchase;
+use App\Models\SaleModule\Sale;
 use Illuminate\Support\Facades\Validator;
+use App\Models\SettingsModule\CompanyInfo;
+use App\Models\TransactionModule\Transaction;
+use App\Models\SystemDataModule\TransactionType;
 
 class TransactionController extends Controller
 {
@@ -39,9 +42,12 @@ class TransactionController extends Controller
     // transaction create page
     public function transaction_create_page() {
         if(can('new_transaction')) {
+
+            $purchases = Purchase::select('id', 'challan_no')->get();
+            $sales = Sale::select('id', 'challan_no')->get();
             $transaction_types = TransactionType::where('is_active', true)->where('is_delete', false)->get();
             $banks = Bank::where('is_active', true)->where('is_delete', false)->get();
-            return view('backend.modules.transaction_module.transaction.create_transaction.index', compact('transaction_types', 'banks'));
+            return view('backend.modules.transaction_module.transaction.create_transaction.index', compact('transaction_types', 'banks', 'purchases', 'sales'));
         } else {
             return view('errors.404');
         }
@@ -49,10 +55,12 @@ class TransactionController extends Controller
 
     // transaction create
     public function transaction_create(Request $request) {
+
         if(can('new_transaction')) {
             $validator = Validator::make($request->all(), [
                 'date' => 'required',
                 "transaction_type_id" => "required",
+                "purchase_sale_id" => "nullable|string",
                 "transaction_amount" => "required",
                 "payment_type" => "required",
                 "bank_id" => "required_if:payment_type,==,Bank",
@@ -65,6 +73,16 @@ class TransactionController extends Controller
             else{
                 try{
 
+                    $purchase_sale_id_arr = explode('_', $request->purchase_sale_id);
+                    $sale_id = null;
+                    $purchase_id = null;
+
+                    if ($purchase_sale_id_arr[1] == 'purchase') {
+                        $purchase_id = $purchase_sale_id_arr[0];
+                    } elseif ($purchase_sale_id_arr[1] == 'sale') {
+                        $sale_id = $purchase_sale_id_arr[0];
+                    }
+
                     $transaction_type = TransactionType::where('id', $request->transaction_type_id)->first();
                     $cash_type = $transaction_type->cash_type;
 
@@ -75,6 +93,12 @@ class TransactionController extends Controller
                     $transaction->transaction_code = $today.'Tran#'.$transaction_type->name;
                     $transaction->transaction_type_id = $request->transaction_type_id;
                     $transaction->narration = $transaction_type->name.' Transaction';
+
+                    if ($purchase_id != null) {
+                        $transaction->purchase_id = $purchase_id;
+                    } elseif ($sale_id != null) {
+                        $transaction->sale_id = $sale_id;
+                    }
 
                     $transaction->remarks = 'Transaction of '.$transaction_type->name;
                     $transaction->created_by = auth('web')->user()->id;

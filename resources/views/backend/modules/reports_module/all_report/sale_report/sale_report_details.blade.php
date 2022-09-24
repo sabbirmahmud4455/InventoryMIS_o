@@ -62,7 +62,7 @@
                                                 <tr>
                                                     <th>{{ __('Application.Date') }}</th>
                                                     <td>{{ $sale_details['sale'][0]->date }}</td>
-                                                    <th>{{ __('Sale.ChallanNo') }}</th>
+                                                    <th>{{ __('Application.ChallanNo') }}</th>
                                                     <td>{{ $sale_details['sale'][0]->challan_no }}</td>
                                                 </tr>
                                                 <tr>
