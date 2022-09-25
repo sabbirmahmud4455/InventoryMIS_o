@@ -74,6 +74,12 @@
                                 </div>
                             </div>
 
+                            <div class="card-header">
+                                <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modelId">
+                                    Make Transaction
+                                </button>
+                            </div>
+
                             <div class="card-body">
                                 <table class="table table-bordered table-sm table-striped dataTable dtr-inline datatable-data">
                                     <thead>
@@ -172,6 +178,72 @@
                     </div>
                 </div>
 
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                                <div class="modal-header">
+                                        <h5 class="modal-title">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                    </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <form action="{{ route('customer.make.transaction', ['id' => encrypt($customer->id) ]) }}" method="post">
+                                        @csrf
+
+                                        <div class="form-check">
+                                          <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="deduct_from_individual_challan" id="deduct_from_individual_challan" value="1">
+                                            Deduct from individual Challan
+                                          </label>
+                                        </div>
+
+                                        <div class="form-group d-none" id="challan_form_group">
+                                          <label for="">Challan No</label>
+                                          <select class="form-control" name="challan_sale_id" id="challan_sale_input">
+                                            <option selected value="">Select Challan</option>
+                                            @foreach ($customer->sales as $sale)
+                                                <option value="{{ $sale->id }}">{{ $sale->challan_no }}</option>
+                                            @endforeach
+                                          </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label for="">Prevues Due Amount (৳)</label>
+                                          <input readonly type="text" name="prev_due" id="prev_due_input" class="form-control" placeholder="" value="{{ round($total_cash_out - $total_cash_in, 0) }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label for="">Paid Amount</label>
+                                          <input required type="number" name="paid_amount" id="paid_amount_input" onkeyup="due_calclution()" class="form-control" placeholder="">
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label for="">Total Due Amount</label>
+                                          <input type="number" readonly name="total_due" id="total_due_input" class="form-control" placeholder="">
+                                        </div>
+
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+
+                                    </form>
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -182,5 +254,53 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('backend/js/custom-script.min.js') }}"></script>
     <script src="{{  asset('backend/js/ajax_form_submit.js') }}"></script>
+
+    <script>
+
+        const sales =  {!! json_encode($customer->sales) !!};
+        const total_due =  {!! round($total_cash_out  - $total_cash_in, 0) !!};
+
+        function due_calclution(){
+            const prev_due = $("#prev_due_input").val();
+            const paid_amount = $("#paid_amount_input").val();
+
+            $("#total_due_input").val(parseInt(prev_due) - parseInt(paid_amount));
+        }
+
+        $('#deduct_from_individual_challan').on('click', function(){
+
+            if ($('#deduct_from_individual_challan').is(':checked')) {
+                $("#challan_form_group").removeClass("d-none");
+                $("#prev_due_input").val('');
+                $("#challan_sale_input").attr('required', true);
+                $("#challan_sale_input").val('');
+
+            } else {
+                $("#challan_form_group").addClass("d-none");
+                $("#prev_due_input").val(total_due)
+                $("#challan_sale_input").attr('required', false);
+            }
+
+            due_calclution()
+        })
+
+        $("#challan_sale_input").on('change', function () {
+            const selected_challan = $("#challan_sale_input").val();
+
+            const sale = sales.find(item => {
+                return item.id == selected_challan
+            })
+
+            if (sale) {
+                $("#prev_due_input").val(sale.total_amount - sale.paid_amount);
+            } else {
+                $("#prev_due_input").val(0);
+            }
+
+            due_calclution()
+
+        })
+
+    </script>
 
 @endsection

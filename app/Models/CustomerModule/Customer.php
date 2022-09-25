@@ -2,6 +2,7 @@
 
 namespace App\Models\CustomerModule;
 
+use App\Models\SaleModule\Sale;
 use App\Models\TransactionModule\Transaction;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +12,11 @@ use Illuminate\Support\Facades\DB;
 class Customer extends Model
 {
     use HasFactory;
+
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
+    }
 
     public function CustomerPreviuosBalance($customer_id)
     {

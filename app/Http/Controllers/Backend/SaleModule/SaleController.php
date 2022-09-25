@@ -203,6 +203,11 @@ class SaleController extends Controller
             $sale->date =  $data['date'];
             $sale->challan_no = $date.'_'.rand(10000, 99999).'_'.$data['customer_id'];
             $sale->total_amount =  $data['sale_total_price'];
+
+            if (isset($data['sale_deposite_amount'])) {
+                $sale->paid_amount = $data['sale_deposite_amount'];
+            }
+
             $sale->created_by =  Auth::user()->id;
             if(can('auto_stock')) {
                 $sale->status = 'STOCK_IN';

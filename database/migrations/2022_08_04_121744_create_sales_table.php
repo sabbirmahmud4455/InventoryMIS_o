@@ -19,6 +19,7 @@ class CreateSalesTable extends Migration
             $table->string('challan_no');
             $table->bigInteger('customer_id');
             $table->double('total_amount');
+            $table->double('paid_amount')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->enum('status', ['PENDING', 'STOCK_IN', 'CANCEL', 'RETURN'])->default('PENDING');

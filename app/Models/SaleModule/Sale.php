@@ -2,9 +2,11 @@
 
 namespace App\Models\SaleModule;
 
+use App\Models\CustomerModule\Customer;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Models\SaleModule\SaleDetails;
+use App\Models\TransactionModule\Transaction;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -217,6 +219,14 @@ class Sale extends Model
 
     }
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 
 }

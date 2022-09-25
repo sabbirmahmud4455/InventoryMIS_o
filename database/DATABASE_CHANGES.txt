@@ -2,3 +2,8 @@
 *****purchases*****
 
 -----add remarks column
+
+
+******Sales******
+
+-----add paid_amount

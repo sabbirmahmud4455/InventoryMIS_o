@@ -19,6 +19,7 @@ Route::group(['prefix' => 'customer'], function(){
 
     //customer transaction
     Route::get("/transaction/",[CustomerController::class,'customer_transaction'])->name('customer.transaction');
+    Route::post("/transaction/make/{id}",[CustomerController::class,'make_customer_transaction'])->name('customer.make.transaction');
 
     //customer transaction export pdf
     Route::get("/transaction-export-pdf/{id}",[CustomerController::class,'customer_transaction_export_pdf'])->name('customer.transaction.export.pdf');
