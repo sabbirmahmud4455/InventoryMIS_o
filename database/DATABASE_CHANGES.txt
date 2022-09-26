@@ -6,4 +6,5 @@
 
 ******Sales******
 
------add paid_amount
+-----add paid_amount column
+-----add remarks column

@@ -23,6 +23,7 @@ class CreateSalesTable extends Migration
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->enum('status', ['PENDING', 'STOCK_IN', 'CANCEL', 'RETURN'])->default('PENDING');
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@ class Customer extends Model
 
     public function CustomerPreviuosBalance($customer_id)
     {
-        $balance = DB::select('SELECT (SUM(cash_in) - SUM(cash_out)) as previous_balance
+        $balance = DB::select('SELECT ( SUM(cash_out) - SUM(cash_in) ) as previous_balance
         FROM transactions
         WHERE customer_id = ?;', [$customer_id]);
 

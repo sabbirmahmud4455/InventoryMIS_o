@@ -192,8 +192,8 @@ class SaleController extends Controller
     public function store_new_sale(Request $request)
     {
         $data = json_decode($request->data, true);
-
         $date = Carbon::parse($data['date'])->format('d-m-Y');
+        $date_ymd = Carbon::parse($data['date'])->format('Y-m-d');
         $date_arr = explode('-',$date);
 
         if ($data['added_items'] && count($data['added_items']) > 0) {
@@ -203,12 +203,14 @@ class SaleController extends Controller
             $sale->date =  $data['date'];
             $sale->challan_no = $date.'_'.rand(10000, 99999).'_'.$data['customer_id'];
             $sale->total_amount =  $data['sale_total_price'];
+            $sale->created_by =  Auth::user()->id;
 
-            if (isset($data['sale_deposite_amount'])) {
+            if (isset($data['sale_deposite_amount']) && $data['sale_total_price'] >= $data['sale_deposite_amount'] ) {
                 $sale->paid_amount = $data['sale_deposite_amount'];
+            } elseif (isset($data['sale_deposite_amount']) && $data['sale_total_price'] < $data['sale_deposite_amount'] ) {
+                $sale->paid_amount = $data['sale_total_price'];
             }
 
-            $sale->created_by =  Auth::user()->id;
             if(can('auto_stock')) {
                 $sale->status = 'STOCK_IN';
             }
@@ -243,41 +245,31 @@ class SaleController extends Controller
                     }
                 }
 
-
                 // Store Data on Transaction Table
                 $transaction_sale = new Transaction();
                 $transaction_sale->date = $data['date'];
                 $transaction_sale->transaction_code = $date_arr[0].$date_arr[1].$date_arr[2].'_'.rand(10000, 99999).'_'.$data['customer_id'].'_SO_'.$sale->id;
                 $transaction_sale->invoice_no = $sale->challan_no;
-
-                ////////////////
-                // $transaction_sale->transaction_type_id = 1;
-                /////////
-
                 $transaction_sale->narration = 'Sale New Order';
                 $transaction_sale->sale_id = $sale->id;
                 $transaction_sale->customer_id = $data['customer_id'];
-
                 $transaction_sale->remarks = isset($data['remarks']) ? $data['remarks'] : '';
                 $transaction_sale->cash_out = $data['sale_total_price'] ? $data['sale_total_price'] : 0;
                 $transaction_sale->created_by = Auth::user()->id;
                 $transaction_sale->save();
 
-
+                $adjust_amount = 0;
                 if ($data['sale_deposite_amount']) {
 
                     $transaction_deposit = new Transaction();
                     $transaction_deposit->date = $data['date'];
                     $transaction_deposit->transaction_code = $date_arr[0].$date_arr[1].$date_arr[2].'_'.rand(10000, 99999).'_'.$data['customer_id'].'_SI_'.$sale->id;
                     $transaction_deposit->invoice_no = $sale->challan_no;
-
-                    ////////////////
-                    // $transaction_deposit->transaction_type_id = 1;
-                    /////////
-
                     $transaction_deposit->narration = 'Sale Deposite Amount';
                     $transaction_deposit->sale_id = $sale->id;
                     $transaction_deposit->customer_id = $data['customer_id'];
+                    $transaction_deposit->remarks = isset($data['remarks']) ? $data['remarks'] : '';
+                    $transaction_deposit->created_by = Auth::user()->id;
 
                     if ($data['sale_payment_by'] == "BANK") {
                         $transaction_deposit->payment_by = 'BANK';
@@ -287,14 +279,54 @@ class SaleController extends Controller
                         $transaction_deposit->payment_by = 'CASH';
                     }
 
-                    $transaction_deposit->remarks = isset($data['remarks']) ? $data['remarks'] : '';
-                    $transaction_deposit->cash_in = $data['sale_deposite_amount'];
-                    $transaction_deposit->created_by = Auth::user()->id;
+                    if ($data['sale_total_price'] >= $data['sale_deposite_amount'] ) {
+                        $transaction_deposit->cash_in = $data['sale_deposite_amount'];
+                    } elseif (isset($data['sale_deposite_amount']) && $data['sale_total_price'] < $data['sale_deposite_amount'] ) {
+                        $transaction_deposit->cash_in = $data['sale_total_price'];
+                        $adjust_amount = (float)$data['sale_deposite_amount'] - (float)$data['sale_total_price'];
+                    }
+                    
                     $transaction_deposit->save();
+                }
+
+                if ($data['sale_deposite_amount'] && $adjust_amount > 0) {
+                    $sales = Sale::where('id', '!=', $sale->id)->where('customer_id', $data['customer_id'])->orderBy('date', 'desc')->get();
+
+                    foreach ($sales as $sale_e) {
+
+                        if ($adjust_amount > 0) {
+                            $sale_due = $sale_e->total_amount - $sale_e->paid_amount;
+                            $tran_amount = 0;
+
+                            if ($adjust_amount >= $sale_due) {
+                                $tran_amount = $sale_due;
+                                $sale_e->paid_amount = $sale_e->paid_amount + $tran_amount;
+                                $adjust_amount -= $sale_due;
+                            } else {
+
+                                $tran_amount = $sale_e->paid_amount + $adjust_amount;
+                                $sale_e->paid_amount = $tran_amount;
+                                $adjust_amount -= $adjust_amount;
+                            }
+
+                            if ($sale_e->update() && $tran_amount > 0) {
+
+                                $transaction = new Transaction();
+                                $transaction->date = $date_ymd;
+                                $transaction->transaction_code = $date_ymd.'_'.rand(100, 999).'_'.'BC#CUSTOMER';
+                                $transaction->narration = 'Bill Collection';
+                                $transaction->customer_id = $sale_e->customer->id;
+                                $transaction->remarks = 'Bill Collection '.$sale_e->customer->name;
+                                $transaction->cash_in = BnToEn($tran_amount);
+                                $transaction->created_by = auth('web')->user()->id;
+                                $transaction->save();
+                            }
+                        }
+                    }
                 }
             }
         }
-
+        
         return back();
     }
 

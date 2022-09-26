@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Models\SaleModule\Sale;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\StockModule\StockInOut;
 use App\Models\CustomerModule\Customer;
 use Illuminate\Support\Facades\Validator;
 use App\Models\SettingsModule\CompanyInfo;
@@ -64,6 +63,9 @@ class CustomerController extends Controller
             if( $validator->fails() ){
                 return response()->json(['errors' => $validator->errors()] ,422);
             }else{
+
+                $today = Carbon::now();
+
                 try{
                     $customer = new Customer();
                     $customer->name = $request->name;
@@ -72,20 +74,29 @@ class CustomerController extends Controller
                     $customer->remarks = $request->remarks;
                     $customer->is_active = true;
 
-                    if( $customer->save() ){
+                    if( $customer->save() && $request->opening_balance ){
 
-                        $today = Carbon::now();
-                        if($request->opening_balance){
+                        $sale = new Sale();
+                        $sale->customer_id = $customer->id;
+                        $sale->date =  $today;
+                        $sale->challan_no = $today.'_'.rand(10000, 99999).'_'.$customer->id;
+                        $sale->total_amount =  $request->opening_balance;
+                        $sale->created_by =  Auth::user()->id;
+                        $sale->status = 'STOCK_IN';
+                        $sale->remarks = "Opening due sale";
+
+                        if ($sale->save()) {
                             $transaction = new Transaction();
                             $transaction->date = $today->toDateString();
                             $transaction->transaction_code = $today.'OP#CUSTOMER';
                             $transaction->narration = 'OPENING BALANCE';
                             $transaction->customer_id = $customer->id;
                             $transaction->remarks = 'Opening Balance of '.$customer->name;
-                            $transaction->cash_in = BnToEn($request->opening_balance);
+                            $transaction->cash_out = BnToEn($request->opening_balance);
                             $transaction->created_by = auth('web')->user()->id;
                             $transaction->save();
                         }
+                        
 
                         return response()->json(['customer_add' => __('Customer.CustomerAddSuccessMsg')], 200);
                     }
@@ -181,10 +192,6 @@ class CustomerController extends Controller
 
     public function make_customer_transaction(Request $request, $id)
     {
-        $id = decrypt($id);
-
-        // return $request;
-
        $validator = Validator::make($request->all(),[
             'paid_amount' => 'required|numeric',
         ]);
@@ -193,54 +200,66 @@ class CustomerController extends Controller
             return response()->json(['errors' => $validator->errors()] ,422);
         }
 
-        $sales = Sale::with(['customer' => function($query){ $query->select('id', 'name');}]);
+        $id = decrypt($id);
+        $today = Carbon::now();
+        $sales = Sale::with(['customer' => function($query){ $query->select('id', 'name');}])->where('customer_id', $id);
 
         if ($request->deduct_from_individual_challan && $request->paid_amount) {
 
             $sale = $sales->find($request->challan_sale_id);
             $sale->paid_amount = $sale->paid_amount + $request->paid_amount;
-            $sale->update();
+
+            if ($sale->update()) {
+                $transaction = new Transaction();
+                $transaction->date = $today->toDateString();
+                $transaction->transaction_code = $today.'_'.rand(100, 999).'_'.'BC#CUSTOMER';
+                $transaction->narration = 'Bill Collection';
+                $transaction->customer_id = $sale->customer->id;
+                $transaction->remarks = 'Bill Collection '.$sale->customer->name;
+                $transaction->cash_in = BnToEn($request->paid_amount);
+                $transaction->created_by = auth('web')->user()->id;
+                $transaction->save();
+            }
+
         } elseif ($request->deduct_from_individual_challan != '1' && $request->paid_amount) {
             $sales = $sales->orderBy('date', 'desc')->get();
             $adjust_amount = $request->paid_amount;
-            $adjust_amount = 1000;
 
-
-            foreach ($sales as $sale) {
+            foreach ($sales as $sale_e) {
 
                 if ($adjust_amount > 0) {
+                    $sale_due = $sale_e->total_amount - $sale_e->paid_amount;
+                    $tran_amount = 0;
 
-                    $sale_due = $sale->total_amount - $sale->paid_amount;
-                    $sale_due = 1000 - 800; //200
+                    if ($adjust_amount >= $sale_due) {
 
-                    if ($adjust_amount > $sale_due) {
-                        $sale->paid_amount += $sale_due;
+                        $tran_amount = $sale_due;
+                        $sale_e->paid_amount = $sale_e->paid_amount + $tran_amount;
                         $adjust_amount -= $sale_due;
                     } else {
-                        $sale->paid_amount = $sale->paid_amount + $sale_due;
-                        $adjust_amount = 0;
+
+                        $tran_amount = $sale_e->paid_amount + $adjust_amount;
+                        $sale_e->paid_amount = $tran_amount;
+                        $adjust_amount -= $adjust_amount;
                     }
 
-                    $sale->update();
+                    if ($sale_e->update() && $tran_amount > 0) {
+
+                        $transaction = new Transaction();
+                        $transaction->date = $today;
+                        $transaction->transaction_code = $today.'_'.rand(100, 999).'_'.'BC#CUSTOMER';
+                        $transaction->narration = 'Bill Collection';
+                        $transaction->customer_id = $sale_e->customer->id;
+                        $transaction->remarks = 'Bill Collection '.$sale_e->customer->name;
+                        $transaction->cash_in = BnToEn($tran_amount);
+                        $transaction->created_by = auth('web')->user()->id;
+                        $transaction->save();
+                    }
                 }
             }
         }
 
-
-        // $transaction = new Transaction();
-        // $transaction->date = $today->toDateString();
-        // $transaction->transaction_code = $today.'OP#CUSTOMER';
-        // $transaction->narration = 'OPENING BALANCE';
-        // $transaction->customer_id = $sale->customer->id;
-        // $transaction->remarks = 'Opening Balance of '.$sale->customer->name;
-        // $transaction->cash_in = BnToEn($request->opening_balance);
-        // $transaction->created_by = auth('web')->user()->id;
-        // $transaction->save();
-
-
-
-
-        return response()->json(['success' => __('Customer.CustomerUpdateMsg')], 200);
+        return response()->json(['success' => "success"], 200);
 
     }
 

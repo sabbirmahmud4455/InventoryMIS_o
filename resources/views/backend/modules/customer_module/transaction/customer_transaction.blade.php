@@ -166,7 +166,7 @@
                                             <th colspan="5" class="text-right">{{ __('Transaction.Balance') }}</th>
                                             <td colspan="2" class="text-center">
                                                 <button class="btn btn-info btn-sm">
-                                                    {{ '৳ ' .number_format($total_cash_in - $total_cash_out, 0) }}
+                                                    {{ '৳ ' .number_format($total_cash_out - $total_cash_in, 0) }}
                                                 </button>
                                             </td>
                                         </tr>
@@ -177,8 +177,6 @@
                         </div>
                     </div>
                 </div>
-
-
 
                 <!-- Modal -->
                 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
