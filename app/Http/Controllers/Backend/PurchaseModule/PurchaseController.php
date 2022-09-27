@@ -226,8 +226,8 @@ class PurchaseController extends Controller
                                 $adjust_amount -= $purchase_due;
                             } else {
 
-                                $tran_amount = $purchase_e->paid_amount + $adjust_amount;
-                                $purchase_e->paid_amount = $tran_amount;
+                                $tran_amount = $adjust_amount;
+                                $purchase_e->paid_amount =$purchase_e->paid_amount +  $tran_amount;
                                 $adjust_amount -= $adjust_amount;
                             }
 
@@ -235,7 +235,7 @@ class PurchaseController extends Controller
 
                                 $transaction = new Transaction();
                                 $transaction->date = $date_ymd;
-                                $transaction->transaction_code = $date_ymd.'_'.rand(100, 999).'_'.'BC#CUSTOMER';
+                                $transaction->transaction_code = $date_ymd.'_'.rand(100, 999).'_'.'BP#SUPPLIER';
                                 $transaction->narration = 'Bill Pay';
                                 $transaction->supplier_id = $purchase_e->supplier->id;
                                 $transaction->remarks = 'Bill Pay '.$purchase_e->supplier->name;
