@@ -8,3 +8,7 @@
 
 -----add paid_amount column
 -----add remarks column
+
+
+*****Purchases*******
+----add paid_amount column

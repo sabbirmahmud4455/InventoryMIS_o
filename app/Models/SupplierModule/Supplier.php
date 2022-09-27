@@ -2,6 +2,7 @@
 
 namespace App\Models\SupplierModule;
 
+use App\Models\PurchaseModule\Purchase;
 use App\Models\TransactionModule\Transaction;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -65,5 +66,10 @@ class Supplier extends Model
             'old_supplier' => $old_supplier[0],
             'new_supplier' => $new_supplier[0],
         ];
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
     }
 }

@@ -16,6 +16,7 @@
         'SelectSupplier'            => 'মহাজন সিলেক্ট করুন',
         'Payable'                   => 'দেনা',
         'TotalPayable'              => 'মোট দেনা',
+        'BillPay'                   => 'বিল পরিশোধ করুন',
 
     ];
 ?>

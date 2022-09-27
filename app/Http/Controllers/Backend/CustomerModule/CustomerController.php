@@ -96,7 +96,7 @@ class CustomerController extends Controller
                             $transaction->created_by = auth('web')->user()->id;
                             $transaction->save();
                         }
-                        
+
 
                         return response()->json(['customer_add' => __('Customer.CustomerAddSuccessMsg')], 200);
                     }
@@ -238,12 +238,12 @@ class CustomerController extends Controller
                         $adjust_amount -= $sale_due;
                     } else {
 
-                        $tran_amount = $sale_e->paid_amount + $adjust_amount;
-                        $sale_e->paid_amount = $tran_amount;
+                        $tran_amount = $adjust_amount;
+                        $sale_e->paid_amount = $sale_e->paid_amount + $tran_amount;
                         $adjust_amount -= $adjust_amount;
                     }
 
-                    if ($sale_e->update() && $tran_amount > 0) {
+                    if ($sale_e->update()) {
 
                         $transaction = new Transaction();
                         $transaction->date = $today;
@@ -259,7 +259,7 @@ class CustomerController extends Controller
             }
         }
 
-        return response()->json(['success' => "success"], 200);
+        return back();
 
     }
 

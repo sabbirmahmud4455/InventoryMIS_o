@@ -21,6 +21,7 @@ Route::group(['prefix' => 'supplier'], function(){
 
     // Suppllier Transaction
     Route::get('/transactions/', [SupplierController::class, 'supplier_transactions'])->name('supplier.transactions');
+    Route::post('/transactions/pay-bill/{id}', [SupplierController::class, 'supplier_pay_bill'])->name('supplier.paybill');
     Route::get('transaction-details/{id}', [SupplierController::class, 'supplier_transaction_details'])->name('supplier.transaction_details');
 
     // supplier transaction export pdf

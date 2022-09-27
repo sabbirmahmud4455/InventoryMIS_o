@@ -93,12 +93,10 @@ class PurchaseController extends Controller
     public function store_new_purchase(Request $request)
     {
         $data = json_decode($request->data, true);
-
-    //    return $data;
-
-
         $date = Carbon::parse($data['date'])->format('d-m-Y');
+        $date_ymd = Carbon::parse($data['date'])->format('Y-m-d');
         $date_arr = explode('-',$date);
+
         if ($data['added_items'] && count($data['added_items']) > 0) {
             // Store Data on Purchase Table
             $purchase = new Purchase();
@@ -108,6 +106,15 @@ class PurchaseController extends Controller
             $purchase->total_amount =  $data['purchase_total_price'];
             $purchase->created_by =  Auth::user()->id;
             $purchase->remarks = $data['remarks'];
+
+
+
+            if (isset($data['purchase_deposite_amount']) && $data['purchase_total_price'] >= $data['purchase_deposite_amount'] ) {
+                $purchase->paid_amount = $data['purchase_deposite_amount'];
+            } elseif (isset($data['purchase_deposite_amount']) && $data['purchase_total_price'] < $data['purchase_deposite_amount'] ) {
+                $purchase->paid_amount = $data['purchase_total_price'];
+            }
+
 
             if(can('auto_stock')) {
                 $purchase->status = 'STOCK_IN';
@@ -162,33 +169,27 @@ class PurchaseController extends Controller
                 $transaction_purch->date = $data['date'];
                 $transaction_purch->transaction_code = $date_arr[0].$date_arr[1].$date_arr[2].'_'.rand(10000, 99999).'_'.$data['supplier_id'].'_PI_'.$purchase->id;
                 $transaction_purch->invoice_no = $purchase->challan_no;
-
-                ////////////////
-                // $transaction_purch->transaction_type_id = 1;
-                /////////
                 $transaction_purch->narration = 'Purchase New Order';
                 $transaction_purch->purchase_id = $purchase->id;
                 $transaction_purch->supplier_id = $data['supplier_id'];
-
                 $transaction_purch->remarks = isset($data['remarks']) ? $data['remarks'] : '';
                 $transaction_purch->cash_in = $data['purchase_total_price'] ? $data['purchase_total_price'] : 0;
                 $transaction_purch->created_by = Auth::user()->id;
                 $transaction_purch->save();
 
-
+                $adjust_amount = 0;
                 if ($data['purchase_deposite_amount']) {
 
                     $transaction_deposit = new Transaction();
                     $transaction_deposit->date = $data['date'];
                     $transaction_deposit->transaction_code = $date_arr[0].$date_arr[1].$date_arr[2].'_'.rand(10000, 99999).'_'.$data['supplier_id'].'_PO_'.$purchase->id;
                     $transaction_deposit->invoice_no = $purchase->challan_no;
-
-                    ////////////////
-                    // $transaction_deposit->transaction_type_id = 1;
-                    /////////
                     $transaction_deposit->narration = 'Purchase Deposite Amount';
                     $transaction_deposit->purchase_id = $purchase->id;
                     $transaction_deposit->supplier_id = $data['supplier_id'];
+                    $transaction_deposit->remarks = isset($data['remarks']) ? $data['remarks'] : '';
+                    $transaction_deposit->created_by = Auth::user()->id;
+
 
                     if ($data['purchase_payment_by'] == "BANK") {
                         $transaction_deposit->payment_by = 'BANK';
@@ -198,12 +199,53 @@ class PurchaseController extends Controller
                         $transaction_deposit->payment_by = 'CASH';
                     }
 
-                    $transaction_deposit->remarks = isset($data['remarks']) ? $data['remarks'] : '';
-                    $transaction_deposit->cash_out = $data['purchase_deposite_amount'];
-                    $transaction_deposit->created_by = Auth::user()->id;
+
+                    if ($data['purchase_total_price'] >= $data['purchase_deposite_amount'] ) {
+                        $transaction_deposit->cash_out = $data['purchase_deposite_amount'];
+                    } elseif (isset($data['purchase_deposite_amount']) && $data['purchase_total_price'] < $data['purchase_deposite_amount'] ) {
+                        $transaction_deposit->cash_out = $data['purchase_total_price'];
+                        $adjust_amount = (float)$data['purchase_deposite_amount'] - (float)$data['purchase_total_price'];
+                    }
+
                     $transaction_deposit->save();
                 }
 
+
+                if ($data['purchase_deposite_amount'] && $adjust_amount > 0) {
+                    $purchases = Purchase::with('supplier')->where('id', '!=', $purchase->id)->where('supplier_id', $data['supplier_id'])->orderBy('date', 'desc')->get();
+
+                    foreach ($purchases as $purchase_e) {
+
+                        if ($adjust_amount > 0) {
+                            $purchase_due = $purchase_e->total_amount - $purchase_e->paid_amount;
+                            $tran_amount = 0;
+
+                            if ($adjust_amount >= $purchase_due) {
+                                $tran_amount = $purchase_due;
+                                $purchase_e->paid_amount = $purchase_e->paid_amount + $tran_amount;
+                                $adjust_amount -= $purchase_due;
+                            } else {
+
+                                $tran_amount = $purchase_e->paid_amount + $adjust_amount;
+                                $purchase_e->paid_amount = $tran_amount;
+                                $adjust_amount -= $adjust_amount;
+                            }
+
+                            if ($purchase_e->update() && $tran_amount > 0) {
+
+                                $transaction = new Transaction();
+                                $transaction->date = $date_ymd;
+                                $transaction->transaction_code = $date_ymd.'_'.rand(100, 999).'_'.'BC#CUSTOMER';
+                                $transaction->narration = 'Bill Pay';
+                                $transaction->supplier_id = $purchase_e->supplier->id;
+                                $transaction->remarks = 'Bill Pay '.$purchase_e->supplier->name;
+                                $transaction->cash_out = BnToEn($tran_amount);
+                                $transaction->created_by = auth('web')->user()->id;
+                                $transaction->save();
+                            }
+                        }
+                    }
+                }
             }
         }
 

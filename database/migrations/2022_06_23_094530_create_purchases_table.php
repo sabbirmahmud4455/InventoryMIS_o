@@ -19,6 +19,7 @@ class CreatePurchasesTable extends Migration
             $table->unsignedBigInteger('supplier_id');
             $table->string('challan_no')->nullable();
             $table->double('total_amount')->default(0.00);
+            $table->double('paid_amount')->default(0.00);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->enum('status', ['PENDING', 'STOCK_IN', 'CANCEL', 'RETURN'])->default('PENDING');

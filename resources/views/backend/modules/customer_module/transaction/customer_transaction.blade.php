@@ -76,7 +76,7 @@
 
                             <div class="card-header">
                                 <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modelId">
-                                    {{ __('Customer.DueCollection') }}
+                                    {{ __('Supplier.BillPay') }}
                                 </button>
                             </div>
 

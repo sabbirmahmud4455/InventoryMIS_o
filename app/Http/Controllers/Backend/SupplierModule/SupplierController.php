@@ -25,11 +25,8 @@ class SupplierController extends Controller
             DB::reconnect(); // Reconnect to DB
 
             $search = $request->search;
-
             $supplier_id = $request->supplier_id;
-
             $purchase_date = $request->purchase_date;
-
             $date = explode('-', $purchase_date);
             $start_date = $purchase_date != null ? Carbon::parse($date[0])->format('Y-m-d') : null;
             $end_date = $purchase_date != null ?  Carbon::parse($date[1])->format('Y-m-d') : null;
@@ -66,21 +63,24 @@ class SupplierController extends Controller
     }
 
     //add supplier start
-    public function add(Request $request){
-
+    public function add(Request $request)
+    {
+        // return $request;
         if( can('add_supplier') ){
-            $today = Carbon::now();
+
             $validator = Validator::make($request->all(),[
                 'name' => 'required',
                 'phone' => 'required|numeric|regex:/(01)[0-9]{9}/',
                 'address' => 'nullable|max:2000',
                 'company' => 'nullable|max:2000',
-                'opening_balance' => 'required'
+                'opening_balance' => 'nullable|numeric'
             ]);
 
             if( $validator->fails() ){
                 return response()->json(['errors' => $validator->errors()] ,422);
             }else{
+
+                $today = Carbon::now();
 
                 // DB::beginTransaction();
 
@@ -92,9 +92,18 @@ class SupplierController extends Controller
                     $supplier->address = $request->address;
                     $supplier->company = $request->company;
                     $supplier->is_active = true;
-                    $supplier->save();
 
-                    if($request->opening_balance){
+                    if($supplier->save() && $request->opening_balance){
+
+                        $purchase = new Purchase();
+                        $purchase->supplier_id = $supplier->id;
+                        $purchase->date = $today;
+                        $purchase->challan_no = $today.'_'.rand(1000, 9999).'_'.$supplier->id;
+                        $purchase->total_amount =  $request->opening_balance;
+                        $purchase->created_by =  Auth::user()->id;
+                        $purchase->remarks = "Opening due purchase";
+                        $purchase->save();
+
                         $transaction = new Transaction();
                         $transaction->date = $today->toDateString();
                         $transaction->transaction_code = $today.'OP#Sup';
@@ -185,19 +194,102 @@ class SupplierController extends Controller
     // Supplier Transaction
     public function supplier_transactions(Request $request)
     {
+
         if(can('supplier_transactions') || can('all_supplier_report') || can('supplier_transaction_report')) {
             $transaction = new Supplier();
 
-            $id = encrypt($request->supplier_id);
+            $supplier = Supplier::with([
+                'purchases' => function($query){
+                    $query->select('id', 'challan_no', 'supplier_id', 'total_amount', 'paid_amount');
+                }
+            ])->findOrFail($request->supplier_id);
 
-            $supplier_transactions = $transaction->GetSupplierTransactions(decrypt($id));
+            $supplier_transactions = $transaction->GetSupplierTransactions($request->supplier_id);
 
 
-            return view('backend.modules.supplier.supplier_transactions', compact('supplier_transactions', 'id'));
+            return view('backend.modules.supplier.supplier_transactions', compact('supplier_transactions', 'supplier'));
         } else {
             return view('errors.404');
         }
     }
+
+    public function supplier_pay_bill(Request $request, $id)
+    {
+
+        // return $request;
+
+        $validator = Validator::make($request->all(),[
+             'paid_amount' => 'required|numeric',
+         ]);
+
+         if( $validator->fails() ){
+             return response()->json(['errors' => $validator->errors()] ,422);
+         }
+
+         $id = decrypt($id);
+         $today = Carbon::now();
+         $purchases = Purchase::with(['supplier' => function($query){ $query->select('id', 'name');}])->where('supplier_id', $id);
+
+         if ($request->deduct_from_individual_challan && $request->paid_amount) {
+
+             $purchase = $purchases->find($request->challan_sale_id);
+             $purchase->paid_amount = $purchase->paid_amount + $request->paid_amount;
+
+             if ($purchase->update()) {
+                 $transaction = new Transaction();
+                 $transaction->date = $today->toDateString();
+                 $transaction->transaction_code = $today.'_'.rand(100, 999).'_'.'BC#supplier';
+                 $transaction->narration = 'Pay Bill';
+                 $transaction->supplier_id = $purchase->supplier->id;
+                 $transaction->remarks = 'Pay Bill '.$purchase->supplier->name;
+                 $transaction->cash_out = BnToEn($request->paid_amount);
+                 $transaction->created_by = auth('web')->user()->id;
+                 $transaction->save();
+             }
+
+         } elseif ($request->deduct_from_individual_challan != '1' && $request->paid_amount) {
+             $purchases = $purchases->orderBy('date', 'desc')->get();
+             $adjust_amount = $request->paid_amount;
+
+             foreach ($purchases as $purchase_e) {
+
+                if ($adjust_amount > 0) {
+
+                $purchase_due = $purchase_e->total_amount - $purchase_e->paid_amount;
+                $tran_amount = 0;
+
+                if ($adjust_amount >= $purchase_due) {
+
+                    $tran_amount = $purchase_due;
+                    $purchase_e->paid_amount = $purchase_e->paid_amount + $tran_amount;
+                    $adjust_amount -= $tran_amount;
+
+                } else {
+
+                    $tran_amount = $adjust_amount;
+                    $purchase_e->paid_amount = $purchase_e->paid_amount + $adjust_amount;
+                    $adjust_amount -= $adjust_amount;
+                }
+
+                if ($purchase_e->update()) {
+
+                    $transaction = new Transaction();
+                    $transaction->date = $today;
+                    $transaction->transaction_code = $today.'_'.rand(100, 999).'_'.'BC#supplier';
+                    $transaction->narration = 'Pay Bill';
+                    $transaction->supplier_id = $purchase_e->supplier->id;
+                    $transaction->remarks = 'Pay Bill '.$purchase_e->supplier->name;
+                    $transaction->cash_out = BnToEn($tran_amount);
+                    $transaction->created_by = auth('web')->user()->id;
+                    $transaction->save();
+                }
+                }
+             }
+         }
+
+         return response()->json(['success' => "success"], 200);
+
+     }
 
     // Supplier Transaction Export Pdf
     public function supplier_transactions_export_pdf($id)

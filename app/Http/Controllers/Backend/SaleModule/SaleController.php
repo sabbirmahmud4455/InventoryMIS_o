@@ -229,9 +229,10 @@ class SaleController extends Controller
                     $sale_details->unit_price = $item['unit_price'];
                     $sale_details->quantity = $item['beg'];
                     $sale_details->total_price = $item['total_price'];
+                    $sale_details->save();
 
                     // Store Data on Permission Table
-                    if(can('auto_stock') && $sale_details->save()) {
+                    if(can('auto_stock')) {
                         $stock_in_out = new StockInOut();
                         $stock_in_out->date = $data['date'];
                         $stock_in_out->sale_id = $sale->id ;
@@ -285,12 +286,12 @@ class SaleController extends Controller
                         $transaction_deposit->cash_in = $data['sale_total_price'];
                         $adjust_amount = (float)$data['sale_deposite_amount'] - (float)$data['sale_total_price'];
                     }
-                    
+
                     $transaction_deposit->save();
                 }
 
                 if ($data['sale_deposite_amount'] && $adjust_amount > 0) {
-                    $sales = Sale::where('id', '!=', $sale->id)->where('customer_id', $data['customer_id'])->orderBy('date', 'desc')->get();
+                    $sales = Sale::with('customer')->where('id', '!=', $sale->id)->where('customer_id', $data['customer_id'])->orderBy('date', 'desc')->get();
 
                     foreach ($sales as $sale_e) {
 
@@ -304,9 +305,10 @@ class SaleController extends Controller
                                 $adjust_amount -= $sale_due;
                             } else {
 
-                                $tran_amount = $sale_e->paid_amount + $adjust_amount;
-                                $sale_e->paid_amount = $tran_amount;
+                                $tran_amount = $adjust_amount;
+                                $sale_e->paid_amount = $sale_e->paid_amount + $tran_amount;
                                 $adjust_amount -= $adjust_amount;
+
                             }
 
                             if ($sale_e->update() && $tran_amount > 0) {
@@ -326,7 +328,7 @@ class SaleController extends Controller
                 }
             }
         }
-        
+
         return back();
     }
 

@@ -15,6 +15,7 @@
         'ChallanNo'                 => 'Challan No',
         'SelectSupplier'            => 'Select Supplier',
         'Payable'                   => 'Payable',
-        'TotalPayable'              => 'Total Payable'
+        'TotalPayable'              => 'Total Payable',
+        'PayBill'                   => 'Pay Bill'
     ];
 ?>
