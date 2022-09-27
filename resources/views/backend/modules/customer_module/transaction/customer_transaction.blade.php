@@ -76,7 +76,7 @@
 
                             <div class="card-header">
                                 <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modelId">
-                                    Make Transaction
+                                    {{ __('Customer.DueCollection') }}
                                 </button>
                             </div>
 
@@ -183,7 +183,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                                 <div class="modal-header">
-                                        <h5 class="modal-title">Modal title</h5>
+                                        <h5 class="modal-title">{{ __('Customer.DueCollection') }}</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -196,14 +196,14 @@
                                         <div class="form-check">
                                           <label class="form-check-label">
                                             <input type="checkbox" class="form-check-input" name="deduct_from_individual_challan" id="deduct_from_individual_challan" value="1">
-                                            Deduct from individual Challan
+                                            {{ __('Customer.DeductFromIndividualChallan') }}
                                           </label>
                                         </div>
 
                                         <div class="form-group d-none" id="challan_form_group">
-                                          <label for="">Challan No</label>
+                                          <label for=""> {{ __('Application.ChallanNo') }}</label>
                                           <select class="form-control" name="challan_sale_id" id="challan_sale_input">
-                                            <option selected value="">Select Challan</option>
+                                            <option selected value="">{{ __('Application.Select') }} {{ __('Application.ChallanNo') }}</option>
                                             @foreach ($customer->sales as $sale)
                                                 <option value="{{ $sale->id }}">{{ $sale->challan_no }}</option>
                                             @endforeach
@@ -211,24 +211,24 @@
                                         </div>
 
                                         <div class="form-group">
-                                          <label for="">Prevues Due Amount (৳)</label>
+                                          <label for="">{{ __("Customer.PreviousDueAmount") }} (৳)</label>
                                           <input readonly type="text" name="prev_due" id="prev_due_input" class="form-control" placeholder="" value="{{ round($total_cash_out - $total_cash_in, 0) }}">
                                         </div>
 
                                         <div class="form-group">
-                                          <label for="">Paid Amount</label>
-                                          <input required type="number" name="paid_amount" id="paid_amount_input" onkeyup="due_calclution()" class="form-control" placeholder="">
+                                          <label for="">{{ __('Customer.PaidAmount') }}</label>
+                                          <input required type="number" name="paid_amount" id="paid_amount_input" onkeyup="due_calclution()" class="form-control" placeholder="" max="{{ round($total_cash_out - $total_cash_in, 0) }}">
                                         </div>
 
                                         <div class="form-group">
-                                          <label for="">Total Due Amount</label>
+                                          <label for="">{{ __('Customer.TotalDueAmount') }}</label>
                                           <input type="number" readonly name="total_due" id="total_due_input" class="form-control" placeholder="">
                                         </div>
 
 
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Application.Close') }}</button>
+                                            <button type="submit" class="btn btn-primary">{{ __('Application.Submit') }}</button>
                                         </div>
 
                                     </form>
@@ -261,6 +261,9 @@
         function due_calclution(){
             const prev_due = $("#prev_due_input").val();
             const paid_amount = $("#paid_amount_input").val();
+            const total_due = parseInt(prev_due) - parseInt(paid_amount);
+
+            $("#paid_amount_input").attr('max', prev_due)
 
             $("#total_due_input").val(parseInt(prev_due) - parseInt(paid_amount));
         }

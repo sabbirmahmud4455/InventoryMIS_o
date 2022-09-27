@@ -202,7 +202,7 @@
                                         id="intotal_amount" value="0" readonly>
 
                                     <label>{{ __('Sale.DepositeAmount') }}</label>
-                                    <input id="sale_deposite_amount" type="text" onkeyup="due_amount_calculation()" value="0" class="form-control form-control-sm">
+                                    <input id="sale_deposite_amount" type="number" max="100" onkeyup="due_amount_calculation()" value="0" class="form-control form-control-sm">
 
                                     <label>{{ __('Sale.DueAmount') }}</label>
                                     <input type="text" id="sale_due_amount" value="0" class="form-control form-control-sm">
@@ -392,6 +392,8 @@
                 previous_balance.val(0);
             }
 
+            due_amount_calculation();
+
         });
 
 
@@ -516,6 +518,9 @@
         $('#intotal_amount').val(intotal_amount);
 
         const sale_deposite_amount = $('#sale_deposite_amount').val();
+
+        // $('#sale_deposite_amount').attr('max', intotal_amount)
+
         $("#sale_due_amount").val(parseFloat(intotal_amount ? intotal_amount : 0) - parseFloat(sale_deposite_amount ? sale_deposite_amount : 0))
     }
 
@@ -523,7 +528,6 @@
         added_items.splice(index, 1)
         show_items()
     }
-
 
 
     function submit_sale(event){
